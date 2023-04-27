@@ -6,6 +6,7 @@ module.exports = {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+				// "contact-us": "url('../public/images/contact-us/contact-us-1.png')",
 			},
 			colors: {
 				"sky-blue": {
@@ -32,11 +33,13 @@ module.exports = {
 					tertiary: "#71748C",
 					quat: "#B8BAC6",
 					quin: "#D5D5DD",
+					"nav-bg": "rgba(0, 0, 0, .1)",
 				},
 				white: {
 					DEFAULT: "#ffff",
 					light: "#FAFAFF",
 					grey: "#F7F9FC",
+					"nav-bg": "rgba(255, 255, 255, .1)",
 				},
 				grey: {
 					secondary: "#F1F1F4",
@@ -78,6 +81,14 @@ module.exports = {
 					quin: "#D0EBF1",
 					backdrop: "#F7FCFD",
 				},
+			},
+			screens: {
+				"5xl": "1200px",
+				"5xs": "300px",
+				"4xs": "380px",
+				"3xs": "400px",
+				"2xs": "475px",
+				xs: "540px",
 			},
 		},
 	},

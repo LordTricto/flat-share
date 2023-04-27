@@ -10,6 +10,7 @@ interface ButtonProps {
 	buttonType?: "primary" | "secondary" | "tertiary";
 	color: "blue" | "grey" | "red" | "transparent";
 	fullWidth?: boolean;
+	fullHeight?: boolean;
 	func?: (e: React.MouseEvent) => void;
 	borderSmall?: boolean;
 	borderFull?: boolean;
@@ -180,6 +181,10 @@ const getClass = (props: ButtonProps): string => {
 		}
 	}
 
+	if (props.fullHeight) {
+		classes.push("!h-full px-10 text-md");
+	}
+
 	if (props.buttonType !== "tertiary") {
 		if (props.fullWidth) {
 			classes.push("w-full");
@@ -204,7 +209,16 @@ const getClass = (props: ButtonProps): string => {
 };
 
 function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): JSX.Element {
-	const {children, fullWidth = false, type = "button", disable = false, buttonType, func = undefined, isLoading = false} = props;
+	const {
+		children,
+		fullWidth = false,
+		fullHeight = false,
+		type = "button",
+		disable = false,
+		buttonType,
+		func = undefined,
+		isLoading = false,
+	} = props;
 
 	return (
 		<div
@@ -212,6 +226,7 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 				`relative ` +
 				`${disable ? "pointer-events-none" : ""} ` +
 				`${fullWidth ? "w-full" : ""} ` +
+				`${fullHeight ? "h-full" : ""} ` +
 				`${isLoading ? "pointer-events-none" : ""} ` +
 				`${buttonType !== "tertiary" ? "overflow-hidden" : ""} `
 			}
