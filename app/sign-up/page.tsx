@@ -14,10 +14,10 @@ function SignUp() {
 		alert("/sign-up");
 	};
 	const handleGoToFindFlatmate = () => {
-		router.push("/find-flatmate");
+		router.push("/sign-up/find-flatmate");
 	};
 	const handleGoToBeAHost = () => {
-		router.push("/be-a-host");
+		router.push("/sign-up/be-a-host");
 	};
 
 	return (
