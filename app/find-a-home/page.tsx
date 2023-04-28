@@ -38,8 +38,6 @@ function FindAHome() {
 	const handleSearch = () => {
 		alert("Yup");
 	};
-	console.log(navigator);
-
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
 			<section className="flex justify-center items-center h-full min-h-screen w-full bg-find-a-home">
