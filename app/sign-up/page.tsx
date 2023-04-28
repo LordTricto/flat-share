@@ -5,11 +5,21 @@ import Image from "next/image";
 import React from "react";
 import beAHostImg from "@/public/images/sign-up/be-a-host.png";
 import findFlatmateImg from "@/public/images/sign-up/find-flatmate.png";
+import {useRouter} from "next/navigation";
 
 function SignUp() {
+	const router = useRouter();
+
 	const handleCreateAccount = () => {
 		alert("/sign-up");
 	};
+	const handleGoToFindFlatmate = () => {
+		router.push("/find-flatmate");
+	};
+	const handleGoToBeAHost = () => {
+		router.push("/be-a-host");
+	};
+
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
 			<section className="flex flex-col justify-start items-center min-h-screen w-full max-w-7xl mx-auto gap-12 lg:gap-0 px-4 2xs:px-8 lg:px-16 pt-10">
@@ -24,11 +34,17 @@ function SignUp() {
 						</div>
 						<div className="flex flex-col justify-start items-start gap-10 w-full">
 							<div className="flex flex-col md:flex-row justify-between items-start gap-4 w-full">
-								<div className="flex flex-col justify-center items-center gap-10 py-6 w-full max-w-[215px] rounded-lg border border-grey-tertiary hover:border-blue hover:bg-blue-senary cursor-pointer">
+								<div
+									className="flex flex-col justify-center items-center gap-10 py-6 w-full max-w-[215px] rounded-lg border border-grey-tertiary hover:border-blue hover:bg-blue-senary cursor-pointer"
+									onClick={handleGoToFindFlatmate}
+								>
 									<Image width={32} height={32} priority src={findFlatmateImg} alt="Find a flatmate icon" />
 									<span className="font-medium text-lg">Find Flatmate</span>
 								</div>
-								<div className="flex flex-col justify-center items-center gap-10 py-6 w-full max-w-[215px] rounded-lg border border-grey-tertiary hover:border-blue hover:bg-blue-senary cursor-pointer">
+								<div
+									className="flex flex-col justify-center items-center gap-10 py-6 w-full max-w-[215px] rounded-lg border border-grey-tertiary hover:border-blue hover:bg-blue-senary cursor-pointer"
+									onClick={handleGoToBeAHost}
+								>
 									<Image width={32} height={32} priority src={beAHostImg} alt="Be a host" />
 									<span className="font-medium text-lg">Be a host</span>
 								</div>
