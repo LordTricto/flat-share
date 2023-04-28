@@ -40,7 +40,7 @@ function SignIn() {
 
 	return (
 		<div className="flex flex-col lg:flex-row items-center justify-between max-h-screen w-full">
-			<div className="relative hidden lg:flex flex-col justify-start items-center gap-6 h-screen w-full bg-sky-blue pt-10">
+			<div className="relative hidden lg:flex flex-col justify-start items-center gap-6 h-screen w-full bg-sky-blue pt-10 overflow-hidden">
 				<div className="flex flex-col justify-center items-center gap-12 w-full">
 					<Link href="/">
 						<div className="flex flex-row justify-center items-center w-max">
@@ -56,7 +56,7 @@ function SignIn() {
 				<div>
 					<Image width={511} height={511} priority src={signUpImg} alt="web of people avatars" />
 				</div>
-				<Image className="absolute bottom-0 left-0 w-screen" src={pageDivider} alt="divider with colors" priority />
+				<Image className="top-0 left-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 			</div>
 			<div className="max-h-screen h-full w-full overflow-hidden overflow-y-scroll">
 				<main className="flex min-h-screen w-full flex-col justify-start items-center">

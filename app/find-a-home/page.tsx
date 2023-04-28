@@ -104,8 +104,8 @@ function FindAHome() {
 					</div>
 				</div>
 			</section>
-			<section className="relative min-h-screen w-full ">
-				<Image className="top-0 left-0 w-screen" src={pageDivider} alt="divider with colors" priority />
+			<section className="relative min-h-screen w-full overflow-hidden">
+				<Image className="top-0 left-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 				<div className="flex flex-col gap-16 w-full max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16 py-16 md:py-36">
 					<div className="grid grid-cols-1 2xs:grid-cols-2 md:grid-cols-3 auto-rows-min place-items-center gap-8 ">
 						<ApartmentItem />
