@@ -103,7 +103,14 @@ export default function Home() {
 				<div className="flex flex-col md:flex-row justify-between items-center gap-14 md:gap-8 w-full py-16 max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16">
 					<div className="flex justify-center items-center w-full">
 						<div className="rounded-[10px] overflow-hidden w-max md:w-full">
-							<Image width={560} height={560} src={homeImgOne} alt="two women smiling" priority />
+							<Image
+								className="!rounded-[10px] overflow-hidden"
+								width={560}
+								height={560}
+								src={homeImgOne}
+								alt="two women smiling"
+								priority
+							/>
 						</div>
 					</div>
 					<div className="flex flex-col gap-10 w-full md:max-w-lg">
@@ -168,7 +175,7 @@ export default function Home() {
 						</p>
 						<div className="flex flex-row h-[46px] w-full max-w-xl rounded-lg overflow-hidden">
 							<input
-								className="py-3 px-4 h-full w-full z-10 placeholder-black-quat focus:outline-none focus:border-none text-black-secondary"
+								className="py-3 px-4 h-full w-full z-10 placeholder-black-quat !rounded-none focus:outline-none focus:border-none text-black-secondary"
 								type="text"
 								placeholder="Your email address"
 							/>
