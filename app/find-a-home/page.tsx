@@ -9,7 +9,6 @@ import Dropdown from "@/components/general/dropdown/dropdown";
 import Image from "next/image";
 import Input from "@/components/general/inputs/input";
 import Pagination from "@/components/pagination/pagination";
-import apartmentImg from "@/public/images/find-a-home/apartment-1.png";
 import pageDivider from "@/public/images/general/page-divider.svg";
 import searchBlackIcon from "@/public/images/icons/search-black.svg";
 import searchWhiteIcon from "@/public/images/icons/search-white.svg";
@@ -39,6 +38,7 @@ function FindAHome() {
 	const handleSearch = () => {
 		alert("Yup");
 	};
+	console.log(navigator);
 
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
@@ -107,7 +107,7 @@ function FindAHome() {
 				</div>
 			</section>
 			<section className="relative min-h-screen w-full ">
-				<Image className="top-0 left-0 w-full" src={pageDivider} alt="divider with colors" priority />
+				<Image className="top-0 left-0 w-screen" src={pageDivider} alt="divider with colors" priority />
 				<div className="flex flex-col gap-16 w-full max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16 py-16 md:py-36">
 					<div className="grid grid-cols-1 2xs:grid-cols-2 md:grid-cols-3 auto-rows-min place-items-center gap-8 ">
 						<ApartmentItem />
@@ -122,7 +122,15 @@ function FindAHome() {
 						<ApartmentItem />
 						<ApartmentItem />
 					</div>
-					<Pagination offset={0} total={100} groupSize={20} onSelect={(_page, _offset) => console.log(_offset)} isLoading={false} />
+					<Pagination
+						offset={0}
+						total={100}
+						groupSize={20}
+						onSelect={(_page, _offset) => {
+							return;
+						}}
+						isLoading={false}
+					/>
 				</div>
 			</section>
 			<section></section>

@@ -56,7 +56,7 @@ function SignIn() {
 				<div>
 					<Image width={511} height={511} priority src={signUpImg} alt="web of people avatars" />
 				</div>
-				<Image className="absolute bottom-0 left-0 w-full" src={pageDivider} alt="divider with colors" priority />
+				<Image className="absolute bottom-0 left-0 w-screen" src={pageDivider} alt="divider with colors" priority />
 			</div>
 			<div className="max-h-screen h-full w-full overflow-hidden overflow-y-scroll">
 				<main className="flex min-h-screen w-full flex-col justify-start items-center">

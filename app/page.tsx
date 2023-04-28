@@ -49,7 +49,7 @@ export default function Home() {
 				</div>
 			</section>
 			<section className="relative min-h-screen w-full">
-				<Image className="top-0 left-0 w-full" src={pageDivider} alt="divider with colors" priority />
+				<Image className="top-0 left-0 w-screen" src={pageDivider} alt="divider with colors" priority />
 				<div className="w-full bg-sky-blue">
 					<div className="flex flex-col justify-center items-center gap-14 pt-14 pb-16 max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16">
 						<h1 className="text-2xl xs:text-3xl lg:text-4xl text-black font-black">How FlatShare Works</h1>
