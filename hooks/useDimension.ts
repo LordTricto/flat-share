@@ -1,7 +1,18 @@
+"use client";
+
 import {useEffect, useState} from "react";
 
 function getWindowDimensions() {
-	const {innerWidth: width, innerHeight: height} = window;
+	let width: number = 0;
+	let height: number = 0;
+
+	if (typeof window !== "undefined") {
+		/* we're not on the server */
+		const {innerWidth, innerHeight} = window;
+		width = innerWidth;
+		height = innerHeight;
+	}
+
 	return {
 		width,
 		height,
