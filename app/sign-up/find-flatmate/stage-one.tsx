@@ -77,7 +77,7 @@ function FindFlatmateStageOne(props: Props) {
 							value={findFlatmateDetails.phoneNumber}
 							onChange={(value: string) => handleSetFindFlatmateDetails("phoneNumber", value)}
 						/>
-						<div className="grid grid-cols-1 xs:grid-cols-2 gap-5 md:gap-4 w-full">
+						<div className="grid grid-cols-1 xs:grid-cols-2 auto-rows-min gap-5 md:gap-4 w-full">
 							<Dropdown
 								label="Gender"
 								value={findFlatmateDetails.gender}
@@ -93,7 +93,7 @@ function FindFlatmateStageOne(props: Props) {
 								options={religionOptions}
 							/>
 						</div>
-						<div className="grid grid-cols-1 xs:grid-cols-2 gap-5 md:gap-4 w-full">
+						<div className="grid grid-cols-1 xs:grid-cols-2 auto-rows-min gap-5 md:gap-4 w-full">
 							<DateInput
 								date={findFlatmateDetails.dob}
 								label="Date of Birth"

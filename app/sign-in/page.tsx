@@ -19,16 +19,16 @@ type FindFlatmateDetails = {
 	isRememberMe: boolean;
 };
 
-function Login() {
+function SignIn() {
 	const router = useRouter();
-	const [loginDetails, setLoginDetails] = useState<FindFlatmateDetails>({
+	const [signInDetails, setSignInDetails] = useState<FindFlatmateDetails>({
 		email: "",
 		password: "",
 		isRememberMe: false,
 	});
 
 	const handleSetLoginDetails = (_key: string, _value: string | boolean) => {
-		setLoginDetails((prev) => ({
+		setSignInDetails((prev) => ({
 			...prev,
 			[_key]: _value,
 		}));
@@ -72,7 +72,7 @@ function Login() {
 										label="Email or Phone Number"
 										type="text"
 										name="email"
-										value={loginDetails.email}
+										value={signInDetails.email}
 										onChange={(value: string) => handleSetLoginDetails("email", value)}
 									/>
 
@@ -81,16 +81,16 @@ function Login() {
 											label="Password"
 											type="password"
 											name="password"
-											value={loginDetails.password}
+											value={signInDetails.password}
 											onChange={(value: string) => handleSetLoginDetails("password", value)}
 										/>
 										<div className="flex flex-row justify-between items-start gap-5 w-full">
 											<Checkbox
 												text="Remember me"
 												id=""
-												checked={!!loginDetails.isRememberMe}
+												checked={!!signInDetails.isRememberMe}
 												size="sm"
-												func={() => handleSetLoginDetails("isRememberMe", !loginDetails.isRememberMe)}
+												func={() => handleSetLoginDetails("isRememberMe", !signInDetails.isRememberMe)}
 											/>
 											<Button type="button" buttonType="tertiary" color="blue" size="md">
 												<span className="font-medium text-sm 2xs:text-sm">Forgot your password?</span>
@@ -119,4 +119,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default SignIn;
