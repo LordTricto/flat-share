@@ -19,11 +19,7 @@ type FindFlatmateDetails = {
 	isRememberMe: boolean;
 };
 
-interface Props {
-	handleGoToStageTwo: () => void;
-}
-
-function Login(props: Props) {
+function Login() {
 	const router = useRouter();
 	const [loginDetails, setLoginDetails] = useState<FindFlatmateDetails>({
 		email: "",
@@ -102,15 +98,7 @@ function Login(props: Props) {
 										</div>
 									</div>
 								</div>
-								<Button
-									type="button"
-									buttonType="primary"
-									color="blue"
-									size="md"
-									func={props.handleGoToStageTwo}
-									fullWidth
-									borderFull
-								>
+								<Button type="button" buttonType="primary" color="blue" size="md" fullWidth borderFull>
 									<div className="flex flex-row items-center w-max gap-1 pl-0.5">
 										<span>Continue</span>
 										<Image src={rightArrowIcon} alt="right arrow" priority />
