@@ -1,4 +1,4 @@
-import {CircleLoader} from "react-spinners";
+import {PuffLoader} from "react-spinners";
 import React from "react";
 
 interface ButtonProps {
@@ -6,12 +6,12 @@ interface ButtonProps {
 	ripple?: "light" | "dark";
 	size?: "sm" | "md" | "lg" | "xl";
 	type?: "button" | "submit" | "reset";
-	disable?: boolean;
+	isDisabled?: boolean;
 	buttonType?: "primary" | "secondary" | "tertiary";
 	color: "blue" | "grey" | "red" | "transparent";
 	fullWidth?: boolean;
 	fullHeight?: boolean;
-	func?: (e: React.MouseEvent) => void;
+	onClick?: (e: React.MouseEvent) => void;
 	borderSmall?: boolean;
 	borderFull?: boolean;
 	href?: string;
@@ -30,15 +30,15 @@ const primaryColors = {
 };
 
 const primaryDisabledColors = {
-	blue: "text-white bg-blue-quat",
+	blue: "text-white bg-grey-quat",
 	transparent: "",
 	grey: "",
 	red: "",
 };
 
 const secondaryColors = {
-	blue: "text-blue border-blue hover:border-blue-hover hover:bg-blue-senary hover:text-blue-hover focus:border-blue-focused focus:bg-blue-senary focus:text-blue-focused",
-	grey: "text-black-tertiary border-black-quat hover:border-blue-hover hover:text-blue-hover focus:border-blue-focused focus:text-blue-focused",
+	blue: "text-blue border-blue hover:border-blue-hover hover:bg-blue-senary hover:text-blue focus:border-blue-focused focus:bg-blue-senary focus:text-blue-focused",
+	grey: "text-black-tertiary border-black-quat hover:border-blue-hover hover:text-blue focus:border-blue-focused focus:text-blue-focused",
 	red: "text-error bg-white border-error",
 	transparent: "",
 };
@@ -49,7 +49,7 @@ const secondaryDisabledColors = {
 	transparent: "",
 };
 const tertiaryColors = {
-	blue: "text-blue hover:text-blue-hover focus:text-blue-focused",
+	blue: "text-blue hover:text-blue focus:text-blue-focused",
 	grey: "text-black-tertiary hover:text-black-secondary focus:text-black-secondary",
 	red: "text-error",
 	transparent: "",
@@ -90,37 +90,37 @@ const getLoaderColor = (props: ButtonProps): string => {
 	return colors.join(" ");
 };
 
-// const getLoaderHeight = (props: ButtonProps): string => {
-// 	const height: number[] = [];
+const getLoaderHeight = (props: ButtonProps): string => {
+	const height: number[] = [];
 
-// 	if (props.size === "sm") {
-// 		height.push(20);
-// 	} else if (props.size === "lg") {
-// 		height.push(30);
-// 	} else if (props.size === "xl") {
-// 		height.push(40);
-// 	} else {
-// 		height.push(20);
-// 	}
+	if (props.size === "sm") {
+		height.push(20);
+	} else if (props.size === "lg") {
+		height.push(30);
+	} else if (props.size === "xl") {
+		height.push(40);
+	} else {
+		height.push(20);
+	}
 
-// 	return height.join(" ");
-// };
+	return height.join(" ");
+};
 
-// const getLoaderWidth = (props: ButtonProps): string => {
-// 	const width: number[] = [];
+const getLoaderWidth = (props: ButtonProps): string => {
+	const width: string[] = [];
 
-// 	if (props.size === "sm") {
-// 		width.push(20);
-// 	} else if (props.size === "lg") {
-// 		width.push(30);
-// 	} else if (props.size === "xl") {
-// 		width.push(40);
-// 	} else {
-// 		width.push(20);
-// 	}
+	if (props.size === "sm") {
+		width.push("20px");
+	} else if (props.size === "lg") {
+		width.push("30px");
+	} else if (props.size === "xl") {
+		width.push("40px");
+	} else {
+		width.push("30px");
+	}
 
-// 	return width.join(" ");
-// };
+	return width.join(" ");
+};
 
 const getClass = (props: ButtonProps): string => {
 	const classes: string[] = [
@@ -129,7 +129,7 @@ const getClass = (props: ButtonProps): string => {
 		"transition-all duration-300 overflow-hidden ",
 	];
 
-	if (props.disable) {
+	if (props.isDisabled) {
 		if (props.buttonType === "primary") {
 			classes.push(primaryDisabledColors[props.color]);
 		} else if (props.buttonType === "secondary") {
@@ -214,9 +214,9 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 		fullWidth = false,
 		fullHeight = false,
 		type = "button",
-		disable = false,
+		isDisabled = false,
 		buttonType,
-		func = undefined,
+		onClick = undefined,
 		isLoading = false,
 	} = props;
 
@@ -224,7 +224,7 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 		<div
 			className={
 				`relative ` +
-				`${disable ? "pointer-events-none" : ""} ` +
+				`${isDisabled ? "pointer-events-none" : ""} ` +
 				`${fullWidth ? "w-full" : ""} ` +
 				`${fullHeight ? "h-full" : ""} ` +
 				`${isLoading ? "pointer-events-none" : ""} ` +
@@ -235,24 +235,25 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 			<button
 				className={getClass(props)}
 				type={type}
-				onClick={func}
-				tabIndex={props.noTabIndex || props.disable ? -1 : 0}
+				onClick={onClick}
+				tabIndex={props.noTabIndex || props.isDisabled ? -1 : 0}
 				data-type={props.dataType && props.dataType}
 				autoFocus={props.autoFocus}
 			>
 				<div
-					className={`absolute top-0 left-0 h-full w-full justify-center items-center ` + `${isLoading ? "flex" : "hidden"} `}
+					className={`absolute left-0 top-0 h-full w-full items-center justify-center ` + `${isLoading ? "flex" : "hidden"} `}
 					data-type={props.dataType && props.dataType}
 				>
-					<CircleLoader
+					<PuffLoader
 						color={getLoaderColor(props)}
 						// height={getLoaderHeight(props)}
-						// width={getLoaderWidth(props)}
+
+						size={getLoaderWidth(props)}
 						data-type={props.dataType && props.dataType}
 					/>
 				</div>
 				<div
-					className={`flex justify-center items-center w-full tracking-normal ` + `${!isLoading ? "opacity-100" : "opacity-0"} `}
+					className={`button flex w-full items-center justify-center tracking-normal ` + `${!isLoading ? "opacity-100" : "opacity-0"} `}
 					data-type={props.dataType && props.dataType}
 				>
 					{children}

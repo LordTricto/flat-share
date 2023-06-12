@@ -12,7 +12,7 @@ interface Props {
 	truncate?: boolean;
 	readOnly?: boolean;
 	checked?: boolean;
-	func?: () => void;
+	onClick?: () => void;
 	size?: "sm" | "md";
 }
 
@@ -27,7 +27,7 @@ function Checkbox(props: Props): JSX.Element {
 
 	const handleClick = () => {
 		setIsChecked((prev) => !prev);
-		props.func && props.func();
+		props.onClick && props.onClick();
 	};
 
 	return (

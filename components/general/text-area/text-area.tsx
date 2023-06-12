@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 
-import useClickOutside from "../../../hooks/useClickOutside";
+import useClickOutside from "../../../helpers/useClickOutside";
 
 // use to generate a unique id for the input
 let inputCounter = 0;
@@ -71,7 +71,7 @@ function TextArea({
 				{label && (
 					<label
 						htmlFor={uniqueId}
-						className={`text-black-secondary font-medium ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={`text-lg text-black-secondary font-medium ` + `${isDisabled ? "text-black-quat " : ""} `}
 						onClick={() => {
 							if (textAreaRef.current) {
 								textAreaRef.current.focus();

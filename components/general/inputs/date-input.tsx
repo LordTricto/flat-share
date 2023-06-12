@@ -9,7 +9,7 @@ import {Calendar} from "react-date-range";
 import Input from "./input";
 import calendarIcon from "@/public/images/icons/calendar.svg";
 import moment from "moment";
-import useClickOutside from "../../../hooks/useClickOutside";
+import useClickOutside from "../../../helpers/useClickOutside";
 
 interface DateInputProps {
 	date: Date | null;

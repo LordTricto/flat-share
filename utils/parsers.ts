@@ -1,4 +1,4 @@
-import {ClassConstructor, GenericObject} from "../helpers/types";
+import {ClassConstructor, GenericObject, StringObject} from "../helpers/types";
 
 import isEmpty from "./isEmpty";
 import isNullOrUndefined from "./isNullOrUndefined";
@@ -33,6 +33,9 @@ export default class Parsers {
 		return !isEmpty(value) && Array.isArray(value) ? value.map((v: unknown) => className.create(v as GenericObject)) : [];
 	}
 
+	public static nullableEnum<T extends string>(value: unknown, enumName: Record<string, T>): T | null {
+		return Object.values(enumName).includes(value as T) ? (value as T) : null;
+	}
 	public static date(value: unknown): Date | null {
 		if ((isString(value) || isInstance(value, Date)) && !!value) {
 			return moment(value).toDate();

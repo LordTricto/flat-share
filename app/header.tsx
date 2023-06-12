@@ -34,14 +34,14 @@ function Header(): JSX.Element {
 			{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
 				<nav
 					className={
-						"absolute top-0 left-0 h-min w-full z-30  backdrop-blur-md overflow-hidden " +
+						"absolute left-0 top-0 z-30 h-min w-full  overflow-hidden backdrop-blur-md " +
 						`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "bg-black-nav-bg" : "bg-white-nav-bg"}`
 					}
 				>
-					<div className="flex justify-between items-center py-8 h-fit w-full max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16">
-						<div className="flex justify-start items-center gap-16 w-full">
+					<div className="mx-auto flex h-fit w-full max-w-7xl items-center justify-between px-4 py-8 2xs:px-8 lg:px-16">
+						<div className="flex w-full items-center justify-start gap-16">
 							<Link href="/">
-								<div className="flex flex-row justify-center items-center w-max">
+								<div className="flex w-max flex-row items-center justify-center">
 									<Image priority src={logoIcon} alt="Flat Share logo" />
 									{/* <Image
 								className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
@@ -62,7 +62,7 @@ function Header(): JSX.Element {
 								</div>
 							</Link>
 
-							<div className="hidden lg:flex justify-start items-center gap-8 w-full">
+							<div className="hidden w-full items-center justify-start gap-8 lg:flex">
 								<Link href="sign-up/find-flatmate">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
@@ -81,7 +81,7 @@ function Header(): JSX.Element {
 										</span>
 									</Button>
 								</Link>
-								<Link href="find-a-home">
+								{/* <Link href="find-a-home">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
@@ -89,11 +89,11 @@ function Header(): JSX.Element {
 											Find a Home
 										</span>
 									</Button>
-								</Link>
+								</Link> */}
 							</div>
 						</div>
-						<div className="hidden lg:flex justify-center items-center gap-6">
-							<Button type="button" buttonType="tertiary" color="grey" size="md" func={handleSignIn}>
+						<div className="hidden items-center justify-center gap-6 lg:flex">
+							<Button type="button" buttonType="tertiary" color="grey" size="md" onClick={handleSignIn}>
 								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 									Sign In
 								</span>
@@ -102,7 +102,7 @@ function Header(): JSX.Element {
 						</div>
 						<div
 							className={
-								"flex lg:hidden cursor-pointer" +
+								"flex cursor-pointer lg:hidden" +
 								` ${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : "text-black"}`
 							}
 						>
@@ -120,11 +120,11 @@ function Header(): JSX.Element {
 					</div>
 					<div
 						className={
-							"lg:hidden flex flex-col justify-center items-center gap-4 w-full px-4 2xs:px-8 pb-8 " +
+							"flex w-full flex-col items-center justify-center gap-4 px-4 pb-8 2xs:px-8 lg:hidden " +
 							`${isNavOpen ? "" : "pointer-events-none hidden -translate-x-full"}`
 						}
 					>
-						<div className="flex flex-col justify-start items-center gap-8 w-full">
+						<div className="flex w-full flex-col items-center justify-start gap-8">
 							<Link href="sign-up/find-flatmate">
 								<Button type="button" buttonType="tertiary" color="grey" size="md">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
@@ -139,14 +139,14 @@ function Header(): JSX.Element {
 									</span>
 								</Button>
 							</Link>
-							<Link href="find-a-home">
+							{/* <Link href="find-a-home">
 								<Button type="button" buttonType="tertiary" color="grey" size="md">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 										Find a Home
 									</span>
 								</Button>
-							</Link>
-							<Button type="button" buttonType="tertiary" color="grey" size="md" func={handleSignIn}>
+							</Link> */}
+							<Button type="button" buttonType="tertiary" color="grey" size="md" onClick={handleSignIn}>
 								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 									Sign In
 								</span>

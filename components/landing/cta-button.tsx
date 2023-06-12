@@ -14,7 +14,7 @@ function CtaButton() {
 
 	return (
 		<>
-			<Button type="button" buttonType="primary" color="blue" size="md" func={handleCreateAccount} fullWidth borderFull>
+			<Button type="button" buttonType="primary" color="blue" size="md" onClick={handleCreateAccount} fullWidth borderFull>
 				<div className="flex flex-row items-center w-max gap-1 pl-0.5">
 					<span>Create Account</span>
 					<Image src={rightArrowIcon} alt="right arrow" priority />

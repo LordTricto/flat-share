@@ -1,54 +1,89 @@
 "use client";
 
-import React, {useState} from "react";
+import * as Yup from "yup";
+
+import {Form, Formik, FormikProps} from "formik";
+import React, {useEffect, useRef, useState} from "react";
 
 import Button from "@/components/general/button/button";
-import Checkbox from "@/components/general/checkbox/checkbox";
+// import Checkbox from "@/components/general/checkbox/checkbox";
+import FormInput from "@/components/general/inputs/form-input";
+import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
-import Input from "@/components/general/inputs/input";
+// import Input from "@/components/general/inputs/input";
 import Link from "next/link";
+import {SignInForm} from "../../hooks/sign-in/sign-in.constants";
+import {SignInSignal} from "@/hooks/sign-in/sign-in-api";
+import {abortRequest} from "@/helpers/request/abortControllers";
+import axios from "axios";
+import formikHasError from "@/helpers/formikHasError";
 import logoIcon from "@/public/images/logo.svg";
 import pageDivider from "@/public/images/general/page-divider.svg";
 import rightArrowIcon from "@/public/images/icons/right-arrow.svg";
 import signUpImg from "@/public/images/sign-up/sign-up-1.png";
+// import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
+import {useSelector} from "react-redux";
+import useSignIn from "@/hooks/sign-in/use-sign-in";
 
-type FindFlatmateDetails = {
-	email: string;
-	password: string;
-	isRememberMe: boolean;
-};
+// import {setErrorMessage, setInformationMessage, setSuccessMessage} from "@/redux/toast/slice/toast-slice";
+// import {useMutation, useQuery} from "@tanstack/react-query";
 
 function SignIn() {
 	const router = useRouter();
-	const [signInDetails, setSignInDetails] = useState<FindFlatmateDetails>({
-		email: "",
+
+	const init = useSelector((state: IRootState) => state.init);
+
+	const formikRef = useRef<FormikProps<SignInForm> | null>(null);
+
+	const initialFormState: SignInForm = {
+		username: "",
 		password: "",
-		isRememberMe: false,
+	};
+
+	const formValidation = Yup.object().shape({
+		username: Yup.string().required("Required"),
+		password: Yup.string().required("Required"),
 	});
 
-	const handleSetLoginDetails = (_key: string, _value: string | boolean) => {
-		setSignInDetails((prev) => ({
-			...prev,
-			[_key]: _value,
-		}));
-	};
+	const handleSignIn = useSignIn();
+
+	// get query
+	// const {data}= useQuery({
+	// 	queryFn: async () =>{
+	// 		const {data} = await axios.get("https://flatshare.ribiax.com/api/v1/user/auth/is-authenticated");
+	// 		return data as any;
+	// 	}
+	// })
+
+	useEffect(() => {
+		return () => {
+			abortRequest(SignInSignal.SIGN_IN);
+		};
+	}, []);
 
 	const handleCreateAccount = () => {
 		router.push("/sign-up");
+		// abortRequest(SignInSignal.SIGN_IN);
 	};
 
+	const handleForgotPassword = () => {
+		router.push("/forgot-password");
+	};
+
+	console.log(init);
+
 	return (
-		<div className="flex flex-col lg:flex-row items-center justify-between max-h-screen w-full">
-			<div className="relative hidden lg:flex flex-col justify-start items-center gap-6 h-screen w-full bg-sky-blue pt-10 overflow-hidden">
-				<div className="flex flex-col justify-center items-center gap-12 w-full">
+		<div className="flex max-h-screen w-full flex-col items-center justify-between lg:flex-row">
+			<div className="relative hidden h-screen w-full flex-col items-center justify-start gap-6 overflow-hidden bg-sky-blue pt-10 lg:flex">
+				<div className="flex w-full flex-col items-center justify-center gap-12">
 					<Link href="/">
-						<div className="flex flex-row justify-center items-center w-max">
+						<div className="flex w-max flex-row items-center justify-center">
 							<Image width={32} height={32} priority src={logoIcon} alt="Flat Share logo" />
-							<span className="ml-3 mt-0.5 font-semibold text-3xl">FlatShare</span>
+							<span className="ml-3 mt-0.5 text-3xl font-semibold">FlatShare</span>
 						</div>
 					</Link>
-					<p className="text-center text-black-tertiary text-xl max-w-lg">
+					<p className="max-w-lg text-center text-xl text-black-tertiary">
 						Discover the perfect flatmate or roommate for your shared property with FlatShare. Say goodbye to the stress of living with a
 						random person and hello to a harmonious living
 					</p>
@@ -56,58 +91,70 @@ function SignIn() {
 				<div>
 					<Image width={511} height={511} priority src={signUpImg} alt="web of people avatars" />
 				</div>
-				<Image className="top-0 left-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
+				<Image className="absolute bottom-0 left-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 			</div>
-			<div className="max-h-screen h-full w-full overflow-hidden overflow-y-scroll">
-				<main className="flex min-h-screen w-full flex-col justify-start items-center">
-					<section className="flex flex-col justify-start items-center min-h-screen w-full max-w-7xl mx-auto gap-12 lg:gap-0 px-4 2xs:px-8 lg:px-16 py-10">
-						<div className="flex flex-col justify-start items-start gap-16 w-full">
-							<div className="flex flex-col justify-start items-start gap-10 w-full">
-								<div className="flex flex-col justify-start items-start gap-3 w-full">
-									<h2 className="text-2xl text-black font-semibold">Welcome to FlatShare</h2>
-									<p className="text-sm text-black-tertiary">Please enter your details to sign in.</p>
+			<div className="h-full max-h-screen w-full overflow-hidden overflow-y-scroll">
+				<main className="flex min-h-screen w-full flex-col items-center justify-start">
+					<section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-start gap-12 px-4 py-10 2xs:px-8 lg:gap-0 lg:px-16">
+						<div className="flex w-full flex-col items-start justify-start gap-16">
+							<div className="flex w-full flex-col items-start justify-start gap-9">
+								<div className="flex w-full flex-col items-start justify-start gap-3">
+									<h2 className="text-2xl font-semibold text-black">Welcome to FlatShare</h2>
+									<p className="text-black-tertiary">Please enter your details to sign in.</p>
 								</div>
-								<div className="flex flex-col justify-start items-start gap-5 w-full">
-									<Input
-										label="Email or Phone Number"
-										type="text"
-										name="email"
-										value={signInDetails.email}
-										onChange={(value: string) => handleSetLoginDetails("email", value)}
-									/>
+								<Formik
+									initialValues={initialFormState}
+									innerRef={formikRef}
+									validationSchema={formValidation}
+									onSubmit={(value) => handleSignIn.mutate(value)}
+									enableReinitialize={true}
+									validateOnChange
+									validateOnMount
+								>
+									{(formik) => {
+										return (
+											<Form className="flex w-full flex-col items-start justify-start gap-10">
+												<div className="flex w-full flex-col items-start justify-start gap-5">
+													<FormInput type="text" label="Username" name="username" />
 
-									<div className="flex flex-col justify-start items-start gap-5 w-full">
-										<Input
-											label="Password"
-											type="password"
-											name="password"
-											value={signInDetails.password}
-											onChange={(value: string) => handleSetLoginDetails("password", value)}
-										/>
-										<div className="flex flex-row justify-between items-start gap-5 w-full">
-											<Checkbox
-												text="Remember me"
-												id=""
-												checked={!!signInDetails.isRememberMe}
-												size="sm"
-												func={() => handleSetLoginDetails("isRememberMe", !signInDetails.isRememberMe)}
-											/>
-											<Button type="button" buttonType="tertiary" color="blue" size="md">
-												<span className="font-medium text-sm 2xs:text-sm">Forgot your password?</span>
-											</Button>
-										</div>
-									</div>
-								</div>
-								<Button type="button" buttonType="primary" color="blue" size="md" fullWidth borderFull>
-									<div className="flex flex-row items-center w-max gap-1 pl-0.5">
-										<span>Continue</span>
-										<Image src={rightArrowIcon} alt="right arrow" priority />
-									</div>
-								</Button>
-								<div className="flex flex-row justify-start items-center gap-2">
+													<div className="flex w-full flex-col items-start justify-start gap-5">
+														<FormInput type="password" name="password" label="Password" placeholder="Password" />
+														<div className="flex w-full flex-row items-start justify-between gap-5">
+															<Button
+																type="button"
+																buttonType="tertiary"
+																color="blue"
+																size="md"
+																onClick={handleForgotPassword}
+															>
+																<span className="text-sm font-medium 2xs:text-sm">Forgot your password?</span>
+															</Button>
+														</div>
+													</div>
+												</div>
+												<Button
+													type="submit"
+													buttonType="primary"
+													color="blue"
+													isLoading={handleSignIn.isLoading}
+													isDisabled={formikHasError(formik.errors)}
+													fullWidth
+													borderFull
+												>
+													<div className="flex w-max flex-row items-center gap-1 pl-0.5">
+														<span>Continue</span>
+														<Image src={rightArrowIcon} alt="right arrow" priority />
+													</div>
+												</Button>
+											</Form>
+										);
+									}}
+								</Formik>
+
+								<div className="flex flex-row items-center justify-start gap-2">
 									<span className="text-sm 2xs:text-base lg:text-lg">Don&apos;t have an account?</span>
-									<Button type="button" buttonType="tertiary" color="blue" size="md" func={handleCreateAccount}>
-										<span className="font-medium text-sm 2xs:text-base lg:text-lg">Sign up</span>
+									<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={handleCreateAccount}>
+										<span className="text-sm font-medium 2xs:text-base lg:text-lg">Sign up</span>
 									</Button>
 								</div>
 							</div>

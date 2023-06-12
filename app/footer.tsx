@@ -20,16 +20,16 @@ function Footer(): JSX.Element {
 	return (
 		<>
 			{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
-				<div className="flex flex-col py-16 gap-16 bg-black w-full">
-					<div className="flex flex-col xs:flex-row justify-between items-start gap-16 w-full max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16">
+				<div className="flex w-full flex-col gap-16 bg-black py-16">
+					<div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-16 px-4 2xs:px-8 xs:flex-row lg:px-16">
 						<div className="flex flex-col gap-6 text-white">
 							<Link href="/">
-								<div className="flex flex-row justify-start items-center">
+								<div className="flex flex-row items-center justify-start">
 									<Image priority src={logoIcon} alt="Flat Share logo" />
 									<span className="ml-3 text-xl sm:text-2xl">FlatShare</span>
 								</div>
 							</Link>
-							<p className="text-sm sm:text-base w-full max-w-md">
+							<p className="w-full max-w-md text-sm sm:text-base">
 								Discover the perfect flatmate or roommate for your shared property with FlatShare. Say goodbye to the stress of living
 								with a random person and hello to a harmonious living
 							</p>
@@ -49,51 +49,51 @@ function Footer(): JSX.Element {
 							</div>
 						</div>
 						<div className="flex flex-col gap-6 text-white">
-							<h6 className="font-medium text-sm sm:text-base h-[33px]">Navigation</h6>
+							<h6 className="h-[33px] text-sm font-medium sm:text-base">Navigation</h6>
 							<div className="flex flex-col gap-3">
 								<Link href="sign-up">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
-										<span className="text-xs sm:text-sm text-white">Find Flatmate</span>
+										<span className="text-xs text-white sm:text-sm">Find Flatmate</span>
 									</Button>
 								</Link>
 								<Link href="sign-up">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
-										<span className="text-xs sm:text-sm text-white">Become a Host</span>
+										<span className="text-xs text-white sm:text-sm">Become a Host</span>
 									</Button>
 								</Link>
-								<Link href="find-a-home">
+								{/* <Link href="find-a-home">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span className="text-xs sm:text-sm text-white">Find a Home</span>
 									</Button>
-								</Link>
+								</Link> */}
 								<Link href="contact-us">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
-										<span className="text-xs sm:text-sm text-white">Message Us</span>
+										<span className="text-xs text-white sm:text-sm">Message Us</span>
 									</Button>
 								</Link>
 							</div>
 						</div>
 						<div className="flex flex-col gap-6 text-white">
-							<h6 className="text-sm sm:text-base font-medium h-[33px]">Contact Us</h6>
+							<h6 className="h-[33px] text-sm font-medium sm:text-base">Contact Us</h6>
 							<div className="flex flex-col gap-3">
 								<Link
 									href="https://www.google.com/maps/place/13+Abayomi+St,+Akoka+102216,+Lagos/@6.5309944,3.3839377,17z/data=!3m1!4b1!4m6!3m5!1s0x103b8d04c82c83ab:0xf3802cdaa31eeaf2!8m2!3d6.5309944!4d3.3888086!16s%2Fg%2F11sk8n97fm"
 									passHref={true}
 									target="_blank"
 								>
-									<div className="flex flex-row justify-start items-center gap-4">
+									<div className="flex flex-row items-center justify-start gap-4">
 										<Image width={16} height={16} priority src={locationIcon} alt="location icon" />
 										<span className="break-words text-sm sm:text-base">13 Abayomi St, Akoka, Lagos</span>
 									</div>
 								</Link>
 								<Link href="tel:+2348122072106" passHref={true}>
-									<div className="flex flex-row justify-start items-center gap-4 w-max">
+									<div className="flex w-max flex-row items-center justify-start gap-4">
 										<Image width={16} height={16} priority src={phoneIcon} alt="phone icon" />
 										<span className="text-sm sm:text-base">+2348122072106</span>
 									</div>{" "}
 								</Link>
 								<Link href="mailto:olanrewaju.olukanni@gmail.com" passHref={true}>
-									<div className="flex flex-row justify-start items-center gap-4 w-max">
+									<div className="flex w-max flex-row items-center justify-start gap-4">
 										<Image width={16} height={16} priority src={emailIcon} alt="email icon" />
 										<span className="text-sm sm:text-base">support@flatshare.ng</span>
 									</div>
@@ -101,8 +101,8 @@ function Footer(): JSX.Element {
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-row justify-center items-center w-full max-w-7xl mx-auto px-4 2xs:px-8 lg:px-16">
-						<div className="flex justify-center items-end xs:h-14 w-full border-t border-white text-white pt-10 xs:pt-0 text-center xs:text-left text-sm sm:text-base">
+					<div className="mx-auto flex w-full max-w-7xl flex-row items-center justify-center px-4 2xs:px-8 lg:px-16">
+						<div className="flex w-full items-end justify-center border-t border-white pt-10 text-center text-sm text-white xs:h-14 xs:pt-0 xs:text-left sm:text-base">
 							<span>© All Rights Reserved. Powered by SmartTech Academy</span>
 						</div>
 					</div>

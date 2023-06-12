@@ -18,8 +18,8 @@ module.exports = {
 				blue: {
 					dark: "#2E3A9E",
 					focused: "#4756D1",
-					hover: "#4D5EE5",
-					DEFAULT: "#5466F9",
+					hover: "#3849C1",
+					DEFAULT: "#465BF1",
 					secondary: "#7685FA",
 					tertiary: "#98A3FB",
 					quat: "#BBC3FD",
@@ -33,6 +33,7 @@ module.exports = {
 					tertiary: "#71748C",
 					quat: "#B8BAC6",
 					quin: "#D5D5DD",
+					deep: "#202030",
 					"nav-bg": "rgba(0, 0, 0, .1)",
 				},
 				white: {
@@ -44,6 +45,7 @@ module.exports = {
 				grey: {
 					secondary: "#F1F1F4",
 					tertiary: "#F6F7F8",
+					quat: "#DDDDDD",
 					backdrop: "#F9F9FB",
 					DEFAULT: "#E3E3E8",
 				},
@@ -54,6 +56,7 @@ module.exports = {
 					quat: "#ED9CAC",
 					quin: "#F6CED6",
 					backdrop: "#FDF6F8",
+					deep: "#D42952",
 				},
 				success: {
 					DEFAULT: "#22B231",
@@ -62,6 +65,7 @@ module.exports = {
 					quat: "#A7E0AD",
 					quin: "#D3F0D6",
 					backdrop: "#F7FCF8",
+					deep: "#1CCE82",
 				},
 				warning: {
 					DEFAULT: "#F07911",
@@ -80,6 +84,7 @@ module.exports = {
 					quat: "#A1D7E2",
 					quin: "#D0EBF1",
 					backdrop: "#F7FCFD",
+					deep: "#66C9FF",
 				},
 			},
 			screens: {

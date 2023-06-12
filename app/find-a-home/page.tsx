@@ -12,7 +12,7 @@ import Pagination from "@/components/pagination/pagination";
 import pageDivider from "@/public/images/general/page-divider.svg";
 import searchBlackIcon from "@/public/images/icons/search-black.svg";
 import searchWhiteIcon from "@/public/images/icons/search-white.svg";
-import useDimension from "@/hooks/useDimension";
+import useDimension from "@/helpers/useDimension";
 
 type HomeFilter = {
 	location: string;
@@ -89,7 +89,7 @@ function FindAHome() {
 										buttonType="primary"
 										color="blue"
 										size="xl"
-										func={handleSearch}
+										onClick={handleSearch}
 										fullHeight={width > 765}
 										fullWidth={width < 764}
 									>

@@ -5,7 +5,7 @@ import Input from "./input";
 import formatNumber from "../../../utils/formatNumber";
 import isNullOrUndefined from "../../../utils/isNullOrUndefined";
 import nairaIcon from "@/public/images/icons/naira-sign.svg";
-import {useMoneyToNumber} from "../../../hooks/useMoneyToNumber";
+import {useMoneyToNumber} from "../../../helpers/useMoneyToNumber";
 
 interface Props extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>, InputPropsToExclude> {
 	type?: "number" | "string";

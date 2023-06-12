@@ -6,7 +6,7 @@ import React, {InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from
 
 import passwordHideIcon from "@/public/images/icons/password-eye-hide.svg";
 import passwordShowIcon from "@/public/images/icons/password-eye-show.svg";
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "@/helpers/useClickOutside";
 
 // use to generate a unique id for the input
 let inputCounter = 0;
@@ -90,7 +90,7 @@ function Input({
 				{label && (
 					<label
 						htmlFor={otherProps.id || uniqueId}
-						className={`text-black-secondary font-medium  ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={`text-lg text-black-secondary font-medium  ` + `${isDisabled ? "text-black-quat " : ""} `}
 						onClick={() => {
 							if (inputRef.current) {
 								inputRef.current.focus();
@@ -113,8 +113,8 @@ function Input({
 					className={
 						`relative w-full bg-white rounded-lg flex gap-1 items-center justify-between font-normal outline-none focus:outline-none transition-all duration-150 whitespace-nowrap text-base leading-relaxed border border-solid shadow-none text-left ` +
 						`text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
-						`border-black-quin lg:hover:border-black-quat  focus:border-black-quat ` +
-						`${active ? "border-black-quat" : ""} ` +
+						`border-black-quin lg:hover:border-blue  focus:border-blue ` +
+						`${active ? "border-blue " : ""} ` +
 						`${inputSize === "lg" ? "h-12" : ""} ` +
 						`${inputSize === "md" ? "h-10" : ""} ` +
 						`${inputSize === "sm" ? "h-8" : ""} ` +

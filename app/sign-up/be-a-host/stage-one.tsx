@@ -108,12 +108,12 @@ function FindFlatmateStageOne(props: Props) {
 							/>
 						</div>
 					</div>
-					<Button type="button" buttonType="primary" color="blue" size="md" func={props.handleGoToStageTwo} fullWidth borderFull>
+					<Button type="button" buttonType="primary" color="blue" size="md" onClick={props.handleGoToStageTwo} fullWidth borderFull>
 						<span>Continue</span>
 					</Button>
 					<div className="flex flex-row justify-start items-center gap-2">
 						<span className="text-sm 2xs:text-base lg:text-lg">Already have an account?</span>
-						<Button type="button" buttonType="tertiary" color="blue" size="md" func={handleSignIn}>
+						<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={handleSignIn}>
 							<span className="font-medium text-sm 2xs:text-base lg:text-lg">Sign in</span>
 						</Button>
 					</div>

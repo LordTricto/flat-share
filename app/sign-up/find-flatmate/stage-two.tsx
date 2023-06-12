@@ -102,7 +102,7 @@ function FindFlatmateStageTwo(props: Props) {
 						/>
 					</div>
 					<div className="flex flex-row justify-between items-start gap-4 w-full">
-						<Button type="button" buttonType="secondary" color="grey" size="md" func={props.handleGoToStageOne} fullWidth borderFull>
+						<Button type="button" buttonType="secondary" color="grey" size="md" onClick={props.handleGoToStageOne} fullWidth borderFull>
 							<span>Back</span>
 						</Button>
 
@@ -115,7 +115,7 @@ function FindFlatmateStageTwo(props: Props) {
 					</div>
 					<div className="flex flex-row justify-start items-center gap-2">
 						<span className="text-sm 2xs:text-base lg:text-lg">Already have an account?</span>
-						<Button type="button" buttonType="tertiary" color="blue" size="md" func={handleSignIn}>
+						<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={handleSignIn}>
 							<span className="font-medium text-sm 2xs:text-base lg:text-lg">Sign in</span>
 						</Button>
 					</div>

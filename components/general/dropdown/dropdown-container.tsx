@@ -6,7 +6,7 @@ import Image from "next/image";
 import cancel from "@/public/images/icons/cancel.svg";
 import chevronArrow from "@/public/images/icons/chevron-arrow.svg";
 // import SearchBar from "../../../../modules/Dashboard/Settings/Components/Searchbar/TeamMemebers/SearchBar";
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "@/helpers/useClickOutside";
 
 let inputCounter = 0;
 
@@ -115,7 +115,7 @@ function DropdownContainer({
 			{label && (
 				<label
 					htmlFor={uniqueId}
-					className={`text-black-secondary font-medium ` + `${isDisabled ? "text-black-quat " : ""} `}
+					className={`text-lg text-black-secondary font-medium ` + `${isDisabled ? "text-black-quat " : ""} `}
 					onClick={() => {
 						if (inputRef.current) {
 							inputRef.current.focus();

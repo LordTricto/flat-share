@@ -19,7 +19,7 @@ function ApartmentItem(): JSX.Element {
 			</div>
 			<div className="flex flex-row justify-between items-center flex-wrap gap-4 w-full">
 				<span className="text-base xs:text-lg lg:text-xl font-semibold text-black">₦450,000/m</span>
-				<Button type="button" buttonType="tertiary" color="blue" size="lg" func={handleSearch}>
+				<Button type="button" buttonType="tertiary" color="blue" size="lg" onClick={handleSearch}>
 					<span className="text-sm lg:text-base font-semibold">More Info</span>
 				</Button>
 			</div>
