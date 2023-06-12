@@ -63,7 +63,7 @@ function Header(): JSX.Element {
 							</Link>
 
 							<div className="hidden w-full items-center justify-start gap-8 lg:flex">
-								<Link href="sign-up/find-flatmate">
+								{/* <Link href="sign-up/find-flatmate">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
@@ -80,7 +80,7 @@ function Header(): JSX.Element {
 											Become a Host
 										</span>
 									</Button>
-								</Link>
+								</Link> */}
 								{/* <Link href="find-a-home">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
@@ -125,7 +125,7 @@ function Header(): JSX.Element {
 						}
 					>
 						<div className="flex w-full flex-col items-center justify-start gap-8">
-							<Link href="sign-up/find-flatmate">
+							{/* <Link href="sign-up/find-flatmate">
 								<Button type="button" buttonType="tertiary" color="grey" size="md">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 										Find Flatmate
@@ -138,7 +138,7 @@ function Header(): JSX.Element {
 										Become a Host
 									</span>
 								</Button>
-							</Link>
+							</Link> */}
 							{/* <Link href="find-a-home">
 								<Button type="button" buttonType="tertiary" color="grey" size="md">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
