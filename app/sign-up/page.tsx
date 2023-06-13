@@ -50,15 +50,26 @@ function SignUp() {
 
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
-			<section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-start gap-12 px-4 pt-10 2xs:px-8 lg:gap-0 lg:px-16">
-				<div className="flex w-full flex-col items-start justify-start gap-9">
+			<section
+				className={
+					"mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-start gap-12 px-4  2xs:px-8 lg:gap-0 lg:px-16 " +
+					`${!handleSignUp.isSuccess ? "pt-10" : ""}`
+				}
+			>
+				<div
+					// className="flex w-full flex-col items-start justify-start"
+					className={
+						`flex h-full w-full flex-grow flex-col items-start ` +
+						`${handleSignUp.isSuccess ? "justify-center gap-16" : "justify-start gap-9"}`
+					}
+				>
 					{handleSignUp.isSuccess && (
-						<div className="flex h-full w-full flex-col items-center justify-center gap-10">
+						<div className="mx-auto flex h-full w-full max-w-md flex-col items-center justify-center gap-10">
 							<Image src={resetPasswordSuccessImg} alt="trophy and arrow bullseye" width={200} height={200} priority />
 							<div className="flex w-full flex-col items-center justify-start gap-4">
 								<h2 className="text-2xl font-semibold text-black">Awesome 🚀</h2>
 								<p className="max-w-screen-4xs text-center text-black-tertiary">
-									Welcome aboard! Your account creation is complete. Get ready to embark on an exciting journey with us!ount
+									Welcome aboard! Your account creation is complete. Get ready to embark on an exciting journey with us!
 								</p>
 							</div>
 							<Button type="submit" buttonType="primary" color="blue" fullWidth borderFull>
