@@ -9,14 +9,16 @@ import React from "react";
 
 interface Props<T extends DropdownItemValueType> {
 	big?: boolean;
-	size?: "sm" | "md" | "lg";
+	size?: "sm" | "md" | "lg" | "fit";
 	value: T | undefined;
 	label?: string;
 	options: Array<DropdownItem<T>>;
 	fitHeight?: boolean;
 	canCancel?: boolean;
 	isDisabled?: boolean;
+	customHead?: React.ReactNode;
 	placeholder?: string;
+	customHeadStyle?: string;
 
 	onSelect: (value: T | undefined) => void;
 	onCancel?: () => void;
@@ -32,8 +34,9 @@ function Dropdown<T extends DropdownItemValueType>({
 	canCancel = false,
 	fitHeight = false,
 	isDisabled = false,
+	customHead,
 	placeholder = "",
-
+	customHeadStyle = "",
 	onSelect,
 	onCancel = undefined,
 	clickOutsideFunc = undefined,
@@ -44,8 +47,10 @@ function Dropdown<T extends DropdownItemValueType>({
 			label={label}
 			isCancel={canCancel}
 			fitHeight={fitHeight}
+			customHead={customHead}
 			isDisabled={isDisabled}
 			placeholder={placeholder}
+			customHeadStyle={customHeadStyle}
 			clickOutsideFunc={clickOutsideFunc}
 			value={options.find((item) => item.value === value)?.text || ""}
 			cancelFunc={() => {
@@ -60,15 +65,15 @@ function Dropdown<T extends DropdownItemValueType>({
 					<DropdownRow key={index} onClick={() => onSelect(option.value)} big={big} fitHeight={fitHeight}>
 						<div
 							className={
-								"flex flex-col justify-start text-black items-start space-y-0.5 px-4 py-2 w-full " +
+								"flex w-full flex-col items-start justify-start space-y-0.5 px-4 py-2 text-black " +
 								`${option.value === value ? "pointer-events-none" : ""} `
 							}
 							data-type="dropdown"
 						>
-							<div className="flex flex-row justify-start items-center">
+							<div className="flex flex-row items-center justify-start">
 								{option.icon && (
 									<div>
-										<div className="flex justify-center items-center h-7 w-7 bg-blue-senary rounded-full ">
+										<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
 											<Image src={option.icon} alt="icon" priority />
 										</div>
 									</div>
@@ -79,7 +84,7 @@ function Dropdown<T extends DropdownItemValueType>({
 							</div>
 							{option.subtext && (
 								<p
-									className="inline text-xs justify-center text-black-tertiary break-words whitespace-pre-wrap text-left"
+									className="inline justify-center whitespace-pre-wrap break-words text-left text-xs text-black-tertiary"
 									data-type="dropdown"
 								>
 									{option.subtext}

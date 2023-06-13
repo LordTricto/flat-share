@@ -22,7 +22,8 @@ function DateInput(props: DateInputProps): JSX.Element {
 	const [active, setActive] = useState<boolean>(false);
 	const [positionTop, setPositionTop] = useState<boolean>(false);
 	const [y, setY] = useState<number | null>(null);
-	const [innerHeight, setInnerHeight] = useState<number>(0);
+	// const [innerHeight, setInnerHeight] = useState<number>(0);
+	const innerHeight = window.innerHeight;
 
 	const domNode = useClickOutside(() => {
 		setActive(false);
@@ -34,18 +35,18 @@ function DateInput(props: DateInputProps): JSX.Element {
 		}
 	}, [domNode]);
 
-	useEffect(() => {
-		// ✅ Use window in useEffect hook
-		const handleScroll = () => {
-			setInnerHeight(window.innerHeight);
-		};
+	// useEffect(() => {
+	// 	// ✅ Use window in useEffect hook
+	// 	const handleScroll = () => {
+	// 		setInnerHeight(window.innerHeight);
+	// 	};
 
-		window.addEventListener("scroll", handleScroll);
+	// 	window.addEventListener("scroll", handleScroll);
 
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
+	// 	return () => {
+	// 		window.removeEventListener("scroll", handleScroll);
+	// 	};
+	// }, []);
 
 	useEffect(() => {
 		if (y) {
@@ -68,9 +69,9 @@ function DateInput(props: DateInputProps): JSX.Element {
 				/>
 				<div
 					className={
-						`absolute bg-white px-4 border rounded-lg w-full 2xs:w-max max-w-sm z-20 ` +
+						`absolute z-20 w-full max-w-sm rounded-lg border bg-white px-4 2xs:w-max ` +
 						`${active ? "block" : "hidden"} ` +
-						`${positionTop ? "origin-bottom bottom-full left-0 mb-2" : "origin-top top-full left-0 mt-1"} `
+						`${positionTop ? "bottom-full left-0 -mb-9 origin-bottom" : "left-0 top-full mt-1 origin-top"} `
 					}
 				>
 					<Calendar date={date || undefined} onChange={(item) => handleSetDate(item)} />

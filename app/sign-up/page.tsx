@@ -48,6 +48,9 @@ function SignUp() {
 		router.push("/sign-in");
 	};
 
+	const handleDashboard = () => {
+		router.push("/dashboard");
+	};
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
 			<section
@@ -72,7 +75,7 @@ function SignUp() {
 									Welcome aboard! Your account creation is complete. Get ready to embark on an exciting journey with us!
 								</p>
 							</div>
-							<Button type="submit" buttonType="primary" color="blue" fullWidth borderFull>
+							<Button type="submit" buttonType="primary" color="blue" onClick={handleDashboard} fullWidth borderFull>
 								<span>Proceed to Dashboard</span>
 							</Button>
 						</div>

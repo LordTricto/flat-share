@@ -118,7 +118,7 @@ function SignIn() {
 													<FormInput type="text" label="Username" name="username" />
 
 													<div className="flex w-full flex-col items-start justify-start gap-5">
-														<FormInput type="password" name="password" label="Password" placeholder="Password" />
+														<FormInput type="password" name="password" label="Password" />
 														<div className="flex w-full flex-row items-start justify-between gap-5">
 															<Button
 																type="button"

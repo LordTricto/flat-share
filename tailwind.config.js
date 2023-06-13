@@ -17,6 +17,7 @@ module.exports = {
 				},
 				blue: {
 					dark: "#2E3A9E",
+					"very-light": "#F0F9FF",
 					focused: "#4756D1",
 					hover: "#3849C1",
 					DEFAULT: "#465BF1",

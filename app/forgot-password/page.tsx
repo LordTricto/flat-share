@@ -15,11 +15,9 @@ import Link from "next/link";
 import formikHasError from "@/helpers/formikHasError";
 import logoIcon from "@/public/images/logo.svg";
 import pageDivider from "@/public/images/general/page-divider.svg";
-import rightArrowIcon from "@/public/images/icons/right-arrow.svg";
 import signUpImg from "@/public/images/sign-up/sign-up-1.png";
 import useForgotPassword from "@/hooks/forgot-password/use-forgot-password";
 import {useRouter} from "next/navigation";
-import useSignIn from "@/hooks/sign-in/use-sign-in";
 
 function ForgotPassword() {
 	const router = useRouter();

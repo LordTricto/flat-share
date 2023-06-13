@@ -1,7 +1,8 @@
-import {BarLoader} from "react-spinners";
-import Button from "@/components/general/button/button";
+"use client";
+
+import BarLoader from "react-spinners/BarLoader";
 import Image from "next/image";
-import React from "react";
+
 import logo from "@/public/images/logo-iso.svg";
 
 const Dashboard = () => {
@@ -15,7 +16,9 @@ const Dashboard = () => {
 						<p className="max-w-screen-4xs text-center text-black-tertiary">Building your experience...</p>
 					</div>
 				</div>
-				<BarLoader height="6" width="100%" color="#465BF1" speedMultiplier={1} loading />
+				<div className="w-full overflow-hidden rounded-md">
+					<BarLoader height="6px" width="100%" color="#465BF1" speedMultiplier={1} loading />
+				</div>
 			</div>
 		</div>
 	);

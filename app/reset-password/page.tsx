@@ -80,7 +80,7 @@ function ResetPassword() {
 					<section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-start gap-12 px-4 py-10 2xs:px-8 lg:gap-0 lg:px-16">
 						<div
 							className={
-								`flex h-full  w-full flex-grow flex-col items-start gap-16 ` +
+								`mx-auto flex h-full w-full max-w-md flex-grow flex-col items-start gap-16 ` +
 								`${handleResetPassword.isSuccess ? "justify-center" : "justify-start"}`
 							}
 						>

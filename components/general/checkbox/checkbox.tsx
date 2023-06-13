@@ -33,22 +33,22 @@ function Checkbox(props: Props): JSX.Element {
 	return (
 		<>
 			<div
-				className={`flex flex-row justify-start items-start ` + `${props.readOnly ? "pointer-events-none" : "cursor-pointer"} `}
+				className={`flex flex-row items-start justify-start ` + `${props.readOnly ? "pointer-events-none" : "cursor-pointer"} `}
 				onClick={handleClick}
 				data-type="transaction"
 			>
 				<div data-type="transaction">
 					<div
 						className={
-							`relative flex justify-center items-center border border-solid border-black-tertiary rounded-md transition-all duration-150 ` +
+							`relative flex items-center justify-center rounded-[4px] border border-solid border-black-tertiary transition-all duration-150 ` +
 							`${props.size === "sm" ? "h-4 w-4" : "h-5 w-5"} ` +
-							`${isChecked ? "bg-blue border-blue" : ""} ` +
+							`${isChecked ? "border-blue bg-blue" : ""} ` +
 							`${props.readOnly ? "border-black-quin" : ""} `
 						}
 						data-type="transaction"
 					>
 						<input
-							className="hidden absolute h-full w-full top-0 left-0 placeholder-transparent focus:outline-none outline-none"
+							className="absolute left-0 top-0 hidden h-full w-full placeholder-transparent outline-none focus:outline-none"
 							checked={isChecked}
 							type={"checkbox"}
 							id={props.id}
@@ -66,8 +66,8 @@ function Checkbox(props: Props): JSX.Element {
 
 				<div
 					className={
-						`pl-2 pointer-events-none w-fit max-w-full ` +
-						`${truncate ? "leading-none overflow-ellipsis overflow-hidden whitespace-nowrap" : "leading-4"} ` +
+						`pointer-events-none w-fit max-w-full pl-2 ` +
+						`${truncate ? "overflow-hidden overflow-ellipsis whitespace-nowrap leading-none" : "leading-4"} ` +
 						`${props.readOnly ? "text-black-tertiary" : " text-black-secondary"} ` +
 						`${props.size === "sm" ? "text-sm" : "text-base"} `
 					}
