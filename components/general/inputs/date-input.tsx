@@ -23,12 +23,16 @@ function DateInput(props: DateInputProps): JSX.Element {
 	const [positionTop, setPositionTop] = useState<boolean>(false);
 	const [y, setY] = useState<number | null>(null);
 	// const [innerHeight, setInnerHeight] = useState<number>(0);
-	const innerHeight = window.innerHeight;
+	// const innerHeight = window.innerHeight;
+	const [innerHeight, setInnerHeight] = useState<number>(0);
 
 	const domNode = useClickOutside(() => {
 		setActive(false);
 	});
 
+	useEffect(() => {
+		setInnerHeight(window.innerHeight);
+	}, []);
 	useEffect(() => {
 		if (domNode.current) {
 			setY(domNode.current.getBoundingClientRect().top);

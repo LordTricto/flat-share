@@ -66,15 +66,19 @@ function DropdownContainer({
 	const [hasValue, setHasValue] = useState<boolean>(false);
 	const [positionTop, setPositionTop] = useState<boolean>(false);
 	const [uniqueId, setUniqueId] = useState<string>("");
-	// const [innerHeight, setInnerHeight] = useState<number>(0);
+	const [innerHeight, setInnerHeight] = useState<number>(0);
 
-	const innerHeight = window.innerHeight;
+	// const innerHeight = window.innerHeight;
 
 	const domNode = useClickOutside(() => {
 		setActive(false);
 		clickOutsideFunc && clickOutsideFunc();
 		handleChangeSearchTerm && handleChangeSearchTerm("");
 	});
+
+	useEffect(() => {
+		setInnerHeight(window.innerHeight);
+	}, []);
 
 	useEffect(() => {
 		if (domNode.current) {
