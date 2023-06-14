@@ -38,7 +38,10 @@ function ResetPassword() {
 
 	const formValidation = Yup.object().shape({
 		email: Yup.string().email().required("Required"),
-		new_password: Yup.string().password().required("Required"),
+		new_password: Yup.string()
+			.password()
+			.matches(/[-_]/, "The password may only contain letters, numbers, dashes and underscores.")
+			.required("Required"),
 	});
 
 	const handleResetPassword = useResetPassword();

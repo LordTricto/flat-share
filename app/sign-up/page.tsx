@@ -41,7 +41,10 @@ function SignUp() {
 		lastname: Yup.string().required("Required"),
 		phone: Yup.string().phone().required(),
 		email: Yup.string().email("Invalid email").required("Required"),
-		password: Yup.string().password().required("Required"),
+		password: Yup.string()
+			.password()
+			.matches(/[-_]/, "The password may only contain letters, numbers, dashes and underscores.")
+			.required("Required"),
 	});
 
 	const handleSignIn = () => {
@@ -96,6 +99,7 @@ function SignUp() {
 								validateOnMount
 							>
 								{(formik) => {
+									console.log(formik);
 									return (
 										<Form className="flex w-full flex-col items-start justify-start gap-10">
 											<div className="flex w-full flex-col items-start justify-start gap-5">
