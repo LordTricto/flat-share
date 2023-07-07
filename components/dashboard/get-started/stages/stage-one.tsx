@@ -6,7 +6,7 @@ import {Form, Formik, FormikProps} from "formik";
 import React, {useRef} from "react";
 import {setIsHostFalse, setIsHostTrue, setToStageTwo} from "@/redux/get-started/get-started";
 
-import {AccountTypeForm} from "@/hooks/dashboard/get-started/get-started.constants";
+import {AccountTypeForm} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 import Button from "@/components/general/button/button";
 import FlatHost from "@/components/jsx-icons/dashboard/application/flat-host";
 import Flatmate from "@/components/jsx-icons/dashboard/application/flatmate";

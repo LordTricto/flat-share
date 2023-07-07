@@ -6,7 +6,7 @@ import Info from "@/public/images/dashboard/general/toast/info/icon.svg";
 import {ModalMessageType} from "./modals.constants";
 import React from "react";
 import Success from "@/public/images/dashboard/general/toast/success/icon.svg";
-import Warning from "@/public/images/dashboard/general/toast/Warning/icon.svg";
+import Warning from "@/public/images/dashboard/general/toast/warning/icon.svg";
 
 interface Props {
 	children: React.ReactNode;
