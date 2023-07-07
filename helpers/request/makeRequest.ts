@@ -72,7 +72,7 @@ function getToken(): string {
 
 function getHeaders(): AxiosRequestHeaders {
 	const headers: AxiosRequestHeaders = {
-		Authorization: getToken(),
+		Authorization: `Bearer ${getToken()}`,
 	};
 	return headers;
 }
@@ -81,6 +81,18 @@ export async function makeRequest(url: string, data: GenericObject = {}): Promis
 	try {
 		const requestData = {...data};
 		const res: AxiosResponse<string> = await apiInstance.post(url, requestData, {
+			headers: getHeaders(),
+			timeout: 180000, // only wait for 3mins
+		});
+		return processResponse(res);
+	} catch (err) {
+		return getErrorResponse(err);
+	}
+}
+
+export async function makeGetRequest(url: string): Promise<GenericObject | Error> {
+	try {
+		const res: AxiosResponse<string> = await apiInstance.get(url, {
 			headers: getHeaders(),
 			timeout: 180000, // only wait for 3mins
 		});
@@ -103,6 +115,20 @@ export async function makeRequestWithSignal(url: string, data: GenericObject = {
 		return getErrorResponse(err);
 	}
 }
+
+export async function makeGetRequestWithSignal(url: string, signal: AbortSignal): Promise<GenericObject | Error> {
+	try {
+		const res: AxiosResponse<string> = await apiInstance.get(url, {
+			headers: getHeaders(),
+			signal,
+			timeout: 180000, // only wait for 3mins
+		});
+		return processResponse(res);
+	} catch (err: unknown) {
+		return getErrorResponse(err);
+	}
+}
+
 export async function makeRequestThrowError(url: string, data: GenericObject = {}): Promise<GenericObject> {
 	let axiosResponse: AxiosResponse<string>;
 	try {

@@ -33,7 +33,7 @@ function ToggleSwitch({isActive = false, onToggle}: SwitchProps): JSX.Element {
 			<div
 				className={
 					`absolute left-0.5 h-4 w-4 transform rounded-full bg-white duration-200 ease-out ` +
-					`${active ? "translate-x-4" : "translate-x-0"}`
+					`${active ? "translate-x-[22px]" : "translate-x-0"}`
 				}
 			/>
 		</div>

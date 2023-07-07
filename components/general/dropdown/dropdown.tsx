@@ -1,17 +1,19 @@
 "use client";
 
 import {DropdownItem, DropdownItemValueType} from "@/helpers/types";
+import Image, {StaticImageData} from "next/image";
 
 import DropdownContainer from "./dropdown-container";
 import DropdownRow from "./dropdown-row";
-import Image from "next/image";
 import React from "react";
 
 interface Props<T extends DropdownItemValueType> {
 	big?: boolean;
 	size?: "sm" | "md" | "lg" | "fit";
+	icon?: StaticImageData;
 	value: T | undefined;
 	label?: string;
+	noArrow?: boolean;
 	options: Array<DropdownItem<T>>;
 	fitHeight?: boolean;
 	canCancel?: boolean;
@@ -27,10 +29,12 @@ interface Props<T extends DropdownItemValueType> {
 
 function Dropdown<T extends DropdownItemValueType>({
 	big = false,
+	icon = undefined,
 	size = "lg",
 	value,
 	label,
 	options,
+	noArrow = false,
 	canCancel = false,
 	fitHeight = false,
 	isDisabled = false,
@@ -45,6 +49,8 @@ function Dropdown<T extends DropdownItemValueType>({
 		<DropdownContainer
 			size={size}
 			label={label}
+			icon={icon}
+			noArrow={noArrow}
 			isCancel={canCancel}
 			fitHeight={fitHeight}
 			customHead={customHead}

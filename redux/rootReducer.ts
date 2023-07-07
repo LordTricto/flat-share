@@ -1,6 +1,7 @@
 // import applicationSlice from "./application/applicationSlice";
 import {combineReducers} from "redux";
 import forgotPasswordSlice from "./forgot-password/slice/forgot-password-slice";
+import getStartedSlice from "./get-started/get-started";
 import initReducer from "./init/slice/initSlice";
 import toastSlice from "./toast/slice/toast-slice";
 // import cardsSlice from "./cards/slice/cardsSlice";
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
 	init: initReducer,
 	toast: toastSlice,
 	forgotPassword: forgotPasswordSlice,
+	getStarted: getStartedSlice,
 	// application: applicationSlice,
 });
 

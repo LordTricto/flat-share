@@ -77,10 +77,10 @@ function Input({
 	}, [value]);
 
 	return (
-		<div className={"flex flex-col items-center relative w-full " + (fullWidth ? "w-full" : "")}>
+		<div className={"relative flex w-full flex-col items-center " + (fullWidth ? "w-full" : "")}>
 			<div
 				className={
-					`relative flex flex-col justify-start items-start h-full w-full gap-3 ` +
+					`relative flex h-full w-full flex-col items-start justify-start gap-3 ` +
 					`${isDisabled ? "pointer-events-none" : ""} ` +
 					`${readOnly ? "pointer-events-none" : ""} ` +
 					`${!(readOnly && isDisabled) ? "cursor-text" : ""}`
@@ -90,14 +90,14 @@ function Input({
 				{label && (
 					<label
 						htmlFor={otherProps.id || uniqueId}
-						className={`text-lg text-black-secondary font-medium  ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={`text-lg font-medium leading-[100%] text-black-secondary  ` + `${isDisabled ? "text-black-quat " : ""} `}
 						onClick={() => {
 							if (inputRef.current) {
 								inputRef.current.focus();
 							}
 						}}
 					>
-						<span className="h-fit overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full">{label}</span>
+						<span className="h-fit max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{label}</span>
 					</label>
 				)}
 				<div
@@ -111,9 +111,9 @@ function Input({
 						setActive(false);
 					}}
 					className={
-						`relative w-full bg-white rounded-lg flex gap-1 items-center justify-between font-normal outline-none focus:outline-none transition-all duration-150 whitespace-nowrap text-base leading-relaxed border border-solid shadow-none text-left ` +
+						`relative flex w-full items-center justify-between gap-1 whitespace-nowrap rounded-lg border border-solid bg-white text-left text-base font-normal leading-relaxed shadow-none outline-none transition-all duration-150 focus:outline-none ` +
 						`text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
-						`border-black-quin lg:hover:border-blue  focus:border-blue ` +
+						`border-black-quin focus:border-blue  lg:hover:border-blue ` +
 						`${active ? "border-blue " : ""} ` +
 						`${inputSize === "lg" ? "h-12" : ""} ` +
 						`${inputSize === "md" ? "h-10" : ""} ` +
@@ -138,9 +138,9 @@ function Input({
 						value={value || ""}
 						onChange={(e) => onChange && onChange(e.target.value)}
 						className={
-							`py-3 pt-4 h-full w-full z-10 placeholder:text-black-quat focus:outline-none focus:border-none rounded-lg bg-white ` +
+							`z-10 h-full w-full rounded-lg bg-white py-3 pt-4 placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${alwaysActive || hasValue ? "text-black-secondary" : ""} ` +
-							`${isDisabled ? "text-black-quat bg-transparent " : ""} ` +
+							`${isDisabled ? "bg-transparent text-black-quat " : ""} ` +
 							`${!icon ? "px-4" : ""}`
 						}
 						name={label}
@@ -151,14 +151,14 @@ function Input({
 					/>
 					{icon && (
 						<span
-							className={`cursor-default flex justify-start items-center transition-all ease-in-out duration-75 text-black-secondary `}
+							className={`flex cursor-default items-center justify-start text-black-secondary transition-all duration-75 ease-in-out `}
 						>
 							<Image src={icon} alt="input icon" />
 						</span>
 					)}
 					{type === "password" && (
 						<span
-							className="h-full w-12 absolute top-0 right-0 flex justify-center items-center cursor-pointer z-40"
+							className="absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer items-center justify-center"
 							onClick={() => setShowPassword((prev) => !prev)}
 						>
 							{showPassword ? (
@@ -173,7 +173,7 @@ function Input({
 			{helperText && (
 				<span
 					className={
-						`text-xs text-black-tertiary leading-4 pt-2 ` +
+						`pt-2 text-xs leading-4 text-black-tertiary ` +
 						`${mobileHelperText ? "lg:hidden" : ""} ` +
 						`${!mobileHelperText ? "" : ""} ` +
 						`${isDisabled ? "text-black-quat " : ""} `

@@ -1,24 +1,28 @@
 "use client";
+
 import React, {useEffect, useState} from "react";
 
+import Button from "@/components/general/button/button";
+import Image from "next/image";
 import Link from "next/link";
-
 import {canShowPreReleaseFeatures} from "../../../utils/preReleaseConfig";
 import {usePathname} from "next/navigation";
-import Button from "@/components/general/button/button";
 
 interface Props {
-	onClick(e: React.MouseEvent): void;
-	path: string;
-	icon: React.ReactElement;
 	text: string;
+	path: string;
+	iconActive: string;
+	iconInActive: string;
 	isPreRelease?: boolean;
+
+	onClick(e: React.MouseEvent): void;
 }
 
-function MenuItem({onClick, path, icon, text, isPreRelease = false}: Props): JSX.Element {
+function MenuItem({onClick, path, iconActive, iconInActive, text, isPreRelease = false}: Props): JSX.Element {
 	const pathname = usePathname();
 
 	const [active, setActive] = useState(false);
+	const [isHover, setIsHover] = useState<boolean>(false);
 
 	useEffect(() => {
 		setActive(!!(pathname === path));
@@ -37,6 +41,8 @@ function MenuItem({onClick, path, icon, text, isPreRelease = false}: Props): JSX
 				// },
 			}}
 			onClick={onClick}
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
 			data-type="section"
 		>
 			{/* <div className={` ${active ? "" : "hover:bg-white "}`} data-type="section" tabIndex={-1}> */}
@@ -46,7 +52,7 @@ function MenuItem({onClick, path, icon, text, isPreRelease = false}: Props): JSX
 				type="button"
 				buttonType="primary"
 				data-type="section"
-				className={"px-3 " + `${active ? "bg-blue-very-light" : "hover:bg-blue-very-light"}`}
+				className={"!px-3 " + `${active ? "bg-blue-very-light" : "hover:bg-blue-very-light"}`}
 				noTabIndex
 				fullWidth
 			>
@@ -58,7 +64,27 @@ function MenuItem({onClick, path, icon, text, isPreRelease = false}: Props): JSX
 					data-type="section"
 					tabIndex={-1}
 				>
-					{React.cloneElement(icon, {className: "stroke-current", "data-type": "section", tabIndex: -1})}
+					<div className="relative flex h-6 w-6 items-center justify-center">
+						<Image
+							src={iconActive}
+							alt="icon-active"
+							className={`absolute left-0 top-0 `}
+							// className={`absolute left-0 top-0 transition-opacity duration-150 ${isHover ? "opacity-100" : "opacity-0"} `}
+							width={24}
+							height={24}
+							tabIndex={-1}
+						/>
+						<Image
+							src={iconInActive}
+							alt="icon-inactive"
+							className={`absolute left-0 top-0 z-10 transition-opacity duration-150 ${
+								isHover || active ? "opacity-0" : "opacity-100"
+							} `}
+							width={24}
+							height={24}
+							tabIndex={-1}
+						/>
+					</div>
 					<span className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-medium" tabIndex={-1} data-type="section">
 						{text}
 					</span>

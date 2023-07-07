@@ -21,7 +21,7 @@ export const signInApi = async (data: SignInForm): Promise<SignInFormResponse> =
 	return {
 		success: Parsers.string(res.success),
 		message: Parsers.string(res.message),
-		token: Parsers.string(res.token),
+		token: Parsers.string((res.data as GenericObject).token),
 		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, User),
 		filtered: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
 	};

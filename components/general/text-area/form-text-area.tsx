@@ -71,7 +71,7 @@ function FormTextArea({
 		<div className={`w-full ${fullWidth ? "" : ""}`}>
 			<div
 				className={
-					`relative flex flex-col justify-start items-start gap-3 h-full w-full ` +
+					`relative flex h-full w-full flex-col items-start justify-start gap-3 ` +
 					`${isDisabled ? "pointer-events-none" : ""} ` +
 					`${readOnly ? "pointer-events-none" : ""} ` +
 					`${!(readOnly && isDisabled) ? "cursor-text" : ""}`
@@ -81,21 +81,21 @@ function FormTextArea({
 				{label && (
 					<label
 						htmlFor={uniqueId}
-						className={`text-lg text-black-secondary font-medium ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={`text-lg font-medium leading-[100%] text-black-secondary ` + `${isDisabled ? "text-black-quat " : ""} `}
 						onClick={() => {
 							if (textAreaRef.current) {
 								textAreaRef.current.focus();
 							}
 						}}
 					>
-						<span className="h-fit overflow-ellipsis overflow-hidden whitespace-nowrap max-w-full">{label}</span>
+						<span className="h-fit max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{label}</span>
 					</label>
 				)}
 				<div
 					className={
-						`relative w-full rounded-lg bg-white resize-none outline-none focus:outline-none shadow-none ` +
+						`relative w-full resize-none rounded-lg bg-white shadow-none outline-none focus:outline-none ` +
 						`text-left text-base font-normal leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
-						`border border-solid border-black-quin lg:hover:border-black-quat focus:border-black-quat ` +
+						`border border-solid border-black-quin focus:border-black-quat lg:hover:border-black-quat ` +
 						`${active ? "border-black-quat" : ""} ` +
 						`${isLoading ? "pointer-events-none" : ""} ` +
 						`${sm ? "h-12" : "h-24"} `

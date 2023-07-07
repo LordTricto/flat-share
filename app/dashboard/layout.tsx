@@ -1,36 +1,55 @@
 "use client";
 
+import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+
+import AccountDropdown from "@/components/dashboard/layout/account-dropdown";
+import Button from "@/components/general/button/button";
+import Cancel from "@/components/jsx-icons/cancel";
+import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
+import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import Link from "next/link";
-import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
-import logoIcon from "@/public/images/logo.svg";
-import Overlay from "@/components/dashboard/layout/overlay";
+import LoadingScreen from "@/components/dashboard/general/loading-screen";
+import Logout from "@/components/jsx-icons/logout";
 import MenuItem from "@/components/dashboard/layout/menuItem";
-import {
-	// useDispatch,
-	useSelector,
-} from "react-redux";
-import {IRootState} from "@/redux/rootReducer";
-import {UserActivationStatus} from "@/models/user.constant";
-import {usePathname} from "next/navigation";
-import useDimension from "@/helpers/useDimension";
-import Cancel from "@/components/jsx-icons/cancel";
+import Notification from "@/components/jsx-icons/notification";
+import Overlay from "@/components/dashboard/layout/overlay";
 // import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import SearchBar from "@/components/general/search-bar";
-import AccountDropdown from "@/components/dashboard/layout/account-dropdown";
-import Notification from "@/components/jsx-icons/notification";
-import Button from "@/components/general/button/button";
 import ToggleSwitch from "@/components/general/toggle-switch";
-import logoutIcon from "@/public/images/icons/logout.svg";
-import Logout from "@/components/jsx-icons/logout";
-import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
+import {UserActivationStatus} from "@/models/user.constant";
+// import darkModeActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-active.svg";
+import darkModeInActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-inactive.svg";
+import exploreActive from "@/public/images/dashboard/sections/explore/explore-active.svg";
+import exploreInActive from "@/public/images/dashboard/sections/explore/explore-inactive.svg";
+import helpActive from "@/public/images/dashboard/sections/help/help-active.svg";
+import helpInActive from "@/public/images/dashboard/sections/help/help-inactive.svg";
+import logoIcon from "@/public/images/logo.svg";
+// import logoutIcon from "@/public/images/icons/logout.svg";
+import messagingActive from "@/public/images/dashboard/sections/messaging/messaging-active.svg";
+import messagingInActive from "@/public/images/dashboard/sections/messaging/messaging-inactive.svg";
+import overviewActive from "@/public/images/dashboard/sections/overview/overview-active.svg";
+import overviewInActive from "@/public/images/dashboard/sections/overview/overview-inactive.svg";
+import paymentsActive from "@/public/images/dashboard/sections/payments/payments-active.svg";
+import paymentsInActive from "@/public/images/dashboard/sections/payments/payments-inactive.svg";
+import profileActive from "@/public/images/dashboard/sections/profile/profile-active.svg";
+import profileInActive from "@/public/images/dashboard/sections/profile/profile-inactive.svg";
+import settingsActive from "@/public/images/dashboard/sections/settings/settings-active.svg";
+import settingsInActive from "@/public/images/dashboard/sections/settings/settings-inactive.svg";
+import useDimension from "@/helpers/useDimension";
+import useInit from "@/hooks/dashboard/init/use-init";
+import useLogout from "@/hooks/dashboard/general/use-logout";
+import {usePathname} from "next/navigation";
+import {useSelector} from "react-redux";
 
 export default function DashboardLayout({
 	children, // will be a page or nested layout
 }: {
 	children: React.ReactNode;
 }) {
-	// const dispatch = useDispatch();
+	// const {initPing} = usePing();
+	const {mutate} = useLogout();
+	const {isLoading, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();
 	const accountStatus = useSelector((state: IRootState) => state.init.user?.account_status);
@@ -40,9 +59,11 @@ export default function DashboardLayout({
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [isTabletViewDownwards] = useState<boolean>(!!(width < 1024));
 
-	// useLayoutEffect(() => {
-	// 	initPing();
-	// }, [initPing]);
+	useLayoutEffect(() => {
+		// initPing();
+		refetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useLayoutEffect(() => {
 		if (!accountStatus) return;
@@ -57,6 +78,7 @@ export default function DashboardLayout({
 	useEffect(() => {
 		setIsMounted(true);
 	}, []);
+
 	const handleOpenNav = useCallback(() => {
 		if (width < 1025) {
 			setShowNav(true);
@@ -71,15 +93,17 @@ export default function DashboardLayout({
 		}
 	}, [width]);
 
+	console.log(isLoading);
 	return (
 		<>
+			{isLoading && <LoadingScreen />}
 			{isMounted && (
 				<div className="relative min-h-screen w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]" id="dashboard" tabIndex={-1}>
 					{/* <IdleModal /> */}
 					{showNav && <Overlay onClick={handleCloseNav} />}
 					<aside
 						className={
-							`-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available z-40 w-full max-w-sm border-r border-grey-quat transition-all lg:max-w-none lg:-translate-x-0 lg:transition-none ` +
+							`-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available z-40 h-full w-full max-w-sm border-r border-grey-quat transition-all lg:h-[unset] lg:max-w-none lg:-translate-x-0 lg:transition-none ` +
 							`fixed flex transform flex-col items-center justify-between bg-white lg:relative lg:w-auto ` +
 							`${showNav ? " translate-x-0" : "-translate-x-full"} `
 						}
@@ -105,49 +129,87 @@ export default function DashboardLayout({
 								</div>
 							</div>
 
-							<div className="flex-grow overflow-y-auto px-6">
-								<div className="flex flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-4">
-									<h5 className="text-sm uppercase text-black-quat">menu</h5>
-									<div className="flex flex-col justify-start gap-1">
-										<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Overview" />
-
-										<MenuItem onClick={handleOpenNav} path="/explore" icon={<Cancel />} text="Explore" isPreRelease />
-
-										<MenuItem onClick={handleOpenNav} path="/profile" icon={<Cancel />} text="Profile" />
-
-										<MenuItem onClick={handleOpenNav} path="/messaging" icon={<Cancel />} text="Messaging" />
-
-										<MenuItem onClick={handleOpenNav} path="/payments" icon={<Cancel />} text="Payments" />
-									</div>
-									{/* {!isAccountCreated ? (
-										<>
-											<div className="pb-1 pt-3">
-												<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Overview" />
-											</div>
-										</>
+							<div className="flex-grow overflow-y-auto px-6 ">
+								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-4">
+									<h5 className="select-none text-sm font-medium uppercase text-black-quat">menu</h5>
+									{/* <div className="flex flex-col justify-start gap-1"></div> */}
+									{!isAccountCreated ? (
+										<MenuItem
+											onClick={handleOpenNav}
+											path={"/dashboard/get-started"}
+											iconActive={overviewActive}
+											iconInActive={overviewInActive}
+											text="Get Started"
+										/>
 									) : (
-										<div className="py-3">
-											<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Overview" />
+										<>
+											<MenuItem
+												onClick={handleOpenNav}
+												path={"/dashboard"}
+												iconActive={overviewActive}
+												iconInActive={overviewInActive}
+												text="Overview"
+											/>
 
-											<MenuItem onClick={handleOpenNav} path="/explore" icon={<Cancel />} text="Explore" isPreRelease />
+											<MenuItem
+												onClick={handleOpenNav}
+												path="/dashboard/explore"
+												iconActive={exploreActive}
+												iconInActive={exploreInActive}
+												text="Explore"
+												isPreRelease
+											/>
 
-											<MenuItem onClick={handleOpenNav} path="/profile" icon={<Cancel />} text="Profile" />
+											<MenuItem
+												onClick={handleOpenNav}
+												path="/dashboard/profile"
+												iconActive={profileActive}
+												iconInActive={profileInActive}
+												text="Profile"
+											/>
 
-											<MenuItem onClick={handleOpenNav} path="/messaging" icon={<Cancel />} text="Messaging" />
+											<MenuItem
+												onClick={handleOpenNav}
+												path="/dashboard/messaging"
+												iconActive={messagingActive}
+												iconInActive={messagingInActive}
+												text="Messaging"
+											/>
 
-											<MenuItem onClick={handleOpenNav} path="/payments" icon={<Cancel />} text="Payments" />
-										</div>
-									)} */}
+											<MenuItem
+												onClick={handleOpenNav}
+												path="/dashboard/payments"
+												iconActive={paymentsActive}
+												iconInActive={paymentsInActive}
+												text="Payments"
+											/>
+										</>
+									)}
 								</div>
 
-								<div className="flex flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-10">
-									<h5 className="text-sm uppercase text-black-quat">support</h5>
+								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-10">
+									<h5 className="select-none text-sm font-medium uppercase text-black-quat">support</h5>
 									<div className="flex flex-col justify-start gap-1">
-										<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Settings" />
+										{isAccountCreated && (
+											<>
+												<MenuItem
+													onClick={handleOpenNav}
+													path={"/dashboard/settings"}
+													iconActive={settingsActive}
+													iconInActive={settingsInActive}
+													text="Settings"
+												/>
 
-										<MenuItem onClick={handleOpenNav} path="/explore" icon={<Cancel />} text="Help" isPreRelease />
-
-										<MenuItem onClick={handleOpenNav} path="/profile" icon={<Cancel />} text="Dark Mode" />
+												<MenuItem
+													onClick={handleOpenNav}
+													path="/dashboard/explore"
+													iconActive={helpActive}
+													iconInActive={helpInActive}
+													text="Help"
+													isPreRelease
+												/>
+											</>
+										)}
 
 										<Button
 											ripple="dark"
@@ -155,7 +217,7 @@ export default function DashboardLayout({
 											type="button"
 											buttonType="primary"
 											data-type="section"
-											className="px-3"
+											className="!px-3"
 											noTabIndex
 											fullWidth
 										>
@@ -165,7 +227,7 @@ export default function DashboardLayout({
 													data-type="section"
 													tabIndex={-1}
 												>
-													<Cancel />
+													<Image priority src={darkModeInActive} width={24} height={24} alt="icon" tabIndex={-1} />
 													<span
 														className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-medium"
 														tabIndex={-1}
@@ -174,57 +236,42 @@ export default function DashboardLayout({
 														Dark mode
 													</span>
 												</div>
-												<ToggleSwitch
-													isActive={false}
-													onToggle={() => {
-														return;
-													}}
-												/>
+												<div className="w-max">
+													<ToggleSwitch
+														isActive={false}
+														onToggle={() => {
+															return;
+														}}
+													/>
+												</div>
 											</div>
 										</Button>
 									</div>
-									{/* {!isAccountCreated ? (
-										<>
-											<div className="pb-1 pt-3">
-												<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Overview" />
-											</div>
-										</>
-									) : (
-										<div className="py-3">
-											<MenuItem onClick={handleOpenNav} path={"/"} icon={<Cancel />} text="Overview" />
-
-											<MenuItem onClick={handleOpenNav} path="/explore" icon={<Cancel />} text="Explore" isPreRelease />
-
-											<MenuItem onClick={handleOpenNav} path="/profile" icon={<Cancel />} text="Profile" />
-
-											<MenuItem onClick={handleOpenNav} path="/messaging" icon={<Cancel />} text="Messaging" />
-
-											<MenuItem onClick={handleOpenNav} path="/payments" icon={<Cancel />} text="Payments" />
-										</div>
-									)} */}
 								</div>
-
-								<Button
-									ripple="dark"
-									color="grey"
-									type="button"
-									buttonType="secondary"
-									data-type="section"
-									className="mb-10 mt-12 px-3"
-									noTabIndex
-									fullWidth
-								>
-									<div
-										className="relative flex h-9 w-full items-center justify-center tracking-normal"
+								<div className={isAccountCreated ? "w-full" : "absolute bottom-0 left-0 w-full px-6"}>
+									<Button
+										ripple="dark"
+										color="grey"
+										type="button"
+										buttonType="secondary"
 										data-type="section"
-										tabIndex={-1}
+										className="mb-10 mt-12 px-3"
+										onClick={() => mutate()}
+										noTabIndex
+										fullWidth
 									>
-										<Logout />
-										<span className="ml-2 font-medium" tabIndex={-1} data-type="section">
-											Logout
-										</span>
-									</div>
-								</Button>
+										<div
+											className="relative flex h-9 w-full items-center justify-center tracking-normal"
+											data-type="section"
+											tabIndex={-1}
+										>
+											<Logout />
+											<span className="ml-2 font-medium" tabIndex={-1} data-type="section">
+												Logout
+											</span>
+										</div>
+									</Button>
+								</div>
 							</div>
 						</div>
 					</aside>
@@ -240,11 +287,11 @@ export default function DashboardLayout({
 												</div>
 											</div>
 
-											<div className="relative hidden w-full lg:block" tabIndex={-1}>
+											{/* <div className="relative hidden w-full lg:block" tabIndex={-1}>
 												<SearchBar placeholder="Search location, people..." />
-											</div>
+											</div> */}
 											{isAccountCreated && (
-												<div className="relative w-full" tabIndex={-1}>
+												<div className="relative hidden w-full lg:block" tabIndex={-1}>
 													<SearchBar placeholder="Search location, people..." />
 												</div>
 											)}

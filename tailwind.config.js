@@ -35,6 +35,7 @@ module.exports = {
 					quat: "#B8BAC6",
 					quin: "#D5D5DD",
 					deep: "#202030",
+
 					"nav-bg": "rgba(0, 0, 0, .1)",
 				},
 				white: {
@@ -47,6 +48,7 @@ module.exports = {
 					secondary: "#F1F1F4",
 					tertiary: "#F6F7F8",
 					quat: "#DDDDDD",
+					quin: "#AAAAAA",
 					backdrop: "#F9F9FB",
 					DEFAULT: "#E3E3E8",
 				},

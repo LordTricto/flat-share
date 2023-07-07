@@ -1,6 +1,6 @@
 import isNullOrUndefined from "../utils/isNullOrUndefined";
 
-export function useMoneyToNumber(value: string): number {
+export function moneyToNumber(value: string): number {
 	let valueToEdit = 0;
 
 	if (isNullOrUndefined(value)) {

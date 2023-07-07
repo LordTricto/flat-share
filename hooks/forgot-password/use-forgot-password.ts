@@ -21,7 +21,6 @@ function useForgotPassword(): UseMutationResult<any, unknown, ForgotPasswordForm
 
 		onSuccess(data, variables: ForgotPasswordForm) {
 			// something
-			// console.log(variables, data);
 			dispatch(setForgotPasswordEmail(variables.email));
 			dispatch(setSuccessMessage(data.message));
 			router.push("/forgot-password/check");

@@ -44,7 +44,11 @@ export const initSlice = createSlice({
 
 		logoutSuccess: (state: InitState) => {
 			state.isLoggedIn = false;
+			state.isInitError = null;
+			state.isInitLoading = false;
+			state.user = null;
 			state.token = null;
+			state.filter = null;
 		},
 
 		initReset: (state: InitState) => {

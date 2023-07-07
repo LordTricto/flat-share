@@ -99,7 +99,6 @@ function SignUp() {
 								validateOnMount
 							>
 								{(formik) => {
-									console.log(formik);
 									return (
 										<Form className="flex w-full flex-col items-start justify-start gap-10">
 											<div className="flex w-full flex-col items-start justify-start gap-5">

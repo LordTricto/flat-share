@@ -63,7 +63,7 @@ function Header(): JSX.Element {
 							</Link>
 
 							<div className="hidden w-full items-center justify-start gap-8 lg:flex">
-								{/* <Link href="sign-up/find-flatmate">
+								<Link href="sign-up/find-flatmate">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
@@ -80,8 +80,8 @@ function Header(): JSX.Element {
 											Become a Host
 										</span>
 									</Button>
-								</Link> */}
-								{/* <Link href="find-a-home">
+								</Link>
+								<Link href="find-a-home">
 									<Button type="button" buttonType="tertiary" color="grey" size="md">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
@@ -89,7 +89,7 @@ function Header(): JSX.Element {
 											Find a Home
 										</span>
 									</Button>
-								</Link> */}
+								</Link>
 							</div>
 						</div>
 						<div className="hidden items-center justify-center gap-6 lg:flex">

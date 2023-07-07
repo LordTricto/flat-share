@@ -14,8 +14,8 @@ function Logout(props: {className?: string}) {
 				<path
 					d="M6.5 14H3.83333C3.47971 14 3.14057 13.8595 2.89052 13.6095C2.64048 13.3594 2.5 13.0203 2.5 12.6667V3.33333C2.5 2.97971 2.64048 2.64057 2.89052 2.39052C3.14057 2.14048 3.47971 2 3.83333 2H6.5M11.1667 11.3333L14.5 8M14.5 8L11.1667 4.66667M14.5 8H6.5"
 					strokeWidth="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
+					strokeLinecap="round"
+					strokeLinejoin="round"
 				/>
 			</svg>
 		</>

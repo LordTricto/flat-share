@@ -1,5 +1,3 @@
-import UserMin from "@/models/userMin";
-
 export type ForgotPasswordForm = {
 	email: string;
 };

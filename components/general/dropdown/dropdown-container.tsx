@@ -1,8 +1,8 @@
 "use client";
 
+import Image, {StaticImageData} from "next/image";
 import React, {KeyboardEvent, useEffect, useRef, useState} from "react";
 
-import Image from "next/image";
 import cancel from "@/public/images/icons/cancel.svg";
 import chevronArrow from "@/public/images/icons/chevron-arrow.svg";
 // import SearchBar from "../../../../modules/Dashboard/Settings/Components/Searchbar/TeamMemebers/SearchBar";
@@ -12,6 +12,7 @@ let inputCounter = 0;
 
 interface DropdownProps {
 	size?: "sm" | "md" | "lg" | "fit";
+	icon?: StaticImageData;
 	label?: string;
 	noArrow?: boolean;
 	children: React.ReactNode;
@@ -37,6 +38,7 @@ interface DropdownProps {
 
 function DropdownContainer({
 	size = "lg",
+	icon = undefined,
 	label,
 	noArrow = false,
 	children,
@@ -118,15 +120,6 @@ function DropdownContainer({
 		}
 	}, [innerHeight, y, triggerLower]);
 
-	// useEffect(() => {
-	// 	if (y) {
-	// 		const shouldSetPositionTop = y > innerHeight / 1.65;
-	// 		setPositionTop(shouldSetPositionTop);
-	// 		console.log(y, innerHeight);
-	// 		console.log(y > innerHeight / 1.65);
-	// 	}
-	// }, [innerHeight, y]);
-
 	useEffect(() => {
 		setHasValue(!!value && ((typeof value === "string" && value.length > 0) || (typeof value === "number" && value > 0)));
 	}, [value]);
@@ -147,7 +140,7 @@ function DropdownContainer({
 			{label && (
 				<label
 					htmlFor={uniqueId}
-					className={`text-lg font-medium text-black-secondary ` + `${isDisabled ? "text-black-quat " : ""} `}
+					className={`text-lg font-medium leading-[100%] text-black-secondary ` + `${isDisabled ? "text-black-quat " : ""} `}
 					onClick={() => {
 						if (inputRef.current) {
 							inputRef.current.focus();
@@ -214,6 +207,11 @@ function DropdownContainer({
 						{/* <chevron className="stroke-current h-3.5 w-3.5" /> */}
 					</div>
 				)}
+				{icon && (
+					<span className={`flex cursor-default items-center justify-start text-black-secondary transition-all duration-75 ease-in-out `}>
+						<Image src={icon} alt="input icon" />
+					</span>
+				)}
 				{isCancel && hasValue && (
 					<div
 						className={
@@ -255,7 +253,13 @@ function DropdownContainer({
 			<div
 				className={
 					`absolute z-40 h-fit w-full transform cursor-pointer overflow-hidden overflow-y-auto rounded bg-white shadow ` +
-					`${positionTop ? "bottom-full left-0 -mb-9 origin-bottom" : "left-0 top-full mt-1 origin-top"} ` +
+					`${
+						positionTop
+							? label
+								? "bottom-full left-0 -mb-[26px] origin-bottom"
+								: "bottom-full left-0 mb-1 origin-bottom"
+							: "left-0 top-full mt-1 origin-top"
+					} ` +
 					`${!active ? "pointer-events-none scale-0 opacity-0" : "scale-100 opacity-100"} ` +
 					`${!fitHeight ? "max-h-56 " : ""} `
 				}

@@ -22,6 +22,8 @@ interface ButtonProps {
 	autoFocus?: boolean;
 }
 
+export type ButtonColor = "blue" | "grey" | "red" | "transparent";
+
 const primaryColors = {
 	blue: "text-white bg-blue hover:bg-blue-hover focus:bg-blue-focused active:bg-blue-hover",
 	transparent: "text-black-secondary hover:text-black focus:outline-none",

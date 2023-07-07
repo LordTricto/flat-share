@@ -4,8 +4,8 @@ import React, {InputHTMLAttributes, useEffect, useState} from "react";
 import Input from "./input";
 import formatNumber from "../../../utils/formatNumber";
 import isNullOrUndefined from "../../../utils/isNullOrUndefined";
+import {moneyToNumber} from "../../../helpers/useMoneyToNumber";
 import nairaIcon from "@/public/images/icons/naira-sign.svg";
-import {useMoneyToNumber} from "../../../helpers/useMoneyToNumber";
 
 interface Props extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>, InputPropsToExclude> {
 	type?: "number" | "string";
@@ -60,7 +60,7 @@ function MoneyInput(props: Props): JSX.Element {
 		<Input
 			{...props}
 			type="text"
-			value={useMoneyToNumber(valueFormatted) ? valueFormatted : ""}
+			value={moneyToNumber(valueFormatted) ? valueFormatted : ""}
 			icon={nairaIcon}
 			onChange={(newValue) => {
 				const values = parse(newValue);

@@ -48,14 +48,6 @@ function SignIn() {
 
 	const handleSignIn = useSignIn();
 
-	// get query
-	// const {data}= useQuery({
-	// 	queryFn: async () =>{
-	// 		const {data} = await axios.get("https://flatshare.ribiax.com/api/v1/user/auth/is-authenticated");
-	// 		return data as any;
-	// 	}
-	// })
-
 	useEffect(() => {
 		return () => {
 			abortRequest(SignInSignal.SIGN_IN);
@@ -70,8 +62,6 @@ function SignIn() {
 	const handleForgotPassword = () => {
 		router.push("/forgot-password");
 	};
-
-	console.log(init);
 
 	return (
 		<div className="flex max-h-screen w-full flex-col items-center justify-between lg:flex-row">
