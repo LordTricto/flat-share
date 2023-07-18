@@ -85,7 +85,11 @@ function MenuItem({onClick, path, iconActive, iconInActive, text, isPreRelease =
 							tabIndex={-1}
 						/>
 					</div>
-					<span className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-medium" tabIndex={-1} data-type="section">
+					<span
+						className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-medium"
+						tabIndex={-1}
+						data-type="section"
+					>
 						{text}
 					</span>
 				</div>

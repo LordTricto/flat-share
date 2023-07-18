@@ -1,9 +1,14 @@
 "use client";
 
+import {useDispatch, useSelector} from "react-redux";
+
 import Button from "@/components/general/button/button";
+import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import cameraIcon from "@/public/images/dashboard/get-started/upload-camera.svg";
+import {setIsAccountCreatedStatus} from "@/redux/init/slice/initSlice";
 import {useRef} from "react";
+import {useRouter} from "next/navigation";
 
 interface Props {
 	croppedImg: string;
@@ -12,7 +17,10 @@ interface Props {
 }
 
 function StageFour(props: Props) {
+	const dispatch = useDispatch();
+	const router = useRouter();
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
+	const isHost = useSelector((state: IRootState) => state.getStarted.isHost);
 
 	const onFileChange = (file: File) => {
 		if (file) {
@@ -68,7 +76,15 @@ function StageFour(props: Props) {
 					</div>
 				</div>
 
-				<Button type="button" buttonType="primary" color="blue" isDisabled={!props.croppedImg} borderFull fullWidth>
+				<Button
+					type="button"
+					buttonType="primary"
+					color="blue"
+					isDisabled={!props.croppedImg}
+					onClick={() => (isHost ? router.push("/dashboard/create-ad") : dispatch(setIsAccountCreatedStatus(true)))}
+					borderFull
+					fullWidth
+				>
 					<span>Start Connecting!</span>
 				</Button>
 			</div>

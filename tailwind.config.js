@@ -6,6 +6,7 @@ module.exports = {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+				"aside-section-pattern": "url('/public/images/dashboard/home/aside-section-pattern.png')",
 				// "contact-us": "url('../public/images/contact-us/contact-us-1.png')",
 			},
 			colors: {
@@ -18,6 +19,7 @@ module.exports = {
 				blue: {
 					dark: "#2E3A9E",
 					"very-light": "#F0F9FF",
+					"quin-light": "#F4F5FE",
 					focused: "#4756D1",
 					hover: "#3849C1",
 					DEFAULT: "#465BF1",
@@ -43,6 +45,7 @@ module.exports = {
 					light: "#FAFAFF",
 					grey: "#F7F9FC",
 					"nav-bg": "rgba(255, 255, 255, .1)",
+					"dash-bg": "#f5f5f5",
 				},
 				grey: {
 					secondary: "#F1F1F4",

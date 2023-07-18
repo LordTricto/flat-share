@@ -20,7 +20,7 @@ function GetStarted() {
 	const [croppedImg, setCroppedImg] = useState<string>("");
 
 	return (
-		<div className="flex h-fit w-full items-center justify-center">
+		<div className="flex h-fit w-full items-center justify-center px-4 lg:px-8">
 			<ImageCropModal
 				active={isImageCropModalOpen}
 				img={imageToCrop}

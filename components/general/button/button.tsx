@@ -8,7 +8,7 @@ interface ButtonProps {
 	type?: "button" | "submit" | "reset";
 	isDisabled?: boolean;
 	buttonType?: "primary" | "secondary" | "tertiary";
-	color: "blue" | "grey" | "red" | "transparent";
+	color: "blue" | "grey" | "red" | "transparent" | "translucent";
 	fullWidth?: boolean;
 	fullHeight?: boolean;
 	onClick?: (e: React.MouseEvent) => void;
@@ -29,6 +29,7 @@ const primaryColors = {
 	transparent: "text-black-secondary hover:text-black focus:outline-none",
 	red: "text-white bg-error hover:bg-error ",
 	grey: "",
+	translucent: "",
 };
 
 const primaryDisabledColors = {
@@ -36,12 +37,14 @@ const primaryDisabledColors = {
 	transparent: "",
 	grey: "",
 	red: "",
+	translucent: "",
 };
 
 const secondaryColors = {
 	blue: "text-blue border-blue hover:border-blue-hover hover:bg-blue-senary hover:text-blue focus:border-blue-focused focus:bg-blue-senary focus:text-blue-focused",
 	grey: "text-black-tertiary border-black-quat hover:border-blue-hover hover:text-blue focus:border-blue-focused focus:text-blue-focused",
 	red: "text-error bg-white border-error",
+	translucent: "text-white translucent-backdrop border-white",
 	transparent: "",
 };
 const secondaryDisabledColors = {
@@ -49,18 +52,21 @@ const secondaryDisabledColors = {
 	grey: "text-black-quat border-black-quin",
 	red: "",
 	transparent: "",
+	translucent: "",
 };
 const tertiaryColors = {
 	blue: "text-blue hover:text-blue focus:text-blue-focused",
 	grey: "text-black-tertiary hover:text-black-secondary focus:text-black-secondary",
 	red: "text-error",
 	transparent: "",
+	translucent: "",
 };
 
 const tertiaryDisabledColors = {
 	blue: "text-blue-quin",
 	grey: "text-black-quat",
 	transparent: "",
+	translucent: "",
 	red: "",
 };
 
@@ -237,7 +243,7 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 			<button
 				className={getClass(props)}
 				type={type}
-				onClick={onClick}
+				onClick={props.isDisabled ? undefined : onClick}
 				tabIndex={props.noTabIndex || props.isDisabled ? -1 : 0}
 				data-type={props.dataType && props.dataType}
 				autoFocus={props.autoFocus}

@@ -1,11 +1,10 @@
 "use client";
 
-import {apartmentTypeOptions} from "@/app/find-a-home/find-a-home.constant";
 import Dropdown from "@/components/general/dropdown/dropdown";
-import userProfile from "@/public/images/icons/user-profile.svg";
 import Image from "next/image";
-
 import React from "react";
+import {apartmentTypeOptions} from "@/app/find-a-home/find-a-home.constant";
+import userProfile from "@/public/images/icons/user-profile.svg";
 
 function AccountDropdown() {
 	return (
@@ -21,8 +20,10 @@ function AccountDropdown() {
 
 						<div className=" w-full overflow-hidden overflow-ellipsis whitespace-nowrap px-2 subpixel-antialiased">
 							<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-left">
-								<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap font-medium text-black">Roger Dokidis</div>
-								<div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-normal text-black-tertiary">
+								<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-black">
+									Roger Dokidis
+								</div>
+								<div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-xs font-normal text-black-tertiary">
 									rogerdokidis@gmail.com
 								</div>
 							</div>

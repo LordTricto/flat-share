@@ -9,6 +9,7 @@ export interface InitState {
 	isInitError: string | null;
 	isInitLoading: boolean;
 
+	isAccountCreated: boolean;
 	user: User | null;
 	token: string | null;
 	filter: Filter | null;

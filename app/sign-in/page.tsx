@@ -3,36 +3,27 @@
 import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 
 import Button from "@/components/general/button/button";
 // import Checkbox from "@/components/general/checkbox/checkbox";
 import FormInput from "@/components/general/inputs/form-input";
-import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
-// import Input from "@/components/general/inputs/input";
 import Link from "next/link";
 import {SignInForm} from "../../hooks/sign-in/sign-in.constants";
 import {SignInSignal} from "@/hooks/sign-in/sign-in-api";
 import {abortRequest} from "@/helpers/request/abortControllers";
-import axios from "axios";
+// import Input from "@/components/general/inputs/input";
 import formikHasError from "@/helpers/formikHasError";
 import logoIcon from "@/public/images/logo.svg";
 import pageDivider from "@/public/images/general/page-divider.svg";
 import rightArrowIcon from "@/public/images/icons/right-arrow.svg";
 import signUpImg from "@/public/images/sign-up/sign-up-1.png";
-// import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
-import {useSelector} from "react-redux";
 import useSignIn from "@/hooks/sign-in/use-sign-in";
-
-// import {setErrorMessage, setInformationMessage, setSuccessMessage} from "@/redux/toast/slice/toast-slice";
-// import {useMutation, useQuery} from "@tanstack/react-query";
 
 function SignIn() {
 	const router = useRouter();
-
-	const init = useSelector((state: IRootState) => state.init);
 
 	const formikRef = useRef<FormikProps<SignInForm> | null>(null);
 

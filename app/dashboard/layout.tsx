@@ -1,6 +1,7 @@
 "use client";
 
 import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+import {UserActivationStatus, UserType} from "@/models/user.constant";
 
 import AccountDropdown from "@/components/dashboard/layout/account-dropdown";
 import Button from "@/components/general/button/button";
@@ -8,6 +9,7 @@ import Cancel from "@/components/jsx-icons/cancel";
 import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
+import {Inter} from "next/font/google";
 import Link from "next/link";
 import LoadingScreen from "@/components/dashboard/general/loading-screen";
 import Logout from "@/components/jsx-icons/logout";
@@ -17,13 +19,13 @@ import Overlay from "@/components/dashboard/layout/overlay";
 // import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import SearchBar from "@/components/general/search-bar";
 import ToggleSwitch from "@/components/general/toggle-switch";
-import {UserActivationStatus} from "@/models/user.constant";
 // import darkModeActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-active.svg";
 import darkModeInActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-inactive.svg";
 import exploreActive from "@/public/images/dashboard/sections/explore/explore-active.svg";
 import exploreInActive from "@/public/images/dashboard/sections/explore/explore-inactive.svg";
 import helpActive from "@/public/images/dashboard/sections/help/help-active.svg";
 import helpInActive from "@/public/images/dashboard/sections/help/help-inactive.svg";
+import localFont from "next/font/local";
 import logoIcon from "@/public/images/logo.svg";
 // import logoutIcon from "@/public/images/icons/logout.svg";
 import messagingActive from "@/public/images/dashboard/sections/messaging/messaging-active.svg";
@@ -42,6 +44,37 @@ import useLogout from "@/hooks/dashboard/general/use-logout";
 import {usePathname} from "next/navigation";
 import {useSelector} from "react-redux";
 
+// import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+// const Averia = Averia_Libre({weight: ["300", "400", "700"], subsets: ["latin"]});
+
+// Font files can be colocated inside of `app`
+const myFont = localFont({
+	src: [
+		{
+			path: "../AvenirLTStd-Book.otf",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "../AvenirLTStd-Roman.otf",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "../AvenirLTStd-Black.otf",
+			weight: "700",
+			style: "normal",
+		},
+	],
+	display: "swap",
+});
+
+const inter = Inter({
+	subsets: ["latin"],
+	variable: "--font-inter",
+});
+
 export default function DashboardLayout({
 	children, // will be a page or nested layout
 }: {
@@ -52,10 +85,10 @@ export default function DashboardLayout({
 	const {isLoading, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();
-	const accountStatus = useSelector((state: IRootState) => state.init.user?.account_status);
+	const isAccountCreated = useSelector((state: IRootState) => state.init.isAccountCreated);
+	const user = useSelector((state: IRootState) => state.init.user);
 
 	const [showNav, setShowNav] = useState<boolean>(false);
-	const [isAccountCreated, setIsAccountCreated] = useState<boolean>(false);
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [isTabletViewDownwards] = useState<boolean>(!!(width < 1024));
 
@@ -64,11 +97,6 @@ export default function DashboardLayout({
 		refetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	useLayoutEffect(() => {
-		if (!accountStatus) return;
-		setIsAccountCreated(!!(accountStatus !== UserActivationStatus.UNCOMPLETED));
-	}, [accountStatus]);
 
 	useEffect(() => {
 		setShowNav(false);
@@ -93,12 +121,15 @@ export default function DashboardLayout({
 		}
 	}, [width]);
 
-	console.log(isLoading);
 	return (
 		<>
 			{isLoading && <LoadingScreen />}
 			{isMounted && (
-				<div className="relative min-h-screen w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]" id="dashboard" tabIndex={-1}>
+				<div
+					className={`${inter.className} ` + "font-in relative min-h-screen w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]"}
+					id="dashboard"
+					tabIndex={-1}
+				>
 					{/* <IdleModal /> */}
 					{showNav && <Overlay onClick={handleCloseNav} />}
 					<aside
@@ -117,9 +148,15 @@ export default function DashboardLayout({
 							<div className="h-28">
 								<div className="flex h-28 items-center justify-between px-6 lg:justify-center">
 									<Link className="lg:w-full" href={"/"} tabIndex={showNav ? 0 : -1}>
-										<div className="flex cursor-pointer items-center justify-center">
+										<div className="flex cursor-pointer items-center justify-start">
 											<Image priority src={logoIcon} width={27.29} height={31.5} alt="Flat Share logo" />
-											<span className="ml-3 mt-1 flex items-center justify-center text-3xl font-semibold">FlatShare</span>
+											<span
+												className={
+													`${myFont.className} ` + "ml-3 mt-1 flex items-center justify-center text-2xl font-semibold"
+												}
+											>
+												FlatShare
+											</span>
 										</div>
 									</Link>
 
@@ -130,10 +167,11 @@ export default function DashboardLayout({
 							</div>
 
 							<div className="flex-grow overflow-y-auto px-6 ">
-								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-4">
-									<h5 className="select-none text-sm font-medium uppercase text-black-quat">menu</h5>
+								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-4">
+									<h5 className="select-none text-xs font-medium uppercase text-black-quat">menu</h5>
 									{/* <div className="flex flex-col justify-start gap-1"></div> */}
-									{!isAccountCreated ? (
+									{!isAccountCreated ||
+									(user?.account_status === UserActivationStatus.OFFLINE && user.user_type === UserType.HOST) ? (
 										<MenuItem
 											onClick={handleOpenNav}
 											path={"/dashboard/get-started"}
@@ -187,8 +225,8 @@ export default function DashboardLayout({
 									)}
 								</div>
 
-								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-backdrop pb-12 pt-10">
-									<h5 className="select-none text-sm font-medium uppercase text-black-quat">support</h5>
+								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-10">
+									<h5 className="select-none text-xs font-medium uppercase text-black-quat">support</h5>
 									<div className="flex flex-col justify-start gap-1">
 										{isAccountCreated && (
 											<>
@@ -229,7 +267,7 @@ export default function DashboardLayout({
 												>
 													<Image priority src={darkModeInActive} width={24} height={24} alt="icon" tabIndex={-1} />
 													<span
-														className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-medium"
+														className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-medium"
 														tabIndex={-1}
 														data-type="section"
 													>
@@ -248,7 +286,14 @@ export default function DashboardLayout({
 										</Button>
 									</div>
 								</div>
-								<div className={isAccountCreated ? "w-full" : "absolute bottom-0 left-0 w-full px-6"}>
+								<div
+									className={
+										!isAccountCreated ||
+										(user?.account_status === UserActivationStatus.OFFLINE && user.user_type === UserType.HOST)
+											? "absolute bottom-0 left-0 w-full px-6"
+											: "w-full"
+									}
+								>
 									<Button
 										ripple="dark"
 										color="grey"
@@ -266,7 +311,7 @@ export default function DashboardLayout({
 											tabIndex={-1}
 										>
 											<Logout />
-											<span className="ml-2 font-medium" tabIndex={-1} data-type="section">
+											<span className="ml-2 text-sm font-medium" tabIndex={-1} data-type="section">
 												Logout
 											</span>
 										</div>
@@ -322,7 +367,7 @@ export default function DashboardLayout({
 								</div>
 							</header>
 
-							<main className="-moz-h-fit-available -webkit-h-fit-available  -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start overflow-y-auto px-4 lg:px-8">
+							<main className="-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start overflow-y-auto bg-white-dash-bg">
 								{children}
 							</main>
 						</div>

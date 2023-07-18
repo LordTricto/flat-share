@@ -10,6 +10,7 @@ const initialState: InitState = {
 	isInitError: null,
 	isInitLoading: false,
 
+	isAccountCreated: false,
 	user: null,
 	token: null,
 	filter: null,
@@ -51,6 +52,10 @@ export const initSlice = createSlice({
 			state.filter = null;
 		},
 
+		setIsAccountCreatedStatus: (state: InitState, action: PayloadAction<boolean>) => {
+			state.isAccountCreated = action.payload;
+		},
+
 		initReset: (state: InitState) => {
 			state.isLoggedIn = false;
 
@@ -64,6 +69,6 @@ export const initSlice = createSlice({
 	},
 });
 
-export const {initRequest, initFailure, initSuccess, loginSuccess, logoutSuccess, initReset} = initSlice.actions;
+export const {initRequest, initFailure, initSuccess, loginSuccess, logoutSuccess, setIsAccountCreatedStatus, initReset} = initSlice.actions;
 
 export default initSlice.reducer;

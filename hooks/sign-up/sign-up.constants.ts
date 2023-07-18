@@ -11,5 +11,5 @@ export type SignUpForm = {
 export interface SignUpFormResponse {
 	success: string;
 	message: string;
-	user: UserMin;
+	// user: UserMin;
 }

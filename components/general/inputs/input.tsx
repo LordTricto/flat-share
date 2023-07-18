@@ -4,6 +4,8 @@ import {ExcludeProps, InputPropsToExclude} from "./types";
 import Image, {StaticImageData} from "next/image";
 import React, {InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from "react";
 
+import arrowDownIcon from "@/public/images/dashboard/general/input-down-arrow.svg";
+import arrowUpIcon from "@/public/images/dashboard/general/input-up-arrow.svg";
 import passwordHideIcon from "@/public/images/icons/password-eye-hide.svg";
 import passwordShowIcon from "@/public/images/icons/password-eye-show.svg";
 import useClickOutside from "@/helpers/useClickOutside";
@@ -22,6 +24,8 @@ interface InputProps extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>,
 	appendOuterIcon?: ReactNode;
 	iconLeft?: boolean;
 	onChange?(value: string): void;
+	onUpClick?: () => void;
+	onDownClick?: () => void;
 	isFocused?: boolean;
 	isLoading?: boolean;
 	alwaysActive?: boolean;
@@ -40,6 +44,8 @@ function Input({
 	appendOuterIcon,
 	iconLeft = false,
 	onChange,
+	onUpClick,
+	onDownClick,
 	isFocused,
 	isLoading,
 	inputSize = "lg",
@@ -167,6 +173,16 @@ function Input({
 								<Image src={passwordShowIcon} alt="password show icon" />
 							)}
 						</span>
+					)}
+					{type === "number" && (
+						<div className="bg-pink-20 absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2 px-2">
+							<div className="flex w-full items-center justify-center" onClick={onUpClick}>
+								<Image src={arrowUpIcon} alt="arrow up icon" className="cursor-pointer" />
+							</div>
+							<div className="flex w-full items-center justify-center" onClick={onDownClick}>
+								<Image src={arrowDownIcon} alt="arrow down icon" className="cursor-pointer" />
+							</div>
+						</div>
 					)}
 				</div>
 			</div>

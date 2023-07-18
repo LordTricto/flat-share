@@ -1,4 +1,4 @@
-import {setToStageFour, setToStageOne, setToStageThree, setToStageTwo} from "@/redux/get-started/get-started";
+import {setToStageOne, setToStageThree, setToStageTwo} from "@/redux/get-started/get-started";
 import {useDispatch, useSelector} from "react-redux";
 
 import {IRootState} from "@/redux/rootReducer";

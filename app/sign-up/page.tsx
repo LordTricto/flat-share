@@ -17,6 +17,7 @@ import YupPassword from "yup-password";
 import formikHasError from "@/helpers/formikHasError";
 import resetPasswordSuccessImg from "@/public/images/reset-password/Medal and trophy awarded for success.png";
 import {useRouter} from "next/navigation";
+import useSignIn from "@/hooks/sign-in/use-sign-in";
 import useSignUp from "@/hooks/sign-up/use-sign-up";
 
 YupPassword(Yup);
@@ -24,6 +25,8 @@ YupPassword(Yup);
 function SignUp() {
 	const router = useRouter();
 	const handleSignUp = useSignUp();
+	const handleSignIn = useSignIn();
+
 	const [hasAgreedToTerms, setHasAgreedToTerms] = useState(false);
 
 	const formikRef = useRef<FormikProps<SignUpForm> | null>(null);
@@ -47,13 +50,19 @@ function SignUp() {
 			.required("Required"),
 	});
 
-	const handleSignIn = () => {
+	const handleSignInFunc = () => {
 		router.push("/sign-in");
 	};
 
 	const handleDashboard = () => {
-		router.push("/dashboard");
+		handleSignIn.mutate({
+			username: handleSignUp.variables?.email || "",
+			password: handleSignUp.variables?.password || "",
+		});
 	};
+
+	console.log(handleSignUp);
+
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-between">
 			<section
@@ -74,7 +83,7 @@ function SignUp() {
 							<Image src={resetPasswordSuccessImg} alt="trophy and arrow bullseye" width={200} height={200} priority />
 							<div className="flex w-full flex-col items-center justify-start gap-4">
 								<h2 className="text-2xl font-semibold text-black">Awesome 🚀</h2>
-								<p className="max-w-screen-4xs text-center text-black-tertiary">
+								<p className="max-w-screen-4xs text-center text-base text-black-tertiary">
 									Welcome aboard! Your account creation is complete. Get ready to embark on an exciting journey with us!
 								</p>
 							</div>
@@ -144,7 +153,7 @@ function SignUp() {
 
 							<div className="mb-10 flex flex-row items-center justify-start gap-2">
 								<span className="text-sm 2xs:text-base lg:text-lg">Already have an account?</span>
-								<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={handleSignIn}>
+								<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={handleSignInFunc}>
 									<span className="text-sm font-medium 2xs:text-base lg:text-lg">Sign in</span>
 								</Button>
 							</div>

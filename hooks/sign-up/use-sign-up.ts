@@ -1,7 +1,7 @@
 import {SignUpForm, SignUpFormResponse} from "./sign-up.constants";
 import {UseMutationResult, useMutation} from "@tanstack/react-query";
-import axios, {AxiosError} from "axios";
 
+import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
 import {signUpApi} from "./sign-up-api";
