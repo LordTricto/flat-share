@@ -2,10 +2,9 @@
 
 import * as Yup from "yup";
 
-import {CircularProgressbar, buildStyles} from "react-circular-progressbar";
 import {CreateAdForm, apartmentTypeOptions, genderOptions, paymentFrequencyOptions} from "@/hooks/dashboard/create-ad/create-ad.constants";
 import {Form, Formik, FormikProps} from "formik";
-import React, {useRef, useState} from "react";
+import {useRef, useState} from "react";
 
 import Arrow from "@/components/jsx-icons/arrow";
 import Button from "@/components/general/button/button";
@@ -20,13 +19,11 @@ import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
 import Tag from "@/components/dashboard/create-ad/tags/tag";
 import asideSectionPattern from "@/public/images/dashboard/home/aside-section-pattern.png";
-import cameraIcon from "@/public/images/dashboard/general/camera.svg";
 import emptyIcon from "@/public/images/dashboard/general/empty-list.svg";
 import emptyProfileIcon from "@/public/images/dashboard/general/empty-profile.svg";
 import formikHasError from "@/helpers/formikHasError";
 import mainSectionPattern from "@/public/images/dashboard/home/main-section-pattern.png";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-import reloadIcon from "@/public/images/dashboard/general/reload.svg";
 import {useSelector} from "react-redux";
 
 function CreateAd() {

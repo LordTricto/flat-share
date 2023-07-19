@@ -1,9 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
-import logoIcon from "@/public/images/logo.svg";
-import pageDivider from "@/public/images/general/page-divider.svg";
-import signUpImg from "@/public/images/sign-up/sign-up-1.png";
 
 export default function GetStartedLayout({
 	children, // will be a page or nested layout
