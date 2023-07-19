@@ -27,6 +27,7 @@ interface InputProps extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>,
 	onUpClick?: () => void;
 	onDownClick?: () => void;
 	isFocused?: boolean;
+	isMoney?: boolean;
 	isLoading?: boolean;
 	alwaysActive?: boolean;
 	isDisabled?: boolean;
@@ -43,6 +44,7 @@ function Input({
 	appendIcon,
 	appendOuterIcon,
 	iconLeft = false,
+	isMoney = false,
 	onChange,
 	onUpClick,
 	onDownClick,
@@ -96,7 +98,13 @@ function Input({
 				{label && (
 					<label
 						htmlFor={otherProps.id || uniqueId}
-						className={`text-lg font-medium leading-[100%] text-black-secondary  ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={
+							`font-medium leading-[100%] text-black-secondary  ` +
+							`${isDisabled ? "text-black-quat " : ""} ` +
+							`${inputSize === "lg" ? "text-lg" : ""} ` +
+							`${inputSize === "md" ? "text-base" : ""} ` +
+							`${inputSize === "sm" ? "text-sm" : ""} `
+						}
 						onClick={() => {
 							if (inputRef.current) {
 								inputRef.current.focus();
@@ -157,7 +165,10 @@ function Input({
 					/>
 					{icon && (
 						<span
-							className={`flex cursor-default items-center justify-start text-black-secondary transition-all duration-75 ease-in-out `}
+							className={
+								`flex cursor-default items-center justify-start text-black-secondary transition-all duration-75 ease-in-out ` +
+								`${isMoney ? "pt-1" : ""}`
+							}
 						>
 							<Image src={icon} alt="input icon" />
 						</span>

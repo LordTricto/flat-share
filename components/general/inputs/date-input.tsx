@@ -14,6 +14,7 @@ import useClickOutside from "../../../helpers/useClickOutside";
 interface DateInputProps {
 	date: Date | null;
 	label: string;
+	inputSize?: "sm" | "md" | "lg";
 	handleSetDate: (_date: Date) => void;
 	placeholder: string;
 }
@@ -69,6 +70,7 @@ function DateInput(props: DateInputProps): JSX.Element {
 					name="date"
 					value={date ? moment(date).format("YYYY-MM-DD") : undefined}
 					icon={calendarIcon}
+					inputSize={props.inputSize}
 					readOnly
 				/>
 				<div

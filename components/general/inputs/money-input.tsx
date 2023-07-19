@@ -70,6 +70,7 @@ function MoneyInput(props: Props): JSX.Element {
 				}
 				props.onChange(values[1]);
 			}}
+			isMoney
 			iconLeft
 			helperText={props.helperText}
 			mobileHelperText={props.mobileHelperText}

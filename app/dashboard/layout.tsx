@@ -367,7 +367,7 @@ export default function DashboardLayout({
 								</div>
 							</header>
 
-							<main className="-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start overflow-y-auto bg-white-dash-bg">
+							<main className="-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start bg-white-dash-bg">
 								{children}
 							</main>
 						</div>

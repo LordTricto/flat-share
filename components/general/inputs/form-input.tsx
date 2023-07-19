@@ -108,7 +108,13 @@ function FormInput({
 				{label && (
 					<label
 						htmlFor={otherProps.id || uniqueId}
-						className={`text-lg font-medium leading-[100%] text-black-secondary  ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={
+							`text-lg font-medium leading-[100%] text-black-secondary  ` +
+							`${isDisabled ? "text-black-quat " : ""} ` +
+							`${inputSize === "lg" ? "text-lg" : ""} ` +
+							`${inputSize === "md" ? "text-base" : ""} ` +
+							`${inputSize === "sm" ? "text-sm" : ""} `
+						}
 						onClick={() => {
 							if (inputRef.current) {
 								inputRef.current.focus();

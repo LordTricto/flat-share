@@ -8,7 +8,7 @@ interface ButtonProps {
 	type?: "button" | "submit" | "reset";
 	isDisabled?: boolean;
 	buttonType?: "primary" | "secondary" | "tertiary";
-	color: "blue" | "grey" | "red" | "transparent" | "translucent";
+	color: "blue" | "grey" | "red" | "white" | "transparent" | "translucent";
 	fullWidth?: boolean;
 	fullHeight?: boolean;
 	onClick?: (e: React.MouseEvent) => void;
@@ -25,25 +25,28 @@ interface ButtonProps {
 export type ButtonColor = "blue" | "grey" | "red" | "transparent";
 
 const primaryColors = {
+	red: "text-white bg-error hover:bg-error ",
 	blue: "text-white bg-blue hover:bg-blue-hover focus:bg-blue-focused active:bg-blue-hover",
 	transparent: "text-black-secondary hover:text-black focus:outline-none",
-	red: "text-white bg-error hover:bg-error ",
 	grey: "",
+	white: "",
 	translucent: "",
 };
 
 const primaryDisabledColors = {
 	blue: "text-white bg-grey-quat",
-	transparent: "",
-	grey: "",
 	red: "",
+	grey: "",
+	white: "",
 	translucent: "",
+	transparent: "",
 };
 
 const secondaryColors = {
+	red: "text-error bg-white border-error",
 	blue: "text-blue border-blue hover:border-blue-hover hover:bg-blue-senary hover:text-blue focus:border-blue-focused focus:bg-blue-senary focus:text-blue-focused",
 	grey: "text-black-tertiary border-black-quat hover:border-blue-hover hover:text-blue focus:border-blue-focused focus:text-blue-focused",
-	red: "text-error bg-white border-error",
+	white: "text-black-secondary bg-white border-black-quin",
 	translucent: "text-white translucent-backdrop border-white",
 	transparent: "",
 };
@@ -51,13 +54,15 @@ const secondaryDisabledColors = {
 	blue: "text-blue-quat border-blue-quat",
 	grey: "text-black-quat border-black-quin",
 	red: "",
+	white: "",
 	transparent: "",
 	translucent: "",
 };
 const tertiaryColors = {
+	red: "text-error",
 	blue: "text-blue hover:text-blue focus:text-blue-focused",
 	grey: "text-black-tertiary hover:text-black-secondary focus:text-black-secondary",
-	red: "text-error",
+	white: "",
 	transparent: "",
 	translucent: "",
 };
@@ -65,9 +70,10 @@ const tertiaryColors = {
 const tertiaryDisabledColors = {
 	blue: "text-blue-quin",
 	grey: "text-black-quat",
+	red: "",
+	white: "",
 	transparent: "",
 	translucent: "",
-	red: "",
 };
 
 const getLoaderColor = (props: ButtonProps): string => {

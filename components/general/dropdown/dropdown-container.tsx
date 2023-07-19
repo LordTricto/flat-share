@@ -140,7 +140,13 @@ function DropdownContainer({
 			{label && (
 				<label
 					htmlFor={uniqueId}
-					className={`text-lg font-medium leading-[100%] text-black-secondary ` + `${isDisabled ? "text-black-quat " : ""} `}
+					className={
+						`font-medium leading-[100%] text-black-secondary ` +
+						`${isDisabled ? "text-black-quat " : ""} ` +
+						`${size === "lg" ? "text-lg" : ""} ` +
+						`${size === "md" ? "text-base" : ""} ` +
+						`${size === "sm" ? "text-sm" : ""} `
+					}
 					onClick={() => {
 						if (inputRef.current) {
 							inputRef.current.focus();
@@ -188,8 +194,11 @@ function DropdownContainer({
 				{!hasInput && value && (
 					<span
 						className={
-							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-base text-black-secondary ` +
-							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat " : ""} `
+							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap  text-black-secondary ` +
+							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat " : ""} ` +
+							`${size === "lg" ? "text-base" : ""} ` +
+							`${size === "md" ? "text-sm" : ""} ` +
+							`${size === "sm" ? "text-xs" : ""} `
 						}
 					>
 						{value}

@@ -9,6 +9,7 @@ let textareaCounter = 0;
 
 interface TextAreaProps extends ExcludeProps<TextareaHTMLAttributes<HTMLTextAreaElement>, TextAreaPropsToExclude> {
 	sm?: boolean;
+	textSize?: "sm" | "md" | "lg";
 	name: string;
 	label: string;
 	readOnly?: boolean;
@@ -22,6 +23,7 @@ interface TextAreaProps extends ExcludeProps<TextareaHTMLAttributes<HTMLTextArea
 
 function FormTextArea({
 	sm = false,
+	textSize = "lg",
 	name,
 	label,
 	readOnly = false,
@@ -47,6 +49,9 @@ function FormTextArea({
 			`px-4 py-3 h-full w-full z-10 placeholder:text-black-quat resize-none focus:outline-none focus:border-none rounded-lg bg-white ` +
 			`${!!field.value && String(field.value).trim().length > 0 ? "text-black-secondary" : ""} ` +
 			`${sm ? "h-12" : "h-12"} ` +
+			+`${textSize === "lg" ? "text-base" : ""} ` +
+			`${textSize === "md" ? "text-sm" : ""} ` +
+			`${textSize === "sm" ? "text-xs" : ""} ` +
 			`${isDisabled ? "text-black-quat bg-transparent " : ""} `,
 	};
 
@@ -81,7 +86,12 @@ function FormTextArea({
 				{label && (
 					<label
 						htmlFor={uniqueId}
-						className={`text-lg font-medium leading-[100%] text-black-secondary ` + `${isDisabled ? "text-black-quat " : ""} `}
+						className={
+							`font-medium leading-[100%] text-black-secondary ` +
+							`${textSize === "lg" ? "text-lg" : ""} ` +
+							`${textSize === "md" ? "text-base" : ""} ` +
+							`${textSize === "sm" ? "text-sm" : ""} `
+						}
 						onClick={() => {
 							if (textAreaRef.current) {
 								textAreaRef.current.focus();
@@ -94,7 +104,7 @@ function FormTextArea({
 				<div
 					className={
 						`relative w-full resize-none rounded-lg bg-white shadow-none outline-none focus:outline-none ` +
-						`text-left text-base font-normal leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
+						`text-left font-normal leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
 						`border border-solid border-black-quin focus:border-black-quat lg:hover:border-black-quat ` +
 						`${active ? "border-black-quat" : ""} ` +
 						`${isLoading ? "pointer-events-none" : ""} ` +
