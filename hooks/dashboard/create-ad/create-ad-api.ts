@@ -1,4 +1,6 @@
-import {GetStartedForm, GetStartedFormResponse} from "./create-ad.constants";
+// import {GetStartedForm, GetStartedFormResponse} from "./create-ad.constants";
+
+import {GetStartedForm, GetStartedFormResponse} from "../get-started/account-setup/get-started.constants";
 
 import Filter from "@/models/filter";
 import {GenericObject} from "@/helpers/types";

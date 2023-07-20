@@ -1,41 +1,57 @@
 "use client";
 
 import Dropdown from "@/components/general/dropdown/dropdown";
+import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import React from "react";
+import {accountTypeOptions} from "@/hooks/dashboard/general/general.constants";
 import {apartmentTypeOptions} from "@/app/find-a-home/find-a-home.constant";
+import useLogout from "@/hooks/dashboard/general/use-logout";
+import {useSelector} from "react-redux";
 import userProfile from "@/public/images/icons/user-profile.svg";
 
 function AccountDropdown() {
+	const user = useSelector((state: IRootState) => state.init.user);
+	const {mutate} = useLogout();
+
 	return (
 		<>
 			<Dropdown
 				value={undefined}
 				size="fit"
 				customHead={
-					<div className="max-w-9 flex w-full flex-row items-center justify-between">
+					<div className="flex w-40 max-w-xs flex-row items-center justify-between">
 						<div>
-							<Image priority src={userProfile} width={40} height={40} alt="user" />
+							<Image
+								priority
+								className="rounded-full"
+								src={user ? user.profile_photo_path : userProfile}
+								width={40}
+								height={40}
+								alt="user"
+							/>
 						</div>
 
 						<div className=" w-full overflow-hidden overflow-ellipsis whitespace-nowrap px-2 subpixel-antialiased">
 							<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-left">
 								<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-black">
-									Roger Dokidis
+									{user?.fname || ""} {user?.lname || ""}
 								</div>
 								<div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-xs font-normal text-black-tertiary">
-									rogerdokidis@gmail.com
+									{user?.email || ""}
 								</div>
 							</div>
 						</div>
 					</div>
 				}
 				customHeadStyle="!px-3 !rounded-2xl "
-				onSelect={() => {
+				onSelect={(_value) => {
+					if (_value === 2) {
+						mutate();
+					}
 					return;
 				}}
-				// placeholder={"All Types"}
-				options={apartmentTypeOptions}
+				options={accountTypeOptions}
 			/>
 		</>
 	);

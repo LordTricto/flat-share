@@ -167,7 +167,12 @@ export default function DashboardLayout({
 							</div>
 
 							<div className="flex-grow overflow-y-auto px-6 ">
-								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-4">
+								<div
+									className={
+										"flex w-full flex-col justify-start gap-3 border-b pb-12 pt-4 " +
+										`${isAccountCreated ? "border-grey-secondary" : "border-transparent"}`
+									}
+								>
 									<h5 className="select-none text-xs font-medium uppercase text-black-quat">menu</h5>
 									{/* <div className="flex flex-col justify-start gap-1"></div> */}
 									{!isAccountCreated ||
@@ -225,31 +230,32 @@ export default function DashboardLayout({
 									)}
 								</div>
 
-								<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-10">
-									<h5 className="select-none text-xs font-medium uppercase text-black-quat">support</h5>
-									<div className="flex flex-col justify-start gap-1">
-										{isAccountCreated && (
-											<>
-												<MenuItem
-													onClick={handleOpenNav}
-													path={"/dashboard/settings"}
-													iconActive={settingsActive}
-													iconInActive={settingsInActive}
-													text="Settings"
-												/>
+								{isAccountCreated && (
+									<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-10">
+										<h5 className="select-none text-xs font-medium uppercase text-black-quat">support</h5>
+										<div className="flex flex-col justify-start gap-1">
+											{isAccountCreated && (
+												<>
+													<MenuItem
+														onClick={handleOpenNav}
+														path={"/dashboard/settings"}
+														iconActive={settingsActive}
+														iconInActive={settingsInActive}
+														text="Settings"
+													/>
 
-												<MenuItem
-													onClick={handleOpenNav}
-													path="/dashboard/explore"
-													iconActive={helpActive}
-													iconInActive={helpInActive}
-													text="Help"
-													isPreRelease
-												/>
-											</>
-										)}
+													<MenuItem
+														onClick={handleOpenNav}
+														path="/dashboard/explore"
+														iconActive={helpActive}
+														iconInActive={helpInActive}
+														text="Help"
+														isPreRelease
+													/>
+												</>
+											)}
 
-										<Button
+											{/* <Button
 											ripple="dark"
 											color="transparent"
 											type="button"
@@ -283,9 +289,10 @@ export default function DashboardLayout({
 													/>
 												</div>
 											</div>
-										</Button>
+										</Button> */}
+										</div>
 									</div>
-								</div>
+								)}
 								<div
 									className={
 										!isAccountCreated ||
@@ -294,7 +301,7 @@ export default function DashboardLayout({
 											: "w-full"
 									}
 								>
-									<Button
+									{/* <Button
 										ripple="dark"
 										color="grey"
 										type="button"
@@ -314,6 +321,42 @@ export default function DashboardLayout({
 											<span className="ml-2 text-sm font-medium" tabIndex={-1} data-type="section">
 												Logout
 											</span>
+										</div>
+									</Button> */}
+									<Button
+										ripple="dark"
+										color="transparent"
+										type="button"
+										buttonType="primary"
+										data-type="section"
+										// className="!px-3"
+										className="mb-10 mt-12 !px-0"
+										noTabIndex
+										fullWidth
+									>
+										<div className="flex w-full items-center justify-between">
+											<div
+												className="relative flex h-9 w-full items-center justify-start tracking-normal"
+												data-type="section"
+												tabIndex={-1}
+											>
+												<Image priority src={darkModeInActive} width={24} height={24} alt="icon" tabIndex={-1} />
+												<span
+													className="ml-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-medium"
+													tabIndex={-1}
+													data-type="section"
+												>
+													Dark mode
+												</span>
+											</div>
+											<div className="w-max">
+												<ToggleSwitch
+													isActive={false}
+													onToggle={() => {
+														return;
+													}}
+												/>
+											</div>
 										</div>
 									</Button>
 								</div>

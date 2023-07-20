@@ -1,4 +1,5 @@
-import {GetStartedForm, GetStartedFormResponse} from "./create-ad.constants";
+import {GetStartedForm, GetStartedFormResponse} from "../get-started/account-setup/get-started.constants";
+// import {GetStartedForm, GetStartedFormResponse} from "./create-ad.constants";
 import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
 import {AxiosError} from "axios";

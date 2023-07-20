@@ -21,6 +21,7 @@ interface Props<T extends DropdownItemValueType> {
 	customHead?: React.ReactNode;
 	placeholder?: string;
 	customHeadStyle?: string;
+	withIconBackdrop?: boolean;
 
 	onSelect: (value: T | undefined) => void;
 	onCancel?: () => void;
@@ -41,6 +42,7 @@ function Dropdown<T extends DropdownItemValueType>({
 	customHead,
 	placeholder = "",
 	customHeadStyle = "",
+	withIconBackdrop = false,
 	onSelect,
 	onCancel = undefined,
 	clickOutsideFunc = undefined,
@@ -79,9 +81,12 @@ function Dropdown<T extends DropdownItemValueType>({
 							<div className="flex flex-row items-center justify-start">
 								{option.icon && (
 									<div>
-										<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
-											<Image src={option.icon} alt="icon" priority />
-										</div>
+										{withIconBackdrop && (
+											<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
+												<Image src={option.icon} alt="icon" priority />
+											</div>
+										)}
+										<Image src={option.icon} alt="icon" priority />
 									</div>
 								)}
 								<span className={"text-sm capitalize text-black-secondary " + `${option.icon ? "ml-2" : ""}`} data-type="dropdown">
