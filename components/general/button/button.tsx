@@ -4,11 +4,11 @@ import React from "react";
 interface ButtonProps {
 	children: React.ReactNode;
 	ripple?: "light" | "dark";
-	size?: "sm" | "md" | "lg" | "xl";
+	size?: "xs" | "sm" | "md" | "lg" | "xl";
 	type?: "button" | "submit" | "reset";
 	isDisabled?: boolean;
 	buttonType?: "primary" | "secondary" | "tertiary";
-	color: "blue" | "grey" | "red" | "white" | "transparent" | "translucent";
+	color: "blue" | "grey" | "red" | "white" | "transparent" | "translucent" | "black";
 	fullWidth?: boolean;
 	fullHeight?: boolean;
 	onClick?: (e: React.MouseEvent) => void;
@@ -28,6 +28,7 @@ const primaryColors = {
 	red: "text-white bg-error hover:bg-error ",
 	blue: "text-white bg-blue hover:bg-blue-hover focus:bg-blue-focused active:bg-blue-hover",
 	transparent: "text-black-secondary hover:text-black focus:outline-none",
+	black: "text-white bg-black",
 	grey: "",
 	white: "",
 	translucent: "",
@@ -37,6 +38,7 @@ const primaryDisabledColors = {
 	blue: "text-white bg-grey-quat",
 	red: "",
 	grey: "",
+	black: "",
 	white: "",
 	translucent: "",
 	transparent: "",
@@ -49,11 +51,13 @@ const secondaryColors = {
 	white: "text-black-secondary bg-white border-black-quin",
 	translucent: "text-white translucent-backdrop border-white",
 	transparent: "",
+	black: "",
 };
 const secondaryDisabledColors = {
 	blue: "text-blue-quat border-blue-quat",
 	grey: "text-black-quat border-black-quin",
 	red: "",
+	black: "",
 	white: "",
 	transparent: "",
 	translucent: "",
@@ -62,6 +66,7 @@ const tertiaryColors = {
 	red: "text-error",
 	blue: "text-blue hover:text-blue focus:text-blue-focused",
 	grey: "text-black-tertiary hover:text-black-secondary focus:text-black-secondary",
+	black: "",
 	white: "",
 	transparent: "",
 	translucent: "",
@@ -71,6 +76,7 @@ const tertiaryDisabledColors = {
 	blue: "text-blue-quin",
 	grey: "text-black-quat",
 	red: "",
+	black: "",
 	white: "",
 	transparent: "",
 	translucent: "",
@@ -164,7 +170,9 @@ const getClass = (props: ButtonProps): string => {
 	}
 
 	if (props.buttonType !== "tertiary") {
-		if (props.size === "sm") {
+		if (props.size === "xs") {
+			classes.push("h-7 px-3 text-xs");
+		} else if (props.size === "sm") {
 			classes.push("h-8 px-4 text-sm");
 		} else if (props.size === "md") {
 			classes.push("h-10 px-6 text-sm");
@@ -174,7 +182,9 @@ const getClass = (props: ButtonProps): string => {
 			classes.push("h-12 px-8 text-md");
 		}
 	} else {
-		if (props.size === "sm") {
+		if (props.size === "xs") {
+			classes.push("text-xs");
+		} else if (props.size === "sm") {
 			classes.push("text-sm");
 		} else if (props.size === "md") {
 			classes.push("text-sm");

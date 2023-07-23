@@ -39,13 +39,13 @@ function StageFour(props: Props) {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full w-[448px] flex-col items-center justify-center gap-8">
+			<div className="mx-auto flex h-full w-full flex-col items-center justify-center gap-8 md:w-[448px]">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<div className="flex flex-col items-center justify-center gap-4">
-						<span className="text-4xl leading-[100%]">📸</span>
-						<h3 className="text-3xl font-bold capitalize leading-[100%] text-black">Upload Image!</h3>
+						<span className="text-3xl leading-[100%]">📸</span>
+						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Upload Image!</h3>
 					</div>
-					<p className="text-center text-lg text-black-tertiary">Add a profile picture so people can see you.</p>
+					<p className="text-center text-base text-black-tertiary">Add a profile picture so people can see you.</p>
 				</div>
 
 				<div className="mx-auto flex w-full max-w-[215px] flex-col items-center justify-start gap-8 pt-8">
@@ -57,7 +57,7 @@ function StageFour(props: Props) {
 							</div>
 						</div>
 					)}
-					<div className="flex w-full flex-col items-center justify-center gap-8">
+					<div className="flex w-full flex-col items-center justify-center gap-5">
 						<Button type="button" buttonType="secondary" color="grey" fullWidth onClick={onTargetClick}>
 							<span>{props.croppedImg ? "Replace Image" : "Select File"}</span>
 						</Button>
@@ -71,8 +71,8 @@ function StageFour(props: Props) {
 								accept="image/*"
 							/>
 						)}
-						<p className="text-black-tertiary">Only .JPG & .PNG supported</p>
-						<p className="text-black-tertiary">Max file size is 3MB</p>
+						<p className="text-center text-base text-black-tertiary">Only .JPG & .PNG supported</p>
+						<p className="text-center text-base leading-[100%] text-black-tertiary">Max file size is 3MB</p>
 					</div>
 				</div>
 
@@ -81,7 +81,14 @@ function StageFour(props: Props) {
 					buttonType="primary"
 					color="blue"
 					isDisabled={!props.croppedImg}
-					onClick={() => (isHost ? router.push("/dashboard/create-ad") : dispatch(setIsAccountCreatedStatus(true)))}
+					onClick={() => {
+						if (isHost) {
+							router.push("/dashboard/create-ad");
+						} else {
+							dispatch(setIsAccountCreatedStatus(true));
+							router.push("/dashboard");
+						}
+					}}
 					borderFull
 					fullWidth
 				>

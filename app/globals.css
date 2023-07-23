@@ -65,3 +65,16 @@ input[type="number"] {
 	backdrop-filter: blur(1.5px) !important;
 	-webkit-backdrop-filter: blur(1.5px) !important;
 }
+
+.two-lines-max {
+	width: 100%; /* Adjust the width as needed */
+	height: 3em; /* Adjust the height to fit two lines of text */
+	height: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* Number of lines to show */
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-moz-box-pack: center;
+}

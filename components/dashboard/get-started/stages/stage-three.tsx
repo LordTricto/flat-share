@@ -39,13 +39,13 @@ function StageThree() {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full w-[448px] flex-col items-center justify-center gap-8">
+			<div className="mx-auto flex h-full w-full flex-col items-center justify-center gap-8 md:w-[448px]">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<div className="flex flex-col items-center justify-center gap-4">
-						<span className="text-4xl leading-[100%]">⏳</span>
-						<h3 className="text-3xl font-bold capitalize leading-[100%] text-black">Almost Done!</h3>
+						<span className="text-3xl leading-[100%]">⏳</span>
+						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Almost Done!</h3>
 					</div>
-					<p className="text-center text-lg text-black-tertiary">Tell us what you are looking for.</p>
+					<p className="text-center text-base text-black-tertiary">Tell us what you are looking for.</p>
 				</div>
 				<Formik
 					initialValues={initialFormState}
@@ -67,6 +67,7 @@ function StageThree() {
 									<MoneyInput
 										label="Budget"
 										name="budget"
+										inputSize="md"
 										value={String(formik.values.budget)}
 										onChange={(_value) => formik.getFieldHelpers("budget").setValue(moneyToNumber(String(_value)))}
 									/>
@@ -78,6 +79,7 @@ function StageThree() {
 											placeholder="Enter location..."
 											options={locationOptions.filter((_loc) => _loc.value !== formik.values.location_2)}
 											icon={locationIcon}
+											size="md"
 											noArrow
 										/>
 										<Dropdown
@@ -86,6 +88,7 @@ function StageThree() {
 											placeholder="Enter location..."
 											options={locationOptions.filter((_loc) => _loc.value !== formik.values.location_1)}
 											icon={locationIcon}
+											size="md"
 											noArrow
 										/>
 									</div>

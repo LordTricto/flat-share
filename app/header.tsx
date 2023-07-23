@@ -7,12 +7,35 @@ import CtaButton from "@/components/landing/cta-button";
 import HamburgerClose from "@/components/jsx-icons/hamburger-close";
 import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import Image from "next/image";
+import {Inter} from "next/font/google";
 import Link from "next/link";
+import localFont from "next/font/local";
 // import hamburgerCloseIcon from "@/public/images/icons/hamburger-close.svg";
 // import hamburgerOpenIcon from "@/public/images/icons/hamburger-open.svg";
 import logoIcon from "@/public/images/logo.svg";
 import {usePathname} from "next/navigation";
 import {useRouter} from "next/navigation";
+
+const myFont = localFont({
+	src: [
+		{
+			path: "./AvenirLTStd-Book.otf",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "./AvenirLTStd-Roman.otf",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "./AvenirLTStd-Black.otf",
+			weight: "700",
+			style: "normal",
+		},
+	],
+	display: "swap",
+});
 
 function Header(): JSX.Element {
 	const router = useRouter();
@@ -42,7 +65,7 @@ function Header(): JSX.Element {
 						<div className="flex w-full items-center justify-start gap-16">
 							<Link href="/">
 								<div className="flex w-max flex-row items-center justify-center">
-									<Image priority src={logoIcon} alt="Flat Share logo" />
+									<Image priority src={logoIcon} width={30} alt="Flat Share logo" />
 									{/* <Image
 								className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
 								src="/next.svg"
@@ -53,7 +76,8 @@ function Header(): JSX.Element {
 							/> */}
 									<span
 										className={
-											"ml-3 mt-0.5" +
+											"ml-3 mt-0.5 text-2xl font-bold " +
+											`${myFont.className} ` +
 											` ${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`
 										}
 									>
@@ -64,7 +88,7 @@ function Header(): JSX.Element {
 
 							<div className="hidden w-full items-center justify-start gap-8 lg:flex">
 								<Link href="sign-up/find-flatmate">
-									<Button type="button" buttonType="tertiary" color="grey" size="md">
+									<Button type="button" buttonType="tertiary" color="grey">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
 										>
@@ -73,7 +97,7 @@ function Header(): JSX.Element {
 									</Button>
 								</Link>
 								<Link href="sign-up">
-									<Button type="button" buttonType="tertiary" color="grey" size="md">
+									<Button type="button" buttonType="tertiary" color="grey">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
 										>
@@ -82,7 +106,7 @@ function Header(): JSX.Element {
 									</Button>
 								</Link>
 								<Link href="find-a-home">
-									<Button type="button" buttonType="tertiary" color="grey" size="md">
+									<Button type="button" buttonType="tertiary" color="grey">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
 										>
@@ -93,7 +117,7 @@ function Header(): JSX.Element {
 							</div>
 						</div>
 						<div className="hidden items-center justify-center gap-6 lg:flex">
-							<Button type="button" buttonType="tertiary" color="grey" size="md" onClick={handleSignIn}>
+							<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
 								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 									Sign In
 								</span>
@@ -125,28 +149,28 @@ function Header(): JSX.Element {
 						}
 					>
 						<div className="flex w-full flex-col items-center justify-start gap-8">
-							{/* <Link href="sign-up/find-flatmate">
-								<Button type="button" buttonType="tertiary" color="grey" size="md">
+							<Link href="sign-up/find-flatmate">
+								<Button type="button" buttonType="tertiary" color="grey">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 										Find Flatmate
 									</span>
 								</Button>
 							</Link>
 							<Link href="sign-up/be-a-host">
-								<Button type="button" buttonType="tertiary" color="grey" size="md">
+								<Button type="button" buttonType="tertiary" color="grey">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 										Become a Host
 									</span>
 								</Button>
-							</Link> */}
-							{/* <Link href="find-a-home">
-								<Button type="button" buttonType="tertiary" color="grey" size="md">
+							</Link>
+							<Link href="find-a-home">
+								<Button type="button" buttonType="tertiary" color="grey">
 									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 										Find a Home
 									</span>
 								</Button>
-							</Link> */}
-							<Button type="button" buttonType="tertiary" color="grey" size="md" onClick={handleSignIn}>
+							</Link>
+							<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
 								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
 									Sign In
 								</span>

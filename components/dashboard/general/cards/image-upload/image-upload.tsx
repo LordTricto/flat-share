@@ -30,11 +30,9 @@ function ImageUpload(props: Props) {
 	};
 
 	return (
-		<div>
+		<div className="w-full sm:w-[unset]">
 			<div
-				className={
-					"relative flex h-28 w-28 cursor-pointer items-center justify-center overflow-hidden rounded-[10px] border border-black-quin"
-				}
+				className="relative flex h-44 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[10px] border border-black-quin sm:h-28 sm:w-28"
 				onClick={onTargetClick}
 			>
 				{props.image && (

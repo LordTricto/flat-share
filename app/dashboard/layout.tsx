@@ -12,7 +12,7 @@ import Image from "next/image";
 import {Inter} from "next/font/google";
 import Link from "next/link";
 import LoadingScreen from "@/components/dashboard/general/loading-screen";
-import Logout from "@/components/jsx-icons/logout";
+// import Logout from "@/components/jsx-icons/logout";
 import MenuItem from "@/components/dashboard/layout/menuItem";
 import Notification from "@/components/jsx-icons/notification";
 import Overlay from "@/components/dashboard/layout/overlay";
@@ -81,7 +81,7 @@ export default function DashboardLayout({
 	children: React.ReactNode;
 }) {
 	// const {initPing} = usePing();
-	const {mutate} = useLogout();
+	// const {mutate} = useLogout();
 	const {isLoading, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();

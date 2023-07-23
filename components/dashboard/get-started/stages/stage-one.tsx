@@ -28,13 +28,13 @@ function StageOne() {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full w-[448px] flex-col items-center justify-center gap-14">
+			<div className="mx-auto flex h-full w-full flex-col items-center justify-center gap-14 md:w-[448px]">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<div className="flex flex-col items-center justify-center gap-4">
-						<span className="text-4xl leading-[100%]">👋</span>
-						<h3 className="text-3xl font-bold capitalize leading-[100%] text-black">Welcome Roger!</h3>
+						<span className="text-3xl leading-[100%]">👋</span>
+						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Welcome Roger!</h3>
 					</div>
-					<p className="text-center text-lg text-black-tertiary">
+					<p className="text-center text-base text-black-tertiary">
 						It&apos;s greet to have you with us. To help us optimize your experience, tell us how you intend to use FlatShare.
 					</p>
 				</div>
@@ -58,10 +58,10 @@ function StageOne() {
 					{(formik) => {
 						return (
 							<Form className="flex w-full flex-col items-start justify-start gap-10">
-								<div className="flex w-full flex-col items-start justify-between gap-4 md:flex-row">
+								<div className="flex w-full flex-col items-start justify-between gap-4 2xs:flex-row">
 									<div
 										className={
-											"group flex w-full max-w-[215px] cursor-pointer flex-col items-center justify-center gap-4 " +
+											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
 											"rounded-lg border py-6 duration-150 hover:border-blue hover:bg-blue-senary " +
 											`${formik.values.user_type === UserType.HOST_HUNTERS ? "border-blue" : "border-grey-quat"}`
 										}
@@ -69,13 +69,13 @@ function StageOne() {
 									>
 										<Flatmate />
 										<div className="flex flex-col items-center justify-center">
-											<p className="text-lg font-medium">Find Flatmate</p>
-											<p className="text-center text-sm text-black-tertiary">Show me flat hosts</p>
+											<p className="text-base font-medium">Find Flatmate</p>
+											<p className="text-center text-xs text-black-tertiary">Show me flat hosts</p>
 										</div>
 									</div>
 									<div
 										className={
-											"group flex w-full max-w-[215px] cursor-pointer flex-col items-center justify-center gap-4 " +
+											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
 											"rounded-lg border py-6 duration-150 hover:border-blue hover:bg-blue-senary " +
 											`${formik.values.user_type === UserType.HOST ? "border-blue" : "border-grey-quat"}`
 										}
@@ -83,8 +83,8 @@ function StageOne() {
 									>
 										<FlatHost />
 										<div className="flex flex-col items-center justify-center">
-											<p className="text-lg font-medium">Be a host</p>
-											<p className="text-center text-sm text-black-tertiary">Show me flat finders</p>
+											<p className="text-base font-medium">Be a host</p>
+											<p className="text-center text-xs text-black-tertiary">Show me flat finders</p>
 										</div>
 									</div>
 								</div>

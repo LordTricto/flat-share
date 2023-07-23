@@ -109,7 +109,7 @@ function FormInput({
 					<label
 						htmlFor={otherProps.id || uniqueId}
 						className={
-							`text-lg font-medium leading-[100%] text-black-secondary  ` +
+							`font-medium leading-[100%] text-black-secondary  ` +
 							`${isDisabled ? "text-black-quat " : ""} ` +
 							`${inputSize === "lg" ? "text-lg" : ""} ` +
 							`${inputSize === "md" ? "text-base" : ""} ` +

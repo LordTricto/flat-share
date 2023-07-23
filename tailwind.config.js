@@ -31,7 +31,7 @@ module.exports = {
 					backdrop: "#fafaff",
 				},
 				black: {
-					DEFAULT: "#1F2130",
+					DEFAULT: "#0D2247",
 					secondary: "#41415A",
 					tertiary: "#71748C",
 					quat: "#B8BAC6",

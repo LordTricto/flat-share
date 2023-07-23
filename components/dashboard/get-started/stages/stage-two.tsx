@@ -46,13 +46,13 @@ function StageTwo() {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full w-[448px] flex-col items-center justify-center gap-8">
+			<div className="mx-auto flex h-full w-full flex-col items-center justify-center gap-8 md:w-[448px]">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<div className="flex flex-col items-center justify-center gap-4">
-						<span className="text-4xl leading-[100%]">👋</span>
-						<h3 className="text-3xl font-bold capitalize leading-[100%] text-black">Let us get to know you.</h3>
+						<span className="text-3xl leading-[100%]">👋</span>
+						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Let us get to know you.</h3>
 					</div>
-					<p className="text-center text-lg text-black-tertiary">Tell us about yourself.</p>
+					<p className="text-center text-base text-black-tertiary">Tell us about yourself.</p>
 				</div>
 				<Formik
 					initialValues={initialFormState}
@@ -70,13 +70,14 @@ function StageTwo() {
 						return (
 							<Form className="flex w-full flex-col items-start justify-start gap-8">
 								<div className="flex w-full flex-col items-start justify-start gap-5">
-									<FormInput type="text" label="Profession" name="profession" />
+									<FormInput type="text" label="Profession" name="profession" inputSize="md" />
 									<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 										<Dropdown
 											label="Religion"
 											value={`${formik.values.religion}`}
 											onSelect={(value: string | undefined) => formik.getFieldHelpers("religion").setValue(value)}
 											placeholder="Select..."
+											size="md"
 											options={religionOptions}
 										/>
 										<Dropdown
@@ -84,6 +85,7 @@ function StageTwo() {
 											value={`${formik.values.education}`}
 											onSelect={(value: string | undefined) => formik.getFieldHelpers("education").setValue(value)}
 											placeholder="Select..."
+											size="md"
 											options={educationOptions}
 										/>
 									</div>
@@ -93,6 +95,7 @@ function StageTwo() {
 											value={`${formik.values.age}`}
 											onSelect={(value: string | undefined) => formik.getFieldHelpers("age").setValue(value)}
 											placeholder="Select..."
+											size="md"
 											options={ageOptions}
 										/>
 										<Dropdown
@@ -100,10 +103,11 @@ function StageTwo() {
 											value={`${formik.values.sex}`}
 											onSelect={(value: string | undefined) => formik.getFieldHelpers("sex").setValue(value)}
 											placeholder="Select..."
+											size="md"
 											options={genderOptions}
 										/>
 									</div>
-									<FormTextArea label="Bio" name="bio" />
+									<FormTextArea label="Bio" name="bio" textSize="md" />
 								</div>
 								<Button
 									type="submit"

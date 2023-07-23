@@ -6,29 +6,20 @@ import {CreateAdForm, apartmentTypeOptions, genderOptions, paymentFrequencyOptio
 import {Form, Formik, FormikProps} from "formik";
 import {useRef, useState} from "react";
 
-import Arrow from "@/components/jsx-icons/arrow";
 import Button from "@/components/general/button/button";
-import Cancel from "@/components/jsx-icons/cancel";
 import CircularProgress from "@/components/dashboard/general/circular-progressbar";
 import Dropdown from "@/components/general/dropdown/dropdown";
 import FormTextArea from "@/components/general/text-area/form-text-area";
-import {IRootState} from "@/redux/rootReducer";
-import Image from "next/image";
 import ImageUpload from "@/components/dashboard/general/cards/image-upload/image-upload";
 import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
+import NotificationBar from "@/components/dashboard/general/notification-bar/notification-bar";
 import Tag from "@/components/dashboard/create-ad/tags/tag";
-import asideSectionPattern from "@/public/images/dashboard/home/aside-section-pattern.png";
-import emptyIcon from "@/public/images/dashboard/general/empty-list.svg";
-import emptyProfileIcon from "@/public/images/dashboard/general/empty-profile.svg";
+import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import formikHasError from "@/helpers/formikHasError";
-import mainSectionPattern from "@/public/images/dashboard/home/main-section-pattern.png";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-import {useSelector} from "react-redux";
 
 function CreateAd() {
-	const user = useSelector((state: IRootState) => state.init.user);
-	const isAccountCreated = useSelector((state: IRootState) => state.init.isAccountCreated);
 	const formikRef = useRef<FormikProps<CreateAdForm> | null>(null);
 
 	const initialFormState: CreateAdForm = {
@@ -63,9 +54,6 @@ function CreateAd() {
 		description: Yup.string(),
 	});
 
-	const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-	const [selectedImg, setSelectedImg] = useState("");
 	const [selectedTestImages, setSelectedTestImages] = useState({
 		image_1: "",
 		image_2: "",
@@ -76,73 +64,27 @@ function CreateAd() {
 	});
 	const [isWelcomeNoteOpen, setIsWelcomeNoteOpen] = useState(true);
 
-	const [isActivityEmpty] = useState(true);
-	const [isTagActive, setIsTagActive] = useState(true);
-	const [number, setNumber] = useState(0);
-
-	const onFileChange = (file: File) => {
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = function (e) {
-				const imagePath = e.target?.result;
-				setSelectedImg(imagePath as string);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
-
-	const onTargetClick = () => {
-		fileInputRef.current && fileInputRef.current.click();
-	};
-
 	return (
 		<>
 			<div className="flex h-full w-full">
 				<div className="relative h-full w-full overflow-y-auto">
 					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-5 py-6">
 						{isWelcomeNoteOpen && (
-							<div className="relative w-full">
-								<Image
-									className="absolute left-0 top-0 z-0 h-full w-full "
-									src={mainSectionPattern}
-									alt="main background"
-									fill
-									// width={112}
-									// height={112}
-									tabIndex={-1}
-								/>
-								<div className="z-10 flex flex-col gap-5 px-6 py-5">
-									<div className="z-10 flex flex-col gap-3 text-white">
-										<h3 className="text-base font-semibold">Welcome to FlatShare</h3>
-										<p className="text-xs">Create your apartment ad and complete your account setup.</p>
-									</div>
-									<Button
-										type="button"
-										buttonType="secondary"
-										color="white"
-										size="sm"
-										onClick={() => setIsWelcomeNoteOpen(false)}
-										borderSmall
-									>
-										<span className="text-sm leading-none">Okay, I understand</span>
-									</Button>
-								</div>
-								<div className="absolute right-6 top-5 z-10 cursor-pointer text-white" onClick={() => setIsWelcomeNoteOpen(false)}>
-									<Cancel />
-								</div>
-							</div>
+							<WelcomeCard
+								subTitle="Create your apartment ad and complete your account setup."
+								ctaText="Okay, I understand"
+								toggle={() => setIsWelcomeNoteOpen(false)}
+							/>
 						)}
 
 						<div className="h-fit  w-full pb-6">
-							<div className="flex h-fit w-full flex-col gap-8 rounded-[10px] bg-white p-8">
+							<div className="flex h-fit w-full flex-col gap-8 rounded-[10px] bg-white px-5 pt-8 2xs:p-8">
 								<div className="flex flex-col items-center justify-center gap-4">
 									<div className="flex flex-col items-center justify-center gap-5">
 										<span className="text-3xl">🏠</span>
 										<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Create Ad</h3>
 									</div>
-									<p className="text-center text-base leading-[100%] text-black-tertiary">
-										Complete your account by creating an apartment ad.
-									</p>
+									<p className="text-center text-base text-black-tertiary">Complete your account by creating an apartment ad.</p>
 								</div>
 								<Formik
 									initialValues={initialFormState}
@@ -156,12 +98,11 @@ function CreateAd() {
 									validateOnMount
 								>
 									{(formik) => {
-										console.log(formik);
 										return (
 											<Form className="flex h-fit w-full flex-col items-start justify-start gap-8">
-												<div className="flex flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
+												<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
 													<div className="flex w-full flex-col gap-5">
-														<div className="grid w-full grid-cols-2 gap-8">
+														<div className="grid w-full grid-cols-1 gap-5 2xs:gap-8 lg:!grid-cols-1 [@media(min-width:1200px)]:!grid-cols-2 [@media(min-width:700px)]:grid-cols-2">
 															<Dropdown
 																label="Apartment Type"
 																value={formik.values.apartment_type}
@@ -171,7 +112,7 @@ function CreateAd() {
 																size="md"
 																options={apartmentTypeOptions}
 															/>
-															<div className="flex gap-5">
+															<div className="flex flex-col gap-5 2xs:flex-row">
 																<Input
 																	label="Bedrooms"
 																	type="number"
@@ -248,7 +189,7 @@ function CreateAd() {
 																/>
 															</div>
 														</div>
-														<div className="grid w-full grid-cols-2 gap-8">
+														<div className="grid w-full grid-cols-1 gap-5 2xs:grid-cols-2 2xs:gap-8">
 															<MoneyInput
 																label="Rental Cost"
 																name="rental_cost"
@@ -268,7 +209,7 @@ function CreateAd() {
 																options={paymentFrequencyOptions}
 															/>
 														</div>
-														<div className="grid w-full grid-cols-2 gap-8">
+														<div className="grid w-full grid-cols-1 gap-5 2xs:grid-cols-2 2xs:gap-8">
 															<div className="flex flex-col gap-3">
 																<div className="flex gap-5">
 																	<MoneyInput
@@ -943,7 +884,7 @@ function CreateAd() {
 															<h3 className="text-base font-medium leading-[100%] text-black-secondary">
 																Apartment Image
 															</h3>
-															<div className="flex flex-row justify-between gap-3">
+															<div className="flex flex-row flex-wrap gap-4 lg:justify-start">
 																<ImageUpload
 																	handleSelectImage={(_value) => {
 																		setSelectedTestImages((prev) => ({...prev, image_1: _value}));
@@ -1041,50 +982,7 @@ function CreateAd() {
 					</div>
 				</div>
 
-				<div className="relative h-full min-w-[280px] overflow-y-auto">
-					<div className="absolute left-0 top-0 flex h-fit w-full flex-col gap-[42px] overflow-y-auto border-l border-grey-quat bg-white px-5 py-6">
-						<div className="flex h-72 flex-grow flex-col gap-[42px]">
-							<h4 className="text-base font-semibold leading-[100%] text-black">Activities</h4>
-							<div className="h-full w-full border-b border-grey-secondary">
-								{isActivityEmpty ? (
-									<>
-										<div className="flex w-full flex-col items-center justify-center pt-8">
-											<Image priority src={emptyIcon} alt="Empty state" />
-											<p className="-mt-2.5 text-xs text-grey-quin">No activities to display</p>
-										</div>
-									</>
-								) : (
-									<></>
-								)}
-							</div>
-						</div>
-						<div className="flex h-80 flex-grow flex-col gap-[42px]">
-							<h4 className="text-base font-semibold leading-[100%] text-black">Recent Messages</h4>
-							<div className="h-full w-full border-b border-grey-secondary">
-								{isActivityEmpty ? (
-									<>
-										<div className="flex w-full flex-col items-center justify-center gap-1 pt-8">
-											<Image priority src={emptyProfileIcon} alt="Empty state" />
-											<p className="text-xs text-grey-quin">No conversation to display</p>
-										</div>
-									</>
-								) : (
-									<></>
-								)}
-							</div>
-						</div>
-						<div className="relative flex w-full flex-col gap-6 overflow-hidden rounded-[11px] px-6 py-3">
-							<Image priority src={asideSectionPattern} className="absolute left-0 top-0 z-0 h-full w-full" alt="Empty state" />
-							<h3 className="z-10 max-w-[190px] text-base font-semibold text-white">Unlock more benefits and exclusive features.</h3>
-							<Button type="button" buttonType="secondary" color="translucent" size="sm" fullWidth borderFull>
-								<div className="flex w-max flex-row items-center justify-center gap-1.5 pl-0.5">
-									<span className="text-sm leading-none">Upgrade Account</span>
-									<Arrow />
-								</div>
-							</Button>
-						</div>
-					</div>
-				</div>
+				<NotificationBar />
 			</div>
 		</>
 	);
