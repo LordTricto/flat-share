@@ -8,11 +8,33 @@ import emailIcon from "@/public/images/icons/email.svg";
 import facebookIcon from "@/public/images/icons/facebook.svg";
 import instagramIcon from "@/public/images/icons/instagram.svg";
 import linkedInIcon from "@/public/images/icons/linkedIn.svg";
+import localFont from "next/font/local";
 import locationIcon from "@/public/images/icons/location.svg";
 import logoIcon from "@/public/images/logo-white.svg";
 import phoneIcon from "@/public/images/icons/phone.svg";
 import twitterIcon from "@/public/images/icons/twitter.svg";
 import {usePathname} from "next/navigation";
+
+const myFont = localFont({
+	src: [
+		{
+			path: "./AvenirLTStd-Book.otf",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "./AvenirLTStd-Roman.otf",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "./AvenirLTStd-Black.otf",
+			weight: "700",
+			style: "normal",
+		},
+	],
+	display: "swap",
+});
 
 function Footer(): JSX.Element {
 	const pathname = usePathname();
@@ -26,7 +48,15 @@ function Footer(): JSX.Element {
 							<Link href="/">
 								<div className="flex flex-row items-center justify-start">
 									<Image priority src={logoIcon} alt="Flat Share logo" />
-									<span className="ml-3 text-xl sm:text-2xl">FlatShare</span>
+									<span
+										className={
+											"ml-3 mt-0.5 text-2xl font-bold " +
+											`${myFont.className} ` +
+											` ${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`
+										}
+									>
+										FlatShare
+									</span>
 								</div>
 							</Link>
 							<p className="w-full max-w-md text-sm sm:text-base">
@@ -35,16 +65,16 @@ function Footer(): JSX.Element {
 							</p>
 							<div className="flex flex-row gap-4">
 								<Link href="https://facebook.com/" passHref={true} target="_blank">
-									<Image width={26} height={26} priority src={facebookIcon} alt="facebook logo" />
+									<Image className="h-[26px] w-[26px]" priority src={facebookIcon} alt="facebook logo" />
 								</Link>
 								<Link href="https://instagram.com/" passHref={true} target="_blank">
-									<Image width={26} height={26} priority src={instagramIcon} alt="instagram logo" />
+									<Image className="h-[26px] w-[26px]" priority src={instagramIcon} alt="instagram logo" />
 								</Link>
 								<Link href="https://linkedIn.com/" passHref={true} target="_blank">
-									<Image width={26} height={26} priority src={linkedInIcon} alt="linkedIn logo" />
+									<Image className="h-[26px] w-[26px]" priority src={linkedInIcon} alt="linkedIn logo" />
 								</Link>
 								<Link href="https://twitter.com/" passHref={true} target="_blank">
-									<Image width={26} height={26} priority src={twitterIcon} alt="twitter logo" />
+									<Image className="h-[26px] w-[26px]" priority src={twitterIcon} alt="twitter logo" />
 								</Link>
 							</div>
 						</div>
