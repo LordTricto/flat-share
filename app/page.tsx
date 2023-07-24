@@ -221,7 +221,7 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="grid grid-cols-1 gap-10 2xs:grid-cols-2">
-						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#C2E8FF] px-4 pb-28 pt-20 md:px-16">
+						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#C2E8FF] px-4 pb-16 pt-14 md:px-16 md:pb-28 md:pt-20">
 							<Image src={personalizedRecommendationImg} width={400} height={427} alt="black man smiling" priority />
 							<div className="flex flex-col items-center justify-center gap-8">
 								<h3 className="text-center text-xl font-black !leading-[100%] text-black xs:text-2xl lg:text-3xl">
@@ -233,7 +233,7 @@ export default function Home() {
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#BDC7F5] px-4 pb-28 pt-20 md:px-16">
+						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#BDC7F5] px-4 pb-16 pt-14 md:px-16 md:pb-28 md:pt-20">
 							<Image src={instantMessagingImg} width={400} height={427} alt="black man smiling" priority />
 							<div className="flex flex-col items-center justify-center gap-8">
 								<h3 className="text-center text-xl font-black !leading-[100%] text-black xs:text-2xl lg:text-3xl">
