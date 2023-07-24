@@ -22,9 +22,19 @@
 	line-height: 100%;
 }
 
+html {
+	height: stretch;
+	height: -webkit-fill-available;
+}
 body {
 	color: rgb(var(--foreground-rgb));
 	background: white;
+	min-height: 100vh;
+	min-height: stretch;
+	min-height: -webkit-fill-available;
+	max-height: -webkit-fill-available;
+	max-height: -moz-available;
+	max-height: stretch;
 	-webkit-font-smoothing: antialiased !important;
 	-moz-osx-font-smoothing: grayscale !important;
 }
@@ -81,5 +91,14 @@ input[type="number"] {
 
 .-webkit-h-fit-available {
 	/* Safari and Chrome */
-	height: "-webkit-fill-available";
+	height: -webkit-fill-available !important;
+}
+
+.-moz-h-fit-available {
+	/* IE and Edge */
+	height: 100%;
+}
+.-ms-h-fit-available {
+	/* IE and Edge */
+	height: 100%;
 }

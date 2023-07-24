@@ -28,6 +28,7 @@ interface InputProps extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>,
 	onDownClick?: () => void;
 	isFocused?: boolean;
 	isMoney?: boolean;
+	isNumber?: boolean;
 	isLoading?: boolean;
 	alwaysActive?: boolean;
 	isDisabled?: boolean;
@@ -45,6 +46,7 @@ function Input({
 	appendOuterIcon,
 	iconLeft = false,
 	isMoney = false,
+	isNumber = false,
 	onChange,
 	onUpClick,
 	onDownClick,
@@ -149,8 +151,8 @@ function Input({
 					<input
 						ref={inputRef}
 						type={type ? (type === "password" ? (showPassword ? "text" : "password") : type) : "text"}
-						inputMode={type === "number" ? "numeric" : undefined}
-						pattern={type === "number" ? "[0-9]+" : undefined}
+						inputMode={isNumber ? "numeric" : undefined}
+						pattern={isNumber ? "[0-9]+" : undefined}
 						value={value || ""}
 						onChange={(e) => onChange && onChange(e.target.value)}
 						className={

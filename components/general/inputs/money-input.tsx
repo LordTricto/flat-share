@@ -71,6 +71,7 @@ function MoneyInput(props: Props): JSX.Element {
 				props.onChange(values[1]);
 			}}
 			isMoney
+			isNumber
 			iconLeft
 			helperText={props.helperText}
 			mobileHelperText={props.mobileHelperText}

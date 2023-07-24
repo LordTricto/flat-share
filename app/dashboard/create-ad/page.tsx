@@ -138,6 +138,7 @@ function CreateAd() {
 																			.getFieldHelpers("bedrooms")
 																			.setValue(Number(formik.values.bedrooms) - 1);
 																	}}
+																	isNumber
 																/>
 																<Input
 																	label="Toilets"
@@ -160,6 +161,7 @@ function CreateAd() {
 																		}
 																		formik.getFieldHelpers("toilets").setValue(Number(formik.values.toilets) - 1);
 																	}}
+																	isNumber
 																/>
 																<Input
 																	label="Bathrooms"
@@ -186,6 +188,7 @@ function CreateAd() {
 																			.getFieldHelpers("bathrooms")
 																			.setValue(Number(formik.values.bathrooms) - 1);
 																	}}
+																	isNumber
 																/>
 															</div>
 														</div>

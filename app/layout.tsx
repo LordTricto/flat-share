@@ -47,7 +47,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 			<body className={myFont.className}>
 				<ReactQueryWrapper>
 					<ReduxProvider>
-						<div className="relative flex min-h-screen w-screen flex-col items-start justify-start">
+						<div className="relative flex h-full w-screen flex-col items-start justify-start">
 							<ToastContainer />
 							<Header />
 							{children}

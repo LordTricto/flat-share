@@ -126,7 +126,7 @@ export default function DashboardLayout({
 			{isLoading && <LoadingScreen />}
 			{isMounted && (
 				<div
-					className={`${inter.className} ` + "font-in relative min-h-screen w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]"}
+					className={`${inter.className} ` + "font-in relative h-full w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]"}
 					id="dashboard"
 					tabIndex={-1}
 				>
@@ -364,11 +364,8 @@ export default function DashboardLayout({
 						</div>
 					</aside>
 					<section className="w-full">
-						<div className="flex h-screen max-h-screen w-full flex-col items-start justify-start 4xs:h-full">
-							<header
-								className="sticky top-0 z-10 flex w-full flex-row items-center justify-center border-b border-grey-quat bg-white 2xs:relative 2xs:top-[unset] 2xs:z-0"
-								tabIndex={-1}
-							>
+						<div className="flex h-full w-full flex-col items-start justify-start 4xs:h-full">
+							<header className="flex w-full flex-row items-center justify-center border-b border-grey-quat bg-white" tabIndex={-1}>
 								<div className="mx-auto flex h-28 w-full flex-row  items-center justify-between px-4 lg:px-8 ">
 									<div className="flex w-full justify-between space-x-6 sm:space-x-12">
 										<div className="flex w-full items-center justify-start">
@@ -413,7 +410,7 @@ export default function DashboardLayout({
 								</div>
 							</header>
 
-							<main className="-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start bg-white-dash-bg">
+							<main className="relative flex h-full w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start bg-white-dash-bg">
 								{children}
 							</main>
 						</div>
