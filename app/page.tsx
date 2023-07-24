@@ -213,13 +213,15 @@ export default function Home() {
 				</div>
 				<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-start gap-8 px-4 py-16 2xs:px-8 xs:py-24 md:gap-16 lg:px-16">
 					<div className="flex flex-col items-center justify-center gap-6">
-						<h4 className="text-2xl font-black !leading-[100%] text-black xs:text-3xl lg:text-4xl">Perfect Matches for Everyone</h4>
-						<p className="text-base !leading-[100%] text-black-tertiary xs:text-lg lg:text-xl">
+						<h4 className="w-full text-left text-2xl font-black !leading-[100%] text-black xs:text-center xs:text-3xl lg:text-4xl">
+							Perfect Matches for Everyone
+						</h4>
+						<p className="text-left text-base !leading-[100%] text-black-tertiary xs:text-center xs:text-lg lg:text-xl">
 							View recommended profiles of flatmates and chat with your matches online!
 						</p>
 					</div>
 					<div className="grid grid-cols-1 gap-10 2xs:grid-cols-2">
-						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#C2E8FF] px-4 pb-28 pt-20 2xs:px-16">
+						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#C2E8FF] px-4 pb-28 pt-20 md:px-16">
 							<Image src={personalizedRecommendationImg} width={400} height={427} alt="black man smiling" priority />
 							<div className="flex flex-col items-center justify-center gap-8">
 								<h3 className="text-center text-xl font-black !leading-[100%] text-black xs:text-2xl lg:text-3xl">
@@ -231,7 +233,7 @@ export default function Home() {
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#BDC7F5] px-4 pb-28 pt-20 2xs:px-16">
+						<div className="flex flex-col items-center justify-start rounded-2xl bg-[#BDC7F5] px-4 pb-28 pt-20 md:px-16">
 							<Image src={instantMessagingImg} width={400} height={427} alt="black man smiling" priority />
 							<div className="flex flex-col items-center justify-center gap-8">
 								<h3 className="text-center text-xl font-black !leading-[100%] text-black xs:text-2xl lg:text-3xl">
