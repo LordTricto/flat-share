@@ -365,7 +365,10 @@ export default function DashboardLayout({
 					</aside>
 					<section className="w-full">
 						<div className="flex h-screen max-h-screen w-full flex-col items-start justify-start 4xs:h-full">
-							<header className="flex w-full flex-row items-center justify-center border-b border-grey-quat" tabIndex={-1}>
+							<header
+								className="sticky top-0 z-10 flex w-full flex-row items-center justify-center border-b border-grey-quat bg-white 2xs:relative 2xs:top-[unset] 2xs:z-0"
+								tabIndex={-1}
+							>
 								<div className="mx-auto flex h-28 w-full flex-row  items-center justify-between px-4 lg:px-8 ">
 									<div className="flex w-full justify-between space-x-6 sm:space-x-12">
 										<div className="flex w-full items-center justify-start">

@@ -7,7 +7,7 @@ export default function GetStartedLayout({
 }) {
 	return (
 		<div className="-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available relative flex w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start overflow-y-auto">
-			{children}
+			<div className="absolute left-0 top-0 flex w-full flex-col items-center justify-start">{children}</div>
 		</div>
 	);
 }
