@@ -78,3 +78,8 @@ input[type="number"] {
 	-moz-box-orient: vertical;
 	-moz-box-pack: center;
 }
+
+.-webkit-h-fit-available {
+	/* Safari and Chrome */
+	height: "-webkit-fill-available";
+}
