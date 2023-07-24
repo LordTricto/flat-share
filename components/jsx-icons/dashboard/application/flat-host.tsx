@@ -1,5 +1,5 @@
-import FlatHostActive from "../../../../public/images/dashboard/get-started/flat-host-active.svg";
-import FlatHostInactive from "../../../../public/images/dashboard/get-started/flat-host-inactive.svg";
+import FlatHostActive from "../../../../public/images/dashboard/get-started/flat-host-active.png";
+import FlatHostInactive from "../../../../public/images/dashboard/get-started/flat-host-inactive.png";
 import Image from "next/image";
 import React from "react";
 

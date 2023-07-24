@@ -1,5 +1,5 @@
-import FlatmateActive from "../../../../public/images/dashboard/get-started/flatmate-active.svg";
-import FlatmateInactive from "../../../../public/images/dashboard/get-started/flatmate-inactive.svg";
+import FlatmateActive from "../../../../public/images/dashboard/get-started/flatmate-active.png";
+import FlatmateInactive from "../../../../public/images/dashboard/get-started/flatmate-inactive.png";
 import Image from "next/image";
 import React from "react";
 
