@@ -14,8 +14,10 @@ interface Props<T extends DropdownItemValueType> {
 	value: T | undefined;
 	label?: string;
 	noArrow?: boolean;
+	noBorder?: boolean;
 	options: Array<DropdownItem<T>>;
 	fitHeight?: boolean;
+	fitWidth?: boolean;
 	canCancel?: boolean;
 	isDisabled?: boolean;
 	customHead?: React.ReactNode;
@@ -36,8 +38,10 @@ function Dropdown<T extends DropdownItemValueType>({
 	label,
 	options,
 	noArrow = false,
+	noBorder = false,
 	canCancel = false,
 	fitHeight = false,
+	fitWidth = false,
 	isDisabled = false,
 	customHead,
 	placeholder = "",
@@ -53,7 +57,9 @@ function Dropdown<T extends DropdownItemValueType>({
 			label={label}
 			icon={icon}
 			noArrow={noArrow}
+			noBorder={noBorder}
 			isCancel={canCancel}
+			fitWidth={fitWidth}
 			fitHeight={fitHeight}
 			customHead={customHead}
 			isDisabled={isDisabled}

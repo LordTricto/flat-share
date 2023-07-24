@@ -7,7 +7,7 @@ import logo from "@/public/images/logo-iso.svg";
 function LoadingScreen() {
 	return (
 		<div className="h-full w-full">
-			<div className="fixed z-[100] flex h-screen w-full flex-col items-center justify-center bg-white">
+			<div className="fixed z-[100] flex h-screen w-full flex-col items-center justify-center bg-white px-8">
 				<div className="flex w-full max-w-md flex-col items-center justify-center gap-10">
 					<div className="flex h-full w-full flex-col items-center justify-center gap-10">
 						<Image src={logo} alt="logo" width={56.34} height={65.04} priority />

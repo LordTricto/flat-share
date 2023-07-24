@@ -5,13 +5,15 @@ import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import React from "react";
 import {accountTypeOptions} from "@/hooks/dashboard/general/general.constants";
-import {apartmentTypeOptions} from "@/app/find-a-home/find-a-home.constant";
+// import {apartmentTypeOptions} from "@/app/find-a-home/find-a-home.constant";
+import useDimension from "@/helpers/useDimension";
 import useLogout from "@/hooks/dashboard/general/use-logout";
 import {useSelector} from "react-redux";
 import userProfile from "@/public/images/icons/user-profile.svg";
 
 function AccountDropdown() {
 	const user = useSelector((state: IRootState) => state.init.user);
+	const {width} = useDimension();
 	const {mutate} = useLogout();
 
 	return (
@@ -20,7 +22,7 @@ function AccountDropdown() {
 				value={undefined}
 				size="fit"
 				customHead={
-					<div className="flex w-40 max-w-xs flex-row items-center justify-between">
+					<div className="flex max-w-xs flex-row items-center justify-between xs:w-40">
 						<div>
 							<Image
 								priority
@@ -32,7 +34,7 @@ function AccountDropdown() {
 							/>
 						</div>
 
-						<div className=" w-full overflow-hidden overflow-ellipsis whitespace-nowrap px-2 subpixel-antialiased">
+						<div className="hidden w-full overflow-hidden overflow-ellipsis whitespace-nowrap px-2 subpixel-antialiased xs:block">
 							<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-left">
 								<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-black">
 									{user?.fname || ""} {user?.lname || ""}
@@ -44,7 +46,7 @@ function AccountDropdown() {
 						</div>
 					</div>
 				}
-				customHeadStyle="!px-3 !rounded-2xl "
+				customHeadStyle="!p-0 xs:!py-3 xs:!px-3 xs:!rounded-2xl"
 				onSelect={(_value) => {
 					if (_value === 2) {
 						mutate();
@@ -52,6 +54,9 @@ function AccountDropdown() {
 					return;
 				}}
 				options={accountTypeOptions}
+				noArrow={width < 541}
+				noBorder={width < 541}
+				fitWidth={width < 541}
 			/>
 		</>
 	);

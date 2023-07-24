@@ -152,7 +152,7 @@ function Input({
 						ref={inputRef}
 						type={type ? (type === "password" ? (showPassword ? "text" : "password") : type) : "text"}
 						inputMode={isNumber ? "numeric" : undefined}
-						pattern={isNumber ? "[0-9]+" : undefined}
+						// pattern={isNumber ? "[0-9]+" : undefined}
 						value={value || ""}
 						onChange={(e) => onChange && onChange(e.target.value)}
 						className={

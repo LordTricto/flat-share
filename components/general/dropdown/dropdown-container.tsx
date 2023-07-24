@@ -13,16 +13,19 @@ let inputCounter = 0;
 interface DropdownProps {
 	size?: "sm" | "md" | "lg" | "fit";
 	icon?: StaticImageData;
+	value: number | string | null;
 	label?: string;
 	noArrow?: boolean;
+	noBorder?: boolean;
+	fitWidth?: boolean;
 	children: React.ReactNode;
 	hasInput?: boolean;
+	placement?: "right" | "left";
 	isCancel?: boolean;
 	fitHeight?: boolean;
 	customHead?: React.ReactNode;
 	triggerLower?: boolean;
 	customHeadStyle?: string;
-	value: number | string | null;
 	searchTerm?: string;
 	placeholder: string;
 	isDisabled?: boolean;
@@ -41,10 +44,13 @@ function DropdownContainer({
 	icon = undefined,
 	label,
 	noArrow = false,
+	noBorder = false,
 	children,
+	placement = "center",
 	hasInput = false,
 	isCancel = false,
 	fitHeight = false,
+	fitWidth = false,
 	isDisabled = false,
 	customHead,
 	triggerLower = false,
@@ -165,6 +171,7 @@ function DropdownContainer({
 					`text-left text-base font-normal capitalize leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
 					`border border-solid border-black-quin focus:border-black-quat lg:hover:border-black-quat ` +
 					`${active ? "border-black-quat" : ""} ` +
+					`${noBorder ? "border-none !border-transparent" : ""} ` +
 					`${size === "lg" ? "h-12" : ""} ` +
 					`${size === "md" ? "h-10" : ""} ` +
 					`${size === "sm" ? "h-8" : ""} ` +
@@ -261,15 +268,13 @@ function DropdownContainer({
 
 			<div
 				className={
-					`absolute z-40 h-fit w-full transform cursor-pointer overflow-hidden overflow-y-auto rounded bg-white shadow ` +
+					`absolute z-40 h-fit transform cursor-pointer overflow-hidden overflow-y-auto rounded bg-white shadow ` +
 					`${
-						positionTop
-							? label
-								? "bottom-full left-0 -mb-[26px] origin-bottom"
-								: "bottom-full left-0 mb-1 origin-bottom"
-							: "left-0 top-full mt-1 origin-top"
+						positionTop ? (label ? "bottom-full -mb-[26px] origin-bottom" : "bottom-full mb-1 origin-bottom") : "top-full mt-1 origin-top"
 					} ` +
+					`${placement === "left" ? "left-0 " : "right-0"} ` +
 					`${!active ? "pointer-events-none scale-0 opacity-0" : "scale-100 opacity-100"} ` +
+					`${!fitWidth ? "w-full" : "w-max"} ` +
 					`${!fitHeight ? "max-h-56 " : ""} `
 				}
 			>

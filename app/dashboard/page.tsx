@@ -27,7 +27,7 @@ const Dashboard = () => {
 			{/* {isAccountCreated && ( */}
 			<div className="flex h-full w-full">
 				<div className="relative h-full w-full overflow-y-auto">
-					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-5 py-6">
+					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 						{isWelcomeNoteOpen && (
 							<WelcomeCard
 								subTitle="Begin your exploration and connect with potential flatmates to build meaningful relationships."
@@ -40,27 +40,29 @@ const Dashboard = () => {
 							<div className="flex w-full flex-col gap-4">
 								<h4 className="text-xl font-semibold leading-[100%] text-black-secondary">Your Requests</h4>
 								<div className="flex w-full flex-col items-center justify-between gap-6 rounded-2xl border border-grey bg-white p-6">
-									<div className="flex w-full items-center justify-between gap-6">
+									<div className="flex w-full items-start justify-between gap-6">
 										<div className="flex gap-7">
 											<div className="flex flex-col gap-3">
-												<p className="text-xs uppercase leading-[100%] text-black-quat">Total Request sent</p>
-												<span className="text-3xl font-semibold leading-[100%] text-black">5</span>
+												<p className="text-[10px] uppercase leading-[100%] text-black-quat xs:text-xs">Total Request sent</p>
+												<span className="text-2xl font-semibold leading-[100%] text-black xs:text-3xl">5</span>
 											</div>
 											<div className="flex flex-col gap-3">
-												<p className="text-xs uppercase leading-[100%] text-black-quat">Available Request</p>
-												<span className="text-3xl font-semibold leading-[100%] text-black">10</span>
+												<p className="text-[10px] uppercase leading-[100%] text-black-quat xs:text-xs">Available Request</p>
+												<span className="text-2xl font-semibold leading-[100%] text-black xs:text-3xl">10</span>
 											</div>
 										</div>
-										<Button type="button" buttonType="secondary" color="grey" size="xs" borderSmall>
-											<span>Manage Request</span>
-										</Button>
+										<div className="hidden xs:block">
+											<Button type="button" buttonType="secondary" color="grey" size="xs" borderSmall>
+												<span>Manage Request</span>
+											</Button>
+										</div>
 									</div>
 									{/* <div className="flex w-full items-center justify-between gap-10 divide-x divide-grey-secondary [&>*:not(:first-child)]:pl-10 "> */}
-									<div className="flex w-full justify-start gap-10">
+									<div className="flex w-full flex-col justify-start gap-6 sm:flex-row sm:gap-10">
 										<div className="flex w-full flex-col gap-3">
-											<p className="text-xs uppercase leading-[100%] text-black-quat">Total Request sent</p>
+											<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">Total Request sent</p>
 											<div className="flex w-full flex-col gap-3">
-												<div className="flex w-full items-center justify-between">
+												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
 													<div className="flex items-center justify-center gap-4">
 														<Image src={requestAvatarOne} width={28} height={28} alt="main background" tabIndex={-1} />
 														<p className="text-sm text-black-secondary">John Doe</p>
@@ -74,7 +76,7 @@ const Dashboard = () => {
 														</Button>
 													</div>
 												</div>
-												<div className="flex w-full items-center justify-between">
+												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
 													<div className="flex items-center justify-center gap-4">
 														<Image src={requestAvatarTwo} width={28} height={28} alt="main background" tabIndex={-1} />
 														<p className="text-sm text-black-secondary">Tiana Culhane</p>
@@ -90,15 +92,15 @@ const Dashboard = () => {
 												</div>
 											</div>
 										</div>
-										<div className="flex-grow">
+										<div className="sm:flex-grow">
 											<div className="flex h-full items-end justify-end">
-												<div className="h-[68px] w-[1px] bg-grey-secondary"></div>
+												<div className="h-[1px] w-full bg-grey-secondary sm:h-[68px] sm:w-[1px]"></div>
 											</div>
 										</div>
 										<div className="flex w-full flex-col gap-3">
-											<p className="text-xs uppercase leading-[100%] text-black-quat">Total Request sent</p>
+											<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">Total Request sent</p>
 											<div className="flex w-full flex-col gap-3">
-												<div className="flex w-full items-center justify-between">
+												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
 													<div className="flex items-center justify-center gap-4">
 														<Image src={requestAvatarTwo} width={28} height={28} alt="main background" tabIndex={-1} />
 														<p className="text-sm text-black-secondary">Jocelyn Culhane</p>
@@ -107,7 +109,7 @@ const Dashboard = () => {
 														<span className="text-xs font-medium text-orange-500">Pending</span>
 													</div>
 												</div>
-												<div className="flex w-full items-center justify-between">
+												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
 													<div className="flex items-center justify-center gap-4">
 														<Image src={requestAvatarOne} width={28} height={28} alt="main background" tabIndex={-1} />
 														<p className="text-sm text-black-secondary">Carla Stanton</p>
@@ -119,11 +121,16 @@ const Dashboard = () => {
 											</div>
 										</div>
 									</div>
+									<div className="flex w-full xs:hidden">
+										<Button type="button" buttonType="secondary" color="grey" size="xs" borderSmall>
+											<span>Manage Request</span>
+										</Button>
+									</div>
 								</div>
 							</div>
 							<div className="flex w-full flex-col gap-4">
 								<h4 className="text-xl font-semibold leading-[100%] text-black-secondary">Suggested for You</h4>
-								<div className="grid grid-cols-1 gap-5 2xs:grid-cols-2">
+								<div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 									<div className="flex w-full flex-col gap-5 rounded-2xl border border-grey bg-white p-6">
 										<div className="flex flex-col gap-3">
 											<div className="flex gap-4">

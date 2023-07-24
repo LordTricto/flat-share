@@ -68,7 +68,7 @@ function CreateAd() {
 		<>
 			<div className="flex h-full w-full">
 				<div className="relative h-full w-full overflow-y-auto">
-					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-5 py-6">
+					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 xs:px-5 py-6">
 						{isWelcomeNoteOpen && (
 							<WelcomeCard
 								subTitle="Create your apartment ad and complete your account setup."

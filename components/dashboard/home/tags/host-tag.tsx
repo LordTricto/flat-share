@@ -1,4 +1,4 @@
-import FlatHostActive from "@/public/images/dashboard/get-started/flat-host-active.svg";
+import FlatHostActive from "@/public/images/dashboard/get-started/flat-host-active.png";
 import Image from "next/image";
 import React from "react";
 

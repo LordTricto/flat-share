@@ -1,9 +1,9 @@
 "use client";
 
+import Image, {StaticImageData} from "next/image";
 import React, {useEffect, useState} from "react";
 
 import Button from "@/components/general/button/button";
-import Image from "next/image";
 import Link from "next/link";
 import {canShowPreReleaseFeatures} from "../../../utils/preReleaseConfig";
 import {usePathname} from "next/navigation";
@@ -11,8 +11,8 @@ import {usePathname} from "next/navigation";
 interface Props {
 	text: string;
 	path: string;
-	iconActive: string;
-	iconInActive: string;
+	iconActive: StaticImageData;
+	iconInActive: StaticImageData;
 	isPreRelease?: boolean;
 
 	onClick(e: React.MouseEvent): void;

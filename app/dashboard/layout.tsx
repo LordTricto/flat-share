@@ -19,25 +19,25 @@ import Overlay from "@/components/dashboard/layout/overlay";
 // import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import SearchBar from "@/components/general/search-bar";
 import ToggleSwitch from "@/components/general/toggle-switch";
-// import darkModeActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-active.svg";
-import darkModeInActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-inactive.svg";
-import exploreActive from "@/public/images/dashboard/sections/explore/explore-active.svg";
-import exploreInActive from "@/public/images/dashboard/sections/explore/explore-inactive.svg";
-import helpActive from "@/public/images/dashboard/sections/help/help-active.svg";
-import helpInActive from "@/public/images/dashboard/sections/help/help-inactive.svg";
+// import darkModeActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-active.png";
+import darkModeInActive from "@/public/images/dashboard/sections/dark-mode/dark-mode-inactive.png";
+import exploreActive from "@/public/images/dashboard/sections/explore/explore-active.png";
+import exploreInActive from "@/public/images/dashboard/sections/explore/explore-inactive.png";
+import helpActive from "@/public/images/dashboard/sections/help/help-active.png";
+import helpInActive from "@/public/images/dashboard/sections/help/help-inactive.png";
 import localFont from "next/font/local";
 import logoIcon from "@/public/images/logo.svg";
 // import logoutIcon from "@/public/images/icons/logout.svg";
-import messagingActive from "@/public/images/dashboard/sections/messaging/messaging-active.svg";
-import messagingInActive from "@/public/images/dashboard/sections/messaging/messaging-inactive.svg";
-import overviewActive from "@/public/images/dashboard/sections/overview/overview-active.svg";
-import overviewInActive from "@/public/images/dashboard/sections/overview/overview-inactive.svg";
-import paymentsActive from "@/public/images/dashboard/sections/payments/payments-active.svg";
-import paymentsInActive from "@/public/images/dashboard/sections/payments/payments-inactive.svg";
-import profileActive from "@/public/images/dashboard/sections/profile/profile-active.svg";
-import profileInActive from "@/public/images/dashboard/sections/profile/profile-inactive.svg";
-import settingsActive from "@/public/images/dashboard/sections/settings/settings-active.svg";
-import settingsInActive from "@/public/images/dashboard/sections/settings/settings-inactive.svg";
+import messagingActive from "@/public/images/dashboard/sections/messaging/messaging-active.png";
+import messagingInActive from "@/public/images/dashboard/sections/messaging/messaging-inactive.png";
+import overviewActive from "@/public/images/dashboard/sections/overview/overview-active.png";
+import overviewInActive from "@/public/images/dashboard/sections/overview/overview-inactive.png";
+import paymentsActive from "@/public/images/dashboard/sections/payments/payments-active.png";
+import paymentsInActive from "@/public/images/dashboard/sections/payments/payments-inactive.png";
+import profileActive from "@/public/images/dashboard/sections/profile/profile-active.png";
+import profileInActive from "@/public/images/dashboard/sections/profile/profile-inactive.png";
+import settingsActive from "@/public/images/dashboard/sections/settings/settings-active.png";
+import settingsInActive from "@/public/images/dashboard/sections/settings/settings-inactive.png";
 import useDimension from "@/helpers/useDimension";
 import useInit from "@/hooks/dashboard/init/use-init";
 import useLogout from "@/hooks/dashboard/general/use-logout";
@@ -126,7 +126,7 @@ export default function DashboardLayout({
 			{isLoading && <LoadingScreen />}
 			{isMounted && (
 				<div
-					className={`${inter.className} ` + "font-in relative h-full w-full bg-white 4xs:grid lg:grid-cols-[16rem,auto]"}
+					className={`${inter.className} ` + "font-in relative grid h-full w-full bg-white lg:grid-cols-[16rem,auto]"}
 					id="dashboard"
 					tabIndex={-1}
 				>
@@ -134,7 +134,7 @@ export default function DashboardLayout({
 					{showNav && <Overlay onClick={handleCloseNav} />}
 					<aside
 						className={
-							`-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available z-40 h-full w-full max-w-sm border-r border-grey-quat transition-all lg:h-[unset] lg:max-w-none lg:-translate-x-0 lg:transition-none ` +
+							`-moz-h-fit-available -webkit-h-fit-available -ms-h-fit-available z-40 h-full w-4/5 max-w-sm border-r border-grey-quat transition-all xs:w-full lg:h-[unset] lg:max-w-none lg:-translate-x-0 lg:transition-none ` +
 							`fixed flex transform flex-col items-center justify-between bg-white lg:relative lg:w-auto ` +
 							`${showNav ? " translate-x-0" : "-translate-x-full"} `
 						}
@@ -145,8 +145,8 @@ export default function DashboardLayout({
 						</div>
 
 						<div className="flex h-full max-h-screen w-full flex-col">
-							<div className="h-28">
-								<div className="flex h-28 items-center justify-between px-6 lg:justify-center">
+							<div className="h-20 xs:h-28">
+								<div className="flex h-20 items-center justify-between px-6 xs:h-28 lg:justify-center">
 									<Link className="lg:w-full" href={"/"} tabIndex={showNav ? 0 : -1}>
 										<div className="flex cursor-pointer items-center justify-start">
 											<Image priority src={logoIcon} width={27.29} height={31.5} alt="Flat Share logo" />
@@ -366,7 +366,7 @@ export default function DashboardLayout({
 					<section className="w-full">
 						<div className="flex h-full w-full flex-col items-start justify-start 4xs:h-full">
 							<header className="flex w-full flex-row items-center justify-center border-b border-grey-quat bg-white" tabIndex={-1}>
-								<div className="mx-auto flex h-28 w-full flex-row  items-center justify-between px-4 lg:px-8 ">
+								<div className="mx-auto flex h-20 w-full flex-row items-center justify-between px-4 xs:h-28 lg:px-8">
 									<div className="flex w-full justify-between space-x-6 sm:space-x-12">
 										<div className="flex w-full items-center justify-start">
 											<div className="flex space-x-2 lg:hidden" tabIndex={-1}>
