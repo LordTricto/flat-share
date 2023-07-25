@@ -9,7 +9,7 @@ import {accountTypeOptions} from "@/hooks/dashboard/general/general.constants";
 import useDimension from "@/helpers/useDimension";
 import useLogout from "@/hooks/dashboard/general/use-logout";
 import {useSelector} from "react-redux";
-import userProfile from "@/public/images/icons/user-profile.svg";
+import userProfile from "@/public/images/dashboard/sections/profile/profile-inactive.png";
 
 function AccountDropdown() {
 	const user = useSelector((state: IRootState) => state.init.user);
@@ -57,6 +57,7 @@ function AccountDropdown() {
 				noArrow={width < 541}
 				noBorder={width < 541}
 				fitWidth={width < 541}
+				placement="right"
 			/>
 		</>
 	);

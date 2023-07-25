@@ -8,8 +8,8 @@ interface Props {
 function UserTag(props: Props) {
 	return (
 		<>
-			<div className={"flex h-7 w-max items-center justify-center rounded-md px-3 " + `${props.colorClass}`}>
-				<span className="text-green text-xs font-semibold">{props.text}</span>
+			<div className={"flex h-7 w-max items-center justify-center gap-1 rounded-md px-1.5 3xs:gap-2 3xs:px-3 " + `${props.colorClass}`}>
+				<span className=" text-xs font-semibold capitalize">{props.text}</span>
 			</div>
 		</>
 	);

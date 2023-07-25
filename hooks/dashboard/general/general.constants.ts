@@ -1,7 +1,7 @@
 import {DropdownItem} from "@/helpers/types";
 import Filter from "@/models/filter";
 import User from "@/models/user";
-import helpInactiveIcon from "@/public/images/dashboard/sections/help/help-inactive.svg";
+import helpInactiveIcon from "@/public/images/dashboard/sections/help/help-inactive.png";
 // export type LoadUserDataForm = {
 // email: string;
 // };

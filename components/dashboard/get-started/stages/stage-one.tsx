@@ -5,17 +5,20 @@ import * as Yup from "yup";
 import {Form, Formik, FormikProps} from "formik";
 import React, {useRef} from "react";
 import {setIsHostFalse, setIsHostTrue, setToStageTwo} from "@/redux/get-started/get-started";
+import {useDispatch, useSelector} from "react-redux";
 
 import {AccountTypeForm} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 import Button from "@/components/general/button/button";
 import FlatHost from "@/components/jsx-icons/dashboard/application/flat-host";
 import Flatmate from "@/components/jsx-icons/dashboard/application/flatmate";
+import {IRootState} from "@/redux/rootReducer";
 import {UserType} from "@/models/user.constant";
 import formikHasError from "@/helpers/formikHasError";
-import {useDispatch} from "react-redux";
 
 function StageOne() {
 	const dispatch = useDispatch();
+	const userFirstName = useSelector((state: IRootState) => state.init.user?.fname || "");
+
 	const formikRef = useRef<FormikProps<AccountTypeForm> | null>(null);
 
 	const initialFormState: AccountTypeForm = {
@@ -32,7 +35,7 @@ function StageOne() {
 				<div className="flex flex-col items-center justify-center gap-3">
 					<div className="flex flex-col items-center justify-center gap-4">
 						<span className="text-3xl leading-[100%]">👋</span>
-						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Welcome Roger!</h3>
+						<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Welcome {userFirstName}!</h3>
 					</div>
 					<p className="text-center text-base text-black-tertiary">
 						It&apos;s greet to have you with us. To help us optimize your experience, tell us how you intend to use FlatShare.

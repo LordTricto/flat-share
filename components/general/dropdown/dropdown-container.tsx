@@ -46,7 +46,7 @@ function DropdownContainer({
 	noArrow = false,
 	noBorder = false,
 	children,
-	placement = "center",
+	placement = "left",
 	hasInput = false,
 	isCancel = false,
 	fitHeight = false,

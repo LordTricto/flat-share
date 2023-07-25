@@ -68,7 +68,7 @@ function CreateAd() {
 		<>
 			<div className="flex h-full w-full">
 				<div className="relative h-full w-full overflow-y-auto">
-					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 xs:px-5 py-6">
+					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 						{isWelcomeNoteOpen && (
 							<WelcomeCard
 								subTitle="Create your apartment ad and complete your account setup."
@@ -77,8 +77,8 @@ function CreateAd() {
 							/>
 						)}
 
-						<div className="h-fit  w-full pb-6">
-							<div className="flex h-fit w-full flex-col gap-8 rounded-[10px] bg-white px-5 pt-8 2xs:p-8">
+						<div className="h-fit w-full pb-6">
+							<div className="flex h-fit w-full flex-col gap-8 rounded-[10px] bg-white px-5 pb-8 pt-8 2xs:px-8">
 								<div className="flex flex-col items-center justify-center gap-4">
 									<div className="flex flex-col items-center justify-center gap-5">
 										<span className="text-3xl">🏠</span>
@@ -103,15 +103,17 @@ function CreateAd() {
 												<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
 													<div className="flex w-full flex-col gap-5">
 														<div className="grid w-full grid-cols-1 gap-5 2xs:gap-8 lg:!grid-cols-1 [@media(min-width:1200px)]:!grid-cols-2 [@media(min-width:700px)]:grid-cols-2">
-															<Dropdown
-																label="Apartment Type"
-																value={formik.values.apartment_type}
-																onSelect={(value: string | undefined) =>
-																	formik.getFieldHelpers("apartment_type").setValue(value)
-																}
-																size="md"
-																options={apartmentTypeOptions}
-															/>
+															<div>
+																<Dropdown
+																	label="Apartment Type"
+																	value={formik.values.apartment_type}
+																	onSelect={(value: string | undefined) =>
+																		formik.getFieldHelpers("apartment_type").setValue(value)
+																	}
+																	size="md"
+																	options={apartmentTypeOptions}
+																/>
+															</div>
 															<div className="flex flex-col gap-5 2xs:flex-row">
 																<Input
 																	label="Bedrooms"
@@ -202,15 +204,17 @@ function CreateAd() {
 																	formik.getFieldHelpers("rent_cost").setValue(moneyToNumber(String(_value)))
 																}
 															/>
-															<Dropdown
-																label="Payment Frequency"
-																value={`${formik.values.payment_frequency}`}
-																onSelect={(value: string | undefined) =>
-																	formik.getFieldHelpers("payment_frequency").setValue(value)
-																}
-																size="md"
-																options={paymentFrequencyOptions}
-															/>
+															<div>
+																<Dropdown
+																	label="Payment Frequency"
+																	value={`${formik.values.payment_frequency}`}
+																	onSelect={(value: string | undefined) =>
+																		formik.getFieldHelpers("payment_frequency").setValue(value)
+																	}
+																	size="md"
+																	options={paymentFrequencyOptions}
+																/>
+															</div>
 														</div>
 														<div className="grid w-full grid-cols-1 gap-5 2xs:grid-cols-2 2xs:gap-8">
 															<div className="flex flex-col gap-3">
@@ -258,15 +262,17 @@ function CreateAd() {
 																	<p className="text-xs text-grey-quin">Enter the amount you wish to contribute.</p>
 																)}
 															</div>
-															<Dropdown
-																label="Preferred Gender"
-																value={`${formik.values.preferred_gender}`}
-																onSelect={(value: string | undefined) =>
-																	formik.getFieldHelpers("preferred_gender").setValue(value)
-																}
-																size="md"
-																options={genderOptions}
-															/>
+															<div>
+																<Dropdown
+																	label="Preferred Gender"
+																	value={`${formik.values.preferred_gender}`}
+																	onSelect={(value: string | undefined) =>
+																		formik.getFieldHelpers("preferred_gender").setValue(value)
+																	}
+																	size="md"
+																	options={genderOptions}
+																/>
+															</div>
 														</div>
 													</div>
 													<div className="flex flex-col gap-5">

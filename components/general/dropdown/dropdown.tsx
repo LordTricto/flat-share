@@ -17,6 +17,7 @@ interface Props<T extends DropdownItemValueType> {
 	noBorder?: boolean;
 	options: Array<DropdownItem<T>>;
 	fitHeight?: boolean;
+	placement?: "right" | "left";
 	fitWidth?: boolean;
 	canCancel?: boolean;
 	isDisabled?: boolean;
@@ -41,6 +42,7 @@ function Dropdown<T extends DropdownItemValueType>({
 	noBorder = false,
 	canCancel = false,
 	fitHeight = false,
+	placement = "left",
 	fitWidth = false,
 	isDisabled = false,
 	customHead,
@@ -61,6 +63,7 @@ function Dropdown<T extends DropdownItemValueType>({
 			isCancel={canCancel}
 			fitWidth={fitWidth}
 			fitHeight={fitHeight}
+			placement={placement}
 			customHead={customHead}
 			isDisabled={isDisabled}
 			placeholder={placeholder}
@@ -87,12 +90,16 @@ function Dropdown<T extends DropdownItemValueType>({
 							<div className="flex flex-row items-center justify-start">
 								{option.icon && (
 									<div>
-										{withIconBackdrop && (
-											<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
-												<Image src={option.icon} alt="icon" priority />
+										<div className="w-8">
+											{withIconBackdrop && (
+												<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
+													<Image src={option.icon} alt="icon" priority />
+												</div>
+											)}
+											<div className="h-5 w-5">
+												<Image src={option.icon} className="h-full w-full" alt="icon" priority />
 											</div>
-										)}
-										<Image src={option.icon} alt="icon" priority />
+										</div>
 									</div>
 								)}
 								<span className={"text-sm capitalize text-black-secondary " + `${option.icon ? "ml-2" : ""}`} data-type="dropdown">

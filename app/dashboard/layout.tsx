@@ -40,7 +40,7 @@ import settingsActive from "@/public/images/dashboard/sections/settings/settings
 import settingsInActive from "@/public/images/dashboard/sections/settings/settings-inactive.png";
 import useDimension from "@/helpers/useDimension";
 import useInit from "@/hooks/dashboard/init/use-init";
-import useLogout from "@/hooks/dashboard/general/use-logout";
+// import useLogout from "@/hooks/dashboard/general/use-logout";
 import {usePathname} from "next/navigation";
 import {useSelector} from "react-redux";
 
@@ -90,7 +90,7 @@ export default function DashboardLayout({
 
 	const [showNav, setShowNav] = useState<boolean>(false);
 	const [isMounted, setIsMounted] = useState<boolean>(false);
-	const [isTabletViewDownwards] = useState<boolean>(!!(width < 1024));
+	// const [isTabletViewDownwards] = useState<boolean>(!!(width < 1024));
 
 	useLayoutEffect(() => {
 		// initPing();
@@ -385,24 +385,18 @@ export default function DashboardLayout({
 											)}
 										</div>
 
-										<div
-											className="flex w-max flex-row items-center justify-center space-x-2 sm:space-x-3 lg:space-x-6 "
-											tabIndex={-1}
-										>
-											{!isTabletViewDownwards && (
-												<>
-													<div
-														className="relative hidden cursor-pointer items-center justify-center pl-4 pr-3 lg:flex"
-														tabIndex={0}
-													>
-														<div className="flex items-center justify-center">
-															<Notification />
-														</div>
-													</div>
-												</>
-											)}
+										<div className="flex w-fit flex-row items-center justify-center gap-6 " tabIndex={-1}>
+											{/* {!isTabletViewDownwards && (
+												<> */}
+											<div className="relative flex cursor-pointer items-center justify-center" tabIndex={0}>
+												<div className="flex items-center justify-center">
+													<Notification />
+												</div>
+											</div>
+											{/* </>
+											)} */}
 
-											<div className="lg:inline">
+											<div className="w-8 xs:w-[unset]">
 												<AccountDropdown />
 											</div>
 										</div>

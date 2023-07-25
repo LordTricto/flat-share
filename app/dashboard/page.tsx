@@ -1,12 +1,11 @@
 "use client";
 
 import Button from "@/components/general/button/button";
-import HostTag from "@/components/dashboard/home/tags/host-tag";
 import {IRootState} from "@/redux/rootReducer";
-import Image from "next/image";
-import Loading from "./loading";
 import NotificationBar from "@/components/dashboard/general/notification-bar/notification-bar";
-import UserTag from "@/components/dashboard/home/tags/user-tag";
+import UserCard from "@/components/dashboard/home/cards/user-card";
+import {UserReligion} from "@/models/user.constant";
+import UserRequest from "@/components/dashboard/home/cards/user-request";
 import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
 import requestAvatarTwo from "@/public/images/dashboard/home/request-2.png";
@@ -20,7 +19,6 @@ const Dashboard = () => {
 
 	const [isWelcomeNoteOpen, setIsWelcomeNoteOpen] = useState(true);
 
-	console.log(isAccountCreated);
 	return (
 		<>
 			{/* {!isAccountCreated && <Loading />} */}
@@ -38,7 +36,7 @@ const Dashboard = () => {
 
 						<div className="flex h-fit w-full flex-col gap-8 pb-6">
 							<div className="flex w-full flex-col gap-4">
-								<h4 className="text-xl font-semibold leading-[100%] text-black-secondary">Your Requests</h4>
+								<h4 className="text-lg font-semibold leading-[100%] text-black-secondary 3xs:text-xl">Your Requests</h4>
 								<div className="flex w-full flex-col items-center justify-between gap-6 rounded-2xl border border-grey bg-white p-6">
 									<div className="flex w-full items-start justify-between gap-6">
 										<div className="flex gap-7">
@@ -57,67 +55,24 @@ const Dashboard = () => {
 											</Button>
 										</div>
 									</div>
-									{/* <div className="flex w-full items-center justify-between gap-10 divide-x divide-grey-secondary [&>*:not(:first-child)]:pl-10 "> */}
-									<div className="flex w-full flex-col justify-start gap-6 sm:flex-row sm:gap-10">
+									<div className="flex w-full flex-col justify-start gap-6 sm:flex-row sm:gap-10 lg:flex-col lg:gap-6 xl:flex-row xl:gap-10">
 										<div className="flex w-full flex-col gap-3">
 											<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">Total Request sent</p>
 											<div className="flex w-full flex-col gap-3">
-												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
-													<div className="flex items-center justify-center gap-4">
-														<Image src={requestAvatarOne} width={28} height={28} alt="main background" tabIndex={-1} />
-														<p className="text-sm text-black-secondary">John Doe</p>
-													</div>
-													<div className="flex gap-3">
-														<Button type="button" buttonType="secondary" color="grey" size="xs" borderSmall>
-															<span>Ignore</span>
-														</Button>
-														<Button type="button" buttonType="primary" color="black" size="xs" borderSmall>
-															<span>Accept</span>
-														</Button>
-													</div>
-												</div>
-												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
-													<div className="flex items-center justify-center gap-4">
-														<Image src={requestAvatarTwo} width={28} height={28} alt="main background" tabIndex={-1} />
-														<p className="text-sm text-black-secondary">Tiana Culhane</p>
-													</div>
-													<div className="flex gap-3">
-														<Button type="button" buttonType="secondary" color="grey" size="xs" borderSmall>
-															<span>Ignore</span>
-														</Button>
-														<Button type="button" buttonType="primary" color="black" size="xs" borderSmall>
-															<span>Accept</span>
-														</Button>
-													</div>
-												</div>
+												<UserRequest name="John Doe" profileImage={requestAvatarOne} />
+												<UserRequest name="Tiana Culhanea" profileImage={requestAvatarTwo} />
 											</div>
 										</div>
-										<div className="sm:flex-grow">
+										<div className="sm:flex-grow lg:flex-grow-0 xl:flex-grow">
 											<div className="flex h-full items-end justify-end">
-												<div className="h-[1px] w-full bg-grey-secondary sm:h-[68px] sm:w-[1px]"></div>
+												<div className="h-[1px] w-full bg-grey-secondary sm:h-[68px] sm:w-[1px] lg:h-[1px] lg:w-full xl:h-[68px] xl:w-[1px]"></div>
 											</div>
 										</div>
 										<div className="flex w-full flex-col gap-3">
 											<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">Total Request sent</p>
 											<div className="flex w-full flex-col gap-3">
-												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
-													<div className="flex items-center justify-center gap-4">
-														<Image src={requestAvatarTwo} width={28} height={28} alt="main background" tabIndex={-1} />
-														<p className="text-sm text-black-secondary">Jocelyn Culhane</p>
-													</div>
-													<div className="flex h-7 items-center justify-center rounded-md bg-orange-100 px-3">
-														<span className="text-xs font-medium text-orange-500">Pending</span>
-													</div>
-												</div>
-												<div className="flex w-full flex-col items-start gap-4 4xs:flex-row 4xs:items-center 4xs:justify-between 4xs:gap-0">
-													<div className="flex items-center justify-center gap-4">
-														<Image src={requestAvatarOne} width={28} height={28} alt="main background" tabIndex={-1} />
-														<p className="text-sm text-black-secondary">Carla Stanton</p>
-													</div>
-													<div className="flex h-7 items-center justify-center rounded-md bg-orange-100 px-3">
-														<span className="text-xs font-medium text-orange-500">Pending</span>
-													</div>
-												</div>
+												<UserRequest name="Jocelyn Culhane" profileImage={requestAvatarTwo} isPending />
+												<UserRequest name="Carla Stanton" profileImage={requestAvatarOne} isPending />
 											</div>
 										</div>
 									</div>
@@ -129,80 +84,36 @@ const Dashboard = () => {
 								</div>
 							</div>
 							<div className="flex w-full flex-col gap-4">
-								<h4 className="text-xl font-semibold leading-[100%] text-black-secondary">Suggested for You</h4>
-								<div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-									<div className="flex w-full flex-col gap-5 rounded-2xl border border-grey bg-white p-6">
-										<div className="flex flex-col gap-3">
-											<div className="flex gap-4">
-												<Image src={userOne} width={96} height={123} alt="user profile" tabIndex={-1} />
-												<div className="flex flex-col gap-4">
-													<h5 className="text-xl font-semibold leading-[100%] text-black">Kianna Botosh</h5>
-													<div className="flex flex-col gap-2.5">
-														<HostTag />
-														<div className="flex gap-2.5">
-															<UserTag colorClass="bg-green-100 text-green-500" text="Muslim" />
-															<UserTag colorClass="bg-orange-100 text-orange-500" text="Data Analyst" />
-														</div>
-														<UserTag colorClass="bg-gray-100 text-gray-500" text="Agric Rd - Ikorodu" />
-													</div>
-												</div>
-											</div>
-											<div className="flex flex-col gap-4">
-												<div className="flex flex-col gap-2.5">
-													<h6 className="text-xs font-medium uppercase leading-[100%] text-black-quat">Bio</h6>
-													<p className="two-lines-max text-sm text-black-secondary">
-														Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling
-														mysteries.
-													</p>
-												</div>
-												<UserTag colorClass="bg-gray-100 text-black" text="₦500,000/yr" />
-											</div>
-										</div>
-										<div className="flex gap-3">
-											<Button type="button" buttonType="secondary" color="grey" size="md" borderSmall>
-												<span>Message</span>
-											</Button>
-											<Button type="button" buttonType="primary" color="black" size="md" borderSmall>
-												<span>Send Request</span>
-											</Button>
-										</div>
-									</div>
-									<div className="flex w-full flex-col gap-5 rounded-2xl border border-grey bg-white p-6">
-										<div className="flex flex-col gap-3">
-											<div className="flex gap-4">
-												<Image src={userTwo} width={96} height={123} alt="user profile" tabIndex={-1} />
-												<div className="flex flex-col gap-4">
-													<h5 className="text-xl font-semibold leading-[100%] text-black">Amanda Smith</h5>
-													<div className="flex flex-col gap-2.5">
-														<HostTag />
-														<div className="flex gap-2.5">
-															<UserTag colorClass="bg-green-100 text-green-500" text="Christian" />
-															<UserTag colorClass="bg-orange-100 text-orange-500" text="DevOps" />
-														</div>
-														<UserTag colorClass="bg-gray-100 text-gray-500" text="Ibeju Lekki" />
-													</div>
-												</div>
-											</div>
-											<div className="flex flex-col gap-4">
-												<div className="flex flex-col gap-2.5">
-													<h6 className="text-xs font-medium uppercase leading-[100%] text-black-quat">Bio</h6>
-													<p className="two-lines-max text-sm text-black-secondary">
-														Short in stature but big in heart, always finding joy in life&apos;s little moments. Avid
-														developer, coffee enthusiast, and aspiring poet.
-													</p>
-												</div>
-												<UserTag colorClass="bg-gray-100 text-black" text="₦250,000/yr" />
-											</div>
-										</div>
-										<div className="flex gap-3">
-											<Button type="button" buttonType="secondary" color="grey" size="md" borderSmall>
-												<span>Message</span>
-											</Button>
-											<Button type="button" buttonType="primary" color="black" size="md" borderSmall>
-												<span>Send Request</span>
-											</Button>
-										</div>
-									</div>
+								<div className="flex w-full items-center justify-between">
+									<h4 className="text-lg font-semibold leading-[100%] text-black-secondary 3xs:text-xl">Suggested for You</h4>
+									<Button type="button" buttonType="tertiary" color="blue" size="xs">
+										<span className="text-[10px] uppercase 3xs:text-xs">see more</span>
+									</Button>
+								</div>
+								<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userOne}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userTwo}
+										isHost
+									/>
 								</div>
 							</div>
 						</div>
