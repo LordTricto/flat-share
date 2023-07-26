@@ -12,7 +12,6 @@ const initialState: InitState = {
 
 	isAccountCreated: false,
 	user: null,
-	token: null,
 	filter: null,
 };
 
@@ -37,10 +36,12 @@ export const initSlice = createSlice({
 			state.user = action.payload.user;
 			state.filter = action.payload.filter;
 		},
+		initLoadingFalse: (state: InitState) => {
+			state.isInitLoading = true;
+		},
 
-		loginSuccess: (state: InitState, action: PayloadAction<string>) => {
+		loginSuccess: (state: InitState) => {
 			state.isLoggedIn = true;
-			state.token = action.payload;
 		},
 
 		logoutSuccess: (state: InitState) => {
@@ -48,7 +49,6 @@ export const initSlice = createSlice({
 			state.isInitError = null;
 			state.isInitLoading = false;
 			state.user = null;
-			state.token = null;
 			state.filter = null;
 		},
 
@@ -63,12 +63,12 @@ export const initSlice = createSlice({
 			state.isInitLoading = false;
 
 			state.user = null;
-			state.token = null;
 			state.filter = null;
 		},
 	},
 });
 
-export const {initRequest, initFailure, initSuccess, loginSuccess, logoutSuccess, setIsAccountCreatedStatus, initReset} = initSlice.actions;
+export const {initRequest, initFailure, initSuccess, initLoadingFalse, loginSuccess, logoutSuccess, setIsAccountCreatedStatus, initReset} =
+	initSlice.actions;
 
 export default initSlice.reducer;

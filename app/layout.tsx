@@ -3,6 +3,7 @@ import "./globals.css";
 // import {Averia_Libre} from "next/font/google";
 import Footer from "./footer";
 import Header from "./header";
+import InitLoader from "@/components/general/init-loader/init-loader";
 import ReactQueryWrapper from "@/components/react-query/react-query-wrapper";
 import ReduxProvider from "@/redux/redux-provider";
 import ToastContainer from "@/components/toast-container";
@@ -47,7 +48,8 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 			<body className={myFont.className}>
 				<ReactQueryWrapper>
 					<ReduxProvider>
-						<div className="relative flex h-full w-screen flex-col items-start justify-start">
+						<div className="relative flex w-screen flex-grow flex-col items-start justify-start">
+							<InitLoader />
 							<ToastContainer />
 							<Header />
 							{children}

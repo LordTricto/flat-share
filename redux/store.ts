@@ -7,7 +7,8 @@ const persistConfig = {
 	key: "root",
 	version: 1,
 	storage,
-	blacklist: ["error", "application", "message"],
+	whitelist: ["token"],
+	// blacklist: ["error", "application", "message"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

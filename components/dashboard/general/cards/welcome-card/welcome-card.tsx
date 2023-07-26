@@ -16,7 +16,7 @@ function WelcomeCard(props: Props) {
 	return (
 		<>
 			<div>
-				<div className="relative h-fit w-full overflow-hidden rounded-[10px]">
+				<div className="relative h-fit w-full overflow-hidden rounded-[10px] bg-blue">
 					<Image className="absolute left-0 top-0 z-0 h-full w-full " src={mainSectionPattern} alt="main background" fill tabIndex={-1} />
 					<div className=" flex flex-col gap-5 px-6 py-5">
 						<div className="z-10 flex flex-col gap-3 text-white">

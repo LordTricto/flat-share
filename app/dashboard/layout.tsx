@@ -82,11 +82,12 @@ export default function DashboardLayout({
 }) {
 	// const {initPing} = usePing();
 	// const {mutate} = useLogout();
-	const {isLoading, refetch} = useInit();
+	const {isFetching, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();
 	const isAccountCreated = useSelector((state: IRootState) => state.init.isAccountCreated);
 	const user = useSelector((state: IRootState) => state.init.user);
+	const isLoggedIn = useSelector((state: IRootState) => state.init.isLoggedIn);
 
 	const [showNav, setShowNav] = useState<boolean>(false);
 	const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -94,9 +95,9 @@ export default function DashboardLayout({
 
 	useLayoutEffect(() => {
 		// initPing();
-		refetch();
+		if (isLoggedIn) refetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isLoggedIn]);
 
 	useEffect(() => {
 		setShowNav(false);
@@ -120,13 +121,12 @@ export default function DashboardLayout({
 			document.body.style.overflow = "auto";
 		}
 	}, [width]);
-
 	return (
 		<>
-			{isLoading && <LoadingScreen />}
-			{isMounted && (
+			{isFetching && <LoadingScreen />}
+			{!isFetching && isMounted && (
 				<div
-					className={`${inter.className} ` + "font-in relative grid h-full w-full bg-white lg:grid-cols-[16rem,auto]"}
+					className={`${inter.className} ` + "font-in relative grid h-full w-full grid-cols-1 bg-white lg:grid-cols-[16rem,auto]"}
 					id="dashboard"
 					tabIndex={-1}
 				>

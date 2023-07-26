@@ -1,4 +1,4 @@
-import {UseMutationResult, UseQueryResult, useMutation, useQuery} from "@tanstack/react-query";
+import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
@@ -18,7 +18,7 @@ function useLogout(): UseMutationResult<void, unknown, void, unknown> {
 		},
 		onSuccess() {
 			router.push("/sign-in");
-			dispatch(logoutSuccess());
+			setTimeout(() => dispatch(logoutSuccess()), 1500);
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);

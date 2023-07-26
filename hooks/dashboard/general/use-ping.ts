@@ -1,23 +1,28 @@
 "use client";
 
-import {UseQueryResult, useQuery} from "@tanstack/react-query";
+import axios, {AxiosError} from "axios";
 import {useCallback, useEffect, useRef} from "react";
+import {usePathname, useRouter} from "next/navigation";
 
-import {AxiosError} from "axios";
+import {ErrorMessage} from "@/helpers/request/makeRequest";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {KEEP_ALIVE_PING} from "./general.constants";
 import {loginCheckApi} from "./general-api";
-import {logoutSuccess} from "@/redux/init/slice/initSlice";
+import {loginSuccess} from "@/redux/init/slice/initSlice";
 import {useDispatch} from "react-redux";
-import {useRouter} from "next/navigation";
+import {useQuery} from "@tanstack/react-query";
 
 interface PingInterface {
 	initPing: () => void;
 }
+interface Props {
+	onFetched: () => void;
+}
 
-function usePing(): PingInterface {
+function usePing(props: Props): PingInterface {
 	const router = useRouter();
 	const dispatch = useDispatch();
+	const pathname = usePathname();
 
 	const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
@@ -27,12 +32,23 @@ function usePing(): PingInterface {
 			const res = await loginCheckApi();
 			return res;
 		},
+		retry: 2,
 		refetchOnWindowFocus: false,
 		enabled: false, // disable this query from automatically running,
+		onSuccess() {
+			dispatch(loginSuccess());
+			if (!pathname.includes("dashboard")) {
+				router.replace("/dashboard");
+			}
+		},
 		onError(error: AxiosError) {
-			// Errorhandler(error);
-			// router.push("/sign-in");
-			// dispatch(logoutSuccess());
+			Errorhandler(error);
+			if (error.message === ErrorMessage.UNAUTHORIZED_ERROR && pathname.includes("dashboard")) {
+				router.replace("/sign-in");
+			}
+		},
+		onSettled() {
+			props.onFetched();
 		},
 	});
 

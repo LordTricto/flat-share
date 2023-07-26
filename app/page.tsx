@@ -23,9 +23,9 @@ import supportImg from "@/public/images/home/support.png";
 
 export default function Home() {
 	return (
-		<main className="flex min-h-screen w-full flex-col items-center justify-between">
-			<section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:flex-row lg:gap-0 lg:px-16">
-				<div className="flex h-full w-full flex-col items-start justify-start gap-12 pt-36 md:max-w-xl md:pt-0">
+		<main className="flex h-fit min-h-screen w-full flex-col items-center justify-between">
+			<section className="mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:flex-row lg:gap-0 lg:px-16">
+				<div className="flex h-full w-full flex-col items-start justify-start gap-12 pt-36 md:max-w-xl md:justify-center md:pt-0">
 					<div className="flex flex-col items-start justify-start gap-6">
 						<div className="flex flex-col items-start justify-start gap-4">
 							<div className="flex items-center justify-start gap-4">
@@ -56,7 +56,7 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="relative min-h-screen w-full overflow-hidden">
+			<section className="relative h-full min-h-screen w-full overflow-hidden">
 				<Image className="left-0 top-0 z-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 				<Image className="absolute bottom-0 left-0 z-10 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 
@@ -120,7 +120,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-14 px-4 py-16 2xs:px-8 xs:py-24 md:flex-row md:gap-8 lg:px-16">
+				<div className="mx-auto flex h-fit w-full max-w-7xl flex-col items-center justify-between gap-14 px-4 py-16 2xs:px-8 xs:py-24 md:flex-row md:gap-8 lg:px-16">
 					<div className="flex w-full items-center justify-center">
 						<div className="w-max overflow-hidden rounded-[10px] md:w-full">
 							<Image
@@ -189,7 +189,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-14 px-4 py-16 2xs:px-8 xs:py-24 md:flex-row md:gap-8 lg:px-16">
+				<div className="mx-auto flex h-fit w-full max-w-7xl flex-col items-center justify-between gap-14 px-4 py-16 2xs:px-8 xs:py-24 md:flex-row md:gap-8 lg:px-16">
 					<div className="flex w-full flex-col gap-10 md:max-w-lg">
 						<div className="flex flex-col gap-4">
 							<h3 className="text-4xl font-black text-black xs:text-5xl lg:text-6xl">
@@ -211,7 +211,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-start gap-8 px-4 py-16 2xs:px-8 xs:py-24 md:gap-16 lg:px-16">
+				<div className="mx-auto flex h-fit w-full max-w-7xl flex-col items-center justify-start gap-8 px-4 py-16 2xs:px-8 xs:py-24 md:gap-16 lg:px-16">
 					<div className="flex flex-col items-center justify-center gap-6">
 						<h4 className="w-full text-left text-2xl font-black !leading-[100%] text-black xs:text-center xs:text-3xl lg:text-4xl">
 							Perfect Matches for Everyone
@@ -249,7 +249,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className="relative flex w-full flex-row items-center justify-between py-16">
+				<div className="relative flex h-fit w-full flex-row items-center justify-between py-16">
 					<Image className="absolute left-0 top-0 z-0 h-full w-full" src={newsletterBG} alt="Newsletter background" priority />
 					<div className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-8 px-4 text-center 2xs:px-8 md:text-left lg:px-16">
 						<h3 className="text-xl font-black text-white xs:text-2xl lg:text-3xl">Subscribe to Our Newsletter</h3>

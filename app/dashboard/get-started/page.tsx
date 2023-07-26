@@ -49,9 +49,6 @@ function GetStarted() {
 								}}
 							/>
 						)}
-						{/* {stage === GetStartedStage.STAGE_ONE && <StageOne />}
-				{stage === GetStartedStage.STAGE_ONE && <StageOne />}
-				{stage === GetStartedStage.STAGE_ONE && <StageOne />} */}
 					</div>
 				</div>
 			</div>

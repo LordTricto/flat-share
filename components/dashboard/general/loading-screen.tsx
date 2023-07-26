@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import BarLoader from "react-spinners/BarLoader";
 import Image from "next/image";

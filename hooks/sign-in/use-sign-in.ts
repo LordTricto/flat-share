@@ -5,6 +5,7 @@ import {initSuccess, loginSuccess} from "@/redux/init/slice/initSlice";
 
 import Errorhandler from "@/helpers/useErrorHandler";
 import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
+import {setToken} from "@/redux/token/slice/tokenSlice";
 import {signInApi} from "./sign-in-api";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
@@ -19,7 +20,8 @@ function useSignIn(): UseMutationResult<any, unknown, SignInForm, unknown> {
 		},
 		onSuccess(data: SignInFormResponse) {
 			dispatch(setSuccessMessage(data.message));
-			dispatch(loginSuccess(data.token));
+			dispatch(setToken(data.token));
+			dispatch(loginSuccess());
 			dispatch(initSuccess({filter: data.filtered, user: data.user}));
 			router.push("/dashboard");
 		},

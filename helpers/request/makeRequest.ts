@@ -63,7 +63,7 @@ function getErrorResponse(err: unknown): Error {
 
 function getToken(): string {
 	const state = store.getState();
-	const userToken = state.init.token || undefined;
+	const userToken = state.token.token || undefined;
 	if (!userToken) {
 		return "";
 	}
