@@ -4,6 +4,7 @@ import React, {useState} from "react";
 
 import Arrow from "@/components/jsx-icons/arrow";
 import Button from "@/components/general/button/button";
+import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import UserActivity from "./components/user-activity";
 import UserMessage from "./components/user-message";
@@ -12,9 +13,12 @@ import emptyIcon from "@/public/images/dashboard/general/empty-list.svg";
 import emptyProfileIcon from "@/public/images/dashboard/general/empty-profile.svg";
 import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
 import requestAvatarTwo from "@/public/images/dashboard/home/request-2.png";
+import {useSelector} from "react-redux";
 
 function NotificationBar() {
-	const [isActivityEmpty] = useState(false);
+	const isAccountCreated = useSelector((state: IRootState) => state.init.isAccountCreated);
+
+	const [isActivityEmpty] = useState(!isAccountCreated);
 
 	return (
 		<>
@@ -46,9 +50,11 @@ function NotificationBar() {
 					<div className={"flex flex-grow flex-col gap-[42px] " + `${isActivityEmpty ? "h-80" : "h-fit"}`}>
 						<div className="flex w-full items-center justify-between">
 							<h4 className="text-base font-semibold leading-[100%] text-black">Recent Messages</h4>
-							<Button type="button" buttonType="tertiary" color="blue" size="xs">
-								<span className="uppercase">view all</span>
-							</Button>
+							{!isActivityEmpty && (
+								<Button type="button" buttonType="tertiary" color="blue" size="xs">
+									<span className="uppercase">view all</span>
+								</Button>
+							)}
 						</div>
 						<div className="h-full w-full border-b border-grey-secondary">
 							{isActivityEmpty ? (

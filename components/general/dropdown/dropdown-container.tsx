@@ -194,7 +194,14 @@ function DropdownContainer({
 			>
 				{customHead && <div className="w-full">{customHead}</div>}
 				{!value && (
-					<span className={`pointer-events-none max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-base text-black-quat `}>
+					<span
+						className={
+							`pointer-events-none max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-base text-black-quat ` +
+							`${size === "lg" ? "text-lg" : ""} ` +
+							`${size === "md" ? "text-base" : ""} ` +
+							`${size === "sm" ? "text-sm" : ""} `
+						}
+					>
 						{placeholder}
 					</span>
 				)}
@@ -203,9 +210,9 @@ function DropdownContainer({
 						className={
 							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap  text-black-secondary ` +
 							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat " : ""} ` +
-							`${size === "lg" ? "text-base" : ""} ` +
-							`${size === "md" ? "text-sm" : ""} ` +
-							`${size === "sm" ? "text-xs" : ""} `
+							`${size === "lg" ? "text-lg" : ""} ` +
+							`${size === "md" ? "text-base" : ""} ` +
+							`${size === "sm" ? "text-sm" : ""} `
 						}
 					>
 						{value}

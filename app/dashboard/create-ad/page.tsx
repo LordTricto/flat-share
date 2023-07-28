@@ -893,7 +893,7 @@ function CreateAd() {
 															<h3 className="text-base font-medium leading-[100%] text-black-secondary">
 																Apartment Image
 															</h3>
-															<div className="flex flex-row flex-wrap gap-4 lg:justify-start">
+															<div className="grid w-full grid-cols-[repeat(auto-fit,minmax(135px,1fr))] gap-4 md:grid-cols-[repeat(auto-fit,minmax(135px,135px))]">
 																<ImageUpload
 																	handleSelectImage={(_value) => {
 																		setSelectedTestImages((prev) => ({...prev, image_1: _value}));

@@ -46,7 +46,7 @@ function SignUp() {
 		email: Yup.string().email("Invalid email").required("Required"),
 		password: Yup.string()
 			.password()
-			.matches(/[-_]/, "The password may only contain letters, numbers, dashes and underscores.")
+			.matches(/^(?=.*[-_])[A-Za-z0-9_-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
 			.required("Required"),
 	});
 
@@ -64,10 +64,10 @@ function SignUp() {
 	console.log(handleSignUp);
 
 	return (
-		<main className="flex min-h-screen w-full flex-col items-center justify-between">
+		<main className="flex w-full flex-grow flex-col items-center justify-between">
 			<section
 				className={
-					"mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-start gap-12 px-4  2xs:px-8 lg:gap-0 lg:px-16 " +
+					"mx-auto flex w-full max-w-7xl flex-grow flex-col items-center justify-start gap-12 px-4  2xs:px-8 lg:gap-0 lg:px-16 " +
 					`${!handleSignUp.isSuccess ? "pt-10" : ""}`
 				}
 			>

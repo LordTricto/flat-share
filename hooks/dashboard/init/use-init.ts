@@ -1,13 +1,13 @@
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
 import {UserActivationStatus, UserType} from "@/models/user.constant";
 import {initLoadingFalse, initRequest, initSuccess, setIsAccountCreatedStatus} from "@/redux/init/slice/initSlice";
+import {setToStageFour, setToStageOne} from "@/redux/get-started/get-started";
 import {usePathname, useRouter} from "next/navigation";
 
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {LoadUserDataFormResponse} from "./init.constants";
 import {loadUserDataApi} from "./init-api";
-import {setToStageFour} from "@/redux/get-started/get-started";
 import {useDispatch} from "react-redux";
 
 function useInit(): UseQueryResult<LoadUserDataFormResponse, AxiosError<any, any>> {
@@ -34,6 +34,7 @@ function useInit(): UseQueryResult<LoadUserDataFormResponse, AxiosError<any, any
 			}
 			if (data.user.account_status === UserActivationStatus.UNCOMPLETED && data.user.profile_photo_path.includes("default")) {
 				dispatch(setIsAccountCreatedStatus(false));
+				dispatch(setToStageOne());
 				router.replace("/dashboard/get-started");
 				return;
 			}

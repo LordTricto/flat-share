@@ -65,7 +65,7 @@ function StageOne() {
 									<div
 										className={
 											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
-											"rounded-lg border py-6 duration-150 hover:border-blue hover:bg-blue-senary " +
+											"rounded-lg border py-6 duration-150 md:hover:border-blue md:hover:bg-blue-senary " +
 											`${formik.values.user_type === UserType.HOST_HUNTERS ? "border-blue" : "border-grey-quat"}`
 										}
 										onClick={() => formik.getFieldHelpers("user_type").setValue(UserType.HOST_HUNTERS)}
@@ -79,7 +79,7 @@ function StageOne() {
 									<div
 										className={
 											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
-											"rounded-lg border py-6 duration-150 hover:border-blue hover:bg-blue-senary " +
+											"rounded-lg border py-6 duration-150 md:hover:border-blue md:hover:bg-blue-senary " +
 											`${formik.values.user_type === UserType.HOST ? "border-blue" : "border-grey-quat"}`
 										}
 										onClick={() => formik.getFieldHelpers("user_type").setValue(UserType.HOST)}

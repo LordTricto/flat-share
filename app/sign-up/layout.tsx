@@ -5,14 +5,14 @@ import logoIcon from "@/public/images/logo.svg";
 import pageDivider from "@/public/images/general/page-divider.svg";
 import signUpImg from "@/public/images/sign-up/sign-up-1.png";
 
-export default function LandingLayout({
+export default function SignUpLayout({
 	children, // will be a page or nested layout
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex max-h-screen w-full flex-col items-center justify-between lg:flex-row">
-			<div className="relative hidden h-screen w-full flex-col items-center justify-start gap-6 overflow-hidden bg-sky-blue pt-10 lg:flex">
+		<div className="flex w-full flex-grow flex-col items-center justify-between lg:flex-row">
+			<div className="relative hidden h-full w-full flex-col items-center justify-start gap-6 overflow-hidden bg-sky-blue pt-10 lg:flex">
 				<div className="flex w-full flex-col items-center justify-center gap-12">
 					<Link href="/">
 						<div className="flex w-max flex-row items-center justify-center">
@@ -30,7 +30,11 @@ export default function LandingLayout({
 				</div>
 				<Image className="absolute bottom-0 left-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 			</div>
-			<div className="h-full max-h-screen w-full overflow-hidden overflow-y-scroll">{children}</div>
+			<main className="relative flex h-full w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start bg-white pt-[100px] lg:pt-0">
+				<div className="relative flex h-full w-full flex-col items-center justify-start overflow-y-auto">
+					<div className="absolute left-0 top-0 flex w-full flex-col items-center justify-start">{children}</div>
+				</div>
+			</main>
 		</div>
 	);
 }

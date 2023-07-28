@@ -1,14 +1,16 @@
 "use client";
 
+import Image, {StaticImageData} from "next/image";
 import React, {useRef} from "react";
 
-import Image from "next/image";
+import cameraBgIcon from "@/public/images/dashboard/general/empty-apartment.png";
 import cameraIcon from "@/public/images/dashboard/general/camera.svg";
 import reloadIcon from "@/public/images/dashboard/general/reload.svg";
 
 interface Props {
-	image: string;
-	handleSelectImage: (_image: string) => void;
+	image: string | StaticImageData;
+	isImageOnly?: boolean;
+	handleSelectImage?: (_image: string) => void;
 }
 
 function ImageUpload(props: Props) {
@@ -19,7 +21,7 @@ function ImageUpload(props: Props) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 				const imagePath = e.target?.result;
-				props.handleSelectImage(imagePath as string);
+				props.handleSelectImage && props.handleSelectImage(imagePath as string);
 			};
 			reader.readAsDataURL(file);
 		}
@@ -32,27 +34,43 @@ function ImageUpload(props: Props) {
 	return (
 		<div className="w-full sm:w-[unset]">
 			<div
-				className="relative flex h-44 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[10px] border border-black-quin sm:h-28 sm:w-28"
+				className={
+					"relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden " +
+					`${!(!props.isImageOnly && !props.image) ? "rounded-2xl border border-black-quin " : ""} `
+				}
 				onClick={onTargetClick}
 			>
-				{props.image && (
+				{props.isImageOnly && props.image && <Image className="w-full" width={135} height={135} src={props.image} alt="img" tabIndex={-1} />}
+
+				{!props.isImageOnly && props.image && (
 					<>
-						<Image className="absolute left-0 top-0 z-0 h-full w-full " src={props.image} alt="img" fill tabIndex={-1} />
+						<Image className="w-full" width={135} height={135} src={props.image} alt="img" tabIndex={-1} priority />
 						<div className="absolute left-0 top-0 z-0 h-full w-full bg-black bg-opacity-30"></div>
 					</>
 				)}
 
-				<input
-					type="file"
-					ref={fileInputRef}
-					className="hidden"
-					onChange={(event) => event.target.files && onFileChange(event.target.files[0])}
-					accept="image/*"
-				/>
-				{props.image ? (
-					<Image className="z-10" src={reloadIcon} alt="reload" width={24} height={24} tabIndex={-1} />
-				) : (
-					<Image src={cameraIcon} alt="camera" width={40} height={40} tabIndex={-1} />
+				{!props.isImageOnly && (
+					<input
+						type="file"
+						ref={fileInputRef}
+						className="hidden"
+						onChange={(event) => event.target.files && onFileChange(event.target.files[0])}
+						accept="image/*"
+					/>
+				)}
+				{!props.isImageOnly && props.image && (
+					<div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center">
+						<Image className="z-10" src={reloadIcon} alt="reload" width={24} height={24} tabIndex={-1} priority />
+					</div>
+				)}
+				{!props.isImageOnly && !props.image && (
+					<div className="relative w-full">
+						<Image className="w-full" src={cameraBgIcon} alt="camera-bg" width={135} height={135} tabIndex={-1} priority />
+
+						<div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center">
+							<Image src={cameraIcon} alt="camera" width={28} height={28} tabIndex={-1} priority />
+						</div>
+					</div>
 				)}
 			</div>
 		</div>

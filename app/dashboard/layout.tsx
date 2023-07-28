@@ -9,7 +9,7 @@ import Cancel from "@/components/jsx-icons/cancel";
 import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
-import {Inter} from "next/font/google";
+// import {Inter} from "next/font/google";
 import Link from "next/link";
 import LoadingScreen from "@/components/dashboard/general/loading-screen";
 // import Logout from "@/components/jsx-icons/logout";
@@ -70,10 +70,15 @@ const myFont = localFont({
 	display: "swap",
 });
 
-const inter = Inter({
-	subsets: ["latin"],
-	variable: "--font-inter",
+const dashboardFont = localFont({
+	src: "../../public/fonts/inter/Inter-VariableFont_slnt,wght.ttf",
+	display: "swap",
 });
+
+// const inter = Inter({
+// 	subsets: ["latin"],
+// 	variable: "--font-inter",
+// });
 
 export default function DashboardLayout({
 	children, // will be a page or nested layout
@@ -126,7 +131,7 @@ export default function DashboardLayout({
 			{isFetching && <LoadingScreen />}
 			{!isFetching && isMounted && (
 				<div
-					className={`${inter.className} ` + "font-in relative grid h-full w-full grid-cols-1 bg-white lg:grid-cols-[16rem,auto]"}
+					className={`${dashboardFont.className} ` + "font-in relative grid h-full w-full grid-cols-1 bg-white lg:grid-cols-[16rem,auto]"}
 					id="dashboard"
 					tabIndex={-1}
 				>

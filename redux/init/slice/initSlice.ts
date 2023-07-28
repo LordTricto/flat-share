@@ -47,13 +47,18 @@ export const initSlice = createSlice({
 		logoutSuccess: (state: InitState) => {
 			state.isLoggedIn = false;
 			state.isInitError = null;
-			state.isInitLoading = false;
-			state.user = null;
+			// state.user = null;
 			state.filter = null;
 		},
 
 		setIsAccountCreatedStatus: (state: InitState, action: PayloadAction<boolean>) => {
 			state.isAccountCreated = action.payload;
+		},
+
+		setUpdatedUserProfile: (state: InitState, action: PayloadAction<string>) => {
+			if (state.user) {
+				state.user.profile_photo_path = action.payload;
+			}
 		},
 
 		initReset: (state: InitState) => {
@@ -68,7 +73,16 @@ export const initSlice = createSlice({
 	},
 });
 
-export const {initRequest, initFailure, initSuccess, initLoadingFalse, loginSuccess, logoutSuccess, setIsAccountCreatedStatus, initReset} =
-	initSlice.actions;
+export const {
+	initRequest,
+	initFailure,
+	initSuccess,
+	initLoadingFalse,
+	loginSuccess,
+	logoutSuccess,
+	setIsAccountCreatedStatus,
+	setUpdatedUserProfile,
+	initReset,
+} = initSlice.actions;
 
 export default initSlice.reducer;

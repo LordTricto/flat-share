@@ -11,7 +11,7 @@ function Flatmate(props: {className?: string}) {
 				<Image
 					src={FlatmateInactive}
 					alt="icon-inactive"
-					className="absolute left-0 top-0 z-10 opacity-100 transition-opacity duration-150 group-hover:opacity-0"
+					className="absolute left-0 top-0 z-10 opacity-100 transition-opacity duration-150 md:group-hover:opacity-0"
 					width={32}
 					height={32}
 					tabIndex={-1}

@@ -73,9 +73,12 @@ function FormInput({
 		...field,
 		...otherProps,
 		className:
-			`py-3 pt-4 h-full w-full z-10 placeholder:text-black-quat focus:outline-none focus:border-none rounded-lg bg-white ` +
+			`py-4 h-full w-full z-10 placeholder:text-black-quat focus:outline-none focus:border-none rounded-lg bg-white ` +
 			`${alwaysActive || (field.value && String(field.value).length > 0) ? "text-black-secondary" : ""} ` +
 			`${isDisabled ? "text-black-quat bg-transparent " : ""} ` +
+			`${inputSize === "lg" ? "text-lg" : ""} ` +
+			`${inputSize === "md" ? "text-base" : ""} ` +
+			`${inputSize === "sm" ? "text-sm" : ""} ` +
 			`${!icon ? "px-4" : ""} `,
 		type: type === "password" && showPassword ? "text" : type,
 		// type={type ? (type === "password" ? (showPassword ? "text" : "password") : type) : "text"}

@@ -51,11 +51,12 @@ function Header(): JSX.Element {
 
 	return (
 		<>
-			{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
+			{!pathname.includes("dashboard") && (
 				<nav
 					className={
 						"absolute left-0 top-0 z-30 h-min w-full  overflow-hidden backdrop-blur-md " +
-						`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "bg-black-nav-bg" : "bg-white-nav-bg"}`
+						`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "bg-black-nav-bg" : "bg-white-nav-bg"} ` +
+						`${!(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") ? "lg:hidden" : ""}`
 					}
 				>
 					<div className="mx-auto flex h-fit w-full max-w-7xl items-center justify-between px-4 py-8 2xs:px-8 lg:px-16">
@@ -83,7 +84,85 @@ function Header(): JSX.Element {
 								</div>
 							</Link>
 
-							<div className="hidden w-full items-center justify-start gap-8 lg:flex">
+							{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
+								<div className="hidden w-full items-center justify-start gap-8 lg:flex">
+									<Link href="sign-up/find-flatmate">
+										<Button type="button" buttonType="tertiary" color="grey">
+											<span
+												className={`${
+													pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""
+												}`}
+											>
+												Find Flatmate
+											</span>
+										</Button>
+									</Link>
+									<Link href="sign-up">
+										<Button type="button" buttonType="tertiary" color="grey">
+											<span
+												className={`${
+													pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""
+												}`}
+											>
+												Become a Host
+											</span>
+										</Button>
+									</Link>
+									<Link href="find-a-home">
+										<Button type="button" buttonType="tertiary" color="grey">
+											<span
+												className={`${
+													pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""
+												}`}
+											>
+												Find a Home
+											</span>
+										</Button>
+									</Link>
+								</div>
+							)}
+						</div>
+						{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
+							<>
+								<div className="hidden items-center justify-center gap-6 lg:flex">
+									<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
+										<span
+											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
+										>
+											Sign In
+										</span>
+									</Button>
+									<CtaButton />
+								</div>
+								<div
+									className={
+										"flex cursor-pointer lg:hidden" +
+										` ${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : "text-black"}`
+									}
+								>
+									{isNavOpen && (
+										<div onClick={handleCloseNav}>
+											<HamburgerClose />
+										</div>
+									)}
+									{!isNavOpen && (
+										<div onClick={handleOpenNav}>
+											<HamburgerOpen />
+										</div>
+									)}
+								</div>
+							</>
+						)}
+					</div>
+
+					{(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") && (
+						<div
+							className={
+								"flex w-full flex-col items-center justify-center gap-4 px-4 pb-8 2xs:px-8 lg:hidden " +
+								`${isNavOpen ? "" : "pointer-events-none hidden -translate-x-full"}`
+							}
+						>
+							<div className="flex w-full flex-col items-center justify-start gap-8">
 								<Link href="sign-up/find-flatmate">
 									<Button type="button" buttonType="tertiary" color="grey">
 										<span
@@ -93,7 +172,7 @@ function Header(): JSX.Element {
 										</span>
 									</Button>
 								</Link>
-								<Link href="sign-up">
+								<Link href="sign-up/be-a-host">
 									<Button type="button" buttonType="tertiary" color="grey">
 										<span
 											className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}
@@ -111,72 +190,17 @@ function Header(): JSX.Element {
 										</span>
 									</Button>
 								</Link>
+								<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
+									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
+										Sign In
+									</span>
+								</Button>
+								<div className="w-full 2xs:w-max">
+									<CtaButton />
+								</div>
 							</div>
 						</div>
-						<div className="hidden items-center justify-center gap-6 lg:flex">
-							<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
-								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
-									Sign In
-								</span>
-							</Button>
-							<CtaButton />
-						</div>
-						<div
-							className={
-								"flex cursor-pointer lg:hidden" +
-								` ${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : "text-black"}`
-							}
-						>
-							{isNavOpen && (
-								<div onClick={handleCloseNav}>
-									<HamburgerClose />
-								</div>
-							)}
-							{!isNavOpen && (
-								<div onClick={handleOpenNav}>
-									<HamburgerOpen />
-								</div>
-							)}
-						</div>
-					</div>
-					<div
-						className={
-							"flex w-full flex-col items-center justify-center gap-4 px-4 pb-8 2xs:px-8 lg:hidden " +
-							`${isNavOpen ? "" : "pointer-events-none hidden -translate-x-full"}`
-						}
-					>
-						<div className="flex w-full flex-col items-center justify-start gap-8">
-							<Link href="sign-up/find-flatmate">
-								<Button type="button" buttonType="tertiary" color="grey">
-									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
-										Find Flatmate
-									</span>
-								</Button>
-							</Link>
-							<Link href="sign-up/be-a-host">
-								<Button type="button" buttonType="tertiary" color="grey">
-									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
-										Become a Host
-									</span>
-								</Button>
-							</Link>
-							<Link href="find-a-home">
-								<Button type="button" buttonType="tertiary" color="grey">
-									<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
-										Find a Home
-									</span>
-								</Button>
-							</Link>
-							<Button type="button" buttonType="tertiary" color="grey" onClick={handleSignIn}>
-								<span className={`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "text-white" : ""}`}>
-									Sign In
-								</span>
-							</Button>
-							<div className="w-full 2xs:w-max">
-								<CtaButton />
-							</div>
-						</div>
-					</div>
+					)}
 				</nav>
 			)}
 		</>

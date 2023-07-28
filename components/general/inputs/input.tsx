@@ -156,9 +156,12 @@ function Input({
 						value={value || ""}
 						onChange={(e) => onChange && onChange(e.target.value)}
 						className={
-							`z-10 h-full w-full rounded-lg bg-white py-3 pt-4 placeholder:text-black-quat focus:border-none focus:outline-none ` +
+							`z-10 h-full w-full rounded-lg bg-white py-4 placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${alwaysActive || hasValue ? "text-black-secondary" : ""} ` +
 							`${isDisabled ? "bg-transparent text-black-quat " : ""} ` +
+							`${inputSize === "lg" ? "text-base" : ""} ` +
+							`${inputSize === "md" ? "text-sm" : ""} ` +
+							`${inputSize === "sm" ? "text-xs" : ""} ` +
 							`${!icon ? "px-4" : ""}`
 						}
 						name={label}

@@ -15,7 +15,7 @@ export enum PasswordRuleKey {
 export const PasswordRules: {[key in PasswordRuleKey]: PasswordRule} = {
 	[PasswordRuleKey.LOWERCASE]: {text: "One lowercase letter", regex: new RegExp("[a-z]")},
 	[PasswordRuleKey.UPPERCASE]: {text: "One uppercase letter", regex: new RegExp("[A-Z]")},
-	[PasswordRuleKey.SPECIAL_CHAR]: {text: "One special character (dash or underscore)", regex: new RegExp("[-_]")},
+	[PasswordRuleKey.SPECIAL_CHAR]: {text: "One special character (dash or underscore)", regex: new RegExp(/^(?=.*[-_])[A-Za-z0-9_-]+$/)},
 	[PasswordRuleKey.NUMBER]: {text: "One number", regex: new RegExp("[0-9]")},
 	[PasswordRuleKey.NO_SPACE]: {text: "No Space", regex: new RegExp(/^\S*$/)},
 	[PasswordRuleKey.MIN_LENGTH]: {text: "Minimum 10 characters", regex: new RegExp("[^\\s]{10,}")},
