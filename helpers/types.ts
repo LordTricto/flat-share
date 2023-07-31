@@ -15,4 +15,9 @@ export interface DropdownItem<T extends DropdownItemValueType> {
 	text: string;
 	icon?: StaticImageData;
 	subtext?: string;
+	isLink?: boolean;
+	big?: boolean;
+	redHover?: boolean;
+	fitHeight?: boolean;
+	noHover?: boolean;
 }

@@ -15,50 +15,55 @@ let inputCounter = 0;
 
 interface InputProps extends ExcludeProps<InputHTMLAttributes<HTMLInputElement>, InputPropsToExclude> {
 	// interface InputProps {
-	label?: string;
-	value?: string | number | undefined;
 	type?: string;
 	icon?: StaticImageData;
-	inputSize?: "sm" | "md" | "lg";
-	appendIcon?: ReactNode;
-	appendOuterIcon?: ReactNode;
+	label?: string;
+	value?: string | number | undefined;
+	isMoney?: boolean;
+	isGreyBG?: boolean;
+	isNumber?: boolean;
 	iconLeft?: boolean;
+	readOnly?: boolean;
+	isLoading?: boolean;
+	isFocused?: boolean;
+	fullWidth?: boolean;
+	inputSize?: "sm" | "md" | "lg" | "xl";
+	isDisabled?: boolean;
+	customIcon?: React.ReactNode;
+	helperText?: React.ReactNode;
+	appendIcon?: ReactNode;
+	alwaysActive?: boolean;
+	appendOuterIcon?: ReactNode;
+	mobileHelperText?: boolean;
+
 	onChange?(value: string): void;
 	onUpClick?: () => void;
 	onDownClick?: () => void;
-	isFocused?: boolean;
-	isMoney?: boolean;
-	isNumber?: boolean;
-	isLoading?: boolean;
-	alwaysActive?: boolean;
-	isDisabled?: boolean;
-	fullWidth?: boolean;
-	readOnly?: boolean;
-	helperText?: React.ReactNode;
-	mobileHelperText?: boolean;
 }
 function Input({
-	label,
-	value,
 	type,
 	icon,
-	appendIcon,
-	appendOuterIcon,
-	iconLeft = false,
+	label,
+	value,
 	isMoney = false,
+	isGreyBG = false,
+	iconLeft = false,
 	isNumber = false,
+	readOnly = false,
+	inputSize = "lg",
+	fullWidth = false,
+	isFocused,
+	isLoading,
+	appendIcon,
+	customIcon,
+	helperText = "",
+	isDisabled = false,
+	alwaysActive = false,
+	appendOuterIcon,
+	mobileHelperText = false,
 	onChange,
 	onUpClick,
 	onDownClick,
-	isFocused,
-	isLoading,
-	inputSize = "lg",
-	alwaysActive = false,
-	isDisabled = false,
-	fullWidth = false,
-	readOnly = false,
-	helperText = "",
-	mobileHelperText = false,
 	...otherProps
 }: InputProps): JSX.Element {
 	const [active, setActive] = useState(false);
@@ -103,6 +108,7 @@ function Input({
 						className={
 							`font-medium leading-[100%] text-black-secondary  ` +
 							`${isDisabled ? "text-black-quat " : ""} ` +
+							`${inputSize === "xl" ? "text-lg" : ""} ` +
 							`${inputSize === "lg" ? "text-lg" : ""} ` +
 							`${inputSize === "md" ? "text-base" : ""} ` +
 							`${inputSize === "sm" ? "text-sm" : ""} `
@@ -127,10 +133,12 @@ function Input({
 						setActive(false);
 					}}
 					className={
-						`relative flex w-full items-center justify-between gap-1 whitespace-nowrap rounded-lg border border-solid bg-white text-left text-base font-normal leading-relaxed shadow-none outline-none transition-all duration-150 focus:outline-none ` +
+						`relative flex w-full items-center justify-between gap-1 whitespace-nowrap rounded-lg border border-solid text-left text-base font-normal leading-relaxed shadow-none outline-none transition-all duration-150 focus:outline-none ` +
 						`text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
 						`border-black-quin focus:border-blue  lg:hover:border-blue ` +
 						`${active ? "border-blue " : ""} ` +
+						`${isGreyBG ? "bg-grey-backdrop " : "bg-white"} ` +
+						`${inputSize === "xl" ? "h-16" : ""} ` +
 						`${inputSize === "lg" ? "h-12" : ""} ` +
 						`${inputSize === "md" ? "h-10" : ""} ` +
 						`${inputSize === "sm" ? "h-8" : ""} ` +
@@ -156,9 +164,11 @@ function Input({
 						value={value || ""}
 						onChange={(e) => onChange && onChange(e.target.value)}
 						className={
-							`z-10 h-full w-full rounded-lg bg-white py-4 placeholder:text-black-quat focus:border-none focus:outline-none ` +
+							`z-10 h-full w-full rounded-lg py-4 placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${alwaysActive || hasValue ? "text-black-secondary" : ""} ` +
 							`${isDisabled ? "bg-transparent text-black-quat " : ""} ` +
+							`${isGreyBG ? "bg-grey-backdrop " : "bg-white"} ` +
+							`${inputSize === "xl" ? "text-base" : ""} ` +
 							`${inputSize === "lg" ? "text-base" : ""} ` +
 							`${inputSize === "md" ? "text-sm" : ""} ` +
 							`${inputSize === "sm" ? "text-xs" : ""} ` +
@@ -170,6 +180,20 @@ function Input({
 						tabIndex={readOnly || isDisabled ? -1 : 0}
 						{...otherProps}
 					/>
+					{customIcon && (
+						<div
+							className={
+								"flex w-max items-center justify-center " +
+								`${inputSize === "xl" ? "h-16" : ""} ` +
+								`${inputSize === "lg" ? "h-12" : ""} ` +
+								`${inputSize === "md" ? "h-10" : ""} ` +
+								`${inputSize === "sm" ? "h-8" : ""} `
+							}
+							// onMouseEnter={(e) => e.stopPropagation()}
+						>
+							{customIcon}
+						</div>
+					)}
 					{icon && (
 						<span
 							className={
@@ -193,7 +217,7 @@ function Input({
 						</span>
 					)}
 					{type === "number" && (
-						<div className="bg-pink-20 absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2 px-2">
+						<div className="absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2 px-2">
 							<div className="flex w-full items-center justify-center" onClick={onUpClick}>
 								<Image src={arrowUpIcon} alt="arrow up icon" className="cursor-pointer" />
 							</div>

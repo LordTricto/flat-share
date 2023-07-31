@@ -39,7 +39,7 @@ const getClass = (props: DropdownRowProps): string => {
 			classes.push("bg-gray-100 text-black-secondary");
 		}
 	} else if (props.redHover) {
-		classes.push("hover:bg-error-backdrop hover:text-error cursor-pointer pointer-events-auto");
+		classes.push("hover:bg-error-backdrop text-error hover:text-error cursor-pointer pointer-events-auto");
 	} else if (props.isLink) {
 		classes.push("hover:bg-blue-senary hover:text-blue cursor-pointer pointer-events-auto");
 	} else {

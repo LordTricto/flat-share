@@ -79,10 +79,18 @@ function Dropdown<T extends DropdownItemValueType>({
 		>
 			{options &&
 				options.map((option, index) => (
-					<DropdownRow key={index} onClick={() => onSelect(option.value)} big={big} fitHeight={fitHeight}>
+					<DropdownRow
+						key={index}
+						onClick={() => onSelect(option.value)}
+						big={option.big || big}
+						fitHeight={option.fitHeight || fitHeight}
+						isLink={option.isLink}
+						redHover={option.redHover}
+						noHover={option.noHover}
+					>
 						<div
 							className={
-								"flex w-full flex-col items-start justify-start space-y-0.5 px-4 py-2 text-black " +
+								"flex w-full flex-col items-start justify-start space-y-0.5 px-4 py-2 " +
 								`${option.value === value ? "pointer-events-none" : ""} `
 							}
 							data-type="dropdown"
@@ -102,7 +110,7 @@ function Dropdown<T extends DropdownItemValueType>({
 										</div>
 									</div>
 								)}
-								<span className={"text-sm capitalize text-black-secondary " + `${option.icon ? "ml-2" : ""}`} data-type="dropdown">
+								<span className={"text-sm capitalize" + `${option.icon ? "ml-2" : ""}`} data-type="dropdown">
 									{option.text}
 								</span>
 							</div>

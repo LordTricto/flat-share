@@ -9,6 +9,9 @@ module.exports = {
 				"aside-section-pattern": "url('/public/images/dashboard/home/aside-section-pattern.png')",
 				// "contact-us": "url('../public/images/contact-us/contact-us-1.png')",
 			},
+			boxShadow: {
+				chat: "0px 4px 6px -2px rgba(16, 24, 40, 0.02), 0px 12px 16px -4px rgba(16, 24, 40, 0.04)",
+			},
 			colors: {
 				"sky-blue": {
 					DEFAULT: "#E1F2FE",
