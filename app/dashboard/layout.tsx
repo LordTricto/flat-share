@@ -71,7 +71,7 @@ const myFont = localFont({
 });
 
 const dashboardFont = localFont({
-	src: "../../public/fonts/inter/Inter-VariableFont_slnt,wght.ttf",
+	src: "../Inter-VariableFont_slnt,wght.ttf",
 	display: "swap",
 });
 
