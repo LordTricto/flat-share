@@ -3,7 +3,6 @@ const nextConfig = {
 	experimental: {
 		appDir: true,
 	},
-	fastRefresh: true,
 	reactStrictMode: false,
 	images: {
 		domains: ["flatshare.ribiax.com"],
