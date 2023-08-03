@@ -24,7 +24,7 @@ import supportImg from "@/public/images/home/support.png";
 export default function Home() {
 	return (
 		<main className="flex h-fit w-full flex-col items-center justify-between">
-			<section className="mx-auto flex h-fit min-h-fit w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:flex-row lg:gap-0 lg:px-16">
+			<section className="mx-auto flex h-fit min-h-fit w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:h-screen md:min-h-screen md:flex-row lg:gap-0 lg:px-16">
 				<div className="flex h-full w-full flex-col items-start justify-start gap-12 pt-36 md:max-w-xl md:justify-center md:pt-0">
 					<div className="flex flex-col items-start justify-start gap-6">
 						<div className="flex flex-col items-start justify-start gap-4">
