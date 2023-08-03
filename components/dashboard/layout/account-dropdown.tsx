@@ -19,11 +19,9 @@ function AccountDropdown() {
 	const [userProfile, setUserProfile] = useState<string | null>("");
 
 	useEffect(() => {
-		console.log("i ran");
 		setUserProfile(user?.profile_photo_path || null);
 	}, [user?.profile_photo_path]);
 
-	console.log(user?.profile_photo_path);
 	return (
 		<>
 			<Dropdown

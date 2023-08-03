@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import {AccountPreferenceForm, locationOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 import {Form, Formik, FormikProps} from "formik";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef} from "react";
 
 import Button from "@/components/general/button/button";
 import Dropdown from "@/components/general/dropdown/dropdown";
@@ -15,7 +16,6 @@ import locationIcon from "@/public/images/dashboard/general/location.svg";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
 import {setAccountPreference} from "@/redux/get-started/get-started";
 import useGetStarted from "@/hooks/dashboard/get-started/account-setup/use-get-started";
-import {useRef} from "react";
 
 function StageThree() {
 	const dispatch = useDispatch();
@@ -36,6 +36,12 @@ function StageThree() {
 	});
 
 	const handleGetStarted = useGetStarted();
+
+	useEffect(() => {
+		if (handleGetStarted.isSuccess) {
+			formikRef.current?.resetForm();
+		}
+	}, [handleGetStarted.isSuccess]);
 
 	return (
 		<>

@@ -3,7 +3,7 @@
 import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import Button from "@/components/general/button/button";
 import Dropdown from "@/components/general/dropdown/dropdown";
@@ -16,12 +16,15 @@ import {UpdateProfileForm} from "@/hooks/dashboard/update-profile/update-profile
 import cameraIcon from "@/public/images/dashboard/get-started/upload-camera.svg";
 import {religionOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 import {useSelector} from "react-redux";
+import useUpdateProfile from "@/hooks/dashboard/update-profile/use-update-profile";
 
 interface Props {
 	toggle: () => void;
 }
 
 function EditProfile(props: Props) {
+	const {mutate, isLoading, isSuccess} = useUpdateProfile();
+
 	const user = useSelector((state: IRootState) => state.init.user);
 
 	const formikRef = useRef<FormikProps<UpdateProfileForm> | null>(null);
@@ -33,7 +36,7 @@ function EditProfile(props: Props) {
 		email: user?.email || "",
 		profession: user?.profession || "",
 		sex: user?.sex || null,
-		age: user?.age || 0,
+		// age: user?.age || 0,
 		religion: user?.religion || null,
 		bio: user?.bio || "",
 	};
@@ -45,7 +48,7 @@ function EditProfile(props: Props) {
 		email: Yup.string().required("Required"),
 		profession: Yup.string().required("Required"),
 		sex: Yup.string().required("Required"),
-		age: Yup.string().required("Required"),
+		// age: Yup.string().required("Required"),
 		religion: Yup.string().required("Required"),
 		budget: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
 		bio: Yup.array().of(Yup.string().required("Required")).min(1).max(5).required("Required"),
@@ -72,6 +75,12 @@ function EditProfile(props: Props) {
 	const onTargetClick = () => {
 		fileInputRef.current && fileInputRef.current.click();
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			props.toggle();
+		}
+	}, [isSuccess, props]);
 
 	return (
 		<>
@@ -109,7 +118,10 @@ function EditProfile(props: Props) {
 									buttonType="primary"
 									color="black"
 									size="md"
-									onClick={() => formikRef.current?.submitForm()}
+									isLoading={isLoading}
+									onClick={() => {
+										if (formikRef.current) mutate(formikRef.current?.values);
+									}}
 									borderSmall
 								>
 									<span>Save Changes</span>
@@ -158,7 +170,7 @@ function EditProfile(props: Props) {
 								innerRef={formikRef}
 								validationSchema={formValidation}
 								onSubmit={(value) => {
-									props.toggle();
+									mutate(value);
 									// handleForgotPassword.mutate(value)
 								}}
 								enableReinitialize={true}
@@ -215,7 +227,15 @@ function EditProfile(props: Props) {
 												</div>
 											</div>
 											<div className="flex w-full flex-col gap-3 pt-4 xs:hidden">
-												<Button type="submit" buttonType="primary" color="black" size="lg" borderSmall fullWidth>
+												<Button
+													type="submit"
+													buttonType="primary"
+													color="black"
+													size="lg"
+													isLoading={isLoading}
+													borderSmall
+													fullWidth
+												>
 													<span className="text-sm xs:text-base">Save Changes</span>
 												</Button>
 												<Button

@@ -23,8 +23,8 @@ import supportImg from "@/public/images/home/support.png";
 
 export default function Home() {
 	return (
-		<main className="flex h-fit min-h-screen w-full flex-col items-center justify-between">
-			<section className="mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:flex-row lg:gap-0 lg:px-16">
+		<main className="flex h-fit w-full flex-col items-center justify-between">
+			<section className="mx-auto flex h-screen w-full max-w-7xl flex-col items-center justify-between gap-12 px-4 2xs:px-8 md:flex-row lg:gap-0 lg:px-16">
 				<div className="flex h-full w-full flex-col items-start justify-start gap-12 pt-36 md:max-w-xl md:justify-center md:pt-0">
 					<div className="flex flex-col items-start justify-start gap-6">
 						<div className="flex flex-col items-start justify-start gap-4">
@@ -56,7 +56,7 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="relative h-full min-h-screen w-full overflow-hidden">
+			<section className="relative h-fit min-h-fit w-full overflow-hidden">
 				<Image className="left-0 top-0 z-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 				<Image className="absolute bottom-0 left-0 z-10 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
 
@@ -270,7 +270,6 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section></section>
 		</main>
 	);
 }

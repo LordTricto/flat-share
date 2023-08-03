@@ -6,7 +6,7 @@ import React from "react";
 interface Props {
 	name: string;
 	isPending?: boolean;
-	profileImage: StaticImageData;
+	profileImage: string | StaticImageData;
 }
 
 function UserRequest(props: Props) {

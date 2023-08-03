@@ -3,6 +3,7 @@ import Image, {StaticImageData} from "next/image";
 import Button from "@/components/general/button/button";
 import HostTag from "../tags/host-tag";
 import React from "react";
+import {UserReligion} from "@/models/user.constant";
 import UserTag from "../tags/user-tag";
 import lockIcon from "@/public/images/dashboard/general/lock.svg";
 
@@ -11,11 +12,11 @@ interface Props {
 	bio: string;
 	isLocked: boolean;
 	isHost: boolean;
-	religion: string;
+	religion: UserReligion | null;
 	job: string;
 	location: string;
 	budget: string;
-	profileImage: StaticImageData;
+	profileImage: StaticImageData | string;
 }
 
 function UserCard(props: Props) {
@@ -32,7 +33,7 @@ function UserCard(props: Props) {
 							<div className="flex flex-col gap-2.5">
 								<HostTag isHost={props.isHost} />
 								<div className="flex gap-2.5">
-									<UserTag colorClass="bg-green-100 text-green-500" text={props.religion} />
+									{props.religion && <UserTag colorClass="bg-green-100 text-green-500" text={props.religion} />}
 									<UserTag colorClass="bg-orange-100 text-orange-500" text={props.job} />
 								</div>
 								<UserTag colorClass="bg-gray-100 text-gray-500" text={props.location} />

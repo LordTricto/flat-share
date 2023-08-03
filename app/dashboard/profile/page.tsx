@@ -16,7 +16,6 @@ function Profile() {
 				{isEditingProfile ? (
 					<EditProfile
 						toggle={() => {
-							console.log("whats happening");
 							setIsEditingProfile(false);
 						}}
 					/>

@@ -5,7 +5,6 @@ import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {initSuccess} from "@/redux/init/slice/initSlice";
 import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
-import {setToStageFour} from "@/redux/get-started/get-started";
 import {updateProfileApi} from "./update-profile-api";
 import {useDispatch} from "react-redux";
 
@@ -19,7 +18,6 @@ function useUpdateProfile(): UseMutationResult<any, unknown, UpdateProfileForm, 
 		onSuccess(data: UpdateProfileFormResponse) {
 			dispatch(setSuccessMessage(data.message));
 			dispatch(initSuccess({filter: data.filtered, user: data.user}));
-			dispatch(setToStageFour());
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);

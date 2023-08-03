@@ -61,8 +61,6 @@ function SignUp() {
 		});
 	};
 
-	console.log(handleSignUp);
-
 	return (
 		<main className="flex w-full flex-grow flex-col items-center justify-between">
 			<section

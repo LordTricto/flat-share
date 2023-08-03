@@ -25,7 +25,7 @@ export default class Filter {
 	static create(obj: GenericObject): Filter {
 		return new Filter(
 			Parsers.nullableNumber(obj.preferred_first_age_range),
-			Parsers.nullableNumber(obj.fnpreferred_second_age_rangeame),
+			Parsers.nullableNumber(obj.preferred_second_age_range),
 			Parsers.nullableString(obj.preferred_profession),
 			Parsers.nullableString(obj.preferred_education),
 			Parsers.nullableEnum(obj.preferred_religion, UserReligion),

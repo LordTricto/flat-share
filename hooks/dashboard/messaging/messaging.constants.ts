@@ -84,7 +84,6 @@ const modifiedDate3 = moment(currentDate).subtract(1, "hours").toDate();
 const customDateTime = moment({hour: 23, minute: 45, second: 0});
 const modifiedDateTime = moment(customDateTime).toDate();
 
-console.log(modifiedDateTime);
 const customTime = new Date();
 customTime.setHours(10);
 customTime.setMinutes(30);

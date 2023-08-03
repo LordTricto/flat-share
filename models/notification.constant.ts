@@ -1,6 +1,6 @@
-export enum UserSex {
-	MALE = "male",
-	FEMALE = "female",
+export enum NotificationStatus {
+	SEEN = "yes",
+	NOT_SEEN = "no",
 }
 
 export enum UserType {
@@ -13,7 +13,6 @@ export enum UserReligion {
 	CHRISTIANITY = "christianity",
 	ISLAM = "islam",
 	OTHERS = "others",
-	I_DONT_CARE = "i dont care",
 }
 
 export enum UserActivationStatus {

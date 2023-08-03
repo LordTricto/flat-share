@@ -1,6 +1,7 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import ApplicationStage from "@/components/dashboard/get-started/elements/application-stage";
 import {GetStartedStage} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
@@ -10,14 +11,21 @@ import StageFour from "@/components/dashboard/get-started/stages/stage-four";
 import StageOne from "@/components/dashboard/get-started/stages/stage-one";
 import StageThree from "@/components/dashboard/get-started/stages/stage-three";
 import StageTwo from "@/components/dashboard/get-started/stages/stage-two";
-import {useSelector} from "react-redux";
+import {applicationReset} from "@/redux/get-started/get-started";
 
 function GetStarted() {
+	const dispatch = useDispatch();
 	const stage = useSelector((state: IRootState) => state.getStarted.stage);
 	// const userData = useSelector((state: IRootState) => state.getStarted.userData);
 	const [isImageCropModalOpen, setIsImageCropModalOpen] = useState<boolean>(false);
 	const [imageToCrop, setImageToCrop] = useState<string>("");
 	const [croppedImg, setCroppedImg] = useState<string>("");
+
+	useEffect(() => {
+		return () => {
+			dispatch(applicationReset());
+		};
+	}, [dispatch]);
 
 	return (
 		<div className="flex h-full w-full justify-center bg-white px-4 md:h-fit md:items-center md:bg-[unset] lg:px-8 ">

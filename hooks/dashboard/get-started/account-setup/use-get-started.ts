@@ -9,7 +9,7 @@ import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
 import {setToStageFour} from "@/redux/get-started/get-started";
 import {useDispatch} from "react-redux";
 
-function useUpdateProfile(): UseMutationResult<any, unknown, GetStartedForm, unknown> {
+function useGetStarted(): UseMutationResult<any, unknown, GetStartedForm, unknown> {
 	const dispatch = useDispatch();
 	const signIn = useMutation({
 		mutationFn: async (_data: GetStartedForm) => {
@@ -29,4 +29,4 @@ function useUpdateProfile(): UseMutationResult<any, unknown, GetStartedForm, unk
 	return signIn;
 }
 
-export default useUpdateProfile;
+export default useGetStarted;

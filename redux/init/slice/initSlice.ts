@@ -61,6 +61,10 @@ export const initSlice = createSlice({
 			}
 		},
 
+		setUpdatedFilter: (state: InitState, action: PayloadAction<Filter>) => {
+			state.filter = action.payload;
+		},
+
 		initReset: (state: InitState) => {
 			state.isLoggedIn = false;
 
@@ -82,6 +86,7 @@ export const {
 	logoutSuccess,
 	setIsAccountCreatedStatus,
 	setUpdatedUserProfile,
+	setUpdatedFilter,
 	initReset,
 } = initSlice.actions;
 

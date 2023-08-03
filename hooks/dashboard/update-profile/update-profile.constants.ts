@@ -10,10 +10,10 @@ export type UpdateProfileForm = {
 	email: string;
 	profession: string;
 	sex: UserSex | null;
-	age: number;
+	// age: number;
 	religion: UserReligion | null;
-	bio: string;
 	// budget: string;
+	bio: string;
 	// location_1: string;
 };
 
