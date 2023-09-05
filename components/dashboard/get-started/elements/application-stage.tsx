@@ -12,7 +12,7 @@ function ApplicationStage() {
 	return (
 		<>
 			<div>
-				<div className="flex items-center justify-center pr-4 md:flex-col md:items-start md:justify-start md:py-10">
+				<div className="flex items-center justify-center md:flex-col md:items-start md:justify-start md:py-10 md:pr-4">
 					<div
 						className={
 							"flex items-center justify-start gap-4 " +
