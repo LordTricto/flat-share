@@ -6,6 +6,7 @@ module.exports = {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+				"gradient-user-card": "linear-gradient(0deg, rgba(0, 0, 0, 0.63) 0%, rgba(0, 0, 0, 0.00) 100%)",
 				"aside-section-pattern": "url('/public/images/dashboard/home/aside-section-pattern.png')",
 				// "contact-us": "url('../public/images/contact-us/contact-us-1.png')",
 			},

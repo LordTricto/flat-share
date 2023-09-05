@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
 import React, {useRef} from "react";
-import {setIsHostFalse, setIsHostTrue, setToStageTwo} from "@/redux/get-started/get-started";
+import {setIsHostFalse, setIsHostTrue, setToStageFour} from "@/redux/get-started/get-started";
 import {useDispatch, useSelector} from "react-redux";
 
 import {AccountTypeForm} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
@@ -52,7 +52,7 @@ function StageOne() {
 							dispatch(setIsHostFalse());
 						}
 
-						dispatch(setToStageTwo());
+						dispatch(setToStageFour());
 					}}
 					enableReinitialize={true}
 					validateOnChange

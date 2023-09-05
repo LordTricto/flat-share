@@ -6,5 +6,5 @@ export type UploadProfileImageForm = {
 export interface UploadProfileImageFormResponse {
 	success: string;
 	message: string;
-	user: UserProfile;
+	user: string;
 }

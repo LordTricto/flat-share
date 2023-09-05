@@ -45,7 +45,7 @@ function AccountDropdown() {
 								<div className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-black">
 									{user?.fname || ""} {user?.lname || ""}
 								</div>
-								<div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-xs font-normal text-black-tertiary">
+								<div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-xs font-normal lowercase text-black-tertiary">
 									{user?.email || ""}
 								</div>
 							</div>

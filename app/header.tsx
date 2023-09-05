@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 import Button from "@/components/general/button/button";
 import CtaButton from "@/components/landing/cta-button";
@@ -36,8 +36,18 @@ const myFont = localFont({
 
 function Header(): JSX.Element {
 	const router = useRouter();
+	const navDiv = useRef<HTMLElement | null>(null);
 	const pathname = usePathname();
 	const [isNavOpen, setIsNavOpen] = useState(false);
+	const [isAtTop, setIsAtTop] = useState(true);
+
+	useEffect(() => {
+		const navAppear = () => {
+			setIsAtTop(window.scrollY < window.innerHeight);
+		};
+		window.addEventListener("scroll", navAppear);
+		return () => window.removeEventListener("keydown", navAppear);
+	}, []);
 
 	const handleSignIn = () => {
 		router.push("/sign-in");
@@ -54,10 +64,14 @@ function Header(): JSX.Element {
 			{!pathname.includes("dashboard") && (
 				<nav
 					className={
-						"absolute left-0 top-0 z-30 h-min w-full  overflow-hidden backdrop-blur-md " +
+						"z-30 h-min w-full transition-all " +
+						`${
+							!isAtTop ? "fixed backdrop-blur-md" : "absolute left-0 top-0 overflow-hidden backdrop-blur-md lg:backdrop-blur-[unset]"
+						} ` +
 						`${pathname.includes("/contact-us") || pathname.includes("/find-a-home") ? "bg-black-nav-bg" : "bg-white-nav-bg"} ` +
 						`${!(pathname === "/" || pathname === "/find-a-home" || pathname === "/contact-us") ? "lg:hidden" : ""}`
 					}
+					ref={navDiv}
 				>
 					<div className="mx-auto flex h-fit w-full max-w-7xl items-center justify-between px-4 py-8 2xs:px-8 lg:px-16">
 						<div className="flex w-full items-center justify-start gap-16">

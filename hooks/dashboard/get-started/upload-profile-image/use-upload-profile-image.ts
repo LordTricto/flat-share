@@ -18,8 +18,8 @@ function useUploadProfileImage(handleSetImage: (_image: string) => void): UseMut
 		},
 		onSuccess(data: UploadProfileImageFormResponse) {
 			dispatch(setSuccessMessage(data.message));
-			dispatch(setUpdatedUserProfile(data.user.profile_photo_path));
-			handleSetImage(data.user.profile_photo_path);
+			dispatch(setUpdatedUserProfile(data.user));
+			handleSetImage(data.user);
 			// dispatch(initSuccess({filter: data.filtered, user: data.user}));
 			dispatch(setToStageFour());
 		},

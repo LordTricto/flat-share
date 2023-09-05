@@ -80,7 +80,7 @@ function StageFour(props: Props) {
 					type="button"
 					buttonType="primary"
 					color="blue"
-					isDisabled={!props.croppedImg}
+					// isDisabled={!props.croppedImg}
 					onClick={() => {
 						if (isHost) {
 							router.push("/dashboard/create-ad");

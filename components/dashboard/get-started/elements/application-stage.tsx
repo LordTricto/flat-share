@@ -1,8 +1,8 @@
-import {setToStageOne, setToStageThree, setToStageTwo} from "@/redux/get-started/get-started";
 import {useDispatch, useSelector} from "react-redux";
 
 import {IRootState} from "@/redux/rootReducer";
 import React from "react";
+import {setToStageOne} from "@/redux/get-started/get-started";
 
 function ApplicationStage() {
 	const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function ApplicationStage() {
 						<div className="h-[1px] w-full bg-grey-quat md:h-full md:w-[1px]"></div>
 					</div>
 
-					<div
+					{/* <div
 						className={
 							"flex items-center justify-start gap-4 " +
 							`${stage >= 2 ? "cursor-pointer text-black" : " text-grey-quin"} ` +
@@ -86,7 +86,7 @@ function ApplicationStage() {
 
 					<div className="flex h-6 w-8 items-center justify-center">
 						<div className="h-[1px] w-full bg-grey-quat md:h-full md:w-[1px]"></div>
-					</div>
+					</div> */}
 
 					<div
 						className={
@@ -103,7 +103,7 @@ function ApplicationStage() {
 									`${stage >= 4 ? "border-blue" : " border-grey-quat"} `
 								}
 							>
-								<span className="h-max select-none font-medium text-current">4</span>
+								<span className="h-max select-none font-medium text-current">2</span>
 							</div>
 						</div>
 						<p className="hidden select-none text-sm text-current md:block">Upload Image</p>
@@ -114,11 +114,11 @@ function ApplicationStage() {
 					<p className="select-none text-base text-current">
 						{stage === 1
 							? "Choose Account Type"
-							: stage === 2
-							? "Personal Information"
-							: stage === 3
-							? "Account Preference"
-							: stage === 4
+							: // : stage === 2
+							// ? "Personal Information"
+							// : stage === 3
+							// ? "Account Preference"
+							stage === 4
 							? "Upload Image"
 							: ""}
 					</p>

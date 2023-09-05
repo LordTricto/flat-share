@@ -45,8 +45,8 @@ function GetStarted() {
 					<div className="hidden w-[1px] max-w-[1px] flex-grow bg-grey md:block"></div>
 					<div className="flex w-full flex-col items-start justify-start py-10 md:w-max">
 						{stage === GetStartedStage.STAGE_ONE && <StageOne />}
-						{stage === GetStartedStage.STAGE_TWO && <StageTwo />}
-						{stage === GetStartedStage.STAGE_THREE && <StageThree />}
+						{/* {stage === GetStartedStage.STAGE_TWO && <StageTwo />} */}
+						{/* {stage === GetStartedStage.STAGE_THREE && <StageThree />} */}
 						{stage === GetStartedStage.STAGE_FOUR && (
 							<StageFour
 								croppedImg={croppedImg}

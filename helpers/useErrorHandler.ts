@@ -12,7 +12,7 @@ import store from "@/redux/store";
 export default function Errorhandler(err: AxiosError): void {
 	// const router = useRouter();
 	const axiosError = err as AxiosError;
-	const errorMessage: string = axiosError.response?.data.message || err.message || "";
+	const errorMessage: string | Record<string, unknown> = axiosError.response?.data.data || axiosError.response?.data.message || err.message || "";
 
 	if (errorMessage === ErrorMessage.UNAUTHORIZED_ERROR) {
 		console.log("Unauthorized");

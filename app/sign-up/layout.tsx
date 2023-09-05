@@ -32,7 +32,7 @@ export default function SignUpLayout({
 			</div>
 			<main className="relative flex h-full w-full flex-shrink flex-grow basis-auto flex-col items-center justify-start bg-white pt-[100px] lg:pt-0">
 				<div className="relative flex h-full w-full flex-col items-center justify-start overflow-y-auto">
-					<div className="absolute left-0 top-0 flex w-full flex-col items-center justify-start">{children}</div>
+					<div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-start">{children}</div>
 				</div>
 			</main>
 		</div>

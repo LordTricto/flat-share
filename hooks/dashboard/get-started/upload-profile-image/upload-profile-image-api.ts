@@ -22,6 +22,6 @@ export const uploadProfileImageApi = async (data: UploadProfileImageForm): Promi
 	return {
 		success: Parsers.string(res.success),
 		message: Parsers.string(res.message),
-		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, UserProfile),
+		user: Parsers.string((res.data as GenericObject).user),
 	};
 };
