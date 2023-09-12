@@ -114,7 +114,7 @@ input[type="number"] {
 	box-shadow: none !important;
 }
 .multi-range-slider .bar-inner {
-	border: none;
+	border: none !important;
 }
 .multi-range-slider .thumb::before {
 	border: solid 3px white !important;
