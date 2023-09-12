@@ -1,6 +1,6 @@
 // import {GetStartedForm, GetStartedFormResponse} from "./create-ad.constants";
 
-import {CreateAdForm, CreateAdFormResponse, CreateAdImagesForm, CreateAdImagesFormResponse} from "./settings.constants";
+import {CreateAdForm, CreateAdFormResponse, CreateAdImagesForm, CreateAdImagesFormResponse} from "../create-ad/create-ad.constants";
 
 import {GenericObject} from "@/helpers/types";
 import Parsers from "@/utils/parsers";

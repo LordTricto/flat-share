@@ -1,4 +1,4 @@
-import {CreateAdImagesForm, CreateAdImagesFormResponse} from "./settings.constants";
+import {CreateAdImagesForm, CreateAdImagesFormResponse} from "../create-ad/create-ad.constants";
 import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
 import {AxiosError} from "axios";
