@@ -265,14 +265,15 @@ function DropdownContainer({
 						value={value || ""}
 						onChange={(e) => {
 							onChange && onChange(e.target.value);
-							setActive(true);
+							// setActive(true);
 						}}
-						onClick={(e) => e.stopPropagation()}
+						// onClick={(e) => e.stopPropagation()}
 						className={
-							`z-10 h-full w-full bg-white py-3 placeholder:text-sm placeholder:text-black-quat focus:border-none focus:outline-none ` +
+							`z-10 !ml-2 w-full placeholder:text-sm placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${hasValue ? "text-black-secondary" : ""} ` +
 							`${isDisabled ? "bg-transparent text-black-quat " : ""} `
 						}
+						name={`${uniqueId}-${inputPlaceholder || ""}`}
 						placeholder={inputPlaceholder}
 						id={uniqueId}
 						disabled={isDisabled}

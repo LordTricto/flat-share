@@ -8,6 +8,7 @@ import Button from "@/components/general/button/button";
 import Checkbox from "@/components/general/checkbox/checkbox";
 import {FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import Image from "next/image";
+import Input from "@/components/general/inputs/input";
 import SearchDropdown from "@/components/general/dropdown/search-dropdown";
 import UpgradeAccountCard from "../../general/cards/upgrade-account/upgrade-account";
 import cancel from "@/public/images/icons/cancel.svg";
@@ -26,6 +27,7 @@ function FilterBar(props: Props) {
 
 	const [filterOpened, setFilterOpened] = useState(FilterOptions.BUDGET);
 	const [locationSearchTerm, setLocationSearchTerm] = useState("");
+	const [educationSearchTerm, setEducationSearchTerm] = useState("");
 
 	const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
 	const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
@@ -339,9 +341,9 @@ function FilterBar(props: Props) {
 							>
 								<div className=" flex w-full flex-col items-center gap-3">
 									<SearchDropdown
-										value={locationSearchTerm}
+										value={educationSearchTerm}
 										inputPlaceholder="Search Education"
-										onChange={(_value) => setLocationSearchTerm(_value)}
+										onChange={(_value) => setEducationSearchTerm(_value)}
 										onSelect={(value: string | undefined) => {
 											if (value) setTempSelectedEducations((prev) => [...prev, value]);
 										}}
