@@ -198,7 +198,7 @@ function Input({
 						<span
 							className={
 								`flex cursor-default items-center justify-start text-black-secondary transition-all duration-75 ease-in-out ` +
-								`${isMoney ? "pt-1" : ""}`
+								`${isMoney ? "" : ""}`
 							}
 						>
 							<Image src={icon} alt="input icon" />

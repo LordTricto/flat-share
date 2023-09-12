@@ -2,6 +2,17 @@ import Filter from "@/models/filter";
 import Housemate from "@/models/housemate";
 import {UserSex} from "@/models/user.constant";
 
+export enum FilterOptions {
+	NONE = 0,
+	BUDGET = 1,
+	LOCATION = 2,
+	STATE = 3,
+	AGE = 4,
+	EDUCATION = 5,
+	GENDER = 6,
+	RELIGION = 7,
+}
+
 export type FilterForm = {
 	filter_gender: UserSex;
 	filter_age_range_1: number;

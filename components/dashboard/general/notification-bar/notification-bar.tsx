@@ -1,19 +1,17 @@
 "use client";
 
-import React, {useState} from "react";
-
-import Arrow from "@/components/jsx-icons/arrow";
 import Button from "@/components/general/button/button";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
+import UpgradeAccountCard from "../cards/upgrade-account/upgrade-account";
 import UserActivity from "./components/user-activity";
 import UserMessage from "./components/user-message";
-import asideSectionPattern from "@/public/images/dashboard/home/aside-section-pattern.png";
 import emptyIcon from "@/public/images/dashboard/general/empty-list.svg";
 import emptyProfileIcon from "@/public/images/dashboard/general/empty-profile.svg";
 import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
 import requestAvatarTwo from "@/public/images/dashboard/home/request-2.png";
 import {useSelector} from "react-redux";
+import {useState} from "react";
 
 function NotificationBar() {
 	const isAccountCreated = useSelector((state: IRootState) => state.init.isAccountCreated);
@@ -89,16 +87,7 @@ function NotificationBar() {
 							)}
 						</div>
 					</div>
-					<div className="relative flex w-full flex-col gap-6 overflow-hidden rounded-[11px] px-6 py-3">
-						<Image priority src={asideSectionPattern} className="absolute left-0 top-0 z-0 h-full w-full" alt="Empty state" />
-						<h3 className="z-10 max-w-[190px] text-base font-semibold text-white">Unlock more benefits and exclusive features.</h3>
-						<Button type="button" buttonType="secondary" color="translucent" size="sm" fullWidth borderFull>
-							<div className="flex w-max flex-row items-center justify-center gap-1.5 pl-0.5">
-								<span className="text-sm leading-none">Upgrade Account</span>
-								<Arrow />
-							</div>
-						</Button>
-					</div>
+					<UpgradeAccountCard />
 				</div>
 			</div>
 		</>

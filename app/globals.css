@@ -104,3 +104,26 @@ input[type="number"] {
 	/* IE and Edge */
 	height: 100%;
 }
+
+/* for range slider */
+.multi-range-slider .bar-right,
+.multi-range-slider .bar-left,
+.multi-range-slider .bar-inner
+/* ,
+.multi-range-slider .thumb::before  */ {
+	box-shadow: none !important;
+}
+.multi-range-slider .bar-inner {
+	border: none;
+}
+.multi-range-slider .thumb::before {
+	border: solid 3px white;
+	margin: -6.5px -12px;
+	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.multi-range-slider {
+	width: 100%;
+}
+.caption {
+	display: none !important;
+}

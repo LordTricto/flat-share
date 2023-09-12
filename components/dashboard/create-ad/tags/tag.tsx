@@ -27,7 +27,7 @@ function Tag(props: Props) {
 						// setIsTagActive((prev) => !prev);
 					}}
 				>
-					<span className="select-none text-sm font-medium duration-150">{props.text}</span>
+					<span className="select-none text-sm font-medium capitalize duration-150">{props.text}</span>
 				</div>
 			</div>
 		</>

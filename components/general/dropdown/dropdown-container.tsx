@@ -27,10 +27,11 @@ interface DropdownProps {
 	triggerLower?: boolean;
 	customHeadStyle?: string;
 	searchTerm?: string;
-	placeholder: string;
+	placeholder?: string;
 	isDisabled?: boolean;
 	isSearchable?: boolean;
 	clickAndClose?: boolean;
+	inputPlaceholder?: string;
 	searchPlaceholder?: string;
 
 	onChange?: (e: string) => void;
@@ -57,9 +58,11 @@ function DropdownContainer({
 	customHeadStyle = "",
 	// searchTerm = "",
 	value,
-	placeholder,
+	placeholder = undefined,
 	isSearchable = false,
 	clickAndClose = false,
+	inputPlaceholder = undefined,
+
 	// searchPlaceholder = "Search",
 	cancelFunc = undefined,
 	onChange = undefined,
@@ -193,7 +196,7 @@ function DropdownContainer({
 				onKeyDown={handleKeypress}
 			>
 				{customHead && <div className="w-full">{customHead}</div>}
-				{!value && (
+				{!value && placeholder && (
 					<span
 						className={
 							`pointer-events-none max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-base text-black-quat ` +
@@ -260,12 +263,17 @@ function DropdownContainer({
 						ref={inputRef}
 						type="text"
 						value={value || ""}
-						onChange={(e) => onChange && onChange(e.target.value)}
+						onChange={(e) => {
+							onChange && onChange(e.target.value);
+							setActive(true);
+						}}
+						onClick={(e) => e.stopPropagation()}
 						className={
-							`z-10 h-full w-full rounded-lg bg-white py-3 placeholder:text-black-quat focus:border-none focus:outline-none ` +
+							`z-10 h-full w-full bg-white py-3 placeholder:text-sm placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${hasValue ? "text-black-secondary" : ""} ` +
 							`${isDisabled ? "bg-transparent text-black-quat " : ""} `
 						}
+						placeholder={inputPlaceholder}
 						id={uniqueId}
 						disabled={isDisabled}
 						tabIndex={isDisabled ? -1 : 0}
