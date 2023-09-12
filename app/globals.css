@@ -117,12 +117,12 @@ input[type="number"] {
 	border: none;
 }
 .multi-range-slider .thumb::before {
-	border: solid 3px white;
-	margin: -6.5px -12px;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	border: solid 3px white !important;
+	margin: -6.5px -12px !important;
+	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
 }
 .multi-range-slider {
-	width: 100%;
+	width: 100% !important;
 }
 .caption {
 	display: none !important;

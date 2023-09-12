@@ -28,28 +28,30 @@ function useInit(): UseQueryResult<LoadUserDataFormResponse, AxiosError<any, any
 		onSuccess(data) {
 			dispatch(initSuccess({filter: data.filtered, user: data.user}));
 
+			dispatch(setIsAccountCreatedStatus(true));
+
 			if (!pathname.includes("dashboard")) {
 				router.replace("/dashboard");
 				return;
 			}
-			if (data.user.account_status === UserActivationStatus.UNCOMPLETED && data.user.profile_photo_path.includes("default")) {
-				dispatch(setIsAccountCreatedStatus(false));
-				dispatch(setToStageOne());
-				router.replace("/dashboard/get-started");
-				return;
-			}
-			if (data.user.account_status === UserActivationStatus.ONLINE && data.user.profile_photo_path.includes("default")) {
-				dispatch(setIsAccountCreatedStatus(false));
-				dispatch(setToStageFour());
-				router.replace("/dashboard/get-started");
-				return;
-			}
-			if (data.user.account_status === UserActivationStatus.OFFLINE && data.user.user_type === UserType.HOST) {
-				router.replace("/dashboard/create-ad");
-				dispatch(setIsAccountCreatedStatus(false));
-				return;
-			}
-			dispatch(setIsAccountCreatedStatus(true));
+			// if (data.user.account_status === UserActivationStatus.UNCOMPLETED && data.user.profile_photo_path.includes("default")) {
+			// 	dispatch(setIsAccountCreatedStatus(false));
+			// 	dispatch(setToStageOne());
+			// 	router.replace("/dashboard/get-started");
+			// 	return;
+			// }
+			// if (data.user.account_status === UserActivationStatus.ONLINE && data.user.profile_photo_path.includes("default")) {
+			// 	dispatch(setIsAccountCreatedStatus(false));
+			// 	dispatch(setToStageFour());
+			// 	router.replace("/dashboard/get-started");
+			// 	return;
+			// }
+			// if (data.user.account_status === UserActivationStatus.OFFLINE && data.user.user_type === UserType.HOST) {
+			// 	router.replace("/dashboard/create-ad");
+			// 	dispatch(setIsAccountCreatedStatus(false));
+			// 	return;
+			// }
+			// dispatch(setIsAccountCreatedStatus(true));
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);

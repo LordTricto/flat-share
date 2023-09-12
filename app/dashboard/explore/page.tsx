@@ -16,7 +16,7 @@ const Dashboard = () => {
 		<>
 			{/* {(isFetching || !data) && <Loading />} */}
 			{/* {!isFetching && data && ( */}
-			<div className="relative grid h-full w-full grid-cols-1 lg:grid-cols-[auto,280px]">
+			<div className="grid h-full w-full grid-cols-1 lg:grid-cols-[auto,280px]">
 				<div className="relative h-full w-full overflow-y-auto">
 					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 						<div className="flex h-fit w-full flex-col gap-8 pb-6">
