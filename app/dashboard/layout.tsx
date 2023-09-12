@@ -205,7 +205,7 @@ export default function DashboardLayout({
 												iconActive={exploreActive}
 												iconInActive={exploreInActive}
 												text="Explore"
-												isPreRelease
+												// isPreRelease
 											/>
 
 											<MenuItem
@@ -248,15 +248,14 @@ export default function DashboardLayout({
 														iconInActive={settingsInActive}
 														text="Settings"
 													/>
-
-													<MenuItem
+													{/* <MenuItem
 														onClick={handleOpenNav}
 														path="/dashboard/explore"
 														iconActive={helpActive}
 														iconInActive={helpInActive}
 														text="Help"
 														isPreRelease
-													/>
+													/> */}
 												</>
 											)}
 
