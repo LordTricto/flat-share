@@ -17,7 +17,7 @@ const Dashboard = () => {
 			{/* {(isFetching || !data) && <Loading />} */}
 			{/* {!isFetching && data && ( */}
 			<div className="grid h-full w-full grid-cols-1 lg:grid-cols-[auto,280px]">
-				<div className="relative h-full w-full overflow-y-auto">
+				<div className="relative h-full max-h-full w-full overflow-y-auto">
 					<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 						<div className="flex h-fit w-full flex-col gap-8 pb-6">
 							<div className="flex w-full flex-col gap-4">
@@ -36,6 +36,236 @@ const Dashboard = () => {
 									<p className="text-sm text-black-tertiary">25 Filter Result</p>
 								</div>
 								<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
+									<UserCard
+										job="Data Analyst"
+										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."
+										name="Kianna Botosh"
+										budget="250,000"
+										location="Agric Rd - Ikorodu"
+										isLocked={true}
+										religion={UserReligion.ISLAM}
+										profileImage={userThree}
+										isHost={false}
+									/>
+
+									<UserCard
+										job="DevOps"
+										bio="Short in stature but big in heart, always finding joy in life's little moments. Avid developer, coffee enthusiast, and aspiring poet."
+										name="Amanda Smit"
+										budget="250,000"
+										location="Ibeju Lekki"
+										isLocked={false}
+										religion={UserReligion.CHRISTIANITY}
+										profileImage={userFour}
+										isHost
+									/>
 									<UserCard
 										job="Data Analyst"
 										bio="Curious explorer, coffee aficionado, and avid bookworm with a passion for unraveling mysteries."

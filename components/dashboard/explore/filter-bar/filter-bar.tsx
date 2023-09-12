@@ -104,8 +104,8 @@ function FilterBar(props: Props) {
 				// 	`${width < 1024 ? (props.isActive ? " -translate-x-0" : "translate-x-full") : ""} `
 				// }
 				className={
-					`z-40 h-full min-w-[280px] transition-all lg:-translate-x-0 lg:transition-none ` +
-					`absolute right-0 flex transform flex-col items-center justify-between lg:relative ` +
+					`z-40 h-full min-w-[280px] max-w-[280px] transition-all lg:-translate-x-0 lg:transition-none ` +
+					`absolute right-0 flex transform flex-col items-center justify-between  ` +
 					// `${showNav ? " translate-x-0" : "-translate-x-full"} `
 					`${width < 1024 ? (props.isActive ? " -translate-x-0" : "translate-x-full") : ""} `
 				}
@@ -227,7 +227,7 @@ function FilterBar(props: Props) {
 									{tempSelectedLocations.length > 0 && (
 										<div className="flex w-full flex-wrap gap-2">
 											{tempSelectedLocations.map((_tempSelectedLocation, index) => (
-												<div className="flex w-max items-center justify-between gap-1 rounded-md border p-2" key={index}>
+												<div className="flex w-max items-center justify-between gap-2 rounded-md border p-2" key={index}>
 													<p className="text-xs text-black-tertiary">{_tempSelectedLocation}</p>
 													<div onClick={() => handleCancelLocation(_tempSelectedLocation)}>
 														<Image width={10} height={10} src={cancel} alt="cancel icon" priority />
@@ -265,7 +265,7 @@ function FilterBar(props: Props) {
 							{tempSelectedLocations.length > 0 && (
 								<div className="flex w-full flex-wrap gap-2">
 									{tempSelectedLocations.map((_tempSelectedLocation, index) => (
-										<div className="flex w-max items-center justify-between gap-1 rounded-md border p-2" key={index}>
+										<div className="flex w-max items-center justify-between gap-2 rounded-md border p-2" key={index}>
 											<p className="text-xs text-black-tertiary">{_tempSelectedLocation}</p>
 											<div onClick={() => handleCancelLocation(_tempSelectedLocation)}>
 												<Image width={10} height={10} src={cancel} alt="cancel icon" priority />
@@ -345,7 +345,11 @@ function FilterBar(props: Props) {
 										inputPlaceholder="Search Education"
 										onChange={(_value) => setEducationSearchTerm(_value)}
 										onSelect={(value: string | undefined) => {
-											if (value) setTempSelectedEducations((prev) => [...prev, value]);
+											if (value)
+												setTempSelectedEducations((prev) => [
+													...prev,
+													educationOptions.find((_edu) => _edu.value === value)?.text || "",
+												]);
 										}}
 										options={educationOptions.filter(
 											(_education) =>
@@ -357,7 +361,7 @@ function FilterBar(props: Props) {
 									{tempSelectedEducations.length > 0 && (
 										<div className="flex w-full flex-wrap gap-2">
 											{tempSelectedEducations.map((_tempSelectedEducation, index) => (
-												<div className="flex w-max items-center justify-between gap-1 rounded-md border p-2" key={index}>
+												<div className="flex w-max items-center justify-between gap-2 rounded-md border p-2" key={index}>
 													<p className="text-xs text-black-tertiary">{_tempSelectedEducation}</p>
 													<div onClick={() => handleCancelEducation(_tempSelectedEducation)}>
 														<Image width={10} height={10} src={cancel} alt="cancel icon" priority />
