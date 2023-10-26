@@ -3,7 +3,7 @@
 import {CreateAdStage} from "@/hooks/dashboard/create-ad/create-ad.constants";
 import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
 import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
-import NotificationBar from "@/components/dashboard/general/notification-bar/notification-bar";
+// import NotificationBar from "@/components/dashboard/general/notification-bar/notification-bar";
 import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import {useState} from "react";
 
@@ -42,7 +42,7 @@ function CreateAd() {
 					</div>
 				</div>
 
-				<NotificationBar />
+				{/* <NotificationBar /> */}
 			</div>
 		</>
 	);
