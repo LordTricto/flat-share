@@ -17,7 +17,7 @@ import useDimension from "@/helpers/useDimension";
 import {useState} from "react";
 
 interface Props {
-	data: FilterFormResponse| undefined;
+	data: FilterFormResponse | undefined;
 	isActive: boolean;
 	toggle: () => void;
 }
@@ -104,7 +104,7 @@ function FilterBar(props: Props) {
 				// 	`${width < 1024 ? (props.isActive ? " -translate-x-0" : "translate-x-full") : ""} `
 				// }
 				className={
-					`z-40 h-full min-w-[280px] max-w-[280px] transition-all lg:-translate-x-0 lg:transition-none ` +
+					`z-30 h-full min-w-[280px] max-w-[280px] transition-all lg:-translate-x-0 lg:transition-none ` +
 					`absolute right-0 flex transform flex-col items-center justify-between  ` +
 					// `${showNav ? " translate-x-0" : "-translate-x-full"} `
 					`${width < 1024 ? (props.isActive ? " -translate-x-0" : "translate-x-full") : ""} `
