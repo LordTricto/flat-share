@@ -25,15 +25,16 @@
 html {
 	height: stretch;
 	height: -webkit-fill-available;
+	height: 100%;
 }
 body {
 	display: flex;
 	color: rgb(var(--foreground-rgb));
 	background: white;
 	/* height: 100vh; */
-	min-height: 100vh;
 	min-height: stretch;
 	min-height: -webkit-fill-available;
+	min-height: 100vh;
 	max-height: -webkit-fill-available;
 	max-height: -moz-available;
 	max-height: stretch;

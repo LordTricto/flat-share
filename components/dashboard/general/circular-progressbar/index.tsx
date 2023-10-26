@@ -1,3 +1,5 @@
+"use client"
+
 import {CircularProgressbar, buildStyles} from "react-circular-progressbar";
 
 import React from "react";
