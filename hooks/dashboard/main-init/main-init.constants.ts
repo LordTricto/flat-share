@@ -7,11 +7,8 @@ export type MainInitForm = {
 };
 
 export type MainInitFormResponse = {
-	success: string;
+	status: string;
 	message: string;
-	signal: string;
-	filter: Filter[];
-	reset_filter_to_default: Filter[];
 	meta: {
 		current_page: number;
 		firstItem: number;
@@ -20,6 +17,19 @@ export type MainInitFormResponse = {
 		total_items: number;
 		last_page: number;
 	};
+	app_abuse_email: string;
+	app_support_email: string;
+	host_fee: number;
+	signal: string;
+	messages: {
+		home_message: string;
+		home_cta: string;
+		match_message: string;
+		match_cta: string;
+		message_alert_color: string;
+	};
+	filter: Filter[];
+	reset_filter_to_default: Filter[];
 	connection: Housemate[];
 	suggestions: Housemate[];
 	views_no: number;
@@ -36,18 +46,24 @@ export type MainInitFormResponse = {
 	};
 	total_request: number;
 	user_statistics: {
-		unique_profile_views: number;
 		total_sent_request: number;
-		active_sent_request: number;
 		total_received_request: number;
-		active_received_request: number;
-		unseen_received_reviews: number;
-		total_reviews_received: number;
-		reviews_sent: number;
+		available_send_request: number;
+		available_receive_request: number;
 	};
-	notifications_meta: {
-		total_notifications: number;
-		total_new_notifications: number;
+	notification: {
+		notification_pagination_meta: {
+			current_page: number;
+			firstItem: number;
+			lastItem: number;
+			per_page: number;
+			total_items: number;
+			last_page: number;
+		};
+		notifications_meta: {
+			total_notifications: number;
+			total_new_notifications: number;
+		};
+		notifications: Notification[];
 	};
-	notifications: Notification[];
 };

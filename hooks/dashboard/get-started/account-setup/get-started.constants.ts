@@ -15,6 +15,10 @@ export type AccountTypeForm = {
 	user_type: UserType | null;
 };
 
+export type UploadProfileImageForm = {
+	profile_photo: string;
+};
+
 export type PersonalInformationForm = {
 	age: string;
 	bio: string;
@@ -103,10 +107,11 @@ export const locationOptions: DropdownItem<string>[] = [
 	},
 ];
 
-export type GetStartedForm = AccountTypeForm & PersonalInformationForm & AccountPreferenceForm;
+export type GetStartedForm = AccountTypeForm & UploadProfileImageForm;
 export interface GetStartedFormResponse {
 	success: string;
 	message: string;
 	user: User;
-	filtered: Filter;
+	filter: Filter;
+	reset_filter_to_default: Filter;
 }

@@ -51,7 +51,6 @@ function StageOne() {
 						} else if (values.user_type === UserType.HOST_HUNTERS) {
 							dispatch(setIsHostFalse());
 						}
-
 						dispatch(setToStageFour());
 					}}
 					enableReinitialize={true}
@@ -65,12 +64,12 @@ function StageOne() {
 									<div
 										className={
 											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
-											"rounded-lg border py-6 duration-150 md:hover:border-blue md:hover:bg-blue-senary " +
-											`${formik.values.user_type === UserType.HOST_HUNTERS ? "border-blue" : "border-grey-quat"}`
+											"rounded-lg border py-6 duration-150 md:hover:border-blue " +
+											`${formik.values.user_type === UserType.HOST_HUNTERS ? "border-blue bg-blue-senary" : "border-grey-quat"}`
 										}
 										onClick={() => formik.getFieldHelpers("user_type").setValue(UserType.HOST_HUNTERS)}
 									>
-										<Flatmate />
+										<Flatmate isActive={formik.values.user_type === UserType.HOST_HUNTERS} />
 										<div className="flex flex-col items-center justify-center">
 											<p className="text-base font-medium">Find Flatmate</p>
 											<p className="text-center text-xs text-black-tertiary">Show me flat hosts</p>
@@ -79,12 +78,12 @@ function StageOne() {
 									<div
 										className={
 											"group flex w-full cursor-pointer flex-col items-center justify-center gap-4 2xs:max-w-[215px] " +
-											"rounded-lg border py-6 duration-150 md:hover:border-blue md:hover:bg-blue-senary " +
-											`${formik.values.user_type === UserType.HOST ? "border-blue" : "border-grey-quat"}`
+											"rounded-lg border py-6 duration-150 md:hover:border-blue " +
+											`${formik.values.user_type === UserType.HOST ? "border-blue bg-blue-senary" : "border-grey-quat"}`
 										}
 										onClick={() => formik.getFieldHelpers("user_type").setValue(UserType.HOST)}
 									>
-										<FlatHost />
+										<FlatHost isActive={formik.values.user_type === UserType.HOST} />
 										<div className="flex flex-col items-center justify-center">
 											<p className="text-base font-medium">Be a host</p>
 											<p className="text-center text-xs text-black-tertiary">Show me flat finders</p>

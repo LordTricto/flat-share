@@ -16,6 +16,7 @@ import useUploadProfileImage from "@/hooks/dashboard/get-started/upload-profile-
 interface Props {
 	img: string;
 	active: boolean;
+	isSubmitSelf?: boolean;
 	toggler: () => void;
 	handleSubmitCroppedImage: (image: string) => void;
 }
@@ -93,11 +94,15 @@ function ImageCropModal(props: Props) {
 							ripple="light"
 							buttonType="primary"
 							onClick={() => {
-								handleGetStarted.mutate({profile_photo: croppedImg});
+								if (props.isSubmitSelf) {
+									handleGetStarted.mutate({profile_photo: croppedImg});
+								} else {
+									handleSetImage(croppedImg);
+								}
 							}}
-							isLoading={handleGetStarted.isLoading}
+							isLoading={props.isSubmitSelf ? handleGetStarted.isLoading : undefined}
 						>
-							<span>Upload</span>
+							<span>{props.isSubmitSelf ? "Upload" : "Use Image"}</span>
 						</Button>
 					</div>
 				</ModalFooter>

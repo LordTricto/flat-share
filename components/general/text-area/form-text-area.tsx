@@ -1,6 +1,7 @@
 import {ExcludeProps, TextAreaPropsToExclude} from "./types";
 import React, {TextareaHTMLAttributes, useEffect, useRef, useState} from "react";
 
+import Button from "../button/button";
 import useClickOutside from "../../../helpers/useClickOutside";
 import {useField} from "formik";
 
@@ -11,14 +12,17 @@ interface TextAreaProps extends ExcludeProps<TextareaHTMLAttributes<HTMLTextArea
 	sm?: boolean;
 	textSize?: "sm" | "md" | "lg";
 	name: string;
-	label: string;
+	label?: string | undefined;
+	isReply?: boolean;
 	readOnly?: boolean;
 	isLoading?: boolean;
 	fullWidth?: boolean;
 	isFocused?: boolean;
 	isDisabled?: boolean;
 	placeholder?: string;
+	isReplyDisabled?: boolean;
 	onChange?(newValue: string): void;
+	handleResetReply?: () => void;
 }
 
 function FormTextArea({
@@ -26,13 +30,16 @@ function FormTextArea({
 	textSize = "lg",
 	name,
 	label,
+	isReply = false,
 	readOnly = false,
 	fullWidth = false,
 	isLoading = false,
 	isFocused = false,
 	isDisabled = false,
 	placeholder,
+	isReplyDisabled = false,
 	onChange,
+	handleResetReply,
 	...otherProps
 }: TextAreaProps & TextareaHTMLAttributes<HTMLTextAreaElement>): JSX.Element {
 	const [active, setActive] = useState(false);
@@ -46,12 +53,12 @@ function FormTextArea({
 		...field,
 		...otherProps,
 		className:
-			`px-4 py-3 h-full w-full z-10 placeholder:text-black-quat resize-none focus:outline-none focus:border-none rounded-lg bg-white ` +
+			`px-4 py-3 w-full z-10 placeholder:text-black-quat resize-none focus:outline-none focus:border-none rounded-lg bg-white ` +
 			`${!!field.value && String(field.value).trim().length > 0 ? "text-black-secondary" : ""} ` +
-			`${sm ? "h-12" : "h-12"} ` +
-			+`${textSize === "lg" ? "text-base" : ""} ` +
-			`${textSize === "md" ? "text-sm" : ""} ` +
-			`${textSize === "sm" ? "text-xs" : ""} ` +
+			`${!isReply ? (sm ? "h-12" : "h-12") : "h-32"} ` +
+			`${textSize === "lg" ? "text-lg" : ""} ` +
+			`${textSize === "md" ? "text-base" : ""} ` +
+			`${textSize === "sm" ? "text-sm" : ""} ` +
 			`${isDisabled ? "text-black-quat bg-transparent " : ""} `,
 	};
 
@@ -103,12 +110,12 @@ function FormTextArea({
 				)}
 				<div
 					className={
-						`relative w-full resize-none rounded-lg bg-white shadow-none outline-none focus:outline-none ` +
+						`relative w-full resize-none overflow-hidden rounded-lg bg-white shadow-none outline-none focus:outline-none ` +
 						`text-left font-normal leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
 						`border border-solid border-black-quin focus:border-black-quat lg:hover:border-black-quat ` +
 						`${active ? "border-black-quat" : ""} ` +
 						`${isLoading ? "pointer-events-none" : ""} ` +
-						`${sm ? "h-12" : "h-24"} `
+						`${!isReply ? (sm ? "h-12" : "h-24") : ""} `
 					}
 					onFocus={() => {
 						if (textAreaRef.current) {
@@ -127,6 +134,21 @@ function FormTextArea({
 					}}
 					ref={domNode}
 				>
+					{isReply && (
+						<div className="flex w-full items-center justify-between bg-[#F3F3F6] px-4 py-3">
+							<p className="text-sm font-medium text-black-secondary">Replying to George Iwar</p>
+							<div className="flex gap-3">
+								<Button type="button" buttonType="secondary" color="white" size="xs" borderSmall onClick={handleResetReply}>
+									<span>Cancel</span>
+									{/* <span className="text-xs">Cancel</span> */}
+								</Button>
+								<Button type={isReplyDisabled ? undefined : "submit"} buttonType="primary" color="black" borderSmall size="xs">
+									<span>Reply</span>
+									{/* <span className="text-xs">Cancel</span> */}
+								</Button>
+							</div>
+						</div>
+					)}
 					<textarea
 						{...configTextareaField}
 						ref={textAreaRef}

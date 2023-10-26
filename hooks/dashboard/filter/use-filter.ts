@@ -15,7 +15,7 @@ function useFilter(): UseMutationResult<FilterFormResponse, unknown, FilterForm,
 			return res;
 		},
 		onSuccess(data: FilterFormResponse) {
-			dispatch(setUpdatedFilter(data.filter));
+			// dispatch(setUpdatedFilter(data.filter));
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);

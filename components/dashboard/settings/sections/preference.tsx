@@ -2,57 +2,61 @@
 
 import * as Yup from "yup";
 
-import {AccountPreferenceForm, locationOptions, userTypeOptions} from "@/hooks/dashboard/settings/settings.constants";
 import {Form, Formik, FormikProps} from "formik";
 import {educationOptions, genderOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
+import {locationOptions, religionOptions, userTypeOptions} from "@/hooks/dashboard/settings/settings.constants";
 
 import Button from "@/components/general/button/button";
 import Dropdown from "@/components/general/dropdown/dropdown";
-import FormInput from "@/components/general/inputs/form-input";
-// import {IRootState} from "@/redux/rootReducer";
+import {IRootState} from "@/redux/rootReducer";
+// import FormInput from "@/components/general/inputs/form-input";
 import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
+import {UpdatePreferenceForm} from "@/hooks/dashboard/settings/update-preference/update-preference.constants";
 import formikHasError from "@/helpers/formikHasError";
-// import locationIcon from "@/public/images/dashboard/general/location.svg";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-// import {useDispatch} from "react-redux";
 import {useRef} from "react";
+import {useSelector} from "react-redux";
+import useUpdatePreference from "@/hooks/dashboard/settings/update-preference/use-update-preference";
 
-function Preference() {
-	// const dispatch = useDispatch();
-	const formikRef = useRef<FormikProps<AccountPreferenceForm> | null>(null);
+interface Props {
+	handleNext: () => void;
+}
 
-	const initialFormState: AccountPreferenceForm = {
-		first_age_range: 0,
-		second_age_range: 0,
-		sex: "",
-		user_type: null,
-		education: "",
-		profession: "",
-		location_1: "",
-		location_2: "",
-		state: "",
-		min_budget: "",
-		max_budget: "",
+function Preference(props: Props) {
+	const {mutate, isLoading} = useUpdatePreference(props.handleNext);
+
+	const filter = useSelector((state: IRootState) => state.init.filter);
+	const formikRef = useRef<FormikProps<UpdatePreferenceForm> | null>(null);
+
+	const initialFormState: UpdatePreferenceForm = {
+		filter_preferred_user_type: filter?.preferred_user_type || null,
+		filter_age_range_1: filter?.preferred_first_age_range || 0,
+		filter_age_range_2: filter?.preferred_second_age_range || 0,
+		filter_education: filter?.preferred_education || "",
+		filter_gender: filter?.preferred_sex || "",
+		filter_location_1: filter?.preferred_location_1 || "",
+		filter_location_2: filter?.preferred_location_2 || "",
+		filter_state: filter?.state_of_interest || "",
+		filter_max_budget: String(filter?.max_budget) || "",
+		filter_min_budget: String(filter?.min_budget) || "",
+		filter_religion: filter?.preferred_religion || null,
 	};
 
 	const formValidation = Yup.object().shape({
-		first_age_range: Yup.number().required("Required"),
-		second_age_range: Yup.number().required("Required"),
-		sex: Yup.string().required("Required").nullable(),
-		user_type: Yup.string().required("Required").nullable(),
-		education: Yup.string().required("Required"),
-		profession: Yup.string().required("Required"),
-		location_1: Yup.string().required("Required"),
-		location_2: Yup.string().required("Required"),
-		state: Yup.string().required("Required"),
-		min_budget: Yup.string().required("Required"),
-		max_budget: Yup.string().required("Required"),
-		bio: Yup.string().required("Required"),
-		religion: Yup.string().required("Required").nullable(),
+		filter_preferred_user_type: Yup.string().required("Required").nullable(),
+		filter_age_range_1: Yup.number().required("Required"),
+		filter_age_range_2: Yup.number().required("Required"),
+		filter_education: Yup.string().required("Required"),
+		filter_gender: Yup.string().required("Required"),
+		filter_location_1: Yup.string().required("Required"),
+		filter_location_2: Yup.string().required("Required"),
+		filter_state: Yup.string().required("Required"),
+		filter_max_budget: Yup.string().required("Required"),
+		filter_min_budget: Yup.string().required("Required"),
+		filter_religion: Yup.string().required("Required").nullable(),
 	});
 
-	// console.log(userData);
 	return (
 		<>
 			<div className="flex h-full w-full flex-col">
@@ -63,7 +67,8 @@ function Preference() {
 					onSubmit={(values) => {
 						// dispatch(setPersonalInformation(values));
 						// dispatch(setToStageThree());
-						formikRef.current?.resetForm();
+						// formikRef.current?.resetForm();
+						mutate(values);
 					}}
 					enableReinitialize={true}
 					validateOnChange
@@ -79,11 +84,11 @@ function Preference() {
 											<div className="flex w-full items-end gap-2 2xs:gap-3">
 												<MoneyInput
 													label="Min Budget"
-													name="min_budget"
+													name="filter_min_budget"
 													inputSize="md"
-													value={String(formik.values.min_budget)}
+													value={String(formik.values.filter_min_budget)}
 													onChange={(_value) =>
-														formik.getFieldHelpers("min_budget").setValue(moneyToNumber(String(_value)))
+														formik.getFieldHelpers("filter_min_budget").setValue(moneyToNumber(String(_value)))
 													}
 												/>
 												<div className="flex h-10 items-center justify-center">
@@ -91,11 +96,11 @@ function Preference() {
 												</div>
 												<MoneyInput
 													label="Max Budget"
-													name="max_budget"
+													name="filter_max_budget"
 													inputSize="md"
-													value={String(formik.values.max_budget)}
+													value={String(formik.values.filter_max_budget)}
 													onChange={(_value) =>
-														formik.getFieldHelpers("max_budget").setValue(moneyToNumber(String(_value)))
+														formik.getFieldHelpers("filter_max_budget").setValue(moneyToNumber(String(_value)))
 													}
 												/>
 											</div>
@@ -109,30 +114,30 @@ function Preference() {
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
 													label="Location 1"
-													value={`${formik.values.location_1}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("location_1").setValue(value)}
+													value={`${formik.values.filter_location_1}`}
+													onSelect={(value: string | undefined) =>
+														formik.getFieldHelpers("filter_location_1").setValue(value)
+													}
 													placeholder="Select..."
-													options={locationOptions.filter((_loc) => _loc.value !== formik.values.location_2)}
-													// icon={locationIcon}
+													options={locationOptions.filter((_loc) => _loc.value !== formik.values.filter_location_2)}
 													size="md"
-													// noArrow
 												/>
 												<Dropdown
 													label="Location 2"
-													value={`${formik.values.location_2}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("location_2").setValue(value)}
+													value={`${formik.values.filter_location_2}`}
+													onSelect={(value: string | undefined) =>
+														formik.getFieldHelpers("filter_location_2").setValue(value)
+													}
 													placeholder="Select..."
-													options={locationOptions.filter((_loc) => _loc.value !== formik.values.location_1)}
-													// icon={locationIcon}
+													options={locationOptions.filter((_loc) => _loc.value !== formik.values.filter_location_1)}
 													size="md"
-													// noArrow
 												/>
 											</div>
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
 													label="State"
-													value={`${formik.values.state}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("education").setValue(value)}
+													value={`${formik.values.filter_state}`}
+													onSelect={(value: string | undefined) => formik.getFieldHelpers("filter_state").setValue(value)}
 													placeholder="Select..."
 													size="md"
 													options={locationOptions}
@@ -148,16 +153,18 @@ function Preference() {
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
 													label="I’m Looking For"
-													value={`${formik.values.user_type}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("user_type").setValue(value)}
+													value={`${formik.values.filter_preferred_user_type}`}
+													onSelect={(value: string | undefined) =>
+														formik.getFieldHelpers("filter_preferred_user_type").setValue(value)
+													}
 													placeholder="Select..."
 													size="md"
 													options={userTypeOptions}
 												/>
 												<Dropdown
 													label="Gender"
-													value={`${formik.values.sex}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("sex").setValue(value)}
+													value={`${formik.values.filter_gender}`}
+													onSelect={(value: string | undefined) => formik.getFieldHelpers("filter_gender").setValue(value)}
 													placeholder="Select..."
 													size="md"
 													options={genderOptions}
@@ -166,33 +173,49 @@ function Preference() {
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
 													label="Education"
-													value={`${formik.values.education}`}
-													onSelect={(value: string | undefined) => formik.getFieldHelpers("education").setValue(value)}
+													value={`${formik.values.filter_education}`}
+													onSelect={(value: string | undefined) =>
+														formik.getFieldHelpers("filter_education").setValue(value)
+													}
 													placeholder="Select..."
 													size="md"
 													options={educationOptions}
 												/>
-												<FormInput type="text" label="Profession" name="profession" inputSize="md" />
+												{/* <FormInput type="text" label="Profession" name="profession" inputSize="md" /> */}
+												<Dropdown
+													label="Religion"
+													value={`${formik.values.filter_religion}`}
+													onSelect={(value: string | undefined) =>
+														formik.getFieldHelpers("filter_religion").setValue(value)
+													}
+													placeholder="Select..."
+													size="md"
+													options={religionOptions}
+												/>
 											</div>
 											<div className="flex w-full items-end gap-2 2xs:gap-3">
 												<Input
 													label="Min Age"
 													type="number"
-													name="first_age_range"
+													name="filter_age_range_1"
 													inputSize="md"
-													value={formik.values.first_age_range}
-													onChange={(value: string) => formik.getFieldHelpers("first_age_range").setValue(Number(value))}
+													value={formik.values.filter_age_range_1}
+													onChange={(value: string) => formik.getFieldHelpers("filter_age_range_1").setValue(Number(value))}
 													onUpClick={() => {
-														if (formik.values.first_age_range === 40) {
+														if (formik.values.filter_age_range_1 === 40) {
 															return;
 														}
-														formik.getFieldHelpers("first_age_range").setValue(Number(formik.values.first_age_range) + 1);
+														formik
+															.getFieldHelpers("filter_age_range_1")
+															.setValue(Number(formik.values.filter_age_range_1) + 1);
 													}}
 													onDownClick={() => {
-														if (formik.values.first_age_range === 0) {
+														if (formik.values.filter_age_range_1 === 0) {
 															return;
 														}
-														formik.getFieldHelpers("first_age_range").setValue(Number(formik.values.first_age_range) - 1);
+														formik
+															.getFieldHelpers("filter_age_range_1")
+															.setValue(Number(formik.values.filter_age_range_1) - 1);
 													}}
 													isNumber
 												/>
@@ -202,25 +225,25 @@ function Preference() {
 												<Input
 													label="Max Age"
 													type="number"
-													name="second_age_range"
+													name="filter_age_range_2"
 													inputSize="md"
-													value={formik.values.second_age_range}
-													onChange={(value: string) => formik.getFieldHelpers("second_age_range").setValue(Number(value))}
+													value={formik.values.filter_age_range_2}
+													onChange={(value: string) => formik.getFieldHelpers("filter_age_range_2").setValue(Number(value))}
 													onUpClick={() => {
-														if (formik.values.second_age_range === 40) {
+														if (formik.values.filter_age_range_2 === 40) {
 															return;
 														}
 														formik
-															.getFieldHelpers("second_age_range")
-															.setValue(Number(formik.values.second_age_range) + 1);
+															.getFieldHelpers("filter_age_range_2")
+															.setValue(Number(formik.values.filter_age_range_2) + 1);
 													}}
 													onDownClick={() => {
-														if (formik.values.second_age_range === 0) {
+														if (formik.values.filter_age_range_2 === 0) {
 															return;
 														}
 														formik
-															.getFieldHelpers("second_age_range")
-															.setValue(Number(formik.values.second_age_range) - 1);
+															.getFieldHelpers("filter_age_range_2")
+															.setValue(Number(formik.values.filter_age_range_2) - 1);
 													}}
 													isNumber
 												/>
@@ -229,7 +252,14 @@ function Preference() {
 									</div>
 								</div>
 								<div className="flex w-full justify-end">
-									<Button type="submit" buttonType="primary" color="blue" isDisabled={formikHasError(formik.errors)} borderFull>
+									<Button
+										type="submit"
+										buttonType="primary"
+										color="blue"
+										isDisabled={formikHasError(formik.errors) || !formik.dirty}
+										isLoading={isLoading}
+										borderFull
+									>
 										<span>Save & Continue</span>
 									</Button>
 								</div>

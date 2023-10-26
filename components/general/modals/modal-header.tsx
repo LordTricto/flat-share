@@ -76,7 +76,7 @@ function ModalHeader(props: Props): JSX.Element {
 							</p>
 						)}
 
-						<div className="leading-none" data-type={props.dataType && props.dataType}>
+						<div className="text-2xl font-semibold leading-none" data-type={props.dataType && props.dataType}>
 							{props.children}
 						</div>
 					</div>
@@ -99,12 +99,12 @@ function ModalHeader(props: Props): JSX.Element {
 					data-type={props.dataType && props.dataType}
 				>
 					<CancelBig
-						className="pointer-events-none z-20 h-3.5 w-3.5 stroke-current text-black-tertiary"
+						className="pointer-events-none z-20 h-2.5 w-2.5 stroke-current text-black-tertiary"
 						data-type={props.dataType && props.dataType}
 					/>
 
 					{!props.withImgSection && (
-						<div className="absolute z-10 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-blue-senary" />
+						<div className="absolute z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-[#F3F3F6] transition-all duration-300 ease-in-out" />
 					)}
 				</button>
 			</div>

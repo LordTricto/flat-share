@@ -1,7 +1,7 @@
+import {InitState, InterestsType} from "./initSlice.types";
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
 
 import Filter from "@/models/filter";
-import {InitState} from "./initSlice.types";
 import User from "../../../models/user";
 
 const initialState: InitState = {
@@ -13,6 +13,13 @@ const initialState: InitState = {
 	isAccountCreated: false,
 	user: null,
 	filter: null,
+	interests: {
+		food: [],
+		music: [],
+		others: [],
+		sports: [],
+		film_and_tv: [],
+	},
 };
 
 export const initSlice = createSlice({
@@ -47,8 +54,14 @@ export const initSlice = createSlice({
 		logoutSuccess: (state: InitState) => {
 			state.isLoggedIn = false;
 			state.isInitError = null;
-			// state.user = null;
 			state.filter = null;
+			state.interests = {
+				food: [],
+				music: [],
+				others: [],
+				sports: [],
+				film_and_tv: [],
+			};
 		},
 
 		setIsAccountCreatedStatus: (state: InitState, action: PayloadAction<boolean>) => {
@@ -64,15 +77,23 @@ export const initSlice = createSlice({
 		setUpdatedFilter: (state: InitState, action: PayloadAction<Filter>) => {
 			state.filter = action.payload;
 		},
+		setUpdatedInterests: (state: InitState, action: PayloadAction<InterestsType>) => {
+			state.interests = action.payload;
+		},
 
 		initReset: (state: InitState) => {
 			state.isLoggedIn = false;
-
 			state.isInitError = null;
 			state.isInitLoading = false;
-
 			state.user = null;
 			state.filter = null;
+			state.interests = {
+				food: [],
+				music: [],
+				others: [],
+				sports: [],
+				film_and_tv: [],
+			};
 		},
 	},
 });
@@ -87,6 +108,7 @@ export const {
 	setIsAccountCreatedStatus,
 	setUpdatedUserProfile,
 	setUpdatedFilter,
+	setUpdatedInterests,
 	initReset,
 } = initSlice.actions;
 

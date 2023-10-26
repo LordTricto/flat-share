@@ -261,6 +261,7 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 				type={type}
 				onClick={props.isDisabled ? undefined : onClick}
 				tabIndex={props.noTabIndex || props.isDisabled ? -1 : 0}
+				disabled={props.isDisabled}
 				data-type={props.dataType && props.dataType}
 				autoFocus={props.autoFocus}
 			>

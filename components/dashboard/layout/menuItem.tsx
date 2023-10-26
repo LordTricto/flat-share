@@ -14,19 +14,20 @@ interface Props {
 	iconActive: StaticImageData;
 	iconInActive: StaticImageData;
 	isPreRelease?: boolean;
+	includesPath?: boolean;
 
 	onClick(e: React.MouseEvent): void;
 }
 
-function MenuItem({onClick, path, iconActive, iconInActive, text, isPreRelease = false}: Props): JSX.Element {
+function MenuItem({onClick, path, iconActive, iconInActive, text, includesPath, isPreRelease = false}: Props): JSX.Element {
 	const pathname = usePathname();
 
 	const [active, setActive] = useState(false);
 	const [isHover, setIsHover] = useState<boolean>(false);
 
 	useEffect(() => {
-		setActive(!!(pathname === path));
-	}, [pathname, path]);
+		setActive(includesPath ? pathname.includes(path) : !!(pathname === path));
+	}, [includesPath, pathname, path]);
 
 	if (isPreRelease && !canShowPreReleaseFeatures) {
 		return <></>;

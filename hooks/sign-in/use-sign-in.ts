@@ -33,7 +33,7 @@ function useSignIn(): UseMutationResult<any, unknown, SignInForm, unknown> {
 			}
 			if (data.user.account_status === UserActivationStatus.ONLINE && data.user.profile_photo_path.includes("default")) {
 				dispatch(setIsAccountCreatedStatus(false));
-				dispatch(setToStageFour());
+				dispatch(setToStageOne());
 				router.replace("/dashboard/get-started");
 				return;
 			}

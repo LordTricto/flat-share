@@ -3,7 +3,7 @@ import FlatHostInactive from "../../../../public/images/dashboard/get-started/fl
 import Image from "next/image";
 import React from "react";
 
-function FlatHost(props: {className?: string}) {
+function FlatHost(props: {className?: string; isActive?: boolean}) {
 	return (
 		<>
 			<div className={"relative flex h-8 w-8 items-center justify-center " + `${props.className}`}>
@@ -11,7 +11,8 @@ function FlatHost(props: {className?: string}) {
 				<Image
 					src={FlatHostInactive}
 					alt="icon-inactive"
-					className="absolute left-0 top-0 z-10 opacity-100 transition-opacity duration-150 group-hover:opacity-0"
+					// className="absolute left-0 top-0 z-10 opacity-100 transition-opacity duration-150 group-hover:opacity-0"
+					className={`absolute left-0 top-0 z-10 transition-opacity duration-150 ${props.isActive ? "opacity-0" : "opacity-100"} `}
 					width={32}
 					height={32}
 					tabIndex={-1}

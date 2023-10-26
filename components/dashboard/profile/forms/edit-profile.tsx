@@ -120,7 +120,7 @@ function EditProfile(props: Props) {
 									size="md"
 									isLoading={isLoading}
 									onClick={() => {
-										if (formikRef.current) mutate(formikRef.current?.values);
+										// if (formikRef.current) mutate(formikRef.current?.values);
 									}}
 									borderSmall
 								>
@@ -170,7 +170,7 @@ function EditProfile(props: Props) {
 								innerRef={formikRef}
 								validationSchema={formValidation}
 								onSubmit={(value) => {
-									mutate(value);
+									// mutate(value);
 									// handleForgotPassword.mutate(value)
 								}}
 								enableReinitialize={true}

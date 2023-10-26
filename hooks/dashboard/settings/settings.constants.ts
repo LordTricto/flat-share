@@ -1,8 +1,6 @@
 import {UserReligion, UserSex, UserType} from "@/models/user.constant";
 
 import {DropdownItem} from "@/helpers/types";
-import Filter from "@/models/filter";
-import User from "@/models/user";
 
 export enum SettingsSection {
 	PERSONAL_DETAILS = "personal-details",
@@ -29,19 +27,19 @@ export const SettingsSectionsText = {
 };
 
 export enum SportInterest {
-	ATHLETICS = "athletics",
-	BASKETBALL = "basketball",
-	BOWLING = "bowling",
-	BOXING = "boxing",
-	FOOTBALL = "football",
-	GOLF = "golf",
-	HANDBALL = "handball",
-	LAWN_TENNIS = "lawn tennis",
-	RACING = "racing",
-	ROLLER_SKATING = "roller skating",
-	SWIMMING = "swimming",
-	TABLE_TENNIS = "table tennis",
-	VOLLEYBALL = "volleyball",
+	ATHLETICS = "Athletics",
+	BASKETBALL = "Basketball",
+	BOWLING = "Bowling",
+	BOXING = "Boxing",
+	FOOTBALL = "Football",
+	GOLF = "Golf",
+	HANDBALL = "Handball",
+	LAWN_TENNIS = "Lawn Tennis",
+	RACING = "Racing",
+	ROLLER_SKATING = "Roller Skating",
+	SWIMMING = "Swimming",
+	TABLE_TENNIS = "Table Tennis",
+	VOLLEYBALL = "Volleyball",
 }
 
 export const SportsInterests: SportInterest[] = [
@@ -61,20 +59,20 @@ export const SportsInterests: SportInterest[] = [
 ];
 
 export enum FoodInterest {
-	BAKING = "baking",
-	BEER = "beer",
-	COOKING = "cooking",
-	COFFEE = "coffee",
-	COCKTAIL = "cocktail",
-	FOODIE = "foodie",
-	PIZZA = "pizza",
-	SWEET_TOOTH = "sweet tooth",
-	TEA = "tea",
-	VEGAN = "vegan",
-	VEGETARIAN = "vegetarian",
-	VODKA = "vodka",
-	WHISKY = "whisky",
-	WINE = "wine",
+	BAKING = "Baking",
+	BEER = "Beer",
+	COOKING = "Cooking",
+	COFFEE = "Coffee",
+	COCKTAIL = "Cocktail",
+	FOODIE = "Foodie",
+	PIZZA = "Pizza",
+	SWEET_TOOTH = "Sweet Tooth",
+	TEA = "Tea",
+	VEGAN = "Vegan",
+	VEGETARIAN = "Vegetarian",
+	VODKA = "Vodka",
+	WHISKY = "Whisky",
+	WINE = "Wine",
 }
 export const FoodInterests: FoodInterest[] = [
 	FoodInterest.BAKING,
@@ -94,23 +92,23 @@ export const FoodInterests: FoodInterest[] = [
 ];
 
 export enum MusicInterest {
-	AFROBEAT = "afrobeat",
-	AMAPIANO = "amapiano",
-	BLUES = "blues",
-	CLASSICAL = "classical",
-	COUNTRY_ACOUSTIC = "country & acoustic",
-	DRILL_GRIME = "drill & grime",
-	ELECTRONIC = "electronic",
-	GOSPEL = "gospel",
-	HIP_HOP = "hip hop",
-	INDIE_FOLK = "indie & folk",
+	AFROBEAT = "Afrobeat",
+	AMAPIANO = "Amapiano",
+	BLUES = "Blues",
+	CLASSICAL = "Classical",
+	COUNTRY_ACOUSTIC = "Country & Acoustic",
+	DRILL_GRIME = "Drill & Grime",
+	ELECTRONIC = "Electronic",
+	GOSPEL = "Gospel",
+	HIP_HOP = "Hip Hop",
+	INDIE_FOLK = "Indie & Folk",
 	K_POP = "K-Pop",
-	POP = "pop",
-	ROCK = "rock",
+	POP = "Pop",
+	ROCK = "Rock",
 	R_B = "R&B",
-	REGGAE = "reggae",
-	SOUL = "soul",
-	TRAP = "trap",
+	REGGAE = "Reggae",
+	SOUL = "Soul",
+	TRAP = "Trap",
 }
 export const MusicInterests: MusicInterest[] = [
 	MusicInterest.AFROBEAT,
@@ -133,21 +131,21 @@ export const MusicInterests: MusicInterest[] = [
 ];
 
 export enum FilmInterest {
-	ANIME = "anime",
-	ANIMATIONS = "animations",
-	ACTION_ADVENTURE = "action & adventure",
-	CARTOON = "cartoon",
-	COMEDY = "comedy",
-	BOLLYWOOD = "bollywood",
-	DRAMA = "drama",
-	DOCUMENTARY = "documentary",
-	HORROR = "horror",
+	ANIME = "Anime",
+	ANIMATIONS = "Animations",
+	ACTION_ADVENTURE = "Action & Adventure",
+	CARTOON = "Cartoon",
+	COMEDY = "Comedy",
+	BOLLYWOOD = "Bollywood",
+	DRAMA = "Drama",
+	DOCUMENTARY = "Documentary",
+	HORROR = "Horror",
 	K_DRAMA = "K-Drama",
-	NOLLYWOOD = "nollywood",
-	REALITY_SHOWS = "reality shows",
-	ROMANCE = "romance",
+	NOLLYWOOD = "Nollywood",
+	REALITY_SHOWS = "Reality Shows",
+	ROMANCE = "Romance",
 	SCI_FI = "Sci-Fi",
-	THRILLER = "thriller",
+	THRILLER = "Thriller",
 	TV_SERIES = "TV Series",
 }
 export const FilmInterests: FilmInterest[] = [
@@ -170,29 +168,29 @@ export const FilmInterests: FilmInterest[] = [
 ];
 
 export enum OtherInterest {
-	ALTE = "alte",
-	BOARD_GAMES = "board game",
-	BUSINESS = "business",
-	CATS = "cats",
-	CODING_PROGRAMMING = "coding & programming",
+	ALTE = "Alte",
+	BOARD_GAMES = "Board Game",
+	BUSINESS = "Business",
+	CATS = "Cats",
+	CODING_PROGRAMMING = "Coding & Programming",
 	DIY_CRAFT = "DIY Craft",
-	DOGS = "dogs",
-	FASHION_STYLE = "fashion & style",
-	FEMINIST = "feminist",
-	GYM = "gym",
+	DOGS = "Dogs",
+	FASHION_STYLE = "Fashion & Style",
+	FEMINIST = "Feminist",
+	GYM = "Gym",
 	GEN_Z = "Gen-Z",
-	JOGGING = "jogging",
-	KARAOKE = "karaoke",
-	MEDITATION = "meditation",
-	MILLENIAL = "millenial",
-	NATURE_LOVER = "nature lover",
-	PHOTOGRAPHY = "photography",
-	POLITICS = "politics",
-	READING = "reading",
-	TECHIE = "techie",
-	VIDEO_GAMES = "video game",
-	WRITING_POETRY = "writing & poetry",
-	YOGA = "yoga",
+	JOGGING = "Jogging",
+	KARAOKE = "Karaoke",
+	MEDITATION = "Meditation",
+	MILLENIAL = "Millenial",
+	NATURE_LOVER = "Nature Lover",
+	PHOTOGRAPHY = "Photography",
+	POLITICS = "Politics",
+	READING = "Reading",
+	TECHIE = "Techie",
+	VIDEO_GAMES = "Video Game",
+	WRITING_POETRY = "Writing & Poetry",
+	YOGA = "Yoga",
 }
 export const OtherInterests: OtherInterest[] = [
 	OtherInterest.ALTE,
@@ -238,22 +236,6 @@ export type OtherPersonalDetailsForm = {
 	religion: UserReligion | null;
 	education: string;
 	profession: string;
-};
-
-export type AccountPreferenceForm = {
-	user_type: UserType | null;
-	first_age_range: number;
-	second_age_range: number;
-	education: string;
-	sex: string;
-	profession: string;
-
-	location_1: string;
-	location_2: string;
-	state: string;
-
-	min_budget: string;
-	max_budget: string;
 };
 
 export type InterestsForm = {

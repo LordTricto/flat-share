@@ -41,9 +41,15 @@ function Settings() {
 						<div className="relative h-full w-full overflow-y-auto">
 							<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8">
 								<div className="h-fit w-full pb-6">
-									{activeSection === SettingsSection.PERSONAL_DETAILS && <PersonalDetails />}
-									{activeSection === SettingsSection.PREFERENCE && <Preference />}
-									{activeSection === SettingsSection.INTERESTS && <Interests />}
+									{activeSection === SettingsSection.PERSONAL_DETAILS && (
+										<PersonalDetails handleNext={() => setActiveSection(SettingsSection.PREFERENCE)} />
+									)}
+									{activeSection === SettingsSection.PREFERENCE && (
+										<Preference handleNext={() => setActiveSection(SettingsSection.INTERESTS)} />
+									)}
+									{activeSection === SettingsSection.INTERESTS && (
+										<Interests handleNext={() => setActiveSection(SettingsSection.ACCOUNT)} />
+									)}
 									{activeSection === SettingsSection.ACCOUNT && <Account />}
 									{activeSection === SettingsSection.NOTIFICATIONS && <Notifications />}
 								</div>

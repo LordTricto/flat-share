@@ -1,14 +1,13 @@
 "use client";
 
-import {useDispatch, useSelector} from "react-redux";
-
 import Button from "@/components/general/button/button";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
+import {UserType} from "@/models/user.constant";
 import cameraIcon from "@/public/images/dashboard/get-started/upload-camera.svg";
-import {setIsAccountCreatedStatus} from "@/redux/init/slice/initSlice";
+import useGetStarted from "@/hooks/dashboard/get-started/account-setup/use-get-started";
 import {useRef} from "react";
-import {useRouter} from "next/navigation";
+import {useSelector} from "react-redux";
 
 interface Props {
 	croppedImg: string;
@@ -17,10 +16,9 @@ interface Props {
 }
 
 function StageFour(props: Props) {
-	const dispatch = useDispatch();
-	const router = useRouter();
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const isHost = useSelector((state: IRootState) => state.getStarted.isHost);
+	const {mutate, isLoading} = useGetStarted();
 
 	const onFileChange = (file: File) => {
 		if (file) {
@@ -80,14 +78,13 @@ function StageFour(props: Props) {
 					type="button"
 					buttonType="primary"
 					color="blue"
-					// isDisabled={!props.croppedImg}
+					isDisabled={!props.croppedImg}
+					isLoading={isLoading}
 					onClick={() => {
-						if (isHost) {
-							router.push("/dashboard/create-ad");
-						} else {
-							dispatch(setIsAccountCreatedStatus(true));
-							router.push("/dashboard");
-						}
+						mutate({
+							profile_photo: props.croppedImg,
+							user_type: isHost ? UserType.HOST : UserType.HOST_HUNTERS,
+						});
 					}}
 					borderFull
 					fullWidth

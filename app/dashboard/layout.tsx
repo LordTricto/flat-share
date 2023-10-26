@@ -205,6 +205,7 @@ export default function DashboardLayout({
 												iconActive={exploreActive}
 												iconInActive={exploreInActive}
 												text="Explore"
+												includesPath
 												// isPreRelease
 											/>
 

@@ -14,15 +14,17 @@ export enum mainInitSignal {
 
 export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 	const signal = getAbortControllerSignal(mainInitSignal.MAIN_INIT);
-	const res = await makeGetRequestWithSignal(`user/fetch/potentials/partners/1${store.getState().init.user?.id || ""}`, signal);
+	const res = await makeGetRequestWithSignal(`user/fetch/potentials/partners/1${store.getState().init?.user?.id || ""}`, signal);
 	if (res instanceof Error) {
 		throw res;
 	}
 	const metaData = (res.data as GenericObject).meta;
+	const messageData = (res.data as GenericObject).messages;
 	const sentRequestData = (res.data as GenericObject).sent_request;
+	const userStatisticsData = (res.data as GenericObject).user_statistics;
 	const receivedRequestData = (res.data as GenericObject).received_request;
-	const user_statisticsData = (res.data as GenericObject).user_statistics;
-	const notifications_metaData = (res.data as GenericObject).notifications_meta;
+	const notificationsMeta = ((res.data as GenericObject).notification as GenericObject).notifications_meta;
+	const notificationPaginationMeta = ((res.data as GenericObject).notification as GenericObject).notification_pagination_meta;
 
 	const meta = {
 		current_page: Parsers.number((metaData as GenericObject).current_page),
@@ -32,47 +34,64 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 		total_items: Parsers.number((metaData as GenericObject).total_items),
 		last_page: Parsers.number((metaData as GenericObject).last_page),
 	};
-	const sentRequest = {
+	const sent_request = {
 		sent_request_no: Parsers.number((sentRequestData as GenericObject).sent_request_no),
 		sent_request_data: Parsers.classObjectArray((sentRequestData as GenericObject).sent_request_data, Housemate),
 	};
-	const receivedRequest = {
+	const received_request = {
 		received_request_no: Parsers.number((receivedRequestData as GenericObject).received_request_no),
 		received_request_data: Parsers.classObjectArray((receivedRequestData as GenericObject).received_request_data, Housemate),
 	};
-	const notifications_meta = {
-		total_notifications: Parsers.number((notifications_metaData as GenericObject).total_notifications),
-		total_new_notifications: Parsers.number((notifications_metaData as GenericObject).total_new_notifications),
-	};
 	const user_statistics = {
-		unique_profile_views: Parsers.number((user_statisticsData as GenericObject).unique_profile_views),
-		total_sent_request: Parsers.number((user_statisticsData as GenericObject).total_sent_request),
-		active_sent_request: Parsers.number((user_statisticsData as GenericObject).active_sent_request),
-		total_received_request: Parsers.number((user_statisticsData as GenericObject).total_received_request),
-		active_received_request: Parsers.number((user_statisticsData as GenericObject).active_received_request),
-		unseen_received_reviews: Parsers.number((user_statisticsData as GenericObject).unseen_received_reviews),
-		total_reviews_received: Parsers.number((user_statisticsData as GenericObject).total_reviews_received),
-		reviews_sent: Parsers.number((user_statisticsData as GenericObject).reviews_sent),
+		total_sent_request: Parsers.number((userStatisticsData as GenericObject).total_sent_request),
+		total_received_request: Parsers.number((userStatisticsData as GenericObject).total_received_request),
+		available_send_request: Parsers.number((userStatisticsData as GenericObject).available_send_request),
+		available_receive_request: Parsers.number((userStatisticsData as GenericObject).available_receive_request),
+	};
+	const messages = {
+		home_message: Parsers.string((messageData as GenericObject).home_message),
+		home_cta: Parsers.string((messageData as GenericObject).home_cta),
+		match_message: Parsers.string((messageData as GenericObject).match_message),
+		match_cta: Parsers.string((messageData as GenericObject).match_cta),
+		message_alert_color: Parsers.string((messageData as GenericObject).message_alert_color),
+	};
+	const notification = {
+		notification_pagination_meta: {
+			current_page: Parsers.number((notificationPaginationMeta as GenericObject).current_page),
+			firstItem: Parsers.number((notificationPaginationMeta as GenericObject).firstItem),
+			lastItem: Parsers.number((notificationPaginationMeta as GenericObject).lastItem),
+			per_page: Parsers.number((notificationPaginationMeta as GenericObject).per_page),
+			total_items: Parsers.number((notificationPaginationMeta as GenericObject).total_items),
+			last_page: Parsers.number((notificationPaginationMeta as GenericObject).last_page),
+		},
+		notifications_meta: {
+			total_notifications: Parsers.number((notificationsMeta as GenericObject).total_notifications),
+			total_new_notifications: Parsers.number((notificationsMeta as GenericObject).total_new_notifications),
+		},
+		notifications: Parsers.classObjectArray(((res.data as GenericObject).notification as GenericObject).notifications, Notification),
 	};
 
 	return {
-		success: Parsers.string(res.success),
+		status: Parsers.string(res.status),
 		message: Parsers.string(res.message),
-		signal: Parsers.string(res.message),
+		meta,
+		app_abuse_email: Parsers.string(res.app_abuse_email),
+		app_support_email: Parsers.string(res.app_support_email),
+		host_fee: Parsers.number(res.host_fee),
+		signal: Parsers.string(res.signal),
+		messages,
 		filter: Parsers.classObjectArray((res.data as GenericObject).filter, Filter),
 		reset_filter_to_default: Parsers.classObjectArray((res.data as GenericObject).reset_filter_to_default, Filter),
-		meta: meta,
-		connection: Parsers.classObjectArray((res.data as GenericObject).user, Housemate),
-		suggestions: Parsers.classObjectArray((res.data as GenericObject).user, Housemate),
+		connection: Parsers.classObjectArray((res.data as GenericObject).connection, Housemate),
+		suggestions: Parsers.classObjectArray((res.data as GenericObject).suggestions, Housemate),
 		views_no: Parsers.number(res.views_no),
 		new_views_no: Parsers.number(res.new_views_no),
 		reviews_no: Parsers.number(res.reviews_no),
 		new_reviews_no: Parsers.number(res.new_reviews_no),
-		sent_request: sentRequest,
-		received_request: receivedRequest,
+		sent_request,
+		received_request,
 		total_request: Parsers.number(res.total_request),
-		user_statistics: user_statistics,
-		notifications_meta: notifications_meta,
-		notifications: Parsers.classObjectArray((res.data as GenericObject).notifications, Notification),
+		user_statistics,
+		notification,
 	};
 };

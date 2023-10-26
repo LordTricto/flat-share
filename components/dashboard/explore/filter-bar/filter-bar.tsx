@@ -1,14 +1,13 @@
 "use client";
 
+import {FilterFormResponse, FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import MultiRangeSlider, {ChangeResult} from "multi-range-slider-react";
 import {educationOptions, genderOptions, locationOptions, religionOptions} from "@/hooks/dashboard/settings/settings.constants";
 
 import Accordion from "@/components/general/accordion/accordion";
 import Button from "@/components/general/button/button";
 import Checkbox from "@/components/general/checkbox/checkbox";
-import {FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import Image from "next/image";
-import Input from "@/components/general/inputs/input";
 import SearchDropdown from "@/components/general/dropdown/search-dropdown";
 import UpgradeAccountCard from "../../general/cards/upgrade-account/upgrade-account";
 import cancel from "@/public/images/icons/cancel.svg";
@@ -18,6 +17,7 @@ import useDimension from "@/helpers/useDimension";
 import {useState} from "react";
 
 interface Props {
+	data: FilterFormResponse| undefined;
 	isActive: boolean;
 	toggle: () => void;
 }

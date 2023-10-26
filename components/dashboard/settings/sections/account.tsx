@@ -3,26 +3,25 @@
 import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
-// import {useDispatch} from "react-redux";
 import {useRef, useState} from "react";
 
-import {AccountForm} from "@/hooks/dashboard/settings/settings.constants";
 import Button from "@/components/general/button/button";
+import {ChangePasswordForm} from "@/hooks/dashboard/settings/change-password /change-password.constants";
 import FormInput from "@/components/general/inputs/form-input";
-// import {IRootState} from "@/redux/rootReducer";
 import PasswordHints from "@/app/sign-up/password-hints";
 import ToggleSwitch from "@/components/general/toggle-switch";
 import YupPassword from "yup-password";
 import formikHasError from "@/helpers/formikHasError";
+import useChangePassword from "@/hooks/dashboard/settings/change-password /use-change-password";
 
 YupPassword(Yup);
 
 function Account() {
 	const [isShowProfile, setIsShowProfile] = useState(false);
 
-	const formikRef = useRef<FormikProps<AccountForm> | null>(null);
+	const formikRef = useRef<FormikProps<ChangePasswordForm> | null>(null);
 
-	const initialFormState: AccountForm = {
+	const initialFormState: ChangePasswordForm = {
 		current_password: "",
 		new_password: "",
 	};
@@ -37,6 +36,8 @@ function Account() {
 			.matches(/^(?=.*[-_])[A-Za-z0-9_-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
 			.required("Required"),
 	});
+
+	const {mutate, isLoading} = useChangePassword(() => formikRef.current?.resetForm());
 
 	return (
 		<>
@@ -56,9 +57,7 @@ function Account() {
 							innerRef={formikRef}
 							validationSchema={formValidation}
 							onSubmit={(values) => {
-								// dispatch(setPersonalInformation(values));
-								// dispatch(setToStageThree());
-								formikRef.current?.resetForm();
+								mutate(values);
 							}}
 							enableReinitialize={true}
 							validateOnChange
@@ -71,8 +70,8 @@ function Account() {
 										<p className="pt-4 text-sm text-black-tertiary">Update password associated with your account</p>
 										<div className="mt-6 flex w-full flex-col items-start justify-between gap-6">
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
-												<FormInput type="text" label="Current Password" name="current_password" inputSize="md" />
-												<FormInput type="text" label="New Password" name="new_password" inputSize="md" />
+												<FormInput type="password" label="Current Password" name="current_password" inputSize="md" />
+												<FormInput type="password" label="New Password" name="new_password" inputSize="md" />
 											</div>
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<div></div>
@@ -83,7 +82,14 @@ function Account() {
 												/>
 											</div>
 										</div>
-										<Button type="submit" buttonType="primary" color="blue" isDisabled={formikHasError(formik.errors)} borderFull>
+										<Button
+											type="submit"
+											buttonType="primary"
+											color="blue"
+											isDisabled={formikHasError(formik.errors)}
+											isLoading={isLoading}
+											borderFull
+										>
 											<span>Change Password</span>
 										</Button>
 									</Form>

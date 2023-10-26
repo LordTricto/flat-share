@@ -14,7 +14,8 @@ export default class Notification {
 		public description: string,
 		public signal: string,
 		public notification_creation_date: Date | null,
-		public seen: NotificationStatus | null
+		public seen: NotificationStatus | null,
+		public notification_id: number
 	) {}
 
 	static create(obj: GenericObject): Notification {
@@ -24,7 +25,8 @@ export default class Notification {
 			Parsers.string(obj.description),
 			Parsers.string(obj.signal),
 			Parsers.date(obj.notification_creation_date),
-			Parsers.nullableEnum(obj.seen, NotificationStatus)
+			Parsers.nullableEnum(obj.seen, NotificationStatus),
+			Parsers.number(obj.notification_id)
 		);
 	}
 }

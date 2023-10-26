@@ -9,6 +9,8 @@ import ReduxProvider from "@/redux/redux-provider";
 import ToastContainer from "@/components/toast-container";
 import localFont from "next/font/local";
 
+// import {enableES5, enableMapSet} from "immer";
+
 // import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 // const Averia = Averia_Libre({weight: ["300", "400", "700"], subsets: ["latin"]});
@@ -41,6 +43,8 @@ export const metadata = {
 };
 
 // const queryClient = new QueryClient();
+// enableES5();
+// enableMapSet();
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (

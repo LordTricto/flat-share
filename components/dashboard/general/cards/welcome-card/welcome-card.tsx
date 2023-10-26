@@ -7,9 +7,11 @@ import React from "react";
 import mainSectionPattern from "@/public/images/dashboard/home/main-section-pattern.png";
 
 interface Props {
-	subTitle: string;
 	ctaText: string;
-	toggle: () => void;
+	subTitle: string;
+	canToggle?: boolean;
+	toggle?: () => void;
+	handleCta?: () => void;
 }
 
 function WelcomeCard(props: Props) {
@@ -23,13 +25,15 @@ function WelcomeCard(props: Props) {
 							<h3 className="text-base font-semibold">Welcome to FlatShare</h3>
 							<p className="text-xs">{props.subTitle}</p>
 						</div>
-						<Button type="button" buttonType="secondary" color="white" size="sm" onClick={props.toggle} borderSmall>
+						<Button type="button" buttonType="secondary" color="white" size="sm" onClick={props.handleCta} borderSmall>
 							<span className="text-sm leading-none">{props.ctaText}</span>
 						</Button>
 					</div>
-					<div className="absolute right-6 top-5 z-10 cursor-pointer text-white" onClick={props.toggle}>
-						<Cancel />
-					</div>
+					{props.canToggle && (
+						<div className="absolute right-6 top-5 z-10 cursor-pointer text-white" onClick={props.canToggle ? props.toggle : undefined}>
+							<Cancel />
+						</div>
+					)}
 				</div>
 			</div>
 		</>

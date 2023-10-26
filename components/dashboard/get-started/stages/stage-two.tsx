@@ -44,7 +44,6 @@ function StageTwo() {
 		profession: Yup.string().required("Required"),
 	});
 
-	// console.log(userData);
 	return (
 		<>
 			<div className="mx-auto flex h-full w-full flex-col items-center justify-center gap-8 md:w-[448px]">

@@ -22,6 +22,7 @@ export const getStartedApi = async (data: GetStartedForm): Promise<GetStartedFor
 		success: Parsers.string(res.success),
 		message: Parsers.string(res.message),
 		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, User),
-		filtered: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
+		filter: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
+		reset_filter_to_default: Parsers.classObjectNonNullable((res.data as GenericObject).reset_filter_to_default, Filter),
 	};
 };

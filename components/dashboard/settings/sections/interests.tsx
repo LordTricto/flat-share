@@ -2,50 +2,41 @@
 
 import * as Yup from "yup";
 
-import {
-	AccountPreferenceForm,
-	FilmInterests,
-	FoodInterests,
-	InterestsForm,
-	MusicInterests,
-	OtherInterests,
-	SportsInterests,
-	locationOptions,
-	userTypeOptions,
-} from "@/hooks/dashboard/settings/settings.constants";
+import {FilmInterests, FoodInterests, MusicInterests, OtherInterests, SportsInterests} from "@/hooks/dashboard/settings/settings.constants";
 import {Form, Formik, FormikProps} from "formik";
-import {educationOptions, genderOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 
 import Button from "@/components/general/button/button";
-import Dropdown from "@/components/general/dropdown/dropdown";
-import FormInput from "@/components/general/inputs/form-input";
-// import {IRootState} from "@/redux/rootReducer";
-import Input from "@/components/general/inputs/input";
-import MoneyInput from "@/components/general/inputs/money-input";
+import {IRootState} from "@/redux/rootReducer";
 import Tag from "../../create-ad/tags/tag";
+import {UpdateInterestsForm} from "@/hooks/dashboard/settings/update-interests/update-interests.constants";
 import formikHasError from "@/helpers/formikHasError";
-// import locationIcon from "@/public/images/dashboard/general/location.svg";
-import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-// import {useDispatch} from "react-redux";
 import {useRef} from "react";
+import {useSelector} from "react-redux";
+import useUpdateInterests from "@/hooks/dashboard/settings/update-interests/use-update-interests";
 
-function Interests() {
-	// const dispatch = useDispatch();
-	const formikRef = useRef<FormikProps<InterestsForm> | null>(null);
+interface Props {
+	handleNext: () => void;
+}
 
-	const initialFormState: InterestsForm = {
-		film: [],
-		food: [],
-		music: [],
-		other: [],
-		sports: [],
+function Interests(props: Props) {
+	const {mutate, isLoading} = useUpdateInterests(props.handleNext);
+
+	const interests = useSelector((state: IRootState) => state.init.interests);
+	const formikRef = useRef<FormikProps<UpdateInterestsForm> | null>(null);
+
+	const initialFormState: UpdateInterestsForm = {
+		film_and_tv: interests.film_and_tv || [],
+		food_and_drink: interests.food || [],
+		music: interests.music || [],
+		other_interests: interests.others || [],
+		sports: interests.sports || [],
 	};
 
 	const formValidation = Yup.object().shape({
-		film: Yup.array().of(Yup.string().required("Required")).required("Required"),
-		food: Yup.array().of(Yup.string().required("Required")).required("Required"),
+		film_and_tv: Yup.array().of(Yup.string().required("Required")).required("Required"),
+		food_and_drink: Yup.array().of(Yup.string().required("Required")).required("Required"),
 		music: Yup.array().of(Yup.string().required("Required")).required("Required"),
-		other: Yup.array().of(Yup.string().required("Required")).required("Required"),
+		other_interests: Yup.array().of(Yup.string().required("Required")).required("Required"),
 		sports: Yup.array().of(Yup.string().required("Required")).required("Required"),
 	});
 
@@ -59,7 +50,8 @@ function Interests() {
 					onSubmit={(values) => {
 						// dispatch(setPersonalInformation(values));
 						// dispatch(setToStageThree());
-						formikRef.current?.resetForm();
+						// formikRef.current?.resetForm();
+						mutate(values);
 					}}
 					enableReinitialize={true}
 					validateOnChange
@@ -106,20 +98,20 @@ function Interests() {
 													{FoodInterests.map((_interest, _index) => (
 														<Tag
 															key={_index}
-															isActive={formik.values.food.some((_el) => _el === _interest)}
+															isActive={formik.values.food_and_drink.some((_el) => _el === _interest)}
 															text={_interest}
 															onClick={() =>
 																formik
-																	.getFieldHelpers("food")
+																	.getFieldHelpers("food_and_drink")
 																	.setValue(
-																		formik.values.food.some((_el) => _el === _interest)
-																			? formik.values.food.filter((_el) => _el !== _interest)
-																			: [...formik.values.food, _interest]
+																		formik.values.food_and_drink.some((_el) => _el === _interest)
+																			? formik.values.food_and_drink.filter((_el) => _el !== _interest)
+																			: [...formik.values.food_and_drink, _interest]
 																	)
 															}
 															isDisabled={
-																!formik.values.food.some((_el) => _el === _interest) &&
-																!!(formik.values.food.length > 4)
+																!formik.values.food_and_drink.some((_el) => _el === _interest) &&
+																!!(formik.values.food_and_drink.length > 4)
 															}
 														/>
 													))}
@@ -156,20 +148,20 @@ function Interests() {
 													{FilmInterests.map((_interest, _index) => (
 														<Tag
 															key={_index}
-															isActive={formik.values.film.some((_el) => _el === _interest)}
+															isActive={formik.values.film_and_tv.some((_el) => _el === _interest)}
 															text={_interest}
 															onClick={() =>
 																formik
-																	.getFieldHelpers("film")
+																	.getFieldHelpers("film_and_tv")
 																	.setValue(
-																		formik.values.film.some((_el) => _el === _interest)
-																			? formik.values.film.filter((_el) => _el !== _interest)
-																			: [...formik.values.film, _interest]
+																		formik.values.film_and_tv.some((_el) => _el === _interest)
+																			? formik.values.film_and_tv.filter((_el) => _el !== _interest)
+																			: [...formik.values.film_and_tv, _interest]
 																	)
 															}
 															isDisabled={
-																!formik.values.film.some((_el) => _el === _interest) &&
-																!!(formik.values.film.length > 4)
+																!formik.values.film_and_tv.some((_el) => _el === _interest) &&
+																!!(formik.values.film_and_tv.length > 4)
 															}
 														/>
 													))}
@@ -183,20 +175,20 @@ function Interests() {
 													{OtherInterests.map((_interest, _index) => (
 														<Tag
 															key={_index}
-															isActive={formik.values.other.some((_el) => _el === _interest)}
+															isActive={formik.values.other_interests.some((_el) => _el === _interest)}
 															text={_interest}
 															onClick={() =>
 																formik
-																	.getFieldHelpers("other")
+																	.getFieldHelpers("other_interests")
 																	.setValue(
-																		formik.values.other.some((_el) => _el === _interest)
-																			? formik.values.other.filter((_el) => _el !== _interest)
-																			: [...formik.values.other, _interest]
+																		formik.values.other_interests.some((_el) => _el === _interest)
+																			? formik.values.other_interests.filter((_el) => _el !== _interest)
+																			: [...formik.values.other_interests, _interest]
 																	)
 															}
 															isDisabled={
-																!formik.values.other.some((_el) => _el === _interest) &&
-																!!(formik.values.other.length > 4)
+																!formik.values.other_interests.some((_el) => _el === _interest) &&
+																!!(formik.values.other_interests.length > 4)
 															}
 														/>
 													))}
@@ -206,7 +198,14 @@ function Interests() {
 									</div>
 								</div>
 								<div className="flex w-full justify-end">
-									<Button type="submit" buttonType="primary" color="blue" isDisabled={formikHasError(formik.errors)} borderFull>
+									<Button
+										type="submit"
+										buttonType="primary"
+										color="blue"
+										isDisabled={formikHasError(formik.errors) || !formik.dirty}
+										isLoading={isLoading}
+										borderFull
+									>
 										<span>Save & Continue</span>
 									</Button>
 								</div>

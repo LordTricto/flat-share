@@ -6,7 +6,7 @@ interface Props {
 	text: string;
 	isActive: boolean;
 	isDisabled?: boolean;
-	onClick: () => void;
+	onClick?: () => void;
 }
 
 function Tag(props: Props) {
@@ -23,7 +23,7 @@ function Tag(props: Props) {
 					}
 					onClick={() => {
 						if (props.isDisabled) return;
-						props.onClick();
+						props.onClick && props.onClick();
 						// setIsTagActive((prev) => !prev);
 					}}
 				>

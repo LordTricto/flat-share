@@ -1,31 +1,26 @@
 "use client";
 
-import AttachmentsCard from "@/components/dashboard/profile/cards/attachments";
-import EditAttachments from "@/components/dashboard/profile/forms/edit-attachments";
-import EditProfile from "@/components/dashboard/profile/forms/edit-profile";
-import ProfileCard from "@/components/dashboard/profile/cards/profile";
-import {useState} from "react";
+import DetailsSection from "@/components/dashboard/profile/sections/details-section";
+import {IRootState} from "@/redux/rootReducer";
+import InterestSection from "@/components/dashboard/profile/sections/interest-section";
+import ReviewSection from "@/components/dashboard/profile/sections/review-section";
+import {useSelector} from "react-redux";
 
 function Profile() {
-	const [isEditingProfile, setIsEditingProfile] = useState(false);
-	const [isEditingAttachments, setIsEditingAttachments] = useState(false);
+	const user = useSelector((state: IRootState) => state.init.user);
+	const filter = useSelector((state: IRootState) => state.init.filter);
 
 	return (
 		<>
 			<div className="flex h-full w-full flex-col gap-8 px-5 pb-8 pt-6">
-				{isEditingProfile ? (
-					<EditProfile
-						toggle={() => {
-							setIsEditingProfile(false);
-						}}
-					/>
-				) : (
-					<ProfileCard handleEditProfile={() => setIsEditingProfile(true)} />
-				)}
-				{isEditingAttachments ? (
-					<EditAttachments toggle={() => setIsEditingAttachments(false)} />
-				) : (
-					<AttachmentsCard handleEditAttachments={() => setIsEditingAttachments(true)} />
+				{user && (
+					<div className="flex h-full w-full">
+						<div className="flex h-fit w-full flex-col gap-8 pb-6">
+							<DetailsSection user={user} filter={filter} />
+							<ReviewSection userId={user.codec || ""} />
+							<InterestSection />
+						</div>
+					</div>
 				)}
 			</div>
 		</>

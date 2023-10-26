@@ -9,8 +9,8 @@ import {IRootState} from "@/redux/rootReducer";
 import ImageCropModal from "@/components/dashboard/get-started/modals/image-crop-modal";
 import StageFour from "@/components/dashboard/get-started/stages/stage-four";
 import StageOne from "@/components/dashboard/get-started/stages/stage-one";
-import StageThree from "@/components/dashboard/get-started/stages/stage-three";
-import StageTwo from "@/components/dashboard/get-started/stages/stage-two";
+// import StageThree from "@/components/dashboard/get-started/stages/stage-three";
+// import StageTwo from "@/components/dashboard/get-started/stages/stage-two";
 import {applicationReset} from "@/redux/get-started/get-started";
 
 function GetStarted() {
