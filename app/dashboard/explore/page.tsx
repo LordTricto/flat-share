@@ -55,31 +55,33 @@ const Dashboard = () => {
 									<div className="w-full text-center lg:hidden">
 										<p className="text-sm text-black-tertiary">{data?.meta.total_items} Filter Result</p>
 									</div>
-									<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-										{initData?.suggestions?.map((_data, _index) => (
-											<UserCard
-												id={_data.codec || ""}
-												key={_index}
-												job={_data.profession || ""}
-												bio={_data.bio}
-												name={_data.fullname}
-												budget={_data.budget}
-												location={_data.location_1}
-												isLocked={true}
-												religion={_data.religion}
-												profileImage={_data.photo}
-												isHost={_data.user_type === UserType.HOST}
-												gender={_data.gender}
-												views={_data.views}
-											/>
-										))}
-										{initData?.suggestions?.length < 1 && (
-											<div className="flex w-full flex-col items-center justify-center gap-2 py-20">
-												<Image priority src={empty} alt="Flat Share logo" />
-												<p className="text-sm text-black-quat">No users found</p>
-											</div>
-										)}
-									</div>
+									{initData?.suggestions?.length > 0 && (
+										<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+											{initData?.suggestions?.map((_data, _index) => (
+												<UserCard
+													id={_data.codec || ""}
+													key={_index}
+													job={_data.profession || ""}
+													bio={_data.bio}
+													name={_data.fullname}
+													budget={_data.budget}
+													location={_data.location_1}
+													isLocked={true}
+													religion={_data.religion}
+													profileImage={_data.photo}
+													isHost={_data.user_type === UserType.HOST}
+													gender={_data.gender}
+													views={_data.views}
+												/>
+											))}
+										</div>
+									)}
+									{initData?.suggestions?.length < 1 && (
+										<div className="flex w-full flex-col items-center justify-center gap-2 py-20">
+											<Image priority src={empty} alt="Flat Share logo" />
+											<p className="text-sm text-black-quat">No users found</p>
+										</div>
+									)}
 								</div>
 							</div>
 						</div>
