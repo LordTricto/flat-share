@@ -16,14 +16,15 @@ import {UpdateProfileForm} from "@/hooks/dashboard/update-profile/update-profile
 import cameraIcon from "@/public/images/dashboard/get-started/upload-camera.svg";
 import {religionOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
 import {useSelector} from "react-redux";
-import useUpdateProfile from "@/hooks/dashboard/update-profile/use-update-profile";
+
+// import useUpdateProfile from "@/hooks/dashboard/update-profile/use-update-profile";
 
 interface Props {
 	toggle: () => void;
 }
 
 function EditProfile(props: Props) {
-	const {mutate, isLoading, isSuccess} = useUpdateProfile();
+	// const {mutate, isLoading, isSuccess} = useUpdateProfile();
 
 	const user = useSelector((state: IRootState) => state.init.user);
 
@@ -76,11 +77,11 @@ function EditProfile(props: Props) {
 		fileInputRef.current && fileInputRef.current.click();
 	};
 
-	useEffect(() => {
-		if (isSuccess) {
-			props.toggle();
-		}
-	}, [isSuccess, props]);
+	// useEffect(() => {
+	// if (isSuccess) {
+	// props.toggle();
+	// }
+	// }, [isSuccess, props]);
 
 	return (
 		<>
@@ -118,7 +119,7 @@ function EditProfile(props: Props) {
 									buttonType="primary"
 									color="black"
 									size="md"
-									isLoading={isLoading}
+									// isLoading={isLoading}
 									onClick={() => {
 										// if (formikRef.current) mutate(formikRef.current?.values);
 									}}
@@ -232,7 +233,7 @@ function EditProfile(props: Props) {
 													buttonType="primary"
 													color="black"
 													size="lg"
-													isLoading={isLoading}
+													// isLoading={isLoading}
 													borderSmall
 													fullWidth
 												>

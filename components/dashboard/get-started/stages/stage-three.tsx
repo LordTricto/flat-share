@@ -59,7 +59,7 @@ function StageThree() {
 					validationSchema={formValidation}
 					onSubmit={(values) => {
 						dispatch(setAccountPreference(values));
-						handleGetStarted.mutate({...userData, ...values});
+						// handleGetStarted.mutate({...userData, ...values});
 						// dispatch(setToStageFour());
 					}}
 					enableReinitialize={true}

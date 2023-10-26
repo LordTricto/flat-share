@@ -14,7 +14,7 @@
 		"@svgr/webpack": "^8.0.1",
 		"@tanstack/react-query": "^4.29.12",
 		"@types/node": "18.15.13",
-		"@types/react": "^17.0.43",
+		"@types/react": "^18.2.31",
 		"@types/react-date-range": "^1.4.4",
 		"@types/react-dom": "18.0.11",
 		"autoprefixer": "10.4.14",
@@ -52,5 +52,8 @@
 		"prettier-eslint": "^15.0.1",
 		"prettier-eslint-cli": "^7.1.0",
 		"prettier-plugin-tailwindcss": "^0.3.0"
+	},
+	"resolutions": {
+		"@types/react": "17.0.39"
 	}
 }
