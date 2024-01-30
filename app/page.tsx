@@ -1,9 +1,8 @@
 import Button from "@/components/general/button/button";
 import CtaButton from "@/components/landing/cta-button";
+import Divider from "@/components/general/divider";
 import Image from "next/image";
 import connectWithCommunityImg from "@/public/images/home/connect-with-community.png";
-// import {Inter} from "next/font/google";
-// import easyUseImg from "@/public/images/home/easy-use.png";
 import heroImgOne from "@/public/images/home/hero-1.png";
 import heroImgTwo from "@/public/images/home/hero-2.png";
 import homeImgOne from "@/public/images/home/home-1.png";
@@ -12,14 +11,15 @@ import howFlatShareWorksImg from "@/public/images/home/how-flatshare-works-img.p
 import instantMessagingImg from "@/public/images/home/instant-messaging.png";
 import lighteningIcon from "@/public/images/icons/lightening.svg";
 import newsletterBG from "@/public/images/home/newsletter-bg.png";
-import pageDivider from "@/public/images/general/page-divider.svg";
 import personalizedRecommendationImg from "@/public/images/home/personalized-recommendation.png";
 import reliableImg from "@/public/images/home/reliable.png";
-// import strongCommunityImg from "@/public/images/home/strong-community.png";
 import structureImg from "@/public/images/home/structure.png";
 import supportImg from "@/public/images/home/support.png";
-
+// import {Inter} from "next/font/google";
+// import easyUseImg from "@/public/images/home/easy-use.png";
+// import pageDivider from "@/public/images/general/page-divider.svg";
 // import wideRangeImg from "@/public/images/home/wide-range.png";
+// import strongCommunityImg from "@/public/images/home/strong-community.png";
 
 export default function Home() {
 	return (
@@ -56,10 +56,8 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="relative h-fit min-h-fit w-full overflow-hidden">
-				<Image className="left-0 top-0 z-0 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
-				<Image className="absolute bottom-0 left-0 z-10 w-screen scale-[1.1]" src={pageDivider} alt="divider with colors" priority />
-
+			<section className="relative h-fit min-h-fit w-full">
+				<Divider />
 				<div className="relative w-full">
 					<Image
 						className="absolute left-0 top-0 z-0 h-full w-full"
@@ -269,6 +267,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
+				<Divider />
 			</section>
 		</main>
 	);

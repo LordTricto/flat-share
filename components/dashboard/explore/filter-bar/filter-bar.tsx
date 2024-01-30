@@ -1,25 +1,29 @@
 "use client";
 
-import {FilterFormResponse, FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
+import {ExploreFilterForm, ExploreFilterFormResponse} from "@/hooks/dashboard/explore/explore.constants";
 import MultiRangeSlider, {ChangeResult} from "multi-range-slider-react";
 import {educationOptions, genderOptions, locationOptions, religionOptions} from "@/hooks/dashboard/settings/settings.constants";
 
 import Accordion from "@/components/general/accordion/accordion";
 import Button from "@/components/general/button/button";
 import Checkbox from "@/components/general/checkbox/checkbox";
+import {FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import Image from "next/image";
 import SearchDropdown from "@/components/general/dropdown/search-dropdown";
 import UpgradeAccountCard from "../../general/cards/upgrade-account/upgrade-account";
+import {UserSex} from "@/models/user.constant";
 import cancel from "@/public/images/icons/cancel.svg";
 import filterFunnel from "@/public/images/dashboard/general/filter-funnel.svg";
+import titleCase from "@/utils/titleCase";
 import {truncateNumber} from "@/utils/formatNumber";
 import useDimension from "@/helpers/useDimension";
 import {useState} from "react";
 
 interface Props {
-	data: FilterFormResponse | undefined;
+	data: ExploreFilterFormResponse | undefined;
 	isActive: boolean;
 	toggle: () => void;
+	handleUpdate: (_data: ExploreFilterForm) => void;
 }
 
 function FilterBar(props: Props) {
@@ -73,6 +77,18 @@ function FilterBar(props: Props) {
 		setBudgetMaxValue(tempBudgetMaxValue);
 		setAgeMinValue(tempAgeMinValue);
 		setAgeMaxValue(tempAgeMaxValue);
+		console.log("this ran");
+		props.handleUpdate({
+			max_budget: tempBudgetMaxValue,
+			min_budget: tempBudgetMinValue,
+			location: tempSelectedLocations,
+
+			preferred_education: tempSelectedEducations[0],
+			preferred_first_age_range: tempAgeMinValue,
+			preferred_second_age_range: tempAgeMaxValue,
+			preferred_religion: tempSelectedReligions[0],
+			preferred_sex: (tempSelectedGenders[0] as UserSex) || undefined,
+		});
 	};
 
 	const handleResetFilter = () => {
@@ -84,6 +100,7 @@ function FilterBar(props: Props) {
 		setTempBudgetMaxValue(5000000);
 		setTempAgeMinValue(18);
 		setTempAgeMaxValue(50);
+		console.log("this ran a");
 
 		setSelectedLocations([]);
 		setSelectedGenders([]);
@@ -348,7 +365,7 @@ function FilterBar(props: Props) {
 											if (value)
 												setTempSelectedEducations((prev) => [
 													...prev,
-													educationOptions.find((_edu) => _edu.value === value)?.text || "",
+													educationOptions.find((_edu) => _edu.value === value)?.value || "",
 												]);
 										}}
 										options={educationOptions.filter(
@@ -362,7 +379,9 @@ function FilterBar(props: Props) {
 										<div className="flex w-full flex-wrap gap-2">
 											{tempSelectedEducations.map((_tempSelectedEducation, index) => (
 												<div className="flex w-max items-center justify-between gap-2 rounded-md border p-2" key={index}>
-													<p className="text-xs text-black-tertiary">{_tempSelectedEducation}</p>
+													<p className="text-xs text-black-tertiary">
+														{educationOptions.find((_) => _.value === _tempSelectedEducation)?.text}
+													</p>
 													<div onClick={() => handleCancelEducation(_tempSelectedEducation)}>
 														<Image width={10} height={10} src={cancel} alt="cancel icon" priority />
 													</div>
@@ -391,15 +410,15 @@ function FilterBar(props: Props) {
 										<Checkbox
 											id={_gender.value}
 											key={index}
-											checked={tempSelectedGenders.some((_tempSelectedGenders) => _tempSelectedGenders === _gender.text)}
+											checked={tempSelectedGenders.some((_tempSelectedGenders) => _tempSelectedGenders === _gender.value)}
 											onClick={() =>
 												setTempSelectedGenders((prev) =>
-													prev.some((_tempSelectedGenders) => _tempSelectedGenders === _gender.text)
-														? prev.filter((_tempSelectedGenders) => _tempSelectedGenders !== _gender.text)
-														: [...prev, _gender.text]
+													prev.some((_tempSelectedGenders) => _tempSelectedGenders === _gender.value)
+														? prev.filter((_tempSelectedGenders) => _tempSelectedGenders !== _gender.value)
+														: [...prev, _gender.value]
 												)
 											}
-											text={_gender.text}
+											text={titleCase(_gender.value)}
 											size="sm"
 										/>
 									))}
@@ -451,6 +470,7 @@ function FilterBar(props: Props) {
 									fullWidth
 									onClick={() => {
 										handleSetFilter();
+										console.log("this ran");
 										setFilterOpened(FilterOptions.NONE);
 										// setIsSet(true)
 									}}

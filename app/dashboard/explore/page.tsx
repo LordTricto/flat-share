@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useLayoutEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 
 import FilterBar from "@/components/dashboard/explore/filter-bar/filter-bar";
 import {IRootState} from "@/redux/rootReducer";
@@ -10,34 +10,41 @@ import UserCard from "@/components/dashboard/home/cards/user-card";
 import {UserType} from "@/models/user.constant";
 import empty from "@/public/images/general/empty/empty-users.svg";
 import filterFunnel from "@/public/images/dashboard/general/filter-funnel.svg";
-import useFilter from "@/hooks/dashboard/filter/use-filter";
-import useMainInit from "@/hooks/dashboard/main-init/use-main-init";
+import useExplore from "@/hooks/dashboard/explore/use-explore";
 import {useSelector} from "react-redux";
 
 const Dashboard = () => {
-	const {data} = useFilter();
-	const {data: initData, isFetching, isFetched, refetch, remove} = useMainInit();
+	const {data, error, isLoading, mutate, reset} = useExplore();
 
-	// const filter = useSelector((state: IRootState) => state.init.filter);
 	const user = useSelector((state: IRootState) => state.init.user);
 
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 
 	useLayoutEffect(() => {
-		if (user) {
-			refetch();
-		}
+		if (user)
+			mutate({
+				min_budget: 0,
+				max_budget: 10000000,
+				location: [],
+
+				preferred_education: "",
+				preferred_first_age_range: 18,
+				preferred_second_age_range: 65,
+				preferred_religion: undefined,
+				preferred_sex: undefined,
+			});
+
 		return () => {
-			remove();
+			reset();
 		};
-	}, [user, refetch, remove]);
+	}, [user, mutate, reset]);
 
 	return (
 		<>
-			{(isFetching || !isFetched) && <Loading />}
-			{initData && !isFetching && (
-				<div className="grid h-full w-full grid-cols-1 lg:grid-cols-[auto,280px]">
-					<div className="relative h-full max-h-full w-full overflow-y-auto">
+			<div className="grid h-full w-full grid-cols-1 lg:grid-cols-[auto,280px]">
+				<div className="relative h-full max-h-full w-full overflow-y-auto">
+					{isLoading && <Loading />}
+					{!error && !isLoading && data && (
 						<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 							<div className="flex h-fit w-full flex-col gap-8 pb-6">
 								<div className="flex w-full flex-col gap-4">
@@ -55,9 +62,9 @@ const Dashboard = () => {
 									<div className="w-full text-center lg:hidden">
 										<p className="text-sm text-black-tertiary">{data?.meta.total_items} Filter Result</p>
 									</div>
-									{initData?.suggestions?.length > 0 && (
+									{data?.suggestions?.length > 0 && (
 										<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-											{initData?.suggestions?.map((_data, _index) => (
+											{data?.suggestions?.map((_data, _index) => (
 												<UserCard
 													id={_data.codec || ""}
 													key={_index}
@@ -76,7 +83,7 @@ const Dashboard = () => {
 											))}
 										</div>
 									)}
-									{initData?.suggestions?.length < 1 && (
+									{data?.suggestions?.length < 1 && (
 										<div className="flex w-full flex-col items-center justify-center gap-2 py-20">
 											<Image priority src={empty} alt="Flat Share logo" />
 											<p className="text-sm text-black-quat">No users found</p>
@@ -85,10 +92,20 @@ const Dashboard = () => {
 								</div>
 							</div>
 						</div>
-					</div>
-					<FilterBar data={data} isActive={isFilterOpen} toggle={() => setIsFilterOpen((prev) => !prev)} />
+					)}
 				</div>
-			)}
+
+				<FilterBar
+					data={data}
+					isActive={isFilterOpen}
+					toggle={() => setIsFilterOpen((prev) => !prev)}
+					handleUpdate={(_data) => {
+						console.log("this ran too");
+
+						mutate(_data);
+					}}
+				/>
+			</div>
 		</>
 	);
 };
