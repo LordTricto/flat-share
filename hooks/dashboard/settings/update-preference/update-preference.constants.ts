@@ -5,8 +5,8 @@ import Housemate from "@/models/housemate";
 
 export type UpdatePreferenceForm = {
 	filter_preferred_user_type: UserType | null;
-	filter_age_range_1: number;
-	filter_age_range_2: number;
+	filter_age_range_1: number | undefined;
+	filter_age_range_2: number | undefined;
 	filter_education: string;
 	filter_gender: string;
 	filter_location_1: string;

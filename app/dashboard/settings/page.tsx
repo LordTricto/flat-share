@@ -4,10 +4,11 @@ import {SettingsSection, SettingsSections, SettingsSectionsText} from "@/hooks/d
 
 import Account from "@/components/dashboard/settings/sections/account";
 import Interests from "@/components/dashboard/settings/sections/interests";
-import Notifications from "@/components/dashboard/settings/sections/notifications";
 import PersonalDetails from "@/components/dashboard/settings/sections/personal-details";
 import Preference from "@/components/dashboard/settings/sections/preference";
 import {useState} from "react";
+
+// import Notifications from "@/components/dashboard/settings/sections/notifications";
 
 function Settings() {
 	const [activeSection, setActiveSection] = useState(SettingsSection.PERSONAL_DETAILS);
@@ -51,7 +52,7 @@ function Settings() {
 										<Interests handleNext={() => setActiveSection(SettingsSection.ACCOUNT)} />
 									)}
 									{activeSection === SettingsSection.ACCOUNT && <Account />}
-									{activeSection === SettingsSection.NOTIFICATIONS && <Notifications />}
+									{/* {activeSection === SettingsSection.NOTIFICATIONS && <Notifications />} */}
 								</div>
 							</div>
 						</div>

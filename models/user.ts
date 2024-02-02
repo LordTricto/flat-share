@@ -50,4 +50,11 @@ export default class User {
 			Parsers.date(obj.created_at)
 		);
 	}
+
+	get isHost(): boolean {
+		return this.user_type === UserType.HOST;
+	}
+	get isHostHunter(): boolean {
+		return this.user_type === UserType.HOST_HUNTERS;
+	}
 }

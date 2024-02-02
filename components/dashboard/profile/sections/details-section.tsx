@@ -3,10 +3,10 @@
 import Button from "@/components/general/button/button";
 import Filter from "@/models/filter";
 import HostTag from "@/components/dashboard/home/tags/host-tag";
+import Housemate from "@/models/housemate";
 import Image from "next/image";
 import SendMessageModal from "../modals/send-message-modal";
 import User from "@/models/user";
-import {UserType} from "@/models/user.constant";
 import ageIcon from "@/public/images/dashboard/profile/age.svg";
 import budgetIcon from "@/public/images/dashboard/profile/budget.svg";
 import editIcon from "@/public/images/dashboard/general/edit.svg";
@@ -25,12 +25,11 @@ import useSendRequest from "@/hooks/dashboard/requests/send-request/use-send-req
 import {useState} from "react";
 
 interface Props {
-	user: User;
+	user: User | Housemate;
 	filter: Filter | null;
 	isExplore?: boolean;
 	canMessage?: boolean;
 	canSendRequest?: boolean;
-	//temp
 	userId?: string;
 }
 
@@ -68,7 +67,13 @@ function DetailsSection(props: Props) {
 					<div className="flex flex-row items-start justify-between gap-4">
 						<div>
 							<div className="h-[120px] w-[120px] overflow-hidden rounded-full border border-grey-quat">
-								<Image src={props.user.profile_photo_path} alt="camera" width={120} height={120} tabIndex={-1} />
+								<Image
+									src={props.user instanceof User ? props.user.profile_photo_path : props.user.photo}
+									alt="camera"
+									width={120}
+									height={120}
+									tabIndex={-1}
+								/>
 							</div>
 						</div>
 						{props.isExplore ? (
@@ -127,10 +132,11 @@ function DetailsSection(props: Props) {
 					<div className="flex flex-col gap-4">
 						<div className="flex items-center gap-4">
 							<h5 className="text-3xl font-semibold capitalize text-black 3xs:text-xl">
-								{props.user.fname} {props.user.lname}
+								{props.user instanceof User ? props.user.fname : props.user.fullname}
+								{props.user instanceof User ? props.user.lname : ""}
 							</h5>
 							<div className="hidden 2xs:block">
-								<HostTag isHost={props.user.user_type === UserType.HOST} />
+								<HostTag isHost={props.user.isHost} />
 							</div>
 						</div>
 						<p className="text-left text-sm text-black-tertiary">{props.user.bio || "*Go to settings to complete profile"}</p>
@@ -145,7 +151,7 @@ function DetailsSection(props: Props) {
 							<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Gender</p>
 						</div>
 						<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left">
-							{props.user.sex || "-"}
+							{props.user ? (props.user instanceof User ? props.user.sex : props.user.gender) : "-"}
 						</p>
 					</div>
 					<div className="flex w-full gap-9">
@@ -198,17 +204,19 @@ function DetailsSection(props: Props) {
 							{props.user.religion || "-"}
 						</p>
 					</div>
-					<div className="flex w-full gap-9">
-						<div className="flex w-full max-w-[142px] items-center gap-3">
-							<div className="min-w-[20px]">
-								<Image src={emailIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+					{props.user instanceof User && (
+						<div className="flex w-full gap-9">
+							<div className="flex w-full max-w-[142px] items-center gap-3">
+								<div className="min-w-[20px]">
+									<Image src={emailIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+								</div>
+								<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Email Address</p>
 							</div>
-							<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Email Address</p>
+							<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left">
+								{props.user.email || "-"}
+							</p>
 						</div>
-						<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left">
-							{props.user.email || "-"}
-						</p>
-					</div>
+					)}
 					<div className="flex w-full gap-9">
 						<div className="flex w-full max-w-[142px] items-center gap-3">
 							<div className="min-w-[20px]">
@@ -220,17 +228,19 @@ function DetailsSection(props: Props) {
 							{props.user.age || "-"}
 						</p>
 					</div>
-					<div className="flex w-full gap-9">
-						<div className="flex w-full max-w-[142px] items-center gap-3">
-							<div className="min-w-[20px]">
-								<Image src={phoneIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+					{props.user instanceof User && (
+						<div className="flex w-full gap-9">
+							<div className="flex w-full max-w-[142px] items-center gap-3">
+								<div className="min-w-[20px]">
+									<Image src={phoneIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+								</div>
+								<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Phone Number</p>
 							</div>
-							<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Phone Number</p>
+							<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left">
+								{props.user.phone || "-"}
+							</p>
 						</div>
-						<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left">
-							{props.user.phone || "-"}
-						</p>
-					</div>
+					)}
 				</div>
 			</div>
 		</>

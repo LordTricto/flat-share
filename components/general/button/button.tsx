@@ -56,7 +56,7 @@ const secondaryColors = {
 const secondaryDisabledColors = {
 	blue: "text-blue-quat border-blue-quat",
 	grey: "text-black-quat border-black-quin",
-	red: "",
+	red: "text-black-quat",
 	black: "",
 	white: "",
 	transparent: "",
@@ -258,7 +258,7 @@ function Button(props: ButtonProps & React.HTMLAttributes<HTMLButtonElement>): J
 		>
 			<button
 				className={getClass(props)}
-				type={type}
+				type={props.isDisabled ? "button" : type}
 				onClick={props.isDisabled ? undefined : onClick}
 				tabIndex={props.noTabIndex || props.isDisabled ? -1 : 0}
 				disabled={props.isDisabled}

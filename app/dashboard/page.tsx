@@ -13,7 +13,7 @@ import UserRequest from "@/components/dashboard/home/cards/user-request";
 import {UserType} from "@/models/user.constant";
 import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import {accountSetupProgress} from "@/helpers/isAccountSetup";
-import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
+// import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
 import useMainInit from "@/hooks/dashboard/main-init/use-main-init";
 import {useRouter} from "next/navigation";
 import {useSelector} from "react-redux";

@@ -75,7 +75,7 @@ function FormInput({
 		className:
 			`py-4 h-full w-full z-10 placeholder:text-black-quat focus:outline-none focus:border-none rounded-lg bg-white ` +
 			`${alwaysActive || (field.value && String(field.value).length > 0) ? "text-black-secondary" : ""} ` +
-			`${isDisabled ? "text-black-quat bg-transparent " : ""} ` +
+			`${isDisabled ? "!text-black-quat bg-transparent " : ""} ` +
 			`${inputSize === "lg" ? "text-lg" : ""} ` +
 			`${inputSize === "md" ? "text-base" : ""} ` +
 			`${inputSize === "sm" ? "text-sm" : ""} ` +
@@ -113,7 +113,7 @@ function FormInput({
 						htmlFor={otherProps.id || uniqueId}
 						className={
 							`font-medium leading-[100%] text-black-secondary  ` +
-							`${isDisabled ? "text-black-quat " : ""} ` +
+							`${isDisabled ? "!text-black-quat " : ""} ` +
 							`${inputSize === "lg" ? "text-lg" : ""} ` +
 							`${inputSize === "md" ? "text-base" : ""} ` +
 							`${inputSize === "sm" ? "text-sm" : ""} `
@@ -140,7 +140,7 @@ function FormInput({
 					className={
 						`relative flex w-full items-center justify-between gap-1 whitespace-nowrap rounded-lg border border-solid bg-white text-left text-base font-normal leading-relaxed shadow-none outline-none transition-all duration-150 focus:outline-none ` +
 						`text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
-						`border-black-quin focus:border-blue  lg:hover:border-blue ` +
+						`border-black-quin focus:border-blue lg:hover:border-blue ` +
 						`${active ? "border-blue " : ""} ` +
 						`${inputSize === "lg" ? "h-12" : ""} ` +
 						`${inputSize === "md" ? "h-10" : ""} ` +

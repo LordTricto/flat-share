@@ -5,7 +5,6 @@ import React, {useEffect, useState} from "react";
 import Button from "@/components/general/button/button";
 import ChevronArrow from "@/components/jsx-icons/chevron-arrow";
 import DetailsSection from "@/components/dashboard/profile/sections/details-section";
-import Housemate from "@/models/housemate";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import InterestSection from "@/components/dashboard/profile/sections/interest-section";
@@ -23,17 +22,12 @@ interface Props {
 }
 
 const UserProfile = (props: Props) => {
-	const user = useSelector((state: IRootState) => state.init.user);
 	const filter = useSelector((state: IRootState) => state.init.filter);
 	const housemates = useSelector((state: IRootState) => state.housemates.housemates);
 
-	const [selectedHousemate, setSelectedHousemate] = useState<Housemate | null>(null);
 	const [isReportReviewModalOpen, setIsReportReviewModalOpen] = useState<boolean>(false);
 
-	useEffect(() => {
-		const _selectedHousemate = housemates.get(props.params.id);
-		if (_selectedHousemate) setSelectedHousemate(_selectedHousemate);
-	}, [housemates, props.params.id]);
+	const selectedHousemate = housemates.get(props.params.id);
 
 	return (
 		<>
@@ -64,11 +58,11 @@ const UserProfile = (props: Props) => {
 								</div>
 							</Button>
 						</div>
-						{selectedHousemate && user && (
+						{selectedHousemate && (
 							<div className="flex h-full w-full">
 								<div className="flex h-fit w-full flex-col gap-8 pb-6">
 									<DetailsSection
-										user={user}
+										user={selectedHousemate}
 										filter={filter}
 										isExplore
 										canMessage
@@ -76,7 +70,7 @@ const UserProfile = (props: Props) => {
 										userId={selectedHousemate.codec || ""}
 									/>
 									<InterestSection isExplore />
-									<ReviewSection selectedHousemate={selectedHousemate} userId={user.codec || ""} />
+									<ReviewSection selectedHousemate={selectedHousemate} userId={selectedHousemate.codec || ""} />
 								</div>
 							</div>
 						)}

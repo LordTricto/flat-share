@@ -9,6 +9,12 @@ enableMapSet();
 
 const initialState: HousemateState = {
 	housemates: new Map<string, Housemate>(),
+	requests: {
+		sentRequest: [],
+		sentRequestsNo: 0,
+		receivedRequest: [],
+		receivedRequestsNo: 0,
+	},
 };
 
 export const housemateSlice = createSlice({
@@ -32,6 +38,14 @@ export const housemateSlice = createSlice({
 		setSingleHousemate: (state: HousemateState, action: PayloadAction<Housemate>) => {
 			if (action.payload.codec) state.housemates.set(action.payload.codec, action.payload);
 		},
+		setSentRequests: (state: HousemateState, action: PayloadAction<{sentRequestsNo: number; sentRequests: Housemate[]}>) => {
+			state.requests.sentRequest = action.payload.sentRequests;
+			state.requests.sentRequestsNo = action.payload.sentRequestsNo;
+		},
+		setReceivedRequests: (state: HousemateState, action: PayloadAction<{receivedRequestsNo: number; receivedRequests: Housemate[]}>) => {
+			state.requests.receivedRequest = action.payload.receivedRequests;
+			state.requests.receivedRequestsNo = action.payload.receivedRequestsNo;
+		},
 
 		resetHousemate: (state: HousemateState) => {
 			state.housemates.clear();
@@ -42,6 +56,8 @@ export const housemateSlice = createSlice({
 export const {
 	setMultipleHousemates,
 	setSingleHousemate,
+	setSentRequests,
+	setReceivedRequests,
 
 	resetHousemate,
 } = housemateSlice.actions;

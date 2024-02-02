@@ -20,6 +20,7 @@ import ImageCropModal from "../../get-started/modals/image-crop-modal";
 import cameraIcon from "@/public/images/dashboard/get-started/upload-camera.svg";
 import formikHasError from "@/helpers/formikHasError";
 import {setPersonalInformation} from "@/redux/get-started/get-started";
+import useDeleteProfileImage from "@/hooks/dashboard/get-started/delete-profile-image/use-delete-profile-image";
 import useUpdateProfile from "@/hooks/dashboard/update-profile/use-update-profile";
 
 interface Props {
@@ -28,35 +29,36 @@ interface Props {
 
 function PersonalDetails(props: Props) {
 	const {mutate, isLoading} = useUpdateProfile(props.handleNext);
+	const {mutate: deleteMutate, isLoading: isDeleteLoading} = useDeleteProfileImage();
 
 	const dispatch = useDispatch();
 	const user = useSelector((state: IRootState) => state.init.user);
 	const formikRef = useRef<FormikProps<PersonalDetailsForm & OtherPersonalDetailsForm> | null>(null);
 
 	const initialFormState: PersonalDetailsForm & OtherPersonalDetailsForm = {
-		email: user?.email || "",
-		fname: user?.fname || "",
-		lname: user?.lname || "",
-		phone: user?.phone || "",
-		age: String(user?.age) || "",
-		sex: user?.sex || null,
-		bio: user?.bio || "",
+		email: user?.email || undefined,
+		fname: user?.fname || undefined,
+		lname: user?.lname || undefined,
+		phone: user?.phone || undefined,
+		age: user?.age ? String(user?.age) : undefined,
+		sex: user?.sex || undefined,
+		bio: user?.bio || undefined,
 		religion: user?.religion || null,
-		education: user?.education || "",
-		profession: user?.profession || "",
+		education: user?.education || undefined,
+		profession: user?.profession || undefined,
 	};
 
 	const formValidation = Yup.object().shape({
-		email: Yup.string().email().required(),
-		fname: Yup.string().required(),
-		lname: Yup.string().required(),
-		phone: Yup.string().phone().required(),
-		age: Yup.string().required(),
-		sex: Yup.string().required().nullable(),
-		bio: Yup.string().required(),
-		religion: Yup.string().required().nullable(),
-		education: Yup.string().required(),
-		profession: Yup.string().required(),
+		email: Yup.string().email(),
+		fname: Yup.string(),
+		lname: Yup.string(),
+		phone: Yup.string().phone(),
+		age: Yup.string(),
+		sex: Yup.string().nullable(),
+		bio: Yup.string(),
+		religion: Yup.string().nullable(),
+		education: Yup.string(),
+		profession: Yup.string(),
 	});
 
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -123,8 +125,17 @@ function PersonalDetails(props: Props) {
 							<p className="text-left text-sm text-black-tertiary xs:text-base">This will be displayed on your profile</p>
 						</div>
 						<div className="flex gap-3">
-							<Button type="button" buttonType="secondary" color="red" size="sm" onClick={() => setIsNoProfile(true)} borderSmall>
-								<span className="text-error">Delete</span>
+							<Button
+								type="button"
+								buttonType="secondary"
+								color="red"
+								size="sm"
+								onClick={() => deleteMutate()}
+								isLoading={isDeleteLoading}
+								isDisabled={user?.profile_photo_path.includes("default")}
+								borderSmall
+							>
+								<span>Delete</span>
 							</Button>
 							<Button type="button" buttonType="secondary" color="grey" size="sm" onClick={onTargetClick} borderSmall>
 								<span>Update</span>
@@ -137,7 +148,7 @@ function PersonalDetails(props: Props) {
 					innerRef={formikRef}
 					validationSchema={formValidation}
 					onSubmit={(values) => {
-						dispatch(setPersonalInformation(values));
+						// dispatch(setPersonalInformation(values));
 						mutate(values);
 						// formikRef.current?.resetForm();
 					}}
@@ -158,7 +169,7 @@ function PersonalDetails(props: Props) {
 											</div>
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<FormInput type="text" label="Phone Number" name="phone" inputSize="md" />
-												<FormInput type="text" label="Email Address" name="email" inputSize="md" />
+												<FormInput type="text" label="Email Address" name="email" inputSize="md" isDisabled />
 											</div>
 										</div>
 									</div>
@@ -213,7 +224,7 @@ function PersonalDetails(props: Props) {
 										type="submit"
 										buttonType="primary"
 										color="blue"
-										isDisabled={formikHasError(formik.errors) || !formik.dirty}
+										isDisabled={!formik.dirty}
 										isLoading={isLoading}
 										borderFull
 									>

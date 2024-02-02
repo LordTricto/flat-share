@@ -6,10 +6,8 @@ import User from "../../../models/user";
 
 const initialState: InitState = {
 	isLoggedIn: false,
-
 	isInitError: null,
 	isInitLoading: false,
-
 	isAccountCreated: false,
 	user: null,
 	filter: null,
@@ -80,7 +78,6 @@ export const initSlice = createSlice({
 		setUpdatedInterests: (state: InitState, action: PayloadAction<InterestsType>) => {
 			state.interests = action.payload;
 		},
-
 		initReset: (state: InitState) => {
 			state.isLoggedIn = false;
 			state.isInitError = null;

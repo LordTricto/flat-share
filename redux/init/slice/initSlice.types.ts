@@ -9,13 +9,11 @@ export type InterestsType = {
 	film_and_tv: string[];
 };
 export interface InitState {
-	isLoggedIn: boolean;
-
-	isInitError: string | null;
-	isInitLoading: boolean;
-
-	isAccountCreated: boolean;
 	user: User | null;
 	filter: Filter | null;
 	interests: InterestsType;
+	isLoggedIn: boolean;
+	isInitError: string | null;
+	isInitLoading: boolean;
+	isAccountCreated: boolean;
 }

@@ -31,22 +31,22 @@ function Preference(props: Props) {
 
 	const initialFormState: UpdatePreferenceForm = {
 		filter_preferred_user_type: filter?.preferred_user_type || null,
-		filter_age_range_1: filter?.preferred_first_age_range || 0,
-		filter_age_range_2: filter?.preferred_second_age_range || 0,
+		filter_age_range_1: filter?.preferred_first_age_range || undefined,
+		filter_age_range_2: filter?.preferred_second_age_range || undefined,
 		filter_education: filter?.preferred_education || "",
 		filter_gender: filter?.preferred_sex || "",
 		filter_location_1: filter?.preferred_location_1 || "",
 		filter_location_2: filter?.preferred_location_2 || "",
 		filter_state: filter?.state_of_interest || "",
-		filter_max_budget: String(filter?.max_budget) || "",
-		filter_min_budget: String(filter?.min_budget) || "",
+		filter_max_budget: filter?.max_budget ? String(filter?.max_budget) : "",
+		filter_min_budget: filter?.min_budget ? String(filter?.min_budget) : "",
 		filter_religion: filter?.preferred_religion || null,
 	};
 
 	const formValidation = Yup.object().shape({
 		filter_preferred_user_type: Yup.string().required("Required").nullable(),
-		filter_age_range_1: Yup.number().required("Required"),
-		filter_age_range_2: Yup.number().required("Required"),
+		filter_age_range_1: Yup.number().min(18).required("Required"),
+		filter_age_range_2: Yup.number().max(56).required("Required"),
 		filter_education: Yup.string().required("Required"),
 		filter_gender: Yup.string().required("Required"),
 		filter_location_1: Yup.string().required("Required"),

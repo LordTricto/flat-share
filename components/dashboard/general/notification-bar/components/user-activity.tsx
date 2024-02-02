@@ -5,9 +5,11 @@ import React from "react";
 interface Props {
 	name: string;
 	time: string;
-	isLike: boolean;
+	isLike?: boolean;
+	isView?: boolean;
 	comment?: string;
-	profileImage: StaticImageData;
+	isComment?: boolean;
+	profileImage: StaticImageData | string;
 }
 
 function UserActivity(props: Props) {
@@ -18,7 +20,9 @@ function UserActivity(props: Props) {
 
 				<div className="flex w-full flex-col justify-start gap-2">
 					<p className="text-xs text-black">
-						<span className="font-semibold">{props.name}</span> {props.isLike ? "liked your new post." : "left a comment."}
+						<span className="font-semibold">{props.name}</span> {props.isLike ? "liked your new post." : ""}
+						{props.isComment ? "left a comment." : ""}
+						{props.isView ? "viewed your profile." : ""}
 					</p>
 					{props.comment && <p className="two-lines-max text-xs text-black-secondary">{`"${props.comment}"`}</p>}
 					<p className="text-xs text-black-quat">{props.time} ago</p>

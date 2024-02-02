@@ -48,4 +48,11 @@ export default class Housemate {
 			Parsers.number(obj.reviews)
 		);
 	}
+
+	get isHost(): boolean {
+		return this.user_type === UserType.HOST;
+	}
+	get isHostHunter(): boolean {
+		return this.user_type === UserType.HOST_HUNTERS;
+	}
 }

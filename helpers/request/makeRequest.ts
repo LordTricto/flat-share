@@ -73,6 +73,7 @@ function getToken(): string {
 function getHeaders(): AxiosRequestHeaders {
 	const headers: AxiosRequestHeaders = {
 		Authorization: `Bearer ${getToken()}`,
+		"User-Agent": "Mozilla/4.0 (compatible; MSIE 9.11; Windows NT 10.0; Open Live Writer 1.0)",
 	};
 	return headers;
 }
@@ -120,6 +121,20 @@ export async function makeGetRequestWithSignal(url: string, signal: AbortSignal)
 	try {
 		const res: AxiosResponse<string> = await apiInstance.get(url, {
 			headers: getHeaders(),
+			signal,
+			timeout: 180000, // only wait for 3mins
+		});
+		return processResponse(res);
+	} catch (err: unknown) {
+		return getErrorResponse(err);
+	}
+}
+export async function makeDeleteRequestWithSignal(url: string, data: GenericObject = {}, signal: AbortSignal): Promise<GenericObject | Error> {
+	try {
+		const requestData = {...data};
+		const res: AxiosResponse<string> = await apiInstance.delete(url, {
+			headers: getHeaders(),
+			data: requestData,
 			signal,
 			timeout: 180000, // only wait for 3mins
 		});

@@ -15,7 +15,7 @@ export const SettingsSections: SettingsSection[] = [
 	SettingsSection.PREFERENCE,
 	SettingsSection.INTERESTS,
 	SettingsSection.ACCOUNT,
-	SettingsSection.NOTIFICATIONS,
+	// SettingsSection.NOTIFICATIONS,
 ];
 
 export const SettingsSectionsText = {
@@ -223,19 +223,19 @@ export type AccountTypeForm = {
 };
 
 export type PersonalDetailsForm = {
-	fname: string;
-	lname: string;
-	phone: string;
-	email: string;
+	fname?: string;
+	lname?: string;
+	phone?: string;
+	email?: string;
 };
 
 export type OtherPersonalDetailsForm = {
-	age: string;
-	bio: string;
-	sex: UserSex | null;
-	religion: UserReligion | null;
-	education: string;
-	profession: string;
+	age?: string;
+	bio?: string;
+	sex?: UserSex | null;
+	religion?: UserReligion | null;
+	education?: string;
+	profession?: string;
 };
 
 export type InterestsForm = {

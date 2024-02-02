@@ -4,7 +4,7 @@ import {UseMutationResult, useMutation} from "@tanstack/react-query";
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {filterApi} from "./explore-api";
-import {setUpdatedFilter} from "@/redux/init/slice/initSlice";
+import {setMultipleHousemates} from "@/redux/housemates/housemateSlice";
 import {useDispatch} from "react-redux";
 
 function useExplore(): UseMutationResult<ExploreFilterFormResponse, unknown, ExploreFilterForm, unknown> {
@@ -15,7 +15,7 @@ function useExplore(): UseMutationResult<ExploreFilterFormResponse, unknown, Exp
 			return res;
 		},
 		onSuccess(data: ExploreFilterFormResponse) {
-			// dispatch(setUpdatedFilter(data.filter));
+			dispatch(setMultipleHousemates(data.suggestions));
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);
