@@ -18,7 +18,7 @@ function useUpdateProfile(props: () => void): UseMutationResult<any, unknown, Pe
 		},
 		onSuccess(data: UpdateProfileFormResponse) {
 			dispatch(setSuccessMessage(data.message));
-			dispatch(initSuccess({filter: data.filtered, user: data.user}));
+			dispatch(initSuccess({filter: data.filtered, user: data.user, interests: data.interests}));
 			props();
 		},
 		onError(error: AxiosError) {

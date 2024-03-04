@@ -24,5 +24,12 @@ export const signInApi = async (data: SignInForm): Promise<SignInFormResponse> =
 		token: Parsers.string((res.data as GenericObject).token),
 		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, User),
 		filtered: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
+		interests: {
+			food: Parsers.stringArray(((res.data as GenericObject).filter as GenericObject).food),
+			music: Parsers.stringArray(((res.data as GenericObject).filter as GenericObject).music),
+			sports: Parsers.stringArray(((res.data as GenericObject).filter as GenericObject).sports),
+			others: Parsers.stringArray(((res.data as GenericObject).filter as GenericObject).others),
+			film_and_tv: Parsers.stringArray(((res.data as GenericObject).filter as GenericObject).film_and_tv),
+		},
 	};
 };

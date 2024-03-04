@@ -2,10 +2,12 @@
 
 import {DropdownItem, DropdownItemValueType} from "@/helpers/types";
 import Image, {StaticImageData} from "next/image";
+import React, {CSSProperties, useEffect, useState} from "react";
 
 import DropdownContainer from "./dropdown-container";
 import DropdownRow from "./dropdown-row";
-import React from "react";
+import {FixedSizeList as List} from "react-window";
+import SearchBar from "../search-bar";
 
 interface Props<T extends DropdownItemValueType> {
 	big?: boolean;
@@ -53,6 +55,24 @@ function Dropdown<T extends DropdownItemValueType>({
 	onCancel = undefined,
 	clickOutsideFunc = undefined,
 }: Props<T>): JSX.Element {
+	const [searchTerm, setSearchTerm] = useState<string>("");
+
+	const [data, setData] = useState<Array<DropdownItem<T>>>([]);
+
+	useEffect(() => {
+		const filteredData: DropdownItem<T>[] = (options || []).filter((item: DropdownItem<T>): boolean => {
+			if (!searchTerm || searchTerm.trim().length === 0 || !item.value) {
+				return true;
+			}
+			return typeof item.value === "string" ? item.value.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+		});
+		setData(filteredData);
+	}, [options, searchTerm]);
+
+	const handleChangeSearchTerm = (e: string) => {
+		setSearchTerm(e);
+	};
+
 	return (
 		<DropdownContainer
 			size={size}
@@ -75,56 +95,72 @@ function Dropdown<T extends DropdownItemValueType>({
 					onCancel();
 				}
 			}}
-			clickAndClose
+			clickAndClose={options.length < 7}
 		>
-			{options &&
-				options.map((option, index) => (
-					<DropdownRow
-						key={index}
-						onClick={() => onSelect(option.value)}
-						big={option.big || big}
-						fitHeight={option.fitHeight || fitHeight}
-						isLink={option.isLink}
-						redHover={option.redHover}
-						noHover={option.noHover}
-					>
-						<div
-							className={
-								"flex w-full flex-col items-start justify-start space-y-0.5 px-4 py-2 " +
-								`${option.value === value ? "pointer-events-none" : ""} `
-							}
-							data-type="dropdown"
-						>
-							<div className="flex flex-row items-center justify-start">
-								{option.icon && (
-									<div>
-										<div className="w-8">
-											{withIconBackdrop && (
-												<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
-													<Image src={option.icon} alt="icon" priority />
-												</div>
-											)}
-											<div className="h-5 w-5">
-												<Image src={option.icon} className="h-full w-full" alt="icon" priority />
-											</div>
-										</div>
-									</div>
-								)}
-								<span className={"text-sm capitalize" + `${option.icon ? "ml-2" : ""}`} data-type="dropdown">
-									{option.text}
-								</span>
-							</div>
-							{option.subtext && (
-								<p
-									className="inline justify-center whitespace-pre-wrap break-words text-left text-xs text-black-tertiary"
+			{options.length > 7 && (
+				<div className="relative mx-auto my-2 h-10 w-full px-4" tabIndex={-1} data-type="transaction">
+					<SearchBar placeholder="Search" value={searchTerm} onChange={handleChangeSearchTerm} data-type="transaction" />
+				</div>
+			)}
+			<List
+				className="List"
+				height={data.length * 40 > 160 ? 160 : data.length * 40}
+				itemCount={data && data.length}
+				itemSize={40}
+				width={"100%"}
+			>
+				{({index, style}: {index: number; style: CSSProperties | undefined}) => (
+					<>
+						<div className="flex w-full flex-col" style={style} key={index}>
+							<DropdownRow
+								key={index}
+								onClick={() => onSelect(data[index].value)}
+								big={data[index].big || big}
+								fitHeight={data[index].fitHeight || fitHeight}
+								isLink={data[index].isLink}
+								redHover={data[index].redHover}
+								noHover={data[index].noHover}
+							>
+								<div
+									className={
+										"flex w-full flex-col items-start justify-start space-y-0.5 px-4 py-2 " +
+										`${data[index].value === value ? "pointer-events-none" : ""} `
+									}
 									data-type="dropdown"
 								>
-									{option.subtext}
-								</p>
-							)}
+									<div className="flex flex-row items-center justify-start">
+										{data[index].icon && (
+											<div>
+												<div className="w-8">
+													{withIconBackdrop && (
+														<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-senary ">
+															<Image src={data[index].icon || ""} alt="icon" priority />
+														</div>
+													)}
+													<div className="h-5 w-5">
+														<Image src={data[index].icon || ""} className="h-full w-full" alt="icon" priority />
+													</div>
+												</div>
+											</div>
+										)}
+										<span className={"text-sm capitalize" + `${data[index].icon ? "ml-2" : ""}`} data-type="dropdown">
+											{data[index].text}
+										</span>
+									</div>
+									{data[index].subtext && (
+										<p
+											className="inline justify-center whitespace-pre-wrap break-words text-left text-xs text-black-tertiary"
+											data-type="dropdown"
+										>
+											{data[index].subtext}
+										</p>
+									)}
+								</div>
+							</DropdownRow>
 						</div>
-					</DropdownRow>
-				))}
+					</>
+				)}
+			</List>
 		</DropdownContainer>
 	);
 }

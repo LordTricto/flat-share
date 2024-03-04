@@ -1,6 +1,7 @@
 import {UserReligion, UserSex} from "@/models/user.constant";
 
 import Filter from "@/models/filter";
+import {InterestsType} from "@/redux/init/slice/initSlice.types";
 import User from "@/models/user";
 
 export type UpdateProfileForm = {
@@ -32,4 +33,5 @@ export interface UpdateProfileFormResponse {
 	message: string;
 	user: User;
 	filtered: Filter;
+	interests: InterestsType;
 }

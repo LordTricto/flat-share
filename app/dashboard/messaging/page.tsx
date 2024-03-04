@@ -44,7 +44,7 @@ function Messages() {
 					<div className="relative flex h-full w-full flex-col gap-2 border-r bg-white py-7 [@media(min-width:900px)]:max-w-sm">
 						<div className="flex w-full flex-col gap-6 px-5">
 							<h3 className="text-blacks text-2xl font-semibold leading-[100%]">Messages</h3>
-							<SearchBar placeholder="Search" />
+							<SearchBar placeholder="Search" value="" onChange={() => console.log("first")} />
 						</div>
 						<div className="relative flex h-full w-full flex-col gap-2 overflow-y-auto">
 							<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 pb-6">

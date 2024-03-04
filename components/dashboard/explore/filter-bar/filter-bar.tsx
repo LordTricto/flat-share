@@ -6,6 +6,7 @@ import {educationOptions, genderOptions, locationOptions, religionOptions} from 
 
 import Accordion from "@/components/general/accordion/accordion";
 import Button from "@/components/general/button/button";
+import {CITIES_IN_NIGERIA} from "@/helpers/data";
 import Checkbox from "@/components/general/checkbox/checkbox";
 import {FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import Image from "next/image";
@@ -77,17 +78,15 @@ function FilterBar(props: Props) {
 		setBudgetMaxValue(tempBudgetMaxValue);
 		setAgeMinValue(tempAgeMinValue);
 		setAgeMaxValue(tempAgeMaxValue);
-		console.log("this ran");
 		props.handleUpdate({
 			max_budget: tempBudgetMaxValue,
 			min_budget: tempBudgetMinValue,
 			location: tempSelectedLocations,
-
-			preferred_education: tempSelectedEducations[0],
+			preferred_education: tempSelectedEducations,
 			preferred_first_age_range: tempAgeMinValue,
 			preferred_second_age_range: tempAgeMaxValue,
-			preferred_religion: tempSelectedReligions[0],
-			preferred_sex: (tempSelectedGenders[0] as UserSex) || undefined,
+			preferred_religion: tempSelectedReligions,
+			preferred_sex: tempSelectedGenders,
 		});
 	};
 
@@ -100,8 +99,6 @@ function FilterBar(props: Props) {
 		setTempBudgetMaxValue(5000000);
 		setTempAgeMinValue(18);
 		setTempAgeMaxValue(50);
-		console.log("this ran a");
-
 		setSelectedLocations([]);
 		setSelectedGenders([]);
 		setSelectedReligions([]);
@@ -235,9 +232,12 @@ function FilterBar(props: Props) {
 										onSelect={(value: string | undefined) => {
 											if (value) setTempSelectedLocations((prev) => [...prev, value]);
 										}}
-										options={locationOptions.filter(
-											(_loc) => !tempSelectedLocations.some((_location) => _location === _loc.text)
-										)}
+										options={CITIES_IN_NIGERIA.filter(
+											(_loc) => !tempSelectedLocations.some((_location) => _location === _loc)
+										).map((_) => ({
+											value: _,
+											text: _,
+										}))}
 										size="md"
 									/>
 
@@ -443,15 +443,15 @@ function FilterBar(props: Props) {
 										<Checkbox
 											id={_religion.value}
 											key={index}
-											checked={tempSelectedReligions.some((_tempSelectedReligion) => _tempSelectedReligion === _religion.text)}
+											checked={tempSelectedReligions.some((_tempSelectedReligion) => _tempSelectedReligion === _religion.value)}
 											onClick={() =>
 												setTempSelectedReligions((prev) =>
-													prev.some((_tempSelectedReligion) => _tempSelectedReligion === _religion.text)
-														? prev.filter((_tempSelectedReligion) => _tempSelectedReligion !== _religion.text)
-														: [...prev, _religion.text]
+													prev.some((_tempSelectedReligion) => _tempSelectedReligion === _religion.value)
+														? prev.filter((_tempSelectedReligion) => _tempSelectedReligion !== _religion.value)
+														: [...prev, _religion.value]
 												)
 											}
-											text={_religion.text}
+											text={titleCase(_religion.value)}
 											size="sm"
 										/>
 									))}
@@ -470,9 +470,7 @@ function FilterBar(props: Props) {
 									fullWidth
 									onClick={() => {
 										handleSetFilter();
-										console.log("this ran");
 										setFilterOpened(FilterOptions.NONE);
-										// setIsSet(true)
 									}}
 									isDisabled={
 										tempBudgetMinValue === 0 &&

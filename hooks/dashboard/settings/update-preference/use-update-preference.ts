@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 
 function useUpdatePreference(props: () => void): UseMutationResult<any, unknown, UpdatePreferenceForm, unknown> {
 	const dispatch = useDispatch();
-	const signIn = useMutation({
+	const preference = useMutation({
 		mutationFn: async (_data: UpdatePreferenceForm) => {
 			const res = await updatePreferenceApi(_data);
 			return res;
@@ -25,7 +25,7 @@ function useUpdatePreference(props: () => void): UseMutationResult<any, unknown,
 		},
 	});
 
-	return signIn;
+	return preference;
 }
 
 export default useUpdatePreference;

@@ -1,4 +1,5 @@
 import Filter from "@/models/filter";
+import {InterestsType} from "@/redux/init/slice/initSlice.types";
 import User from "@/models/user";
 
 export type SignInForm = {
@@ -11,4 +12,5 @@ export interface SignInFormResponse {
 	token: string;
 	user: User;
 	filtered: Filter;
+	interests: InterestsType;
 }

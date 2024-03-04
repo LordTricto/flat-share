@@ -23,15 +23,14 @@ const Dashboard = () => {
 	useLayoutEffect(() => {
 		if (user)
 			mutate({
-				min_budget: 0,
-				max_budget: 10000000,
+				// min_budget: 0,
+				// max_budget: 10000000,
+				// preferred_first_age_range: 18,
+				// preferred_second_age_range: 65,
 				location: [],
-
-				preferred_education: "",
-				preferred_first_age_range: 18,
-				preferred_second_age_range: 65,
-				preferred_religion: undefined,
-				preferred_sex: undefined,
+				// preferred_education: [],
+				// preferred_religion: undefined,
+				// preferred_sex: undefined,
 			});
 
 		return () => {
@@ -100,8 +99,6 @@ const Dashboard = () => {
 					isActive={isFilterOpen}
 					toggle={() => setIsFilterOpen((prev) => !prev)}
 					handleUpdate={(_data) => {
-						console.log("this ran too");
-
 						mutate(_data);
 					}}
 				/>

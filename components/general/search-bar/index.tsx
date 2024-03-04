@@ -1,19 +1,20 @@
 "use client";
+
 import React, {useEffect, useRef, useState} from "react";
 
-import SearchIcon from "@/public/images/icons/search.svg";
-
-import useClickOutside from "@/helpers/useClickOutside";
 import Image from "next/image";
+import SearchIcon from "@/public/images/icons/search.svg";
+import useClickOutside from "@/helpers/useClickOutside";
 
 interface SearchBarProps {
-	placeholder: string;
+	value: string;
+	onChange: (newValue: string) => void;
 	dataType?: string;
+	placeholder: string;
 }
 
 function SearchBar(props: SearchBarProps): JSX.Element {
 	const [active, setActive] = useState<boolean>(false);
-	const [searchTerm, setSearchTerm] = useState<string>("");
 	const [hasSearchTerm, setHasSearchTerm] = useState<boolean>(false);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
@@ -24,8 +25,8 @@ function SearchBar(props: SearchBarProps): JSX.Element {
 	});
 
 	useEffect(() => {
-		setHasSearchTerm(searchTerm.trim().length > 0);
-	}, [searchTerm]);
+		setHasSearchTerm(props.value.trim().length > 0);
+	}, [props.value]);
 
 	return (
 		<>
@@ -59,9 +60,9 @@ function SearchBar(props: SearchBarProps): JSX.Element {
 					ref={inputRef}
 					className="ml-2 w-full text-sm font-normal text-black-secondary antialiased placeholder-black-quat outline-none focus:outline-none"
 					placeholder={props.placeholder}
-					value={searchTerm}
+					value={props.value}
 					onChange={(e) => {
-						setSearchTerm(e.target.value);
+						props.onChange(e.target.value);
 					}}
 					maxLength={40}
 					tabIndex={-1}
@@ -73,7 +74,7 @@ function SearchBar(props: SearchBarProps): JSX.Element {
 						className="cursor-pointer pr-1 text-sm text-blue"
 						onClick={(e) => {
 							inputRef.current?.blur();
-							setSearchTerm("");
+							props.onChange("");
 							setActive(false);
 							e.preventDefault();
 							e.stopPropagation();

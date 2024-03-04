@@ -3,14 +3,14 @@
 import React from "react";
 
 interface DropdownRowProps {
-	children: React.ReactNode;
-	onClick?: (e: React.MouseEvent) => void;
-	isLink?: boolean;
 	big?: boolean;
-	noHover?: boolean | (() => boolean);
-	redHover?: boolean;
 	color?: "red";
+	isLink?: boolean;
+	noHover?: boolean | (() => boolean);
+	children: React.ReactNode;
+	redHover?: boolean;
 	fitHeight?: boolean;
+	onClick?: (e: React.MouseEvent) => void;
 }
 
 const getClass = (props: DropdownRowProps): string => {

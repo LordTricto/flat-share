@@ -34,12 +34,13 @@ export const initSlice = createSlice({
 			state.isInitLoading = true;
 		},
 
-		initSuccess: (state: InitState, action: PayloadAction<{user: User; filter: Filter}>) => {
+		initSuccess: (state: InitState, action: PayloadAction<{user: User; filter: Filter; interests: InterestsType}>) => {
 			state.isLoggedIn = true;
 			state.isInitError = null;
 			state.isInitLoading = false;
 			state.user = action.payload.user;
 			state.filter = action.payload.filter;
+			state.interests = action.payload.interests;
 		},
 		initLoadingFalse: (state: InitState) => {
 			state.isInitLoading = true;

@@ -16,17 +16,18 @@ import useFetchReviews from "@/hooks/dashboard/fetch-review/use-fetch-review";
 interface Props {
 	userId?: string;
 	isExplore?: boolean;
-	selectedHousemate?: Housemate;
+	// selectedHousemate?: Housemate;
 }
 
 function ReviewSection(props: Props) {
 	const [reviews, setReviews] = useState<Review[]>([]);
-	const [reportedReview, setReportedReview] = useState("");
+	const [reportedReviewId, setReportedReviewId] = useState("");
 	const [isWriteReviewModalOpen, setIsWriteReviewModalOpen] = useState<boolean>(false);
 	const [isReportReviewModalOpen, setIsReportReviewModalOpen] = useState<boolean>(false);
 
 	const {isFetching, refetch} = useFetchReviews({
-		id: (props.isExplore ? props.selectedHousemate?.codec : props.userId) || "",
+		// id: (props.isExplore ? props.selectedHousemate?.codec : props.userId) || "",
+		id: props.userId || "",
 		onComplete: (_data: Review[]) => setReviews(_data),
 	});
 
@@ -37,20 +38,27 @@ function ReviewSection(props: Props) {
 	return (
 		<>
 			<ReportReviewModal
-				userId={reportedReview || ""}
+				reviewId={reportedReviewId || ""}
 				active={isReportReviewModalOpen}
 				toggler={() => {
 					setIsReportReviewModalOpen(false);
 				}}
-				onComplete={(_data: Review[]) => setReviews(_data)}
+				onComplete={(_data: Review[]) => {
+					setReviews(_data);
+					setIsReportReviewModalOpen(false);
+				}}
 			/>
 			<WriteReviewModal
-				userId={props.selectedHousemate?.codec || ""}
+				// userId={props.selectedHousemate?.codec || ""}
+				userId={props.userId || ""}
 				active={isWriteReviewModalOpen}
 				toggler={() => {
 					setIsWriteReviewModalOpen(false);
 				}}
-				onComplete={(_data: Review[]) => setReviews(_data)}
+				onComplete={(_data: Review[]) => {
+					setReviews(_data);
+					setIsWriteReviewModalOpen(false);
+				}}
 			/>
 			<div className="relative flex h-fit w-full flex-col gap-6 overflow-hidden rounded-[10px] border bg-white px-5 py-6 2xs:px-6">
 				<div className="z-10 flex w-full flex-col gap-6">
@@ -88,7 +96,7 @@ function ReviewSection(props: Props) {
 									message={_review.review}
 									name={_review.fullname}
 									onReport={(_id) => {
-										setReportedReview(_id);
+										setReportedReviewId(_id);
 										setIsReportReviewModalOpen(true);
 									}}
 									// likes={_review.}

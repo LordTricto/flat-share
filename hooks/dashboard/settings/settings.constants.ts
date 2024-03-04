@@ -35,10 +35,11 @@ export enum SportInterest {
 	GOLF = "Golf",
 	HANDBALL = "Handball",
 	LAWN_TENNIS = "Lawn Tennis",
-	RACING = "Racing",
+	// RACING = "Racing",
 	ROLLER_SKATING = "Roller Skating",
 	SWIMMING = "Swimming",
 	TABLE_TENNIS = "Table Tennis",
+	WRESTLING = "Wrestling",
 	VOLLEYBALL = "Volleyball",
 }
 
@@ -51,10 +52,11 @@ export const SportsInterests: SportInterest[] = [
 	SportInterest.GOLF,
 	SportInterest.HANDBALL,
 	SportInterest.LAWN_TENNIS,
-	SportInterest.RACING,
+	// SportInterest.RACING,
 	SportInterest.ROLLER_SKATING,
 	SportInterest.SWIMMING,
 	SportInterest.TABLE_TENNIS,
+	SportInterest.WRESTLING,
 	SportInterest.VOLLEYBALL,
 ];
 
@@ -267,7 +269,11 @@ export const religionOptions: DropdownItem<string>[] = [
 	},
 	{
 		text: "Atheism",
-		value: UserReligion.OTHERS,
+		value: UserReligion.ATHEISM,
+	},
+	{
+		text: "I don't care",
+		value: UserReligion.I_DONT_CARE,
 	},
 ];
 export const educationOptions: DropdownItem<string>[] = [

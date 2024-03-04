@@ -132,7 +132,7 @@ function DetailsSection(props: Props) {
 					<div className="flex flex-col gap-4">
 						<div className="flex items-center gap-4">
 							<h5 className="text-3xl font-semibold capitalize text-black 3xs:text-xl">
-								{props.user instanceof User ? props.user.fname : props.user.fullname}
+								{props.user instanceof User ? props.user.fname : props.user.fullname}{" "}
 								{props.user instanceof User ? props.user.lname : ""}
 							</h5>
 							<div className="hidden 2xs:block">
@@ -165,17 +165,19 @@ function DetailsSection(props: Props) {
 							{props.user.profession || "-"}
 						</p>
 					</div>
-					<div className="flex w-full gap-9">
-						<div className="flex w-full max-w-[142px] items-center gap-3">
-							<div className="min-w-[20px]">
-								<Image src={locationIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+					{props.user.isHostHunter && (
+						<div className="flex w-full gap-9">
+							<div className="flex w-full max-w-[142px] items-center gap-3">
+								<div className="min-w-[20px]">
+									<Image src={locationIcon} alt="camera" width={20} height={20} tabIndex={-1} />
+								</div>
+								<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Preferred Location</p>
 							</div>
-							<p className="text-sm text-black-tertiary 2xs:whitespace-nowrap">Preferred Location</p>
+							<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left sm:flex sm:items-center">
+								{props.filter?.preferred_location_1 || ""}
+							</p>
 						</div>
-						<p className="w-full max-w-[55%] break-words break-all text-right text-sm font-medium capitalize text-black 2xs:text-left sm:flex sm:items-center">
-							{props.filter?.preferred_location_1 || ""}
-						</p>
-					</div>
+					)}
 					<div className="flex w-full gap-9">
 						<div className="flex w-full max-w-[142px] items-center gap-3">
 							<div className="min-w-[20px]">

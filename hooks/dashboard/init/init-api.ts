@@ -14,6 +14,13 @@ export const loadUserDataApi = async (): Promise<LoadUserDataFormResponse> => {
 		success: Parsers.string(res.success),
 		message: Parsers.string(res.message),
 		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, User),
+		interests: {
+			food: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).food),
+			music: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).music),
+			sports: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).sports),
+			others: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).others),
+			film_and_tv: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).film_and_tv),
+		},
 		filtered: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
 	};
 };

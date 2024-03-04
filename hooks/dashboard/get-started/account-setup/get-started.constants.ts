@@ -2,6 +2,7 @@ import {UserReligion, UserSex, UserType} from "@/models/user.constant";
 
 import {DropdownItem} from "@/helpers/types";
 import Filter from "@/models/filter";
+import {InterestsType} from "@/redux/init/slice/initSlice.types";
 import User from "@/models/user";
 
 export enum GetStartedStage {
@@ -50,7 +51,11 @@ export const religionOptions: DropdownItem<string>[] = [
 	},
 	{
 		text: "Atheism",
-		value: UserReligion.OTHERS,
+		value: UserReligion.ATHEISM,
+	},
+	{
+		text: "I don't care",
+		value: UserReligion.I_DONT_CARE,
 	},
 ];
 export const educationOptions: DropdownItem<string>[] = [
@@ -113,5 +118,6 @@ export interface GetStartedFormResponse {
 	message: string;
 	user: User;
 	filter: Filter;
+	interests: InterestsType;
 	reset_filter_to_default: Filter;
 }

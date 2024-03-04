@@ -24,7 +24,7 @@ function useSignIn(): UseMutationResult<any, unknown, SignInForm, unknown> {
 			dispatch(setSuccessMessage(data.message));
 			dispatch(setToken(data.token));
 			dispatch(loginSuccess());
-			dispatch(initSuccess({filter: data.filtered, user: data.user}));
+			dispatch(initSuccess({filter: data.filtered, user: data.user, interests: data.interests}));
 			if (data.user.account_status === UserActivationStatus.UNCOMPLETED && data.user.profile_photo_path.includes("default")) {
 				dispatch(setIsAccountCreatedStatus(false));
 				dispatch(setToStageOne());

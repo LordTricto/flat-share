@@ -2,6 +2,7 @@ import {UserReligion, UserType} from "@/models/user.constant";
 
 import Filter from "@/models/filter";
 import Housemate from "@/models/housemate";
+import {InterestsType} from "@/redux/init/slice/initSlice.types";
 
 export type UpdatePreferenceForm = {
 	filter_preferred_user_type: UserType | null;
@@ -22,6 +23,7 @@ export type UpdatePreferenceFormResponse = {
 	message: string;
 	signal: string;
 	filter: Filter;
+	interests: InterestsType;
 	reset_filter_to_default: Filter;
 	meta: {
 		current_page: number;

@@ -3,6 +3,7 @@
 import Image, {StaticImageData} from "next/image";
 import React, {KeyboardEvent, useEffect, useRef, useState} from "react";
 
+import SearchBar from "../search-bar";
 import cancel from "@/public/images/icons/cancel.svg";
 import chevronArrow from "@/public/images/icons/chevron-arrow.svg";
 // import SearchBar from "../../../../modules/Dashboard/Settings/Components/Searchbar/TeamMemebers/SearchBar";
@@ -56,14 +57,14 @@ function DropdownContainer({
 	customHead,
 	triggerLower = false,
 	customHeadStyle = "",
-	// searchTerm = "",
+	searchTerm = "",
 	value,
 	placeholder = undefined,
 	isSearchable = false,
 	clickAndClose = false,
 	inputPlaceholder = undefined,
 
-	// searchPlaceholder = "Search",
+	searchPlaceholder = "Search",
 	cancelFunc = undefined,
 	onChange = undefined,
 	clickOutsideFunc = undefined,
@@ -150,8 +151,8 @@ function DropdownContainer({
 				<label
 					htmlFor={uniqueId}
 					className={
-						`font-medium leading-[100%] text-black-secondary ` +
-						`${isDisabled ? "text-black-quat " : ""} ` +
+						`font-medium leading-[100%] ` +
+						`${isDisabled ? "text-black-quat " : "text-black-secondary"} ` +
 						`${size === "lg" ? "text-lg" : ""} ` +
 						`${size === "md" ? "text-base" : ""} ` +
 						`${size === "sm" ? "text-sm" : ""} `
@@ -172,8 +173,9 @@ function DropdownContainer({
 				className={
 					`relative flex w-full cursor-pointer items-center  rounded-lg bg-white px-4 py-3 shadow-none outline-none transition-all duration-75 focus:outline-none ` +
 					`text-left text-base font-normal capitalize leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
-					`border border-solid border-black-quin focus:border-black-quat lg:hover:border-black-quat ` +
+					`border border-solid ` +
 					`${active ? "border-black-quat" : ""} ` +
+					`${isDisabled ? "border-black-quin" : "border-black-quin focus:border-black-quat lg:hover:border-black-quat"} ` +
 					`${noBorder ? "border-none !border-transparent" : ""} ` +
 					`${size === "lg" ? "h-12" : ""} ` +
 					`${size === "md" ? "h-10" : ""} ` +
@@ -211,8 +213,8 @@ function DropdownContainer({
 				{!hasInput && value && (
 					<span
 						className={
-							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap  text-black-secondary ` +
-							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat " : ""} ` +
+							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap ` +
+							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat" : "text-black-secondary"} ` +
 							`${size === "lg" ? "text-lg" : ""} ` +
 							`${size === "md" ? "text-base" : ""} ` +
 							`${size === "sm" ? "text-sm" : ""} `
@@ -271,7 +273,7 @@ function DropdownContainer({
 						className={
 							`z-10 !ml-2 w-full placeholder:text-sm placeholder:text-black-quat focus:border-none focus:outline-none ` +
 							`${hasValue ? "text-black-secondary" : ""} ` +
-							`${isDisabled ? "bg-transparent text-black-quat " : ""} `
+							`${isDisabled ? "bg-transparent !text-black-quat " : ""} `
 						}
 						name={`${uniqueId}-${inputPlaceholder || ""}`}
 						placeholder={inputPlaceholder}
@@ -296,7 +298,7 @@ function DropdownContainer({
 			>
 				{isSearchable && handleChangeSearchTerm && (
 					<div className="flex h-14 w-full items-center justify-start px-4">
-						{/* <SearchBar placeholder={searchPlaceholder} value={searchTerm} onChange={handleChangeSearchTerm} /> */}
+						<SearchBar placeholder={searchPlaceholder} value={searchTerm} onChange={handleChangeSearchTerm} />
 					</div>
 				)}
 				<div

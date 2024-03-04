@@ -18,8 +18,8 @@ import {useRef} from "react";
 import useReportReview from "@/hooks/dashboard/report-review/use-report-review";
 
 interface Props {
-	userId: string;
 	active: boolean;
+	reviewId: string;
 	toggler: () => void;
 	onComplete: (_data: Review[]) => void;
 }
@@ -30,7 +30,7 @@ function ReportReviewModal(props: Props) {
 	const initialFormState: ReportReviewForm = {
 		reason: "",
 		message: "",
-		reported_user_codec: "",
+		reported_user_codec: props.reviewId,
 	};
 
 	const formValidation = Yup.object().shape({
@@ -55,7 +55,7 @@ function ReportReviewModal(props: Props) {
 						mutate({
 							message: value.message,
 							reason: value.reason,
-							reported_user_codec: props.userId,
+							reported_user_codec: props.reviewId,
 						});
 					}}
 					enableReinitialize={true}
@@ -63,6 +63,7 @@ function ReportReviewModal(props: Props) {
 					validateOnMount
 				>
 					{(formik) => {
+						console.log(formik.values, formik.errors);
 						return (
 							<Form className="flex w-full flex-col items-start justify-start gap-10">
 								<ModalBody>

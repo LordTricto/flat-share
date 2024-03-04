@@ -385,7 +385,11 @@ export default function DashboardLayout({
 											</div> */}
 											{isAccountCreated && (
 												<div className="relative hidden w-full lg:block" tabIndex={-1}>
-													<SearchBar placeholder="Search location, people..." />
+													<SearchBar
+														value=""
+														placeholder="Search location, people..."
+														onChange={() => console.log("first")}
+													/>
 												</div>
 											)}
 										</div>

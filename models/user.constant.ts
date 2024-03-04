@@ -12,7 +12,7 @@ export enum UserType {
 export enum UserReligion {
 	CHRISTIANITY = "christianity",
 	ISLAM = "islam",
-	OTHERS = "others",
+	ATHEISM = "atheism",
 	I_DONT_CARE = "i dont care",
 }
 

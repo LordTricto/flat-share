@@ -7,12 +7,14 @@ import {educationOptions, genderOptions} from "@/hooks/dashboard/get-started/acc
 import {locationOptions, religionOptions, userTypeOptions} from "@/hooks/dashboard/settings/settings.constants";
 
 import Button from "@/components/general/button/button";
+import {CITIES_IN_NIGERIA} from "@/helpers/data";
 import Dropdown from "@/components/general/dropdown/dropdown";
 import {IRootState} from "@/redux/rootReducer";
 // import FormInput from "@/components/general/inputs/form-input";
 import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
 import {UpdatePreferenceForm} from "@/hooks/dashboard/settings/update-preference/update-preference.constants";
+import {UserType} from "@/models/user.constant";
 import formikHasError from "@/helpers/formikHasError";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
 import {useRef} from "react";
@@ -26,11 +28,12 @@ interface Props {
 function Preference(props: Props) {
 	const {mutate, isLoading} = useUpdatePreference(props.handleNext);
 
+	const user = useSelector((state: IRootState) => state.init.user);
 	const filter = useSelector((state: IRootState) => state.init.filter);
 	const formikRef = useRef<FormikProps<UpdatePreferenceForm> | null>(null);
 
 	const initialFormState: UpdatePreferenceForm = {
-		filter_preferred_user_type: filter?.preferred_user_type || null,
+		filter_preferred_user_type: user?.isHost ? UserType.HOST_HUNTERS : filter?.preferred_user_type || null,
 		filter_age_range_1: filter?.preferred_first_age_range || undefined,
 		filter_age_range_2: filter?.preferred_second_age_range || undefined,
 		filter_education: filter?.preferred_education || "",
@@ -119,7 +122,12 @@ function Preference(props: Props) {
 														formik.getFieldHelpers("filter_location_1").setValue(value)
 													}
 													placeholder="Select..."
-													options={locationOptions.filter((_loc) => _loc.value !== formik.values.filter_location_2)}
+													options={CITIES_IN_NIGERIA.filter((_loc) => _loc !== formik.values.filter_location_2).map(
+														(_) => ({
+															value: _,
+															text: _,
+														})
+													)}
 													size="md"
 												/>
 												<Dropdown
@@ -129,11 +137,16 @@ function Preference(props: Props) {
 														formik.getFieldHelpers("filter_location_2").setValue(value)
 													}
 													placeholder="Select..."
-													options={locationOptions.filter((_loc) => _loc.value !== formik.values.filter_location_1)}
+													options={CITIES_IN_NIGERIA.filter((_loc) => _loc !== formik.values.filter_location_1).map(
+														(_) => ({
+															value: _,
+															text: _,
+														})
+													)}
 													size="md"
 												/>
 											</div>
-											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
+											{/* <div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
 													label="State"
 													value={`${formik.values.filter_state}`}
@@ -142,7 +155,7 @@ function Preference(props: Props) {
 													size="md"
 													options={locationOptions}
 												/>
-											</div>
+											</div> */}
 										</div>
 									</div>
 									<div className="pt-8">
@@ -152,13 +165,14 @@ function Preference(props: Props) {
 										<div className="mt-6 flex w-full flex-col items-start justify-start gap-5">
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<Dropdown
-													label="I’m Looking For"
+													label="I'm Looking For"
 													value={`${formik.values.filter_preferred_user_type}`}
 													onSelect={(value: string | undefined) =>
 														formik.getFieldHelpers("filter_preferred_user_type").setValue(value)
 													}
 													placeholder="Select..."
 													size="md"
+													isDisabled={user?.isHost}
 													options={userTypeOptions}
 												/>
 												<Dropdown

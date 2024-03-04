@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useLayoutEffect, useState} from "react";
 
 import Button from "@/components/general/button/button";
 import ChevronArrow from "@/components/jsx-icons/chevron-arrow";
@@ -13,6 +13,7 @@ import Loading from "../loading";
 import ReportHousemateModal from "@/components/dashboard/profile/modals/report-housemate-modal";
 import ReviewSection from "@/components/dashboard/profile/sections/review-section";
 import reportIcon from "@/public/images/dashboard/profile/report.svg";
+import useHousemate from "@/hooks/dashboard/housemate/use-housemate";
 import {useSelector} from "react-redux";
 
 interface Props {
@@ -22,12 +23,16 @@ interface Props {
 }
 
 const UserProfile = (props: Props) => {
-	const filter = useSelector((state: IRootState) => state.init.filter);
-	const housemates = useSelector((state: IRootState) => state.housemates.housemates);
+	const {data, refetch} = useHousemate({id: props.params.id});
 
 	const [isReportReviewModalOpen, setIsReportReviewModalOpen] = useState<boolean>(false);
 
-	const selectedHousemate = housemates.get(props.params.id);
+	const filter = data?.filtered;
+	const selectedHousemate = data?.user;
+
+	useLayoutEffect(() => {
+		refetch();
+	}, [refetch]);
 
 	return (
 		<>
@@ -49,7 +54,9 @@ const UserProfile = (props: Props) => {
 									</Link>
 									<ChevronArrow className="select-none" />
 								</span>
-								<span className="select-none capitalize text-black-secondary">{selectedHousemate.fullname}</span>
+								<span className="select-none capitalize text-black-secondary">
+									{selectedHousemate.fname} {selectedHousemate.lname}
+								</span>
 							</div>
 							<Button type="button" buttonType="tertiary" color="blue" size="md" onClick={() => setIsReportReviewModalOpen(true)}>
 								<div className="flex items-center justify-start gap-1.5">
@@ -58,19 +65,19 @@ const UserProfile = (props: Props) => {
 								</div>
 							</Button>
 						</div>
-						{selectedHousemate && (
+						{selectedHousemate && filter && (
 							<div className="flex h-full w-full">
 								<div className="flex h-fit w-full flex-col gap-8 pb-6">
 									<DetailsSection
 										user={selectedHousemate}
 										filter={filter}
+										userId={props.params.id || ""}
 										isExplore
 										canMessage
 										canSendRequest
-										userId={selectedHousemate.codec || ""}
 									/>
 									<InterestSection isExplore />
-									<ReviewSection selectedHousemate={selectedHousemate} userId={selectedHousemate.codec || ""} />
+									<ReviewSection isExplore userId={props.params.id || ""} />
 								</div>
 							</div>
 						)}

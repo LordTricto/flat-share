@@ -35,7 +35,7 @@ function useInit(): UseQueryResult<LoadUserDataFormResponse, AxiosError<any, any
 			return res;
 		},
 		onSuccess(data) {
-			dispatch(initSuccess({filter: data.filtered, user: data.user}));
+			dispatch(initSuccess({filter: data.filtered, user: data.user, interests: data.interests}));
 			// if they are not on the dashboard take them to the Dashboard but also check if they are registered or not
 			// if they are on the dashboard but they are not done with setup take them back to complete the dashboard
 			if (!pathname.includes("dashboard")) {

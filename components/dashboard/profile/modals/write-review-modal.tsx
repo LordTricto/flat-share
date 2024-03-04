@@ -32,7 +32,7 @@ function WriteReviewModal(props: Props) {
 	};
 
 	const formValidation = Yup.object().shape({
-		review: Yup.string().required("Required"),
+		review_text: Yup.string().required("Required"),
 	});
 
 	const {isLoading, mutate} = usePublishReview({
@@ -61,7 +61,7 @@ function WriteReviewModal(props: Props) {
 						return (
 							<Form className="flex w-full flex-col items-start justify-start gap-10">
 								<ModalBody>
-									<FormTextArea placeholder="Give a review" name="review" />
+									<FormTextArea placeholder="Give a review" name="review_text" />
 								</ModalBody>
 								<ModalFooter>
 									<div className="flex w-full flex-row space-x-4">

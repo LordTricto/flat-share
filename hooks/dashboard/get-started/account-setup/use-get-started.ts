@@ -21,7 +21,7 @@ function useGetStarted(): UseMutationResult<any, unknown, GetStartedForm, unknow
 		},
 		onSuccess(data: GetStartedFormResponse) {
 			dispatch(setSuccessMessage(data.message));
-			dispatch(initSuccess({filter: data.filter, user: data.user}));
+			dispatch(initSuccess({filter: data.filter, user: data.user, interests: data.interests}));
 			dispatch(setIsAccountCreatedStatus(true));
 			router.push("/dashboard");
 		},

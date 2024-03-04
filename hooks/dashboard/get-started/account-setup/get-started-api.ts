@@ -23,6 +23,13 @@ export const getStartedApi = async (data: GetStartedForm): Promise<GetStartedFor
 		message: Parsers.string(res.message),
 		user: Parsers.classObjectNonNullable((res.data as GenericObject).user, User),
 		filter: Parsers.classObjectNonNullable((res.data as GenericObject).filter, Filter),
+		interests: {
+			food: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).food),
+			music: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).music),
+			sports: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).sports),
+			others: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).others),
+			film_and_tv: Parsers.stringArray(((res.data as GenericObject).interests as GenericObject).film_and_tv),
+		},
 		reset_filter_to_default: Parsers.classObjectNonNullable((res.data as GenericObject).reset_filter_to_default, Filter),
 	};
 };

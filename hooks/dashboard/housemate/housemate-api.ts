@@ -1,20 +1,20 @@
-import {OtherPersonalDetailsForm, PersonalDetailsForm} from "../settings/settings.constants";
-
 import Filter from "@/models/filter";
 import {GenericObject} from "@/helpers/types";
+import {HousemateResponse} from "./housemate.constants";
 import Parsers from "@/utils/parsers";
-import {UpdateProfileFormResponse} from "./update-profile.constants";
 import User from "@/models/user";
 import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
-import {makeRequestWithSignal} from "@/helpers/request/makeRequest";
+import {makeGetRequestWithSignal} from "@/helpers/request/makeRequest";
 
-export enum UpdateProfileSignal {
-	UPDATE_PROFILE = "user.update-profile",
+export enum HousemateSignal {
+	GET = "housemate.get",
 }
 
-export const updateProfileApi = async (data: PersonalDetailsForm & OtherPersonalDetailsForm): Promise<UpdateProfileFormResponse> => {
-	const signal = getAbortControllerSignal(UpdateProfileSignal.UPDATE_PROFILE);
-	const res = await makeRequestWithSignal("user/update/profile", data, signal);
+export const housemateApi = async (_id: string): Promise<HousemateResponse> => {
+	const signal = getAbortControllerSignal(HousemateSignal.GET);
+
+	const res = await makeGetRequestWithSignal(`user/load/user/fulldata/codec/${_id || ""}`, signal);
+
 	if (res instanceof Error) {
 		throw res;
 	}
