@@ -2,6 +2,7 @@
 
 import {useLayoutEffect, useState} from "react";
 
+import {AccountSignals} from "@/redux/init/slice/initSlice.types";
 import Button from "@/components/general/button/button";
 import {IRootState} from "@/redux/rootReducer";
 import Loading from "./loading";
@@ -37,6 +38,7 @@ const Dashboard = () => {
 		};
 	}, [user, refetch, remove]);
 
+	console.log(data?.signal);
 	return (
 		<>
 			{isFetching && <Loading />}
@@ -60,12 +62,8 @@ const Dashboard = () => {
 							<div className="absolute left-0 top-0 flex h-full w-full flex-col gap-8 px-4 py-6 xs:px-5">
 								{isWelcomeNoteOpen && (
 									<WelcomeCard
-										subTitle={
-											accountSetupProgress().isAccountSetupCompleted
-												? "Begin your exploration and connect with potential flatmates to build meaningful relationships."
-												: "Customize your experience by providing your personal information, preference and interests."
-										}
-										ctaText={accountSetupProgress().isAccountSetupCompleted ? "Start Exploring" : "Go to Settings"}
+										subTitle={data.messages.home_message}
+										ctaText={data.signal !== AccountSignals.SETUP_UNCOMPLETED ? "Start Exploring" : "Go to Settings"}
 										toggle={() => setIsWelcomeNoteOpen(false)}
 										handleCta={() => router.push("/dashboard/settings")}
 										canToggle={accountSetupProgress().isAccountSetupCompleted}
@@ -175,15 +173,17 @@ const Dashboard = () => {
 											<h4 className="text-lg font-semibold leading-[100%] text-black-secondary 3xs:text-xl">
 												Suggested for You
 											</h4>
-											<Button
-												type="button"
-												buttonType="tertiary"
-												color="blue"
-												size="xs"
-												onClick={() => router.push("/dashboard/explore")}
-											>
-												<span className="text-[10px] uppercase 3xs:text-xs">see more</span>
-											</Button>
+											{data.suggestions.length > 0 && (
+												<Button
+													type="button"
+													buttonType="tertiary"
+													color="blue"
+													size="xs"
+													onClick={() => router.push("/dashboard/explore")}
+												>
+													<span className="text-[10px] uppercase 3xs:text-xs">see more</span>
+												</Button>
+											)}
 										</div>
 										<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
 											{data.suggestions &&

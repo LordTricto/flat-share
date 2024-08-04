@@ -69,7 +69,7 @@ function Modal(props: Props): JSX.Element {
 		<>
 			<div
 				className={
-					`fixed inset-0 z-[70] grid place-items-center overflow-y-auto overflow-x-hidden px-2 outline-none transition-all duration-150 focus:outline-none ` +
+					`fixed inset-0 z-[60] grid place-items-center overflow-y-auto overflow-x-hidden px-2 outline-none transition-all duration-150 focus:outline-none ` +
 					`${props.active ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} `
 				}
 				onClick={props.toggler}
@@ -114,7 +114,7 @@ function Modal(props: Props): JSX.Element {
 
 			<div
 				className={
-					`fixed inset-0 z-[60] bg-black transition-all duration-150 ` +
+					`fixed inset-0 z-[50] bg-black transition-all duration-150 ` +
 					`${props.active ? "pointer-events-auto opacity-25" : "pointer-events-none opacity-0"} `
 				}
 				data-type={props.dataType && props.dataType}

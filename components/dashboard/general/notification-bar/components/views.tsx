@@ -1,6 +1,6 @@
 "use client";
 
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useEffect} from "react";
 
 import Button from "@/components/general/button/button";
 import {ClipLoader} from "react-spinners";

@@ -258,44 +258,68 @@ export interface PersonalInformationFormResponse {
 	message: string;
 }
 
-export const religionOptions: DropdownItem<string>[] = [
+export const religionOptionsText = {
+	[UserReligion.ISLAM]: "Islam",
+	[UserReligion.ATHEISM]: "Atheism",
+	[UserReligion.I_DONT_CARE]: "I don't care",
+	[UserReligion.CHRISTIANITY]: "Christianity",
+};
+
+export const religionOptions: DropdownItem<UserReligion>[] = [
 	{
-		text: "Christianity",
+		text: religionOptionsText[UserReligion.CHRISTIANITY],
 		value: UserReligion.CHRISTIANITY,
 	},
 	{
-		text: "Islam",
+		text: religionOptionsText[UserReligion.ISLAM],
 		value: UserReligion.ISLAM,
 	},
 	{
-		text: "Atheism",
+		text: religionOptionsText[UserReligion.ATHEISM],
 		value: UserReligion.ATHEISM,
 	},
 	{
-		text: "I don't care",
+		text: religionOptionsText[UserReligion.I_DONT_CARE],
 		value: UserReligion.I_DONT_CARE,
 	},
 ];
-export const educationOptions: DropdownItem<string>[] = [
+
+export enum EductionOption {
+	UNDERGRADUATE = "undergraduate",
+	GRADUATE = "graduated",
+	POSTGRADUATE = "postgraduate",
+	TRADE_SCHOOL = "trade_school",
+	I_DONT_CARE = "i dont care",
+}
+
+export const educationOptionsText = {
+	[EductionOption.UNDERGRADUATE]: "Undergraduate",
+	[EductionOption.GRADUATE]: "Graduated",
+	[EductionOption.POSTGRADUATE]: "Postgraduate",
+	[EductionOption.TRADE_SCHOOL]: "Trade School",
+	[EductionOption.I_DONT_CARE]: "I don't care",
+};
+
+export const educationOptions: DropdownItem<EductionOption>[] = [
 	{
-		text: "Undergraduate",
-		value: "undergraduate",
+		text: educationOptionsText[EductionOption.UNDERGRADUATE],
+		value: EductionOption.UNDERGRADUATE,
 	},
 	{
-		text: "Graduated",
-		value: "graduated",
+		text: educationOptionsText[EductionOption.GRADUATE],
+		value: EductionOption.GRADUATE,
 	},
 	{
-		text: "Postgraduate",
-		value: "postgraduate",
+		text: educationOptionsText[EductionOption.POSTGRADUATE],
+		value: EductionOption.POSTGRADUATE,
 	},
 	{
-		text: "Trade School",
-		value: "trade_school",
+		text: educationOptionsText[EductionOption.TRADE_SCHOOL],
+		value: EductionOption.TRADE_SCHOOL,
 	},
 	{
-		text: "None",
-		value: "none",
+		text: educationOptionsText[EductionOption.I_DONT_CARE],
+		value: EductionOption.I_DONT_CARE,
 	},
 ];
 
@@ -304,14 +328,19 @@ export const ageOptions: DropdownItem<string>[] = Array.from(new Array(50), (_, 
 	value: `${index + 18}`,
 }));
 
-export const genderOptions: DropdownItem<string>[] = [
+export const genderOptionsText = {
+	[UserSex.MALE]: "Male",
+	[UserSex.FEMALE]: "Female",
+};
+
+export const genderOptions: DropdownItem<UserSex>[] = [
 	{
-		text: "Male",
-		value: "male",
+		text: genderOptionsText[UserSex.MALE],
+		value: UserSex.MALE,
 	},
 	{
-		text: "Female",
-		value: "female",
+		text: genderOptionsText[UserSex.FEMALE],
+		value: UserSex.FEMALE,
 	},
 ];
 
@@ -325,26 +354,3 @@ export const userTypeOptions: DropdownItem<string>[] = [
 		value: UserType.HOST_HUNTERS,
 	},
 ];
-
-export const locationOptions: DropdownItem<string>[] = [
-	{
-		text: "Gbagada, Lagos",
-		value: "Gbagada, Lagos",
-	},
-	{
-		text: "Gbadegesin, Lagos",
-		value: "Gbadegesin, Lagos",
-	},
-	{
-		text: "Gbadebo , Lagos",
-		value: "Gbadebo , Lagos",
-	},
-];
-
-// export type GetStartedForm = AccountTypeForm & PersonalInformationForm & AccountPreferenceForm;
-// export interface GetStartedFormResponse {
-// 	success: string;
-// 	message: string;
-// 	user: User;
-// 	filtered: Filter;
-// }

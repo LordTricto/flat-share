@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
 import {educationOptions, genderOptions} from "@/hooks/dashboard/get-started/account-setup/get-started.constants";
-import {locationOptions, religionOptions, userTypeOptions} from "@/hooks/dashboard/settings/settings.constants";
+import {religionOptions, userTypeOptions} from "@/hooks/dashboard/settings/settings.constants";
 
 import Button from "@/components/general/button/button";
 import {CITIES_IN_NIGERIA} from "@/helpers/data";
@@ -40,7 +40,7 @@ function Preference(props: Props) {
 		filter_gender: filter?.preferred_sex || "",
 		filter_location_1: filter?.preferred_location_1 || "",
 		filter_location_2: filter?.preferred_location_2 || "",
-		filter_state: filter?.state_of_interest || "",
+		filter_state: "lagos" || "",
 		filter_max_budget: filter?.max_budget ? String(filter?.max_budget) : "",
 		filter_min_budget: filter?.min_budget ? String(filter?.min_budget) : "",
 		filter_religion: filter?.preferred_religion || null,

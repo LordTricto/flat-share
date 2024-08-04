@@ -1,8 +1,17 @@
 "use client";
 
+import {
+	EductionOption,
+	educationOptions,
+	educationOptionsText,
+	genderOptions,
+	genderOptionsText,
+	religionOptions,
+	religionOptionsText,
+} from "@/hooks/dashboard/settings/settings.constants";
 import {ExploreFilterForm, ExploreFilterFormResponse} from "@/hooks/dashboard/explore/explore.constants";
 import MultiRangeSlider, {ChangeResult} from "multi-range-slider-react";
-import {educationOptions, genderOptions, locationOptions, religionOptions} from "@/hooks/dashboard/settings/settings.constants";
+import {UserReligion, UserSex} from "@/models/user.constant";
 
 import Accordion from "@/components/general/accordion/accordion";
 import Button from "@/components/general/button/button";
@@ -12,7 +21,6 @@ import {FilterOptions} from "@/hooks/dashboard/filter/filter.constants";
 import Image from "next/image";
 import SearchDropdown from "@/components/general/dropdown/search-dropdown";
 import UpgradeAccountCard from "../../general/cards/upgrade-account/upgrade-account";
-import {UserSex} from "@/models/user.constant";
 import cancel from "@/public/images/icons/cancel.svg";
 import filterFunnel from "@/public/images/dashboard/general/filter-funnel.svg";
 import titleCase from "@/utils/titleCase";
@@ -35,18 +43,18 @@ function FilterBar(props: Props) {
 	const [educationSearchTerm, setEducationSearchTerm] = useState("");
 
 	const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-	const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
-	const [selectedReligions, setSelectedReligions] = useState<string[]>([]);
-	const [selectedEducations, setSelectedEducations] = useState<string[]>([]);
+	const [selectedGenders, setSelectedGenders] = useState<UserSex[]>([]);
+	const [selectedReligions, setSelectedReligions] = useState<UserReligion[]>([]);
+	const [selectedEducations, setSelectedEducations] = useState<EductionOption[]>([]);
 	const [budgetMinValue, setBudgetMinValue] = useState(0);
 	const [budgetMaxValue, setBudgetMaxValue] = useState(5000000);
 	const [ageMinValue, setAgeMinValue] = useState(18);
 	const [ageMaxValue, setAgeMaxValue] = useState(50);
 
 	const [tempSelectedLocations, setTempSelectedLocations] = useState<string[]>([]);
-	const [tempSelectedGenders, setTempSelectedGenders] = useState<string[]>([]);
-	const [tempSelectedReligions, setTempSelectedReligions] = useState<string[]>([]);
-	const [tempSelectedEducations, setTempSelectedEducations] = useState<string[]>([]);
+	const [tempSelectedGenders, setTempSelectedGenders] = useState<UserSex[]>([]);
+	const [tempSelectedReligions, setTempSelectedReligions] = useState<UserReligion[]>([]);
+	const [tempSelectedEducations, setTempSelectedEducations] = useState<EductionOption[]>([]);
 	const [tempBudgetMinValue, setTempBudgetMinValue] = useState(0);
 	const [tempBudgetMaxValue, setTempBudgetMaxValue] = useState(5000000);
 	const [tempAgeMinValue, setTempAgeMinValue] = useState(18);
@@ -347,7 +355,7 @@ function FilterBar(props: Props) {
 								subText={
 									filterOpened !== FilterOptions.EDUCATION
 										? tempSelectedEducations.length > 0
-											? tempSelectedEducations.join(", ")
+											? tempSelectedEducations.map((_edu) => educationOptionsText[_edu]).join(", ")
 											: undefined
 										: undefined
 								}
@@ -363,14 +371,14 @@ function FilterBar(props: Props) {
 										onChange={(_value) => setEducationSearchTerm(_value)}
 										onSelect={(value: string | undefined) => {
 											if (value)
-												setTempSelectedEducations((prev) => [
-													...prev,
-													educationOptions.find((_edu) => _edu.value === value)?.value || "",
-												]);
+												setTempSelectedEducations((prev) => {
+													const _option = educationOptions.find((_edu) => _edu.value === value)?.value;
+													return [...prev, ...(_option ? [_option] : [])];
+												});
 										}}
 										options={educationOptions.filter(
 											(_education) =>
-												!tempSelectedEducations.some((_tempSelectedEducation) => _tempSelectedEducation === _education.text)
+												!tempSelectedEducations.some((_tempSelectedEducation) => _tempSelectedEducation === _education.value)
 										)}
 										size="md"
 									/>
@@ -396,7 +404,7 @@ function FilterBar(props: Props) {
 								subText={
 									filterOpened !== FilterOptions.GENDER
 										? tempSelectedGenders.length > 0
-											? tempSelectedGenders.join(", ")
+											? tempSelectedGenders.map((_gender) => genderOptionsText[_gender]).join(", ")
 											: undefined
 										: undefined
 								}
@@ -429,7 +437,7 @@ function FilterBar(props: Props) {
 								subText={
 									filterOpened !== FilterOptions.RELIGION
 										? tempSelectedReligions.length > 0
-											? tempSelectedReligions.join(", ")
+											? tempSelectedReligions.map((_gender) => religionOptionsText[_gender]).join(", ")
 											: undefined
 										: undefined
 								}
@@ -458,9 +466,6 @@ function FilterBar(props: Props) {
 								</div>
 							</Accordion>
 							<div className="flex w-full flex-col gap-4 pt-5">
-								<Button type="button" buttonType="secondary" color="grey" size="md" borderFull fullWidth onClick={handleResetFilter}>
-									<span>Clear Filters</span>
-								</Button>
 								<Button
 									type="button"
 									buttonType="primary"
@@ -484,6 +489,9 @@ function FilterBar(props: Props) {
 									}
 								>
 									<span>Apply Filter</span>
+								</Button>
+								<Button type="button" buttonType="secondary" color="grey" size="md" borderFull fullWidth onClick={handleResetFilter}>
+									<span>Clear Filters</span>
 								</Button>
 							</div>
 							<div className="w-full py-6">

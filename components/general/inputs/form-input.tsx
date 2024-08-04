@@ -176,7 +176,7 @@ function FormInput({
 					)}
 					{type === "password" && (
 						<span
-							className="absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer items-center justify-center"
+							className="absolute right-0 top-0 z-20 flex h-full w-12 cursor-pointer items-center justify-center"
 							onClick={() => setShowPassword((prev) => !prev)}
 						>
 							{showPassword ? (
@@ -187,7 +187,7 @@ function FormInput({
 						</span>
 					)}
 					{type === "number" && (
-						<div className="absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2">
+						<div className="absolute right-0 top-0 z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2">
 							<Image src={arrowUpIcon} alt="arrow up icon" className="cursor-pointer" onClick={onUpClick} />
 							<Image src={arrowDownIcon} alt="arrow down icon" className="cursor-pointer" onClick={onDownClick} />
 						</div>

@@ -49,7 +49,7 @@ const Dashboard = () => {
 								<div className="flex w-full flex-col gap-4">
 									<div className="flex w-full items-center justify-between">
 										<h4 className="text-lg font-semibold leading-[100%] text-black-secondary 3xs:text-xl">Explore</h4>
-										<p className="hidden text-sm text-black-tertiary lg:block">25 Filter Result</p>
+										<p className="hidden text-sm text-black-tertiary lg:block">{data.meta.per_page} Filter Result</p>
 										<div
 											className="flex cursor-pointer select-none items-center justify-start gap-2 lg:hidden"
 											onClick={() => setIsFilterOpen(true)}
@@ -59,7 +59,7 @@ const Dashboard = () => {
 										</div>
 									</div>
 									<div className="w-full text-center lg:hidden">
-										<p className="text-sm text-black-tertiary">{data?.meta.total_items} Filter Result</p>
+										<p className="text-sm text-black-tertiary">{data?.meta.per_page} Filter Result</p>
 									</div>
 									{data?.suggestions?.length > 0 && (
 										<div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
