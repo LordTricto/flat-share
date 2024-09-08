@@ -6,7 +6,6 @@ import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {getStartedApi} from "./get-started-api";
 import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
-import {setToStageFour} from "@/redux/get-started/get-started";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
 

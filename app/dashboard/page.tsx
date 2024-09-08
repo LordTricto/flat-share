@@ -2,7 +2,6 @@
 
 import {useLayoutEffect, useState} from "react";
 
-import {AccountSignals} from "@/redux/init/slice/initSlice.types";
 import Button from "@/components/general/button/button";
 import {IRootState} from "@/redux/rootReducer";
 import Loading from "./loading";
@@ -14,7 +13,6 @@ import UserRequest from "@/components/dashboard/home/cards/user-request";
 import {UserType} from "@/models/user.constant";
 import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import {accountSetupProgress} from "@/helpers/isAccountSetup";
-// import requestAvatarOne from "@/public/images/dashboard/home/request-1.png";
 import useMainInit from "@/hooks/dashboard/main-init/use-main-init";
 import {useRouter} from "next/navigation";
 import {useSelector} from "react-redux";
@@ -24,6 +22,7 @@ const Dashboard = () => {
 	const {data, isFetching, refetch, remove} = useMainInit();
 
 	const user = useSelector((state: IRootState) => state.init.user);
+	const isAccountSetup = useSelector((state: IRootState) => state.init.isAccountSetup);
 
 	const [isWelcomeNoteOpen, setIsWelcomeNoteOpen] = useState(true);
 	const [isProfileViewsModalOpen, setIsProfileViewsModalOpen] = useState<boolean>(false);
@@ -38,7 +37,6 @@ const Dashboard = () => {
 		};
 	}, [user, refetch, remove]);
 
-	console.log(data?.signal);
 	return (
 		<>
 			{isFetching && <Loading />}
@@ -63,7 +61,7 @@ const Dashboard = () => {
 								{isWelcomeNoteOpen && (
 									<WelcomeCard
 										subTitle={data.messages.home_message}
-										ctaText={data.signal !== AccountSignals.SETUP_UNCOMPLETED ? "Start Exploring" : "Go to Settings"}
+										ctaText={isAccountSetup ? "Start Exploring" : "Go to Settings"}
 										toggle={() => setIsWelcomeNoteOpen(false)}
 										handleCta={() => router.push("/dashboard/settings")}
 										canToggle={accountSetupProgress().isAccountSetupCompleted}

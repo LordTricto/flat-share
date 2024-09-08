@@ -37,8 +37,8 @@ function PersonalDetails(props: Props) {
 
 	const initialFormState: PersonalDetailsForm & OtherPersonalDetailsForm = {
 		email: user?.email || undefined,
-		fname: user?.fname || undefined,
-		lname: user?.lname || undefined,
+		firstname: user?.fname || undefined,
+		lastname: user?.lname || undefined,
 		phone: user?.phone || undefined,
 		age: user?.age ? String(user?.age) : undefined,
 		sex: user?.sex || undefined,
@@ -50,8 +50,8 @@ function PersonalDetails(props: Props) {
 
 	const formValidation = Yup.object().shape({
 		email: Yup.string().email(),
-		fname: Yup.string(),
-		lname: Yup.string(),
+		firstname: Yup.string(),
+		lastname: Yup.string(),
 		phone: Yup.string().phone(),
 		age: Yup.string(),
 		sex: Yup.string().nullable(),
@@ -164,8 +164,8 @@ function PersonalDetails(props: Props) {
 										<h3 className="text-lg font-semibold capitalize leading-[100%] text-black-secondary">Personal Details</h3>
 										<div className="mt-6 flex w-full flex-col items-start justify-start gap-5">
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
-												<FormInput type="text" label="First Name" name="fname" inputSize="md" />
-												<FormInput type="text" label="Last Name" name="lname" inputSize="md" />
+												<FormInput type="text" label="First Name" name="firstname" inputSize="md" />
+												<FormInput type="text" label="Last Name" name="lastname" inputSize="md" />
 											</div>
 											<div className="grid w-full auto-rows-min grid-cols-1 gap-5 xs:grid-cols-2 md:gap-4">
 												<FormInput type="text" label="Phone Number" name="phone" inputSize="md" />

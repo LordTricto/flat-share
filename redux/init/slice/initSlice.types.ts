@@ -10,16 +10,19 @@ export type InterestsType = {
 };
 
 export enum AccountSignals {
+	APP_INIT = "app_init",
 	SETUP_UNCOMPLETED = "account_setup_uncompleted",
 	UNVERIFIED_ACCOUNT = "unverified_account",
 	OFFLINE = "user_offline",
 	CONNECTED = "user_connected",
 	SUSPENDED = "user_suspended",
+	HOST_USER_YET_TO_PAY = "host_user_yet_to_pay_to_post_property",
 }
 
 export enum HostSignals {
-	HOST_PAY_TO_POST = "host_user_yet_to_pay_to_post_property",
-	HOST_NO_PROPERTY = "host_user_with_no_property",
+	UNPAID_PROPERTY_ADS_FEE = "unpaid-property-ads-fee",
+	NO_PROPERTY = "no-property",
+	ACTIVE_PROPERTY = "active-property",
 }
 
 export interface InitState {
@@ -27,7 +30,10 @@ export interface InitState {
 	filter: Filter | null;
 	interests: InterestsType;
 	isLoggedIn: boolean;
+	hostSignal: HostSignals | null;
 	isInitError: string | null;
+	accountSignal: AccountSignals | null;
 	isInitLoading: boolean;
+	isAccountSetup: boolean;
 	isAccountCreated: boolean;
 }

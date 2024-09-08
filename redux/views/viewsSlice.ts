@@ -28,7 +28,7 @@ export const viewsSlice = createSlice({
 			state.views_no = action.payload.views_no;
 		},
 
-		ResetViews: (state: ViewsState) => {
+		resetViews: (state: ViewsState) => {
 			state.views = [];
 			state.views_no = 0;
 			state.new_views_no = 0;
@@ -44,6 +44,6 @@ export const viewsSlice = createSlice({
 	},
 });
 
-export const {setViews, ResetViews} = viewsSlice.actions;
+export const {setViews, resetViews} = viewsSlice.actions;
 
 export default viewsSlice.reducer;

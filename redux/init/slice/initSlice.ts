@@ -1,7 +1,8 @@
-import {InitState, InterestsType} from "./initSlice.types";
+import {AccountSignals, HostSignals, InitState, InterestsType} from "./initSlice.types";
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
 
 import Filter from "@/models/filter";
+import Parsers from "@/utils/parsers";
 import User from "../../../models/user";
 
 const initialState: InitState = {
@@ -9,6 +10,9 @@ const initialState: InitState = {
 	isInitError: null,
 	isInitLoading: false,
 	isAccountCreated: false,
+	isAccountSetup: false,
+	hostSignal: null,
+	accountSignal: null,
 	user: null,
 	filter: null,
 	interests: {
@@ -34,7 +38,7 @@ export const initSlice = createSlice({
 			state.isInitLoading = true;
 		},
 
-		initSuccess: (state: InitState, action: PayloadAction<{user: User; filter: Filter; interests: InterestsType}>) => {
+		initSuccess: (state: InitState, action: PayloadAction<{user: User; filter: Filter | null; interests: InterestsType}>) => {
 			state.isLoggedIn = true;
 			state.isInitError = null;
 			state.isInitLoading = false;
@@ -42,6 +46,14 @@ export const initSlice = createSlice({
 			state.filter = action.payload.filter;
 			state.interests = action.payload.interests;
 		},
+
+		setInitSignals: (state: InitState, action: PayloadAction<{accountSignal: AccountSignals | null; hostSignal: HostSignals | null}>) => {
+			state.hostSignal = action.payload.hostSignal;
+			state.accountSignal = action.payload.accountSignal;
+			state.isAccountSetup =
+				action.payload.accountSignal === null ? false : !!(action.payload.accountSignal !== AccountSignals.SETUP_UNCOMPLETED);
+		},
+
 		initLoadingFalse: (state: InitState) => {
 			state.isInitLoading = true;
 		},
@@ -76,14 +88,18 @@ export const initSlice = createSlice({
 		setUpdatedFilter: (state: InitState, action: PayloadAction<Filter>) => {
 			state.filter = action.payload;
 		},
+
 		setUpdatedInterests: (state: InitState, action: PayloadAction<InterestsType>) => {
 			state.interests = action.payload;
 		},
+
 		initReset: (state: InitState) => {
 			state.isLoggedIn = false;
 			state.isInitError = null;
 			state.isInitLoading = false;
 			state.user = null;
+			state.hostSignal = null;
+			state.accountSignal = null;
 			state.filter = null;
 			state.interests = {
 				food: [],
@@ -103,6 +119,7 @@ export const {
 	initLoadingFalse,
 	loginSuccess,
 	logoutSuccess,
+	setInitSignals,
 	setIsAccountCreatedStatus,
 	setUpdatedUserProfile,
 	setUpdatedFilter,

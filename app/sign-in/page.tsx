@@ -9,16 +9,12 @@ import Button from "@/components/general/button/button";
 // import Checkbox from "@/components/general/checkbox/checkbox";
 import FormInput from "@/components/general/inputs/form-input";
 import Image from "next/image";
-import Link from "next/link";
 import {SignInForm} from "../../hooks/sign-in/sign-in.constants";
 import {SignInSignal} from "@/hooks/sign-in/sign-in-api";
 import {abortRequest} from "@/helpers/request/abortControllers";
 // import Input from "@/components/general/inputs/input";
 import formikHasError from "@/helpers/formikHasError";
-import logoIcon from "@/public/images/logo.svg";
-import pageDivider from "@/public/images/general/page-divider.svg";
 import rightArrowIcon from "@/public/images/icons/right-arrow.svg";
-import signUpImg from "@/public/images/sign-up/sign-up-1.png";
 import {useRouter} from "next/navigation";
 import useSignIn from "@/hooks/sign-in/use-sign-in";
 

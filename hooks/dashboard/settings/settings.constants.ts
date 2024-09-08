@@ -225,8 +225,8 @@ export type AccountTypeForm = {
 };
 
 export type PersonalDetailsForm = {
-	fname?: string;
-	lname?: string;
+	firstname?: string;
+	lastname?: string;
 	phone?: string;
 	email?: string;
 };

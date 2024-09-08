@@ -1,9 +1,12 @@
+import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
+
 import Filter from "@/models/filter";
 import {GenericObject} from "@/helpers/types";
 import Housemate from "@/models/housemate";
 import {MainInitFormResponse} from "./main-init.constants";
 import Notification from "@/models/notification";
 import Parsers from "@/utils/parsers";
+import User from "@/models/user";
 import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
 import {makeGetRequestWithSignal} from "@/helpers/request/makeRequest";
 import store from "@/redux/store";
@@ -20,6 +23,7 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 	}
 	const metaData = (res.data as GenericObject).meta;
 	const messageData = (res.data as GenericObject).messages;
+	const interestsData = (res.data as GenericObject).interests;
 	const sentRequestData = (res.data as GenericObject).sent_request;
 	const userStatisticsData = (res.data as GenericObject).user_statistics;
 	const receivedRequestData = (res.data as GenericObject).received_request;
@@ -71,17 +75,29 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 		notifications: Parsers.classObjectArray(((res.data as GenericObject).notification as GenericObject).notifications, Notification),
 	};
 
+	const interests = {
+		food: Parsers.stringArray((interestsData as GenericObject).food),
+		music: Parsers.stringArray((interestsData as GenericObject).music),
+		others: Parsers.stringArray((interestsData as GenericObject).others),
+		sports: Parsers.stringArray((interestsData as GenericObject).sports),
+		film_and_tv: Parsers.stringArray((interestsData as GenericObject).film_and_tv),
+	};
+
 	return {
 		status: Parsers.string(res.status),
 		message: Parsers.string(res.message),
 		meta,
 		app_abuse_email: Parsers.string((res.data as GenericObject).app_abuse_email),
 		app_support_email: Parsers.string((res.data as GenericObject).app_support_email),
-		host_fee: Parsers.number((res.data as GenericObject).host_fee),
-		signal: Parsers.string((res.data as GenericObject).signal),
+		host_fee: Parsers.string((res.data as GenericObject).host_fee),
+		host_fee_raw: Parsers.number((res.data as GenericObject).host_fee_raw),
+		host_property_signal: Parsers.nullableEnum((res.data as GenericObject).host_property_signal, HostSignals),
+		signal: Parsers.nullableEnum((res.data as GenericObject).signal, AccountSignals),
+		user: Parsers.classObjectNonNullable((res.data as GenericObject).logged_in_user, User),
 		messages,
-		filter: Parsers.classObjectArray((res.data as GenericObject).filter, Filter),
-		reset_filter_to_default: Parsers.classObjectArray((res.data as GenericObject).reset_filter_to_default, Filter),
+		filter: Parsers.classObject((res.data as GenericObject).filter, Filter),
+		reset_filter_to_default: Parsers.classObject((res.data as GenericObject).reset_filter_to_default, Filter),
+		interests,
 		connection: Parsers.classObjectArray((res.data as GenericObject).connection, Housemate),
 		suggestions: Parsers.classObjectArray((res.data as GenericObject).suggestions, Housemate),
 		views_no: Parsers.number((res.data as GenericObject).views_no),

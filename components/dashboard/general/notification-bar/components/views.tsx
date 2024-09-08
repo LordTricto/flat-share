@@ -19,13 +19,14 @@ function Views(props: Props) {
 	const {isFetching, refetch, remove} = useViews();
 
 	const views = useSelector((state: IRootState) => state.views.views);
+	const isAccountSetup = useSelector((state: IRootState) => state.init.isAccountSetup);
 
 	useEffect(() => {
-		refetch();
+		if (isAccountSetup) refetch();
 		return () => {
 			remove();
 		};
-	}, [refetch, remove]);
+	}, [isAccountSetup, refetch, remove]);
 
 	return (
 		<>

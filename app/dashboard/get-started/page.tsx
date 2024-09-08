@@ -9,17 +9,15 @@ import {IRootState} from "@/redux/rootReducer";
 import ImageCropModal from "@/components/dashboard/get-started/modals/image-crop-modal";
 import StageFour from "@/components/dashboard/get-started/stages/stage-four";
 import StageOne from "@/components/dashboard/get-started/stages/stage-one";
-// import StageThree from "@/components/dashboard/get-started/stages/stage-three";
-// import StageTwo from "@/components/dashboard/get-started/stages/stage-two";
 import {applicationReset} from "@/redux/get-started/get-started";
 
 function GetStarted() {
 	const dispatch = useDispatch();
 	const stage = useSelector((state: IRootState) => state.getStarted.stage);
-	// const userData = useSelector((state: IRootState) => state.getStarted.userData);
-	const [isImageCropModalOpen, setIsImageCropModalOpen] = useState<boolean>(false);
-	const [imageToCrop, setImageToCrop] = useState<string>("");
+
 	const [croppedImg, setCroppedImg] = useState<string>("");
+	const [imageToCrop, setImageToCrop] = useState<string>("");
+	const [isImageCropModalOpen, setIsImageCropModalOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		return () => {
@@ -45,8 +43,6 @@ function GetStarted() {
 					<div className="hidden w-[1px] max-w-[1px] flex-grow bg-grey md:block"></div>
 					<div className="flex w-full flex-col items-start justify-start py-10 md:w-max">
 						{stage === GetStartedStage.STAGE_ONE && <StageOne />}
-						{/* {stage === GetStartedStage.STAGE_TWO && <StageTwo />} */}
-						{/* {stage === GetStartedStage.STAGE_THREE && <StageThree />} */}
 						{stage === GetStartedStage.STAGE_FOUR && (
 							<StageFour
 								croppedImg={croppedImg}

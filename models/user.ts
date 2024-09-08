@@ -57,4 +57,7 @@ export default class User {
 	get isHostHunter(): boolean {
 		return this.user_type === UserType.HOST_HUNTERS;
 	}
+	get isGuest(): boolean {
+		return this.user_type === UserType.GUESTS;
+	}
 }

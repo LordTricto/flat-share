@@ -14,6 +14,7 @@ export default class Notification {
 		public description: string,
 		public signal: string,
 		public notification_creation_date: Date | null,
+		public notification_creation_date2: string | null,
 		public seen: NotificationStatus | null,
 		public notification_id: number
 	) {}
@@ -25,6 +26,7 @@ export default class Notification {
 			Parsers.string(obj.description),
 			Parsers.string(obj.signal),
 			Parsers.date(obj.notification_creation_date),
+			Parsers.nullableString(obj.notification_creation_date2),
 			Parsers.nullableEnum(obj.seen, NotificationStatus),
 			Parsers.number(obj.notification_id)
 		);

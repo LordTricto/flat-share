@@ -1,13 +1,15 @@
 import axios, {AxiosError} from "axios";
+import {initReset, logoutSuccess} from "@/redux/init/slice/initSlice";
+import {setErrorMessage, toastReset} from "@/redux/toast/slice/toast-slice";
 
 import {ErrorMessage} from "./request/makeRequest";
 import {RequestCancelledError} from "./request/requestErrors";
-import {logoutSuccess} from "@/redux/init/slice/initSlice";
+import {applicationReset} from "@/redux/get-started/get-started";
+import {resetHousemate} from "@/redux/housemates/housemateSlice";
 import {resetToken} from "@/redux/token/slice/tokenSlice";
-import {setErrorMessage} from "@/redux/toast/slice/toast-slice";
+import {resetViews} from "@/redux/views/viewsSlice";
 import store from "@/redux/store";
-
-// import {useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 export default function Errorhandler(err: AxiosError): void {
 	// const router = useRouter();
@@ -18,6 +20,11 @@ export default function Errorhandler(err: AxiosError): void {
 		console.log("Unauthorized");
 		store.dispatch(resetToken());
 		store.dispatch(logoutSuccess());
+		store.dispatch(initReset());
+		store.dispatch(resetViews());
+		store.dispatch(toastReset());
+		store.dispatch(resetHousemate());
+		store.dispatch(applicationReset());
 		// router.push("/sign-in");
 		return;
 	}
@@ -30,6 +37,6 @@ export default function Errorhandler(err: AxiosError): void {
 		Object.values(errorMessage).forEach((_errors) => (_errors as string[]).forEach((_error) => store.dispatch(setErrorMessage(_error))));
 		return;
 	}
-
+	console.log(errorMessage);
 	store.dispatch(setErrorMessage(errorMessage));
 }
