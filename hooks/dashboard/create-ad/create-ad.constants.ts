@@ -32,8 +32,6 @@ export type CreateAdPersonnelForm = {
 	rent_contribution: number;
 	monthly_rent_charge: string;
 
-
-
 	preferred_gender: UserSex;
 	preferred_age: string;
 	preferred_profession: string;
@@ -61,6 +59,7 @@ export type CreateAdForm = {
 	house_street_address: string;
 	description: string;
 };
+
 export type CreateAdFormResponse = {
 	status: string;
 	message: string;

@@ -52,7 +52,7 @@ function CreateAdStageOne(props: Props) {
 		rent_cost: Yup.number().required("Required"),
 		payment_frequency: Yup.string().required("Required"),
 		rent_contribution: Yup.number().required("Required"),
-		preferred_gender: Yup.string().required("Required"),
+		// preferred_gender: Yup.string().required("Required"),
 		house_rules: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
 		interests: Yup.array().of(Yup.string().required("Required")).min(1).max(5).required("Required"),
 		features: Yup.array().of(Yup.string().required("Required")).min(1).max(3).required("Required"),
@@ -79,6 +79,7 @@ function CreateAdStageOne(props: Props) {
 				validateOnMount
 			>
 				{(formik) => {
+					console.log(formik.errors);
 					return (
 						<Form className="flex h-fit w-full flex-col items-start justify-start gap-8">
 							<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">

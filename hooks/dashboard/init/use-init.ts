@@ -3,7 +3,7 @@ import {initLoadingFalse, initRequest, initSuccess, setInitSignals} from "@/redu
 import {setMultipleHousemates, setReceivedRequests, setSentRequests} from "@/redux/housemates/housemateSlice";
 import {usePathname, useRouter} from "next/navigation";
 
-import {AccountSignals} from "@/redux/init/slice/initSlice.types";
+import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {MainInitFormResponse} from "../main-init/main-init.constants";
@@ -43,6 +43,9 @@ function useInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
 			if (data.user.isGuest && data.signal === AccountSignals.SETUP_UNCOMPLETED) {
 				dispatch(setToStageOne());
 				router.replace("/dashboard/get-started");
+			}
+			if(data.user.isHost && (data.host_property_signal ===HostSignals.NO_PROPERTY|| data.host_property_signal ===HostSignals.UNPAID_PROPERTY_ADS_FEE)){
+				router.replace("/dashboard/create-ad");
 			}
 
 			if (!pathname.includes("dashboard")) router.replace("/dashboard");

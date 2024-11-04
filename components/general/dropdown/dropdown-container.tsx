@@ -182,7 +182,7 @@ function DropdownContainer({
 					`${size === "sm" ? "h-8" : ""} ` +
 					`${!customHead ? "space-x-4" : ""} ` +
 					`${customHeadStyle} ` +
-					`${hasValue ? "justify-between" : "justify-between"} `
+					`${hasValue ? "justify-between" : "justify-end"} `
 				}
 				tabIndex={isDisabled ? -1 : 0}
 				onClick={() => {
@@ -213,7 +213,7 @@ function DropdownContainer({
 				{!hasInput && value && (
 					<span
 						className={
-							`max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap ` +
+							`sel max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap ` +
 							`${isDisabled ? "pointer-events-none bg-transparent text-black-quat" : "text-black-secondary"} ` +
 							`${size === "lg" ? "text-lg" : ""} ` +
 							`${size === "md" ? "text-base" : ""} ` +
@@ -226,7 +226,7 @@ function DropdownContainer({
 				{!noArrow && (
 					<div
 						className={
-							`w-max transform items-center justify-end transition-transform duration-150 ` +
+							`w-max transform items-center justify-end self-end transition-transform duration-150 ` +
 							`${active ? "-rotate-180" : "rotate-0"} ` +
 							`${isDisabled ? "text-black-quat " : ""} `
 						}

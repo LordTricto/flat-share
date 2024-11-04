@@ -34,6 +34,7 @@ import useDimension from "@/helpers/useDimension";
 import useInit from "@/hooks/dashboard/init/use-init";
 import {usePathname} from "next/navigation";
 import {useSelector} from "react-redux";
+import { HostSignals } from "@/redux/init/slice/initSlice.types";
 
 const myFont = localFont({
 	src: [
@@ -66,11 +67,16 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 	const {isFetching, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();
+	
+	const isHost = useSelector((state: IRootState) => state.init.user?.isHost);
+	const isGuest = useSelector((state: IRootState) => state.init.user?.isGuest);
+	const hostSignal = useSelector((state: IRootState) => state.init.hostSignal);
 	const isLoggedIn = useSelector((state: IRootState) => state.init.isLoggedIn);
-	const isGuest = useSelector((state: IRootState) => state.init.user)?.isGuest;
 
 	const [showNav, setShowNav] = useState<boolean>(false);
 	const [isMounted, setIsMounted] = useState<boolean>(false);
+
+	const showOnlyOverview = isGuest || (isHost && (hostSignal === HostSignals.NO_PROPERTY|| hostSignal === HostSignals.UNPAID_PROPERTY_ADS_FEE))
 
 	useLayoutEffect(() => {
 		// initPing();
@@ -150,14 +156,15 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 								<div
 									className={
 										"flex w-full flex-col justify-start gap-3 border-b pb-12 pt-4 " +
-										`${!isGuest ? "border-grey-secondary" : "border-transparent"}`
+										`${!showOnlyOverview ? "border-grey-secondary" : "border-transparent"}`
 									}
 								>
 									<h5 className="select-none text-xs font-medium uppercase text-black-quat">Menu</h5>
-									{isGuest ? (
+									{showOnlyOverview ? (
 										<MenuItem
 											onClick={handleOpenNav}
 											path={"/dashboard/get-started"}
+											optionalPath="/dashboard/create-ad"
 											iconActive={overviewActive}
 											iconInActive={overviewInActive}
 											text="Get Started"
@@ -208,7 +215,7 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 									)}
 								</div>
 
-								{!isGuest && (
+								{!showOnlyOverview && (
 									<div className="flex w-full flex-col justify-start gap-3 border-b border-grey-secondary pb-12 pt-10">
 										<h5 className="select-none text-xs font-medium uppercase text-black-quat">support</h5>
 										<div className="flex flex-col justify-start gap-1">
@@ -230,7 +237,7 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 										</div>
 									</div>
 								)}
-								<div className={isGuest ? "absolute bottom-0 left-0 w-full px-6" : "w-full"}>
+								<div className={showOnlyOverview ? "absolute bottom-0 left-0 w-full px-6" : "w-full"}>
 									<Button
 										ripple="dark"
 										color="transparent"
@@ -281,7 +288,7 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 													<HamburgerOpen />
 												</div>
 											</div>
-											{!isGuest && (
+											{!showOnlyOverview && (
 												<div className="relative hidden w-full lg:block" tabIndex={-1}>
 													<SearchBar
 														value=""

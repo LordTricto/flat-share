@@ -217,7 +217,7 @@ function Input({
 						</span>
 					)}
 					{type === "number" && (
-						<div className="absolute right-0 top-0 z-40 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2 px-2">
+						<div className="absolute right-0 top-0 z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-2 px-2">
 							<div className="flex w-full items-center justify-center" onClick={onUpClick}>
 								<Image src={arrowUpIcon} alt="arrow up icon" className="cursor-pointer" />
 							</div>
