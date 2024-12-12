@@ -30,12 +30,20 @@ function Account() {
 
 	const formValidation = Yup.object().shape({
 		current_password: Yup.string()
-			.password()
-			.matches(/^(?=.*[-_])[A-Za-z0-9_-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
+			.minLowercase(1, "Password must contain at least 1 lowercase letters")
+			.minSymbols(1, "Password must contain at least 1 symbols")
+			.minNumbers(1, "Password must contain at least 1 numbers")
+			.minUppercase(1, "Password must contain at least 1 upper letters")
+			.min(8, "Password must be at least 8 characters")
+			.matches(/^\S*$/, "Whitespace is not allowed")
 			.required("Required"),
 		new_password: Yup.string()
-			.password()
-			.matches(/^(?=.*[-_])[A-Za-z0-9_-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
+			.minLowercase(1, "Password must contain at least 1 lowercase letters")
+			.minSymbols(1, "Password must contain at least 1 symbols")
+			.minNumbers(1, "Password must contain at least 1 numbers")
+			.minUppercase(1, "Password must contain at least 1 upper letters")
+			.min(8, "Password must be at least 8 characters")
+			.matches(/^\S*$/, "Whitespace is not allowed")
 			.required("Required"),
 	});
 

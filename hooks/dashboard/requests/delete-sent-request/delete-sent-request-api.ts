@@ -1,31 +1,27 @@
-import {SendRequestForm, SendRequestFormResponse} from "./delete-sent-request.constants";
+import {DeleteSentRequestForm, DeleteSentRequestFormResponse} from "./delete-sent-request.constants";
+import {makeDeleteRequestWithSignal, makeRequestWithSignal} from "@/helpers/request/makeRequest";
 
 import {GenericObject} from "@/helpers/types";
 import Parsers from "@/utils/parsers";
+import UserStatistics from "@/models/user-statistics";
 import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
-import {makeRequestWithSignal} from "@/helpers/request/makeRequest";
 
-export enum sendRequestSignal {
-	SEND_REQUEST = "user.send-request",
+export enum deleteSentRequestSignal {
+	DELETE_REQUEST = "user.delete-sent-request",
 }
 
-export const sendRequestApi = async (data: SendRequestForm): Promise<SendRequestFormResponse> => {
-	const signal = getAbortControllerSignal(sendRequestSignal.SEND_REQUEST);
+export const deleteSentRequestApi = async (data: DeleteSentRequestForm): Promise<DeleteSentRequestFormResponse> => {
+	const signal = getAbortControllerSignal(deleteSentRequestSignal.DELETE_REQUEST);
 
-	const res = await makeRequestWithSignal(`user/send/request/${data.id}`, {}, signal);
+	const res = await makeDeleteRequestWithSignal(`user/delete/sent/request/${data.id}`, {}, signal);
 	if (res instanceof Error) {
 		throw res;
 	}
 
 	return {
-		success: Parsers.string(res.success),
-		message: Parsers.string(res.message),
+		status: Parsers.string(res.status),
 		signal: Parsers.string(res.signal),
-		statistics: {
-			available_receive_request: Parsers.number((res.statistics as GenericObject).available_receive_request),
-			available_send_request: Parsers.number((res.statistics as GenericObject).available_send_request),
-			total_received_request: Parsers.number((res.statistics as GenericObject).total_received_request),
-			total_sent_request: Parsers.number((res.statistics as GenericObject).total_sent_request),
-		},
+		message: Parsers.string(res.message),
+		statistics: Parsers.classObjectNonNullable(res.statistics, UserStatistics),
 	};
 };

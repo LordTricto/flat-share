@@ -1,13 +1,13 @@
+import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {initLoadingFalse, initRequest, initSuccess, setInitSignals} from "@/redux/init/slice/initSlice";
-import {setMultipleHousemates, setReceivedRequests, setSentRequests} from "@/redux/housemates/housemateSlice";
+import {initLoadingFalse, initRequest, initSuccess, setInitSignals, setUserRequests} from "@/redux/init/slice/initSlice";
 import {usePathname, useRouter} from "next/navigation";
 
-import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {MainInitFormResponse} from "../main-init/main-init.constants";
 import {mainInitApi} from "../main-init/main-init-api";
+import {setMultipleHousemates} from "@/redux/housemates/housemateSlice";
 import {setToStageOne} from "@/redux/get-started/get-started";
 import {useDispatch} from "react-redux";
 
@@ -31,12 +31,13 @@ function useInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
 
 			dispatch(initSuccess({user: data.user, filter: data.filter, interests: data.interests}));
 
-			dispatch(setMultipleHousemates(data.suggestions));
-			dispatch(setSentRequests({sentRequests: data.sent_request.sent_request_data, sentRequestsNo: data.sent_request.sent_request_no}));
 			dispatch(
-				setReceivedRequests({
-					receivedRequests: data.received_request.received_request_data,
-					receivedRequestsNo: data.received_request.received_request_no,
+				setMultipleHousemates([...data.suggestions, ...data.received_request.received_request_data, ...data.sent_request.sent_request_data])
+			);
+			dispatch(
+				setUserRequests({
+					sent_request: data.sent_request,
+					received_request: data.received_request,
 				})
 			);
 
@@ -44,7 +45,10 @@ function useInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
 				dispatch(setToStageOne());
 				router.replace("/dashboard/get-started");
 			}
-			if(data.user.isHost && (data.host_property_signal ===HostSignals.NO_PROPERTY|| data.host_property_signal ===HostSignals.UNPAID_PROPERTY_ADS_FEE)){
+			if (
+				data.user.isHost &&
+				(data.host_property_signal === HostSignals.NO_PROPERTY || data.host_property_signal === HostSignals.UNPAID_PROPERTY_ADS_FEE)
+			) {
 				router.replace("/dashboard/create-ad");
 			}
 

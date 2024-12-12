@@ -1,35 +1,36 @@
-import {DeleteSentRequestForm, DeleteSentRequestFormResponse} from "./delete-sent-request.constants";
+import {DeclineRequestForm, DeclineRequestFormResponse} from "./decline-request.constants";
 import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
-import {deleteSentRequestApi} from "./delete-sent-request-api";
+import {declineRequestApi} from "./decline-request-api";
 import {setSuccessMessage} from "@/redux/toast/slice/toast-slice";
 import {setUserStatistics} from "@/redux/init/slice/initSlice";
 import {useDispatch} from "react-redux";
 
 interface Props {
-	onComplete: () => void;
+	onComplete?: () => void;
 }
 
-function useDeleteSentRequest(props?: Props): UseMutationResult<DeleteSentRequestFormResponse, unknown, DeleteSentRequestForm, unknown> {
+function useDeclineRequest(props?: Props): UseMutationResult<DeclineRequestFormResponse, unknown, DeclineRequestForm, unknown> {
 	const dispatch = useDispatch();
-	const deleteSentRequest = useMutation({
-		mutationFn: async (_data: DeleteSentRequestForm) => {
-			const res = await deleteSentRequestApi(_data);
+	const declineRequest = useMutation({
+		mutationFn: async (_data: DeclineRequestForm) => {
+			const res = await declineRequestApi(_data);
 			return res;
 		},
-		onSuccess(data: DeleteSentRequestFormResponse) {
+		onSuccess(data: DeclineRequestFormResponse) {
 			dispatch(setSuccessMessage(data.message));
 			dispatch(setUserStatistics(data.statistics));
 			props?.onComplete && props.onComplete();
 		},
 		onError(error: AxiosError) {
+			console.log(error);
 			Errorhandler(error);
 		},
 	});
 
-	return deleteSentRequest;
+	return declineRequest;
 }
 
-export default useDeleteSentRequest;
+export default useDeclineRequest;

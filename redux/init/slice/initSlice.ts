@@ -2,8 +2,11 @@ import {AccountSignals, HostSignals, InitState, InterestsType} from "./initSlice
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
 
 import Filter from "@/models/filter";
-import Parsers from "@/utils/parsers";
 import User from "../../../models/user";
+import UserReceivedRequest from "@/models/user-received-request";
+import UserRequests from "@/models/user-requests";
+import UserSentRequest from "@/models/user-sent-request";
+import UserStatistics from "@/models/user-statistics";
 
 const initialState: InitState = {
 	isLoggedIn: false,
@@ -13,8 +16,10 @@ const initialState: InitState = {
 	isAccountSetup: false,
 	hostSignal: null,
 	accountSignal: null,
+	userStatistics: null,
 	user: null,
 	filter: null,
+	requests: null,
 	interests: {
 		food: [],
 		music: [],
@@ -75,6 +80,33 @@ export const initSlice = createSlice({
 			};
 		},
 
+		setUserStatistics: (state: InitState, action: PayloadAction<UserStatistics>) => {
+			state.userStatistics = action.payload;
+		},
+		setUserRequests: (
+			state: InitState,
+			action: PayloadAction<{
+				sent_request: UserSentRequest;
+				received_request: UserReceivedRequest;
+			}>
+		) => {
+			state.requests = UserRequests.create({sent_request: action.payload.sent_request, received_request: action.payload.received_request});
+		},
+		setFilterUserRequestReceived: (state: InitState, action: PayloadAction<string>) => {
+			if (state.requests) {
+				state.requests.received_request.received_request_data =
+					state.requests?.received_request.received_request_data.filter((_) => _.codec !== action.payload) || [];
+				state.requests.received_request.received_request_no === state.requests.received_request.received_request_no - 1;
+			}
+		},
+		setFilterUserRequestSent: (state: InitState, action: PayloadAction<string>) => {
+			if (state.requests) {
+				state.requests.sent_request.sent_request_data =
+					state.requests?.sent_request.sent_request_data.filter((_) => _.codec !== action.payload) || [];
+				state.requests.sent_request.sent_request_no === state.requests.sent_request.sent_request_no - 1;
+			}
+		},
+
 		setIsAccountCreatedStatus: (state: InitState, action: PayloadAction<boolean>) => {
 			state.isAccountCreated = action.payload;
 		},
@@ -101,6 +133,7 @@ export const initSlice = createSlice({
 			state.hostSignal = null;
 			state.accountSignal = null;
 			state.filter = null;
+			state.userStatistics = null;
 			state.interests = {
 				food: [],
 				music: [],
@@ -117,13 +150,18 @@ export const {
 	initFailure,
 	initSuccess,
 	initLoadingFalse,
+
 	loginSuccess,
 	logoutSuccess,
 	setInitSignals,
-	setIsAccountCreatedStatus,
-	setUpdatedUserProfile,
+	setUserRequests,
 	setUpdatedFilter,
+	setUserStatistics,
 	setUpdatedInterests,
+	setUpdatedUserProfile,
+	setFilterUserRequestSent,
+	setIsAccountCreatedStatus,
+	setFilterUserRequestReceived,
 	initReset,
 } = initSlice.actions;
 

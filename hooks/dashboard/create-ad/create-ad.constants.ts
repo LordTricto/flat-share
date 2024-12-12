@@ -50,7 +50,7 @@ export type CreateAdForm = {
 	rent_cost: number;
 	payment_frequency: string;
 	rent_contribution: number;
-	monthly_rent_charge: string;
+	monthly_rent_charge: number;
 	house_rules: string[];
 	features: string[];
 	interests: string[];
@@ -80,31 +80,81 @@ export type CreateAdImagesFormResponse = {
 
 export const apartmentTypeOptions: DropdownItem<string>[] = [
 	{
-		text: "Self Contain",
-		value: "self contain",
+		text: "Duplex",
+		value: "Duplex",
 	},
 	{
-		text: "Room and parlor",
-		value: "room and parlor",
+		text: "Flat",
+		value: "Flat",
 	},
 	{
-		text: "Two bed room and parlor",
-		value: "two bed room and parlor",
+		text: "Studio Apartment",
+		value: "Studio Apartment",
 	},
 	{
-		text: "Three bed room and parlor",
-		value: "three bed room and parlor",
+		text: "Commercial Apartment",
+		value: "Commercial Apartment",
 	},
 ];
 
+export const houseRulesOptions = [
+	"No pets",
+	"No smoking",
+	"No drugs",
+	"Respectful noise",
+	"No drama",
+	"No parties",
+	"No kids",
+	"Cleanliness",
+	"No illegal activities",
+	"No late nights",
+	"Respect privacy",
+	"No overnight guests",
+	"No physical fights",
+	"Respect each other",
+];
+export const featuresOptions = [
+	"Newly built",
+	"Furnished",
+	"Serviced",
+	"Prepaid metre",
+	"Ensuite",
+	"Estate",
+	"Gated compound",
+	"Pop",
+	"Running water",
+	"Tilled compound",
+	"Standby generator",
+	"Standby inverter",
+];
+
+export const interestsOptions = [
+	"Cooking",
+	"Sport",
+	"Music",
+	"Gaming",
+	"Drinks & Wine",
+	"Photography",
+	"Movies",
+	"Fashion & style",
+	"Books",
+	"Health",
+	"Gym & fitness",
+	"Technology",
+	"Anime",
+];
 export const paymentFrequencyOptions: DropdownItem<string>[] = [
 	{
 		text: "Annually",
-		value: "annually",
+		value: "Annually",
 	},
 	{
 		text: "Monthly",
-		value: "monthly",
+		value: "Monthly",
+	},
+	{
+		text: "Annually or Monthly",
+		value: "Annually or Monthly",
 	},
 ];
 

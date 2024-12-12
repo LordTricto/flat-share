@@ -18,7 +18,7 @@ export const PasswordRules: {[key in PasswordRuleKey]: PasswordRule} = {
 	[PasswordRuleKey.SPECIAL_CHAR]: {text: "One special character (dash or underscore)", regex: new RegExp(/^(?=.*[-_])[A-Za-z0-9_-]+$/)},
 	[PasswordRuleKey.NUMBER]: {text: "One number", regex: new RegExp("[0-9]")},
 	[PasswordRuleKey.NO_SPACE]: {text: "No Space", regex: new RegExp(/^\S*$/)},
-	[PasswordRuleKey.MIN_LENGTH]: {text: "Minimum 10 characters", regex: new RegExp("[^\\s]{10,}")},
+	[PasswordRuleKey.MIN_LENGTH]: {text: "Minimum 8 characters", regex: new RegExp("[^\\s]{8,}")},
 };
 
 export function isRulePassed(password: string, key: PasswordRuleKey): boolean {

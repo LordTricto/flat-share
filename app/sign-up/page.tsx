@@ -45,8 +45,14 @@ function SignUp() {
 		phone: Yup.string().phone().required(),
 		email: Yup.string().email("Invalid email").required("Required"),
 		password: Yup.string()
-			.password()
-			.matches(/^(?=.*[-_])[A-Za-z0-9_-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
+			// .password()
+			.minLowercase(1, "Password must contain at least 1 lowercase letters")
+			.minSymbols(1, "Password must contain at least 1 symbols")
+			.minNumbers(1, "Password must contain at least 1 numbers")
+			.minUppercase(1, "Password must contain at least 1 upper letters")
+			.min(8, "Password must be at least 8 characters")
+			.matches(/^\S*$/, "Whitespace is not allowed")
+			// .matches(/^[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+$/, "The password may only contain letters, numbers, dashes and underscores.")
 			.required("Required"),
 	});
 

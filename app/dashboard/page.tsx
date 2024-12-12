@@ -22,6 +22,8 @@ const Dashboard = () => {
 	const {data, isFetching, refetch, remove} = useMainInit();
 
 	const user = useSelector((state: IRootState) => state.init.user);
+	const userRequests = useSelector((state: IRootState) => state.init.requests);
+	const userStatistics = useSelector((state: IRootState) => state.init.userStatistics);
 	const isAccountSetup = useSelector((state: IRootState) => state.init.isAccountSetup);
 
 	const [isWelcomeNoteOpen, setIsWelcomeNoteOpen] = useState(true);
@@ -79,7 +81,7 @@ const Dashboard = () => {
 															Total Request sent
 														</p>
 														<span className="text-2xl font-semibold leading-[100%] text-black xs:text-3xl">
-															{data.sent_request.sent_request_no}
+															{userRequests?.sent_request.sent_request_data.length}
 														</span>
 													</div>
 													<div className="flex flex-col gap-3">
@@ -87,7 +89,7 @@ const Dashboard = () => {
 															Available Request
 														</p>
 														<span className="text-2xl font-semibold leading-[100%] text-black xs:text-3xl">
-															{data.user_statistics.available_send_request}
+															{userStatistics?.available_send_request}
 														</span>
 													</div>
 												</div>
@@ -108,8 +110,8 @@ const Dashboard = () => {
 												className={
 													"flex w-full justify-start gap-6 sm:flex-row sm:gap-10 lg:gap-6 xl:flex-row xl:gap-10 " +
 													`${
-														data.received_request.received_request_data.length > 0 &&
-														data.sent_request.sent_request_data.length > 0
+														(userRequests?.received_request.received_request_data.length || 0) > 0 &&
+														(userRequests?.sent_request.sent_request_data.length || 0) > 0
 															? "flex-col lg:flex-col"
 															: ""
 													}`
@@ -119,17 +121,22 @@ const Dashboard = () => {
 													<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">
 														Request received
 													</p>
-													{data.received_request.received_request_data.length > 0 && (
+													{(userRequests?.received_request.received_request_data.length || 0) > 0 && (
 														<div className="flex w-full flex-col gap-3">
-															{data.received_request.received_request_data.map((_request, index) => (
-																<UserRequest key={index} name={_request.fullname} profileImage={_request.photo} />
+															{userRequests?.received_request.received_request_data.map((_request, index) => (
+																<UserRequest
+																	key={index}
+																	name={_request.fullname}
+																	profileImage={_request.photo}
+																	id={_request.codec || ""}
+																/>
 															))}
 														</div>
 													)}
 													{/* <UserRequest name="John Doe sdadadssdadsasd" profileImage={requestAvatarOne} /> */}
 												</div>
-												{data.received_request.received_request_data.length > 0 &&
-													data.sent_request.sent_request_data.length > 0 && (
+												{(userRequests?.received_request.received_request_data.length || 0) > 0 &&
+													(userRequests?.sent_request.sent_request_data.length || 0) > 0 && (
 														<div className="sm:flex-grow lg:flex-grow-0 xl:flex-grow">
 															<div className="flex h-full items-end justify-end">
 																<div className="h-[1px] w-full bg-grey-secondary sm:h-[68px] sm:w-[1px] lg:h-[1px] lg:w-full xl:h-[68px] xl:w-[1px]"></div>
@@ -138,14 +145,16 @@ const Dashboard = () => {
 													)}
 												<div className="flex w-full flex-col gap-3">
 													<p className="text-[10px] uppercase leading-[100%] text-black-quat sm:text-xs">Request sent</p>
-													{data.sent_request.sent_request_data.length > 0 && (
+													{(userRequests?.sent_request.sent_request_data.length || 0) > 0 && (
 														<div className="flex w-full flex-col gap-3">
-															{data.sent_request.sent_request_data.map((_request, index) => (
+															{userRequests?.sent_request.sent_request_data.map((_request, index) => (
 																<UserRequest
+																	id={_request.codec || ""}
 																	key={index}
 																	name={_request.fullname}
 																	profileImage={_request.photo}
-																	isPending
+																	isSentRequest
+																	// isPending
 																/>
 															))}
 														</div>

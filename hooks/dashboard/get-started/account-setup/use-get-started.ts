@@ -22,7 +22,7 @@ function useGetStarted(): UseMutationResult<any, unknown, GetStartedForm, unknow
 			dispatch(setSuccessMessage(data.message));
 			dispatch(initSuccess({filter: data.filter, user: data.user, interests: data.interests}));
 			dispatch(setIsAccountCreatedStatus(true));
-			router.push("/dashboard");
+			router.push(data.user.isHost ? "/dashboard/create-ad" : "/dashboard");
 		},
 		onError(error: AxiosError) {
 			Errorhandler(error);

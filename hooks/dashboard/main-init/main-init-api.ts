@@ -7,6 +7,9 @@ import {MainInitFormResponse} from "./main-init.constants";
 import Notification from "@/models/notification";
 import Parsers from "@/utils/parsers";
 import User from "@/models/user";
+import UserReceivedRequest from "@/models/user-received-request";
+import UserSentRequest from "@/models/user-sent-request";
+import UserStatistics from "@/models/user-statistics";
 import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
 import {makeGetRequestWithSignal} from "@/helpers/request/makeRequest";
 import store from "@/redux/store";
@@ -104,10 +107,10 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 		new_views_no: Parsers.number((res.data as GenericObject).new_views_no),
 		reviews_no: Parsers.number((res.data as GenericObject).reviews_no),
 		new_reviews_no: Parsers.number((res.data as GenericObject).new_reviews_no),
-		sent_request,
-		received_request,
+		sent_request: UserSentRequest.create(sent_request),
+		received_request: UserReceivedRequest.create(received_request),
 		total_request: Parsers.number((res.data as GenericObject).total_request),
-		user_statistics,
+		user_statistics: UserStatistics.create(user_statistics),
 		notification,
 	};
 };

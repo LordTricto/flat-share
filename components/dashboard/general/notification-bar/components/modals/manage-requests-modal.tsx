@@ -14,7 +14,7 @@ interface Props {
 }
 
 function ManageRequestsModal(props: Props) {
-	const housemates = useSelector((state: IRootState) => state.housemates);
+	const userRequests = useSelector((state: IRootState) => state.init.requests);
 
 	return (
 		<>
@@ -25,10 +25,11 @@ function ManageRequestsModal(props: Props) {
 						<div className="flex w-full flex-col items-start justify-start gap-4">
 							<h3 className="text-xs font-medium uppercase text-black-tertiary">Request received</h3>
 							<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
-								{housemates.requests.receivedRequest.length > 0 ? (
-									housemates.requests.receivedRequest.map((_housemate, index) => (
+								{(userRequests?.received_request.received_request_data.length || 0) > 0 ? (
+									userRequests?.received_request.received_request_data.map((_housemate, index) => (
 										<UserRequest
 											key={index}
+											id={_housemate.codec || ""}
 											name={_housemate.fullname}
 											profileImage={_housemate.photo}
 											isHost={_housemate.isHost}
@@ -43,15 +44,16 @@ function ManageRequestsModal(props: Props) {
 						<div className="flex w-full flex-col items-start justify-start gap-4">
 							<h3 className="text-xs font-medium uppercase text-black-tertiary">Request sent</h3>
 							<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
-								{housemates.requests.sentRequest.length > 0 ? (
-									housemates.requests.sentRequest.map((_housemate, index) => (
+								{(userRequests?.sent_request.sent_request_data.length || 0) > 0 ? (
+									userRequests?.sent_request.sent_request_data.map((_housemate, index) => (
 										<UserRequest
 											key={index}
 											name={_housemate.fullname}
+											id={_housemate.codec || ""}
 											profileImage={_housemate.photo}
 											isHost={_housemate.isHost}
 											isFull
-											isPending
+											isSentRequest
 										/>
 									))
 								) : (

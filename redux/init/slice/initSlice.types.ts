@@ -1,5 +1,8 @@
 import Filter from "@/models/filter";
+import Housemate from "@/models/housemate";
 import User from "../../../models/user";
+import UserRequest from "@/models/user-requests";
+import UserStatistics from "@/models/user-statistics";
 
 export type InterestsType = {
 	food: string[];
@@ -28,6 +31,7 @@ export enum HostSignals {
 export interface InitState {
 	user: User | null;
 	filter: Filter | null;
+	requests: UserRequest | null;
 	interests: InterestsType;
 	isLoggedIn: boolean;
 	hostSignal: HostSignals | null;
@@ -35,5 +39,6 @@ export interface InitState {
 	accountSignal: AccountSignals | null;
 	isInitLoading: boolean;
 	isAccountSetup: boolean;
+	userStatistics: UserStatistics | null;
 	isAccountCreated: boolean;
 }

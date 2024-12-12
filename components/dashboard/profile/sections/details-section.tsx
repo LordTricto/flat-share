@@ -19,6 +19,7 @@ import occupationIcon from "@/public/images/dashboard/profile/occupation.svg";
 import phoneIcon from "@/public/images/dashboard/profile/phone.svg";
 import religionIcon from "@/public/images/dashboard/profile/religion.svg";
 import {setErrorMessage} from "@/redux/toast/slice/toast-slice";
+import useDeleteSentRequest from "@/hooks/dashboard/requests/delete-sent-request/use-delete-sent-request";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
 import useSendRequest from "@/hooks/dashboard/requests/send-request/use-send-request";
@@ -41,6 +42,10 @@ function DetailsSection(props: Props) {
 	const [isSendMessageModalOpen, setIsSendMessageModalOpen] = useState<boolean>(false);
 
 	const {mutate, isLoading} = useSendRequest({onComplete: () => setIsRequestSent(true)});
+
+	const {mutate: deleteSentRequestMutate, isLoading: isDeleteSentRequestLoading} = useDeleteSentRequest({
+		onComplete: () => setIsRequestSent(false),
+	});
 
 	const handlePromptToSubscribeForMessages = () => {
 		dispatch(setErrorMessage("Subscribe to send more messages"));
@@ -92,10 +97,21 @@ function DetailsSection(props: Props) {
 									</div>
 								</Button>
 								{isRequestSent ? (
-									<div className="flex h-7 items-center justify-center rounded-md bg-orange-100 px-3">
-										<span className="text-xs font-medium text-orange-500">Request Sent</span>
-									</div>
+									<Button
+										type="button"
+										buttonType="secondary"
+										color="red"
+										size="sm"
+										isLoading={isDeleteSentRequestLoading}
+										onClick={() => props.user.codec && deleteSentRequestMutate({id: props.user.codec})}
+										borderSmall
+									>
+										<span>Delete Request</span>
+									</Button>
 								) : (
+									// <div className="flex h-7 items-center justify-center rounded-md bg-orange-100 px-3">
+									// 	<span className="text-xs font-medium text-orange-500">Request Sent</span>
+									// </div>
 									<Button
 										type="button"
 										buttonType="primary"

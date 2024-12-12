@@ -1,10 +1,11 @@
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {setMultipleHousemates, setReceivedRequests, setSentRequests} from "@/redux/housemates/housemateSlice";
+import {setUserRequests, setUserStatistics} from "@/redux/init/slice/initSlice";
 
 import {AxiosError} from "axios";
 import Errorhandler from "@/helpers/useErrorHandler";
 import {MainInitFormResponse} from "./main-init.constants";
 import {mainInitApi} from "./main-init-api";
+import {setMultipleHousemates} from "@/redux/housemates/housemateSlice";
 import {useDispatch} from "react-redux";
 
 function useMainInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
@@ -22,12 +23,14 @@ function useMainInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any
 			return res;
 		},
 		onSuccess(data: MainInitFormResponse) {
-			dispatch(setMultipleHousemates(data.suggestions));
-			dispatch(setSentRequests({sentRequests: data.sent_request.sent_request_data, sentRequestsNo: data.sent_request.sent_request_no}));
 			dispatch(
-				setReceivedRequests({
-					receivedRequests: data.received_request.received_request_data,
-					receivedRequestsNo: data.received_request.received_request_no,
+				setMultipleHousemates([...data.suggestions, ...data.received_request.received_request_data, ...data.sent_request.sent_request_data])
+			);
+			dispatch(setUserStatistics(data.user_statistics));
+			dispatch(
+				setUserRequests({
+					sent_request: data.sent_request,
+					received_request: data.received_request,
 				})
 			);
 		},

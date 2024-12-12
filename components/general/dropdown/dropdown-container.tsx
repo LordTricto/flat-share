@@ -171,7 +171,7 @@ function DropdownContainer({
 				onMouseEnter={() => !isDisabled && setIsHover(true)}
 				onMouseLeave={() => !isDisabled && setIsHover(false)}
 				className={
-					`relative flex w-full cursor-pointer items-center  rounded-lg bg-white px-4 py-3 shadow-none outline-none transition-all duration-75 focus:outline-none ` +
+					`relative flex w-full cursor-pointer items-center rounded-lg bg-white px-4 py-3 shadow-none outline-none transition-all duration-75 focus:outline-none ` +
 					`text-left text-base font-normal capitalize leading-relaxed text-black-tertiary hover:text-black-secondary focus:text-black-secondary ` +
 					`border border-solid ` +
 					`${active ? "border-black-quat" : ""} ` +
@@ -182,7 +182,7 @@ function DropdownContainer({
 					`${size === "sm" ? "h-8" : ""} ` +
 					`${!customHead ? "space-x-4" : ""} ` +
 					`${customHeadStyle} ` +
-					`${hasValue ? "justify-between" : "justify-end"} `
+					`${hasValue ? "justify-between" : "justify-between"} `
 				}
 				tabIndex={isDisabled ? -1 : 0}
 				onClick={() => {
@@ -226,7 +226,7 @@ function DropdownContainer({
 				{!noArrow && (
 					<div
 						className={
-							`w-max transform items-center justify-end self-end transition-transform duration-150 ` +
+							`ml-auto w-max transform items-center justify-end self-end transition-transform duration-150 ` +
 							`${active ? "-rotate-180" : "rotate-0"} ` +
 							`${isDisabled ? "text-black-quat " : ""} `
 						}

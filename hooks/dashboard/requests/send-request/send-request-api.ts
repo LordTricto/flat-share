@@ -2,6 +2,7 @@ import {SendRequestForm, SendRequestFormResponse} from "./send-request.constants
 
 import {GenericObject} from "@/helpers/types";
 import Parsers from "@/utils/parsers";
+import UserStatistics from "@/models/user-statistics";
 import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
 import {makeRequestWithSignal} from "@/helpers/request/makeRequest";
 
@@ -21,11 +22,6 @@ export const sendRequestApi = async (data: SendRequestForm): Promise<SendRequest
 		success: Parsers.string(res.success),
 		message: Parsers.string(res.message),
 		signal: Parsers.string(res.signal),
-		statistics: {
-			available_receive_request: Parsers.number((res.statistics as GenericObject).available_receive_request),
-			available_send_request: Parsers.number((res.statistics as GenericObject).available_send_request),
-			total_received_request: Parsers.number((res.statistics as GenericObject).total_received_request),
-			total_sent_request: Parsers.number((res.statistics as GenericObject).total_sent_request),
-		},
+		statistics: Parsers.classObjectNonNullable(res.statistics, UserStatistics),
 	};
 };

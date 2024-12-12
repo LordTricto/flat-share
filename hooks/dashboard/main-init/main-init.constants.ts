@@ -4,6 +4,9 @@ import Filter from "@/models/filter";
 import Housemate from "@/models/housemate";
 import Notification from "@/models/notification";
 import User from "@/models/user";
+import UserReceivedRequest from "@/models/user-received-request";
+import UserSentRequest from "@/models/user-sent-request";
+import UserStatistics from "@/models/user-statistics";
 
 export type MainInitForm = {
 	id: string;
@@ -74,21 +77,10 @@ export type MainInitFormResponse = {
 	new_views_no: number;
 	reviews_no: number;
 	new_reviews_no: number;
-	sent_request: {
-		sent_request_no: number;
-		sent_request_data: Housemate[];
-	};
-	received_request: {
-		received_request_no: number;
-		received_request_data: Housemate[];
-	};
+	sent_request: UserSentRequest;
+	received_request: UserReceivedRequest;
 	total_request: number;
-	user_statistics: {
-		total_sent_request: number;
-		total_received_request: number;
-		available_send_request: number;
-		available_receive_request: number;
-	};
+	user_statistics: UserStatistics;
 	notification: {
 		notification_pagination_meta: {
 			current_page: number;

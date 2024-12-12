@@ -1,12 +1,12 @@
 import UserStatistics from "@/models/user-statistics";
 
-export type DeleteSentRequestForm = {
+export type DeclineRequestForm = {
 	id: string;
 };
 
-export type DeleteSentRequestFormResponse = {
+export type DeclineRequestFormResponse = {
 	status: string;
-	signal: string;
 	message: string;
+	signal: string;
 	statistics: UserStatistics;
 };
