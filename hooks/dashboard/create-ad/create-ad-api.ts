@@ -15,7 +15,7 @@ export enum CreateAdSignal {
 
 export const createAdApi = async (data: CreateAdForm): Promise<CreateAdFormResponse> => {
 	const signal = getAbortControllerSignal(CreateAdSignal.CREATE_AD);
-	const res = await makeRequestWithSignal("user/host/update/property", data, signal);
+	const res = await makeRequestWithSignal("user/host/create/ads", data, signal);
 	if (res instanceof Error) {
 		throw res;
 	}
@@ -29,7 +29,7 @@ export const createAdApi = async (data: CreateAdForm): Promise<CreateAdFormRespo
 
 export const createAdImageApi = async (data: CreateAdImagesForm): Promise<CreateAdImagesFormResponse> => {
 	const signal = getAbortControllerSignal(CreateAdSignal.CREATE_AD);
-	const res = await makeRequestWithSignal("user/host/update/property", data, signal);
+	const res = await makeRequestWithSignal("user/host/create/ads", data, signal);
 	if (res instanceof Error) {
 		throw res;
 	}
