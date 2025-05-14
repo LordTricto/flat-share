@@ -1,6 +1,6 @@
 import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {initLoadingFalse, initRequest, initSuccess, setInitSignals, setUserRequests} from "@/redux/init/slice/initSlice";
+import {initLoadingFalse, initRequest, initSuccess, setHostFee, setInitSignals, setUserRequests} from "@/redux/init/slice/initSlice";
 import {usePathname, useRouter} from "next/navigation";
 
 import {AxiosError} from "axios";
@@ -49,6 +49,8 @@ function useInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
 				data.user.isHost &&
 				(data.host_property_signal === HostSignals.NO_PROPERTY || data.host_property_signal === HostSignals.UNPAID_PROPERTY_ADS_FEE)
 			) {
+				dispatch(setHostFee(data.host_fee_raw));
+
 				router.replace("/dashboard/create-ad");
 			}
 

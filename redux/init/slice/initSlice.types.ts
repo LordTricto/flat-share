@@ -31,6 +31,7 @@ export enum HostSignals {
 export interface InitState {
 	user: User | null;
 	filter: Filter | null;
+	hostFee: number | null;
 	requests: UserRequest | null;
 	interests: InterestsType;
 	isLoggedIn: boolean;

@@ -14,6 +14,7 @@ const initialState: InitState = {
 	isInitLoading: false,
 	isAccountCreated: false,
 	isAccountSetup: false,
+	hostFee: null,
 	hostSignal: null,
 	accountSignal: null,
 	userStatistics: null,
@@ -57,6 +58,9 @@ export const initSlice = createSlice({
 			state.accountSignal = action.payload.accountSignal;
 			state.isAccountSetup =
 				action.payload.accountSignal === null ? false : !!(action.payload.accountSignal !== AccountSignals.SETUP_UNCOMPLETED);
+		},
+		setHostFee: (state: InitState, action: PayloadAction<number>) => {
+			state.hostFee = action.payload;
 		},
 
 		initLoadingFalse: (state: InitState) => {
@@ -131,6 +135,7 @@ export const initSlice = createSlice({
 			state.isInitLoading = false;
 			state.user = null;
 			state.hostSignal = null;
+			state.hostFee = null;
 			state.accountSignal = null;
 			state.filter = null;
 			state.userStatistics = null;
@@ -151,6 +156,7 @@ export const {
 	initSuccess,
 	initLoadingFalse,
 
+	setHostFee,
 	loginSuccess,
 	logoutSuccess,
 	setInitSignals,
