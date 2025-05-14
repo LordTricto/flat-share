@@ -59,7 +59,6 @@ function CreateAd() {
 		onClose: handlePaystackCloseAction,
 	};
 
-	console.log(config);
 	return (
 		<>
 			{!hasPaid && (
