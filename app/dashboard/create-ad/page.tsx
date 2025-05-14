@@ -2,7 +2,6 @@
 
 import {useEffect, useState} from "react";
 
-import Button from "@/components/general/button/button";
 import {CreateAdStage} from "@/hooks/dashboard/create-ad/create-ad.constants";
 import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
 import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
@@ -11,12 +10,15 @@ import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import Modal from "@/components/general/modals/modal";
 import ModalBody from "@/components/general/modals/modal-body";
-import {PaystackButton} from "react-paystack";
-// import NotificationBar from "@/components/dashboard/general/notification-bar/notification-bar";
 import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welcome-card";
 import becomeHost from "@/public/images/dashboard/create-ad/become-a-host.svg";
+import dynamic from "next/dynamic";
 import mark from "@/public/images/dashboard/create-ad/mark.svg";
 import {useSelector} from "react-redux";
+
+const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.PaystackButton), {
+	ssr: false,
+});
 
 function CreateAd() {
 	const user = useSelector((state: IRootState) => state.init.user);
