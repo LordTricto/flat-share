@@ -149,7 +149,7 @@ function CreateAd() {
 									</div>
 									<p className="text-center text-base text-black-tertiary">Complete your account by creating an apartment ad.</p>
 								</div>
-								<CreateAdStageOne handleNextStage={() => router.push("/")} />
+								<CreateAdStageOne handleNextStage={() => router.push("/dashboard")} />
 								{/* {createAdStage === CreateAdStage.STAGE_ONE && (
 									<>
 										<CreateAdStageTwo />
