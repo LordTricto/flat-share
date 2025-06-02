@@ -10,35 +10,27 @@ import {
 	interestsOptions,
 	paymentFrequencyOptions,
 } from "@/hooks/dashboard/create-ad/create-ad.constants";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 
-import {AxiosError} from "axios";
 import Button from "@/components/general/button/button";
 import CircularProgress from "@/components/dashboard/general/circular-progressbar";
 import {CreateAdForm} from "@/hooks/dashboard/create-ad/create-ad.constants";
 import Dropdown from "@/components/general/dropdown/dropdown";
-import Errorhandler from "@/helpers/useErrorHandler";
 import FormInput from "@/components/general/inputs/form-input";
 import FormTextArea from "@/components/general/text-area/form-text-area";
 import {FormikProps} from "formik";
-import ImageUpload from "../../general/cards/image-upload/image-upload";
 import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
 import Tag from "../tags/tag";
-import {createAdImageApi} from "@/hooks/dashboard/create-ad/create-ad-api";
 import formikHasError from "@/helpers/formikHasError";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-import {setErrorMessage} from "@/redux/toast/slice/toast-slice";
 import useCreateAd from "@/hooks/dashboard/create-ad/use-create-ad";
-import {useDispatch} from "react-redux";
 
 interface Props {
 	handleNextStage: () => void;
 }
 function CreateAdStageOne(props: Props) {
-	const dispatch = useDispatch();
-
-	const {isSuccess, mutate} = useCreateAd();
+	const {data, isSuccess, mutate} = useCreateAd();
 	const formikRef = useRef<FormikProps<CreateAdForm> | null>(null);
 
 	const initialFormState: CreateAdForm = {
@@ -58,7 +50,6 @@ function CreateAdStageOne(props: Props) {
 		house_state: "",
 		house_street_address: "",
 		monthly_rent_charge: 0,
-		apartment_images: [],
 	};
 
 	const formValidation = Yup.object().shape({
@@ -77,26 +68,6 @@ function CreateAdStageOne(props: Props) {
 		house_rules: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
 		interests: Yup.array().of(Yup.string().required("Required")).min(1).max(5).required("Required"),
 		features: Yup.array().of(Yup.string().required("Required")).min(1).max(3).required("Required"),
-		apartment_images: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
-		description: Yup.string(),
-	});
-
-	const [isLoading, setIsLoading] = useState(false);
-
-	const [selectedTestImages, setSelectedTestImages] = useState<{
-		image_1: {image: string; file: File | null};
-		image_2: {image: string; file: File | null};
-		image_3: {image: string; file: File | null};
-		image_4: {image: string; file: File | null};
-		image_5: {image: string; file: File | null};
-		image_6: {image: string; file: File | null};
-	}>({
-		image_1: {image: "", file: null},
-		image_2: {image: "", file: null},
-		image_3: {image: "", file: null},
-		image_4: {image: "", file: null},
-		image_5: {image: "", file: null},
-		image_6: {image: "", file: null},
 	});
 
 	useEffect(() => {
@@ -111,24 +82,9 @@ function CreateAdStageOne(props: Props) {
 				initialValues={initialFormState}
 				innerRef={formikRef}
 				validationSchema={formValidation}
-				onSubmit={async (value) => {
-					const uploadList = value.apartment_images.map(async (item, index) => {
-						return await createAdImageApi({
-							image_id: index + 1,
-							property_image: item,
-						});
-					});
-
-					try {
-						setIsLoading(true);
-						const res = await Promise.all(uploadList);
-						mutate(value);
-						setIsLoading(false);
-					} catch (error) {
-						setIsLoading(false);
-						Errorhandler(error as AxiosError);
-						console.error("One or more uploads failed", error);
-					}
+				onSubmit={(value) => {
+					// handleForgotPassword.mutate(value)
+					mutate(value);
 				}}
 				enableReinitialize={true}
 				validateOnChange
@@ -418,102 +374,17 @@ function CreateAdStageOne(props: Props) {
 											))}
 									</div>
 								</div>
-								<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
-									<div className="flex flex-col gap-5">
-										<div className="flex flex-col gap-3">
-											<h3 className="text-base font-medium leading-[100%] text-black-secondary">Apartment Image</h3>
-											<div className="grid w-full grid-cols-[repeat(auto-fit,minmax(135px,1fr))] gap-4 md:grid-cols-[repeat(auto-fit,minmax(135px,135px))]">
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_1: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-														// .setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_1.image}
-												/>
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_2: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-
-														// formik
-														// 	.getFieldHelpers("apartment_images")
-														// 	.setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_2.image}
-												/>
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_3: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-
-														// formik
-														// 	.getFieldHelpers("apartment_images")
-														// 	.setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_3.image}
-												/>
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_4: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-
-														// formik
-														// 	.getFieldHelpers("apartment_images")
-														// 	.setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_4.image}
-												/>
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_5: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-
-														// formik
-														// 	.getFieldHelpers("apartment_images")
-														// 	.setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_5.image}
-												/>
-												<ImageUpload
-													handleSelectImage={(_value, _file) => {
-														setSelectedTestImages((prev) => ({...prev, image_6: {image: _value, file: _file}}));
-														formik
-															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
-
-														// formik
-														// 	.getFieldHelpers("apartment_images")
-														// 	.setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
-													}}
-													image={selectedTestImages.image_6.image}
-												/>
-											</div>
-										</div>
-										{/* <FormTextArea label="Description (Optional)" name="description" textSize="md" /> */}
-									</div>
-								</div>
 							</div>
 							<Button
 								type="submit"
-								color="blue"
 								buttonType="primary"
-								isLoading={isLoading}
+								color="blue"
+								// isLoading={handleForgotPassword.isLoading}
 								isDisabled={formikHasError(formik.errors)}
 								fullWidth
 								borderFull
 							>
-								<span>Post Ad!</span>
+								<span>Continue</span>
 							</Button>
 						</Form>
 					);

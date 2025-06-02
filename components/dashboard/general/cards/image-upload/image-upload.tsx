@@ -10,7 +10,7 @@ import reloadIcon from "@/public/images/dashboard/general/reload.svg";
 interface Props {
 	image: string | StaticImageData;
 	isImageOnly?: boolean;
-	handleSelectImage?: (_image: string) => void;
+	handleSelectImage?: (_image: string, file: File) => void;
 }
 
 function ImageUpload(props: Props) {
@@ -21,7 +21,7 @@ function ImageUpload(props: Props) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 				const imagePath = e.target?.result;
-				props.handleSelectImage && props.handleSelectImage(imagePath as string);
+				props.handleSelectImage && props.handleSelectImage(imagePath as string, file);
 			};
 			reader.readAsDataURL(file);
 		}

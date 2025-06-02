@@ -2,9 +2,12 @@
 
 import {useEffect, useState} from "react";
 
-import {CreateAdStage} from "@/hooks/dashboard/create-ad/create-ad.constants";
+import Button from "@/components/general/button/button";
+import {ClipLoader} from "react-spinners";
 import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
-import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
+// import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
+// import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
+// import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
 import {HostSignals} from "@/redux/init/slice/initSlice.types";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
@@ -14,6 +17,8 @@ import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welco
 import becomeHost from "@/public/images/dashboard/create-ad/become-a-host.svg";
 import dynamic from "next/dynamic";
 import mark from "@/public/images/dashboard/create-ad/mark.svg";
+import useCreateAdPayment from "@/hooks/dashboard/create-ad/use-create-ad-payment";
+import {useRouter} from "next/navigation";
 import {useSelector} from "react-redux";
 
 const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.PaystackButton), {
@@ -21,26 +26,32 @@ const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.Pays
 });
 
 function CreateAd() {
+	const router = useRouter();
+
 	const user = useSelector((state: IRootState) => state.init.user);
 	const hostFee = useSelector((state: IRootState) => state.init.hostFee);
 	const hostSignal = useSelector((state: IRootState) => state.init.hostSignal);
 
+	const [hasPaid, setHasPaid] = useState(false);
+	const [isVerifying, setIsVerifying] = useState(false);
 	const [isWelcomeNoteOpen, setIsWelcomeNoteOpen] = useState(true);
-	const [createAdStage, setCreateAdStage] = useState(CreateAdStage.STAGE_ONE);
-	const [hasPaid, setHasPaid] = useState(hostSignal !== HostSignals.UNPAID_PROPERTY_ADS_FEE);
 
 	useEffect(() => {
-		setHasPaid(hostSignal !== HostSignals.UNPAID_PROPERTY_ADS_FEE);
+		if (hostSignal) {
+			setHasPaid(hostSignal !== HostSignals.UNPAID_PROPERTY_ADS_FEE);
+		}
 	}, [hostSignal]);
 
 	const handlePaystackSuccessAction = (reference: any) => {
 		// Implementation for whatever you want to do with reference and after success call.
-		console.log(reference);
+		setIsVerifying(true);
+		mutate({amount: hostFee || 0, transaction_reference: reference.reference as string});
 	};
 
 	// you can call this function anything
 	const handlePaystackCloseAction = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
+		// setIsVerifying(false)
 		console.log("closed");
 	};
 
@@ -59,6 +70,12 @@ function CreateAd() {
 		onClose: handlePaystackCloseAction,
 	};
 
+	const {mutate, isLoading} = useCreateAdPayment({
+		onComplete: () => {
+			setHasPaid(true);
+			setIsVerifying(false);
+		},
+	});
 	return (
 		<>
 			{!hasPaid && (
@@ -98,13 +115,16 @@ function CreateAd() {
 									</p>
 								</div>
 							</div>
-							{/* <Button color="blue" buttonType="primary" fullWidth borderFull>
-								Pay & Continue
-							</Button> */}
-							<PaystackButton
-								className="h-12 w-full rounded-full bg-blue px-8 font-medium text-white hover:bg-blue-hover"
-								{...componentProps}
-							/>
+							{isVerifying ? (
+								<Button color="blue" buttonType="primary" isLoading={isLoading} fullWidth borderFull>
+									Pay & Continue
+								</Button>
+							) : (
+								<PaystackButton
+									className="h-12 w-full rounded-full bg-blue px-8 font-medium text-white hover:bg-blue-hover"
+									{...componentProps}
+								/>
+							)}
 						</div>
 					</ModalBody>
 				</Modal>
@@ -129,10 +149,17 @@ function CreateAd() {
 									</div>
 									<p className="text-center text-base text-black-tertiary">Complete your account by creating an apartment ad.</p>
 								</div>
-								{createAdStage === CreateAdStage.STAGE_ONE && (
-									<CreateAdStageOne handleNextStage={() => setCreateAdStage(CreateAdStage.STAGE_TWO)} />
-								)}
+								<CreateAdStageOne handleNextStage={() => router.push("/")} />
+								{/* {createAdStage === CreateAdStage.STAGE_ONE && (
+									<>
+										<CreateAdStageTwo />
+										<CreateAdStageOne handleNextStage={() => setCreateAdStage(CreateAdStage.STAGE_TWO)} />
+										<CreateAdStageTwo />
+									</>
+								)} 
+								 
 								{createAdStage === CreateAdStage.STAGE_TWO && <CreateAdStageTwo />}
+								 */}
 							</div>
 						</div>
 					</div>

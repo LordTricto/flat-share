@@ -1,11 +1,13 @@
 "use client";
 
 import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
 
 import AccountDropdown from "@/components/dashboard/layout/account-dropdown";
 import Button from "@/components/general/button/button";
 import Cancel from "@/components/jsx-icons/cancel";
 import HamburgerOpen from "@/components/jsx-icons/hamburger-open";
+import {HostSignals} from "@/redux/init/slice/initSlice.types";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,9 +34,7 @@ import settingsActive from "@/public/images/dashboard/sections/settings/settings
 import settingsInActive from "@/public/images/dashboard/sections/settings/settings-inactive.png";
 import useDimension from "@/helpers/useDimension";
 import useInit from "@/hooks/dashboard/init/use-init";
-import {usePathname} from "next/navigation";
 import {useSelector} from "react-redux";
-import { HostSignals } from "@/redux/init/slice/initSlice.types";
 
 const myFont = localFont({
 	src: [
@@ -64,10 +64,12 @@ const dashboardFont = localFont({
 
 export default function DashboardLayout({children}: {children: React.ReactNode}) {
 	// const {initPing} = usePing();
+
 	const {isFetching, refetch} = useInit();
 	const {width} = useDimension();
 	const pathname = usePathname();
-	
+	const router = useRouter();
+
 	const isHost = useSelector((state: IRootState) => state.init.user?.isHost);
 	const isGuest = useSelector((state: IRootState) => state.init.user?.isGuest);
 	const hostSignal = useSelector((state: IRootState) => state.init.hostSignal);
@@ -76,13 +78,30 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 	const [showNav, setShowNav] = useState<boolean>(false);
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 
-	const showOnlyOverview = isGuest || (isHost && (hostSignal === HostSignals.NO_PROPERTY|| hostSignal === HostSignals.UNPAID_PROPERTY_ADS_FEE))
+	const showOnlyOverview = isGuest || (isHost && (hostSignal === HostSignals.NO_PROPERTY || hostSignal === HostSignals.UNPAID_PROPERTY_ADS_FEE));
 
 	useLayoutEffect(() => {
 		// initPing();
 		if (isLoggedIn) refetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoggedIn]);
+
+	useLayoutEffect(() => {
+		// initPing();
+		if (pathname.includes("create-ad")) refetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pathname]);
+
+	useLayoutEffect(() => {
+		if (isHost === undefined || hostSignal === undefined) return;
+		if (
+			isHost &&
+			!(hostSignal === HostSignals.NO_PROPERTY || hostSignal === HostSignals.UNPAID_PROPERTY_ADS_FEE) &&
+			pathname.includes("create-ad")
+		) {
+			router.push("/dashboard");
+		}
+	}, [hostSignal, isHost, pathname, router]);
 
 	useEffect(() => {
 		setShowNav(false);

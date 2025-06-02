@@ -58,16 +58,17 @@ export type CreateAdForm = {
 	house_city: string;
 	house_street_address: string;
 	description: string;
+	apartment_images: string[];
 };
 
 export type CreateAdFormResponse = {
 	status: string;
 	message: string;
-	data: User;
+	data: User | null;
 };
 export type CreateAdImagesForm = {
-	apartment_images: string[];
-	description: string;
+	image_id: number;
+	property_image: string;
 };
 export type CreateAdImagesFormResponse = {
 	status: string;
@@ -75,6 +76,21 @@ export type CreateAdImagesFormResponse = {
 	data: {
 		property_image_thumb_url: string;
 		property_image_url: string;
+	};
+};
+
+export type CreateAdPaymentForm = {
+	transaction_reference: string;
+	amount: number;
+};
+
+export type CreateAdPaymentFormResponse = {
+	status: string;
+	message: string;
+	data: {
+		amount: string;
+		payment_method: string;
+		purchase_date: string;
 	};
 };
 
