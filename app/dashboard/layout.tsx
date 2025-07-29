@@ -24,6 +24,8 @@ import localFont from "next/font/local";
 import logoIcon from "@/public/images/logo.svg";
 import messagingActive from "@/public/images/dashboard/sections/messaging/messaging-active.png";
 import messagingInActive from "@/public/images/dashboard/sections/messaging/messaging-inactive.png";
+import myAdActive from "@/public/images/dashboard/sections/my-ad/my-ad-active.svg";
+import myAdInActive from "@/public/images/dashboard/sections/my-ad/my-ad-inactive.svg";
 import overviewActive from "@/public/images/dashboard/sections/overview/overview-active.png";
 import overviewInActive from "@/public/images/dashboard/sections/overview/overview-inactive.png";
 import paymentsActive from "@/public/images/dashboard/sections/payments/payments-active.png";
@@ -214,6 +216,16 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 												iconInActive={profileInActive}
 												text="Profile"
 											/>
+
+											{isHost && (
+												<MenuItem
+													onClick={handleOpenNav}
+													path="/dashboard/my-ad"
+													iconActive={myAdActive}
+													iconInActive={myAdInActive}
+													text="My Ad"
+												/>
+											)}
 
 											<MenuItem
 												onClick={handleOpenNav}

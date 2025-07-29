@@ -70,7 +70,7 @@ function MenuItem({onClick, path, iconActive, iconInActive, text, optionalPath, 
 						<Image
 							src={iconActive}
 							alt="icon-active"
-							className={`absolute left-0 top-0 `}
+							className={`absolute left-0 top-0 max-w-[24px] `}
 							// className={`absolute left-0 top-0 transition-opacity duration-150 ${isHover ? "opacity-100" : "opacity-0"} `}
 							width={24}
 							height={24}
@@ -79,7 +79,7 @@ function MenuItem({onClick, path, iconActive, iconInActive, text, optionalPath, 
 						<Image
 							src={iconInActive}
 							alt="icon-inactive"
-							className={`absolute left-0 top-0 z-10 transition-opacity duration-150 ${
+							className={`absolute left-0 top-0 z-10 max-w-[24px] transition-opacity duration-150 ${
 								isHover || active ? "opacity-0" : "opacity-100"
 							} `}
 							width={24}
