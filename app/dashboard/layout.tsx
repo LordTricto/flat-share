@@ -223,6 +223,7 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
 													path="/dashboard/my-ad"
 													iconActive={myAdActive}
 													iconInActive={myAdInActive}
+													isIconSmall
 													text="My Ad"
 												/>
 											)}

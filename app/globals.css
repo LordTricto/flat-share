@@ -128,3 +128,24 @@ input[type="number"] {
 .caption {
 	display: none !important;
 }
+
+.swiper-slide {
+	max-width: max-content;
+}
+.slick-slider {
+	height: 100%;
+}
+.slick-track {
+	display: flex;
+}
+.slick-dots {
+	bottom: 0 !important;
+}
+.slick-arrow.slick-prev {
+	left: 24px !important;
+	z-index: 1;
+}
+
+.slick-arrow.slick-next {
+	right: 24px !important;
+}

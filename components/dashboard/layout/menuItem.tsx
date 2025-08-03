@@ -13,6 +13,7 @@ interface Props {
 	path: string;
 	iconActive: StaticImageData;
 	iconInActive: StaticImageData;
+	isIconSmall?: boolean;
 	isPreRelease?: boolean;
 	includesPath?: boolean;
 	optionalPath?: string;
@@ -20,7 +21,17 @@ interface Props {
 	onClick(e: React.MouseEvent): void;
 }
 
-function MenuItem({onClick, path, iconActive, iconInActive, text, optionalPath, includesPath, isPreRelease = false}: Props): JSX.Element {
+function MenuItem({
+	onClick,
+	path,
+	iconActive,
+	iconInActive,
+	text,
+	isIconSmall,
+	optionalPath,
+	includesPath,
+	isPreRelease = false,
+}: Props): JSX.Element {
 	const pathname = usePathname();
 
 	const [active, setActive] = useState(false);
@@ -66,14 +77,14 @@ function MenuItem({onClick, path, iconActive, iconInActive, text, optionalPath, 
 					data-type="section"
 					tabIndex={-1}
 				>
-					<div className="relative flex h-6 w-6 items-center justify-center">
+					<div className={"relative flex items-center justify-center " + `${isIconSmall ? "h-5 w-5" : " h-6 w-6"}`}>
 						<Image
 							src={iconActive}
 							alt="icon-active"
 							className={`absolute left-0 top-0 max-w-[24px] `}
 							// className={`absolute left-0 top-0 transition-opacity duration-150 ${isHover ? "opacity-100" : "opacity-0"} `}
-							width={24}
-							height={24}
+							width={isIconSmall ? 20 : 24}
+							height={isIconSmall ? 20 : 24}
 							tabIndex={-1}
 						/>
 						<Image
@@ -82,8 +93,8 @@ function MenuItem({onClick, path, iconActive, iconInActive, text, optionalPath, 
 							className={`absolute left-0 top-0 z-10 max-w-[24px] transition-opacity duration-150 ${
 								isHover || active ? "opacity-0" : "opacity-100"
 							} `}
-							width={24}
-							height={24}
+							width={isIconSmall ? 20 : 24}
+							height={isIconSmall ? 20 : 24}
 							tabIndex={-1}
 						/>
 					</div>

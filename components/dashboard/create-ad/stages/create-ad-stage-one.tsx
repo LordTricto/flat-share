@@ -24,41 +24,40 @@ import {FormikProps} from "formik";
 import ImageUpload from "../../general/cards/image-upload/image-upload";
 import Input from "@/components/general/inputs/input";
 import MoneyInput from "@/components/general/inputs/money-input";
+import {MyADResponse} from "@/hooks/dashboard/my-ad/my-ad.constants";
 import Tag from "../tags/tag";
 import {createAdImageApi} from "@/hooks/dashboard/create-ad/create-ad-api";
 import formikHasError from "@/helpers/formikHasError";
 import {moneyToNumber} from "@/helpers/useMoneyToNumber";
-import {setErrorMessage} from "@/redux/toast/slice/toast-slice";
 import useCreateAd from "@/hooks/dashboard/create-ad/use-create-ad";
-import {useDispatch} from "react-redux";
 
 interface Props {
 	handleNextStage: () => void;
+	handleCancel?: () => void;
+	data?: MyADResponse;
 }
 function CreateAdStageOne(props: Props) {
-	const dispatch = useDispatch();
-
 	const {isSuccess, mutate} = useCreateAd();
 	const formikRef = useRef<FormikProps<CreateAdForm> | null>(null);
 
 	const initialFormState: CreateAdForm = {
-		apartment_type: "",
-		rooms_no: 0,
-		bathrooms_no: 0,
-		toilets_no: 0,
-		rent_cost: 0,
-		payment_frequency: "",
-		rent_contribution: 0,
-		// preferred_gender: "",
-		house_rules: [],
-		interests: [],
-		features: [],
-		description: "",
-		house_city: "",
-		house_state: "",
-		house_street_address: "",
-		monthly_rent_charge: 0,
-		apartment_images: [],
+		apartment_type: props.data?.apartment_type || "",
+		rooms_no: props.data?.rooms_no || 0,
+		bathrooms_no: props.data?.bathrooms_no || 0,
+		toilets_no: props.data?.toilets_no || 0,
+		rent_cost: !isNaN(Number(props.data?.rent_cost)) ? Number(props.data?.rent_cost) : 0 || 0,
+		payment_frequency: props.data?.payment_frequency || "",
+		rent_contribution: !isNaN(Number(props.data?.rent_contribution)) ? Number(props.data?.rent_contribution) : 0 || 0,
+		// preferred_gender props.data?.preferred_gender: ""||: "",
+		house_rules: props.data?.house_rules || [],
+		interests: props.data?.interests || [],
+		features: props.data?.features || [],
+		description: props.data?.description || "",
+		house_city: props.data?.house_city || "",
+		house_state: props.data?.house_state || "",
+		house_street_address: props.data?.house_street_address || "",
+		monthly_rent_charge: !isNaN(Number(props.data?.monthly_rent_charge)) ? Number(props.data?.monthly_rent_charge) : 0 || 0,
+		apartment_images: props.data?.property_images.map((_) => _.property_image) || ["", "", "", "", "", ""],
 	};
 
 	const formValidation = Yup.object().shape({
@@ -77,7 +76,11 @@ function CreateAdStageOne(props: Props) {
 		house_rules: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
 		interests: Yup.array().of(Yup.string().required("Required")).min(1).max(5).required("Required"),
 		features: Yup.array().of(Yup.string().required("Required")).min(1).max(3).required("Required"),
-		apartment_images: Yup.array().of(Yup.string().required("Required")).min(3).required("Required"),
+		apartment_images: Yup.array().min(6).of(Yup.string().required("Required")).min(3).required("Required"),
+		// apartment_images: Yup.array().of(
+		// Yup.object().shape({
+		// 	image:Yup.string().required("Required")).min(3).required("Required"),
+		// })
 		description: Yup.string(),
 	});
 
@@ -91,12 +94,12 @@ function CreateAdStageOne(props: Props) {
 		image_5: {image: string; file: File | null};
 		image_6: {image: string; file: File | null};
 	}>({
-		image_1: {image: "", file: null},
-		image_2: {image: "", file: null},
-		image_3: {image: "", file: null},
-		image_4: {image: "", file: null},
-		image_5: {image: "", file: null},
-		image_6: {image: "", file: null},
+		image_1: {image: props.data?.property_images[0].property_image || "", file: null},
+		image_2: {image: props.data?.property_images[1].property_image || "", file: null},
+		image_3: {image: props.data?.property_images[2].property_image || "", file: null},
+		image_4: {image: props.data?.property_images[3].property_image || "", file: null},
+		image_5: {image: props.data?.property_images[4].property_image || "", file: null},
+		image_6: {image: props.data?.property_images[5].property_image || "", file: null},
 	});
 
 	useEffect(() => {
@@ -121,13 +124,12 @@ function CreateAdStageOne(props: Props) {
 
 					try {
 						setIsLoading(true);
-						const res = await Promise.all(uploadList);
+						await Promise.all(uploadList);
 						mutate(value);
 						setIsLoading(false);
 					} catch (error) {
 						setIsLoading(false);
 						Errorhandler(error as AxiosError);
-						console.error("One or more uploads failed", error);
 					}
 				}}
 				enableReinitialize={true}
@@ -135,6 +137,7 @@ function CreateAdStageOne(props: Props) {
 				validateOnMount
 			>
 				{(formik) => {
+					console.log(formik.values.apartment_images);
 					return (
 						<Form className="flex h-fit w-full flex-col items-start justify-start gap-8">
 							<div className="flex w-full flex-col divide-y divide-grey-secondary [&>*:not(:first-child)]:pt-6 [&>*:not(:last-child)]:pb-6">
@@ -428,7 +431,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_1: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 0 ? _value : _)));
 														// .setValue([...Object.values(selectedTestImages).filter((_el) => _el.image !== ""), _value]);
 													}}
 													image={selectedTestImages.image_1.image}
@@ -438,7 +441,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_2: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 1 ? _value : _)));
 
 														// formik
 														// 	.getFieldHelpers("apartment_images")
@@ -451,7 +454,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_3: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 2 ? _value : _)));
 
 														// formik
 														// 	.getFieldHelpers("apartment_images")
@@ -464,7 +467,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_4: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 3 ? _value : _)));
 
 														// formik
 														// 	.getFieldHelpers("apartment_images")
@@ -477,7 +480,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_5: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 4 ? _value : _)));
 
 														// formik
 														// 	.getFieldHelpers("apartment_images")
@@ -490,7 +493,7 @@ function CreateAdStageOne(props: Props) {
 														setSelectedTestImages((prev) => ({...prev, image_6: {image: _value, file: _file}}));
 														formik
 															.getFieldHelpers("apartment_images")
-															.setValue([...formik.values.apartment_images, _value]);
+															.setValue(formik.values.apartment_images.map((_, i) => (i === 5 ? _value : _)));
 
 														// formik
 														// 	.getFieldHelpers("apartment_images")
@@ -504,17 +507,24 @@ function CreateAdStageOne(props: Props) {
 									</div>
 								</div>
 							</div>
-							<Button
-								type="submit"
-								color="blue"
-								buttonType="primary"
-								isLoading={isLoading}
-								isDisabled={formikHasError(formik.errors)}
-								fullWidth
-								borderFull
-							>
-								<span>Post Ad!</span>
-							</Button>
+							<div className="flex w-full flex-col gap-4">
+								<Button
+									type="submit"
+									color="blue"
+									buttonType="primary"
+									isLoading={isLoading}
+									isDisabled={formikHasError(formik.errors)}
+									fullWidth
+									borderFull
+								>
+									<span>Post Ad!</span>
+								</Button>
+								{props.data && (
+									<Button color="grey" buttonType="secondary" onClick={props.handleCancel} fullWidth borderFull>
+										<span>Cancel</span>
+									</Button>
+								)}
+							</div>
 						</Form>
 					);
 				}}
