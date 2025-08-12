@@ -73,8 +73,8 @@ const UserProfile = (props: Props) => {
 											</div>
 											<div className="absolute left-0 top-0 h-full w-full overflow-hidden bg-grey-backdrop " tabIndex={-1}>
 												<Slider {...SliderSettings}>
-													{data.property_images.map((_) => (
-														<div className="w-full">
+													{data.property_images.map((_, i) => (
+														<div key={i} className="w-full">
 															<div className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
 																<Image
 																	src={_.property_image}
