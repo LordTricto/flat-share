@@ -57,6 +57,7 @@ const UserProfile = (props: Props) => {
 			setCurrentSlideIndex(index); // Update the state with the new active index
 		},
 	};
+
 	return (
 		<>
 			<div className="grid h-full w-full">
@@ -69,7 +70,9 @@ const UserProfile = (props: Props) => {
 										<div className="relative block w-full max-w-[60%]">
 											<div className="absolute bottom-4 right-4 z-10 flex items-center justify-center gap-1 rounded-full bg-white px-3.5 py-1">
 												<Image src={ImageTagIcon} alt="bedroom" width={16} height={16} tabIndex={-1} />
-												<p className="text-sm font-semibold text-black">{currentSlideIndex + 1}/3</p>
+												<p className="text-sm font-semibold text-black">
+													{currentSlideIndex + 1}/{data.property_images.length}
+												</p>
 											</div>
 											<div className="absolute left-0 top-0 h-full w-full overflow-hidden bg-grey-backdrop " tabIndex={-1}>
 												<Slider {...SliderSettings}>
@@ -90,10 +93,10 @@ const UserProfile = (props: Props) => {
 											</div>
 										</div>
 										<div className="grid h-max w-full max-w-[40%] grid-cols-2 gap-4">
-											{data.property_images.slice(4).map((_, i) => (
+											{data?.property_images.slice(data?.property_images.length - 4).map((_, i) => (
 												<div key={i} className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
 													<Image
-														src={_.property_image_thumb}
+														src={_.property_image}
 														alt={_.image_id || ""}
 														tabIndex={-1}
 														className="absolute left-0 top-0 z-10 h-full w-full object-cover"
