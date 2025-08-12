@@ -55,7 +55,6 @@ const UserProfile = (props: Props) => {
 		pauseOnHover: true,
 		afterChange: (index: number) => {
 			setCurrentSlideIndex(index); // Update the state with the new active index
-			console.log("Current active slide index:", index);
 		},
 	};
 	return (
@@ -74,56 +73,34 @@ const UserProfile = (props: Props) => {
 											</div>
 											<div className="absolute left-0 top-0 h-full w-full overflow-hidden bg-grey-backdrop " tabIndex={-1}>
 												<Slider {...SliderSettings}>
-													<div className="w-full">
-														<div className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
-															<Image
-																src={House1}
-																alt="bedroom"
-																tabIndex={-1}
-																className="absolute left-0 top-0 z-10 h-full w-full object-cover"
-																fill
-															/>
+													{data.property_images.map((_) => (
+														<div className="w-full">
+															<div className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
+																<Image
+																	src={_.property_image}
+																	alt="bedroom"
+																	tabIndex={-1}
+																	className="absolute left-0 top-0 z-10 h-full w-full object-cover"
+																	fill
+																/>
+															</div>
 														</div>
-													</div>
-													<div className="w-full">
-														<div className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
-															<Image
-																src={House1}
-																alt="bedroom"
-																tabIndex={-1}
-																className="absolute left-0 top-0 z-10 h-full w-full object-cover"
-																fill
-															/>
-														</div>
-													</div>
-													<div className="w-full">
-														<div className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
-															<Image
-																src={House1}
-																alt="bedroom"
-																tabIndex={-1}
-																className="absolute left-0 top-0 z-10 h-full w-full object-cover"
-																fill
-															/>
-														</div>
-													</div>
+													))}
 												</Slider>
 											</div>
 										</div>
 										<div className="grid h-max w-full max-w-[40%] grid-cols-2 gap-4">
-											{Array(4)
-												.fill(4)
-												.map((_, i) => (
-													<div key={i} className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
-														<Image
-															src={House2}
-															alt={_ || ""}
-															tabIndex={-1}
-															className="absolute left-0 top-0 z-10 h-full w-full object-cover"
-															fill
-														/>
-													</div>
-												))}
+											{data.property_images.slice(-4).map((_, i) => (
+												<div key={i} className="relative flex h-0 w-full flex-col gap-4 overflow-hidden pb-[62.5%]">
+													<Image
+														src={_.property_image_thumb}
+														alt={_.image_id || ""}
+														tabIndex={-1}
+														className="absolute left-0 top-0 z-10 h-full w-full object-cover"
+														fill
+													/>
+												</div>
+											))}
 										</div>
 									</div>
 									<div className="flex w-full flex-col items-start justify-start gap-4">
