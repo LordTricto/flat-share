@@ -64,5 +64,9 @@
 	},
 	"resolutions": {
 		"@types/react": "17.0.39"
+	},
+	"engines": {
+		"node": "24.x"
 	}
+	
 }
