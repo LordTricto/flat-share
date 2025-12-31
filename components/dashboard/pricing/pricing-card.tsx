@@ -4,9 +4,13 @@ import React, {useCallback, useState} from "react";
 
 import Button from "@/components/general/button/button";
 import Image from "next/image";
-import {PaystackButton} from "react-paystack";
+import dynamic from "next/dynamic";
 import mainSectionPattern from "@/public/images/dashboard/home/main-section-pattern.png";
 import useUpdatePlan from "@/hooks/dashboard/plan/use-update-plan";
+
+const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.PaystackButton), {
+	ssr: false,
+});
 
 interface Props {
 	name: string;
