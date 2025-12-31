@@ -1,13 +1,10 @@
 "use client";
 
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
 import Button from "@/components/general/button/button";
-import {ClipLoader} from "react-spinners";
 import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
-// import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
-// import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
-// import CreateAdStageTwo from "@/components/dashboard/create-ad/stages/create-ad-stage-two";
 import {HostSignals} from "@/redux/init/slice/initSlice.types";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
@@ -17,9 +14,9 @@ import WelcomeCard from "@/components/dashboard/general/cards/welcome-card/welco
 import becomeHost from "@/public/images/dashboard/create-ad/become-a-host.svg";
 import dynamic from "next/dynamic";
 import mark from "@/public/images/dashboard/create-ad/mark.svg";
+import {setHostInitSignal} from "@/redux/init/slice/initSlice";
 import useCreateAdPayment from "@/hooks/dashboard/create-ad/use-create-ad-payment";
 import {useRouter} from "next/navigation";
-import {useSelector} from "react-redux";
 
 const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.PaystackButton), {
 	ssr: false,
@@ -27,6 +24,7 @@ const PaystackButton = dynamic(() => import("react-paystack").then((c) => c.Pays
 
 function CreateAd() {
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	const user = useSelector((state: IRootState) => state.init.user);
 	const hostFee = useSelector((state: IRootState) => state.init.hostFee);
@@ -149,7 +147,12 @@ function CreateAd() {
 									</div>
 									<p className="text-center text-base text-black-tertiary">Complete your account by creating an apartment ad.</p>
 								</div>
-								<CreateAdStageOne handleNextStage={() => router.push("/dashboard")} />
+								<CreateAdStageOne
+									handleNextStage={() => {
+										dispatch(setHostInitSignal({hostSignal: HostSignals.ACTIVE_PROPERTY}));
+										router.push("/dashboard");
+									}}
+								/>
 								{/* {createAdStage === CreateAdStage.STAGE_ONE && (
 									<>
 										<CreateAdStageTwo />
@@ -157,7 +160,6 @@ function CreateAd() {
 										<CreateAdStageTwo />
 									</>
 								)} 
-								 
 								{createAdStage === CreateAdStage.STAGE_TWO && <CreateAdStageTwo />}
 								 */}
 							</div>

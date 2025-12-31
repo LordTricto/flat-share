@@ -18,12 +18,12 @@ function MessageItem(props: Props) {
 				className={"flex w-full cursor-pointer items-center gap-3 p-5 " + `${props.isActive ? "bg-white" : "bg-grey-backdrop"}`}
 				onClick={() => props.onClick()}
 			>
-				<div className="min-w-[40px] rounded-md">
+				<div className="min-w-[40px] overflow-hidden rounded-md">
 					<div>
 						<Image src={props.profile} className="w-full" width={40} height={40} alt="user avatar" tabIndex={-1} />
 					</div>
 				</div>
-				<div className="flex w-full flex-col gap-2 overflow-hidden overflow-ellipsis whitespace-nowrap ">
+				<div className="flex w-full flex-col overflow-hidden overflow-ellipsis whitespace-nowrap">
 					<div className="flex w-full items-center justify-between">
 						<h6 className="text-base font-medium text-black">{props.name}</h6>
 						<p className="text-xs text-black-tertiary">{props.date}</p>

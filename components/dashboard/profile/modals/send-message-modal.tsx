@@ -3,6 +3,7 @@
 import * as Yup from "yup";
 
 import {Form, Formik, FormikProps} from "formik";
+import {useEffect, useRef} from "react";
 
 import Button from "@/components/general/button/button";
 import FormTextArea from "@/components/general/text-area/form-text-area";
@@ -10,36 +11,38 @@ import Modal from "@/components/general/modals/modal";
 import ModalBody from "@/components/general/modals/modal-body";
 import ModalFooter from "@/components/general/modals/modal-footer";
 import ModalHeader from "@/components/general/modals/modal-header";
+import {SendChatForm} from "@/hooks/dashboard/chat/chat-api.constants";
 import formikHasError from "@/helpers/formikHasError";
-import {useRef} from "react";
+import useSendChat from "@/hooks/dashboard/chat/use-send-chat";
 
 interface Props {
 	userId: string;
 	active: boolean;
 	toggler: () => void;
-	// onComplete: (_data: Review[]) => void;
 }
 
-type SendMessageForm = {
-	message: string;
-	user_codec: string;
-};
-
 function SendMessageModal(props: Props) {
-	const formikRef = useRef<FormikProps<SendMessageForm> | null>(null);
+	const formikRef = useRef<FormikProps<SendChatForm> | null>(null);
 
-	const initialFormState: SendMessageForm = {
+	const {isLoading, mutate} = useSendChat({
+		onComplete: props.toggler,
+	});
+
+	const initialFormState: SendChatForm = {
+		id: "",
 		message: "",
-		user_codec: "",
 	};
 
 	const formValidation = Yup.object().shape({
+		id: Yup.string().required("Required"),
 		message: Yup.string().required("Required"),
 	});
 
-	// const {isLoading, mutate} = usePublishReview({
-	// 	onComplete: props.onComplete,
-	// });
+	useEffect(() => {
+		if (props.active) {
+			formikRef.current?.setFieldValue("id", props.userId);
+		}
+	}, [props.active, props.userId]);
 
 	return (
 		<>
@@ -49,11 +52,11 @@ function SendMessageModal(props: Props) {
 					initialValues={initialFormState}
 					innerRef={formikRef}
 					validationSchema={formValidation}
-					onSubmit={() => {
-						// mutate({
-						// 	review_text: value.review_text,
-						// 	reviewed_user_codec: props.userId,
-						// });
+					onSubmit={(values) => {
+						mutate({
+							id: values.id,
+							message: values.message,
+						});
 					}}
 					enableReinitialize={true}
 					validateOnChange
@@ -86,7 +89,7 @@ function SendMessageModal(props: Props) {
 											isDisabled={formikHasError(formik.errors)}
 											fullWidth
 											borderFull
-											// isLoading={isLoading}
+											isLoading={isLoading}
 										>
 											<span>Send Message</span>
 										</Button>

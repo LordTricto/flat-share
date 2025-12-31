@@ -19,6 +19,7 @@ interface DropdownProps {
 	noArrow?: boolean;
 	noBorder?: boolean;
 	fitWidth?: boolean;
+	maxMenuWidth?: string;
 	children: React.ReactNode;
 	hasInput?: boolean;
 	placement?: "right" | "left";
@@ -53,6 +54,7 @@ function DropdownContainer({
 	isCancel = false,
 	fitHeight = false,
 	fitWidth = false,
+	maxMenuWidth = "",
 	isDisabled = false,
 	customHead,
 	triggerLower = false,
@@ -226,7 +228,7 @@ function DropdownContainer({
 				{!noArrow && (
 					<div
 						className={
-							`ml-auto w-max transform items-center justify-end self-end transition-transform duration-150 ` +
+							`ml-auto w-max transform items-center justify-end transition-transform duration-150 ` +
 							`${active ? "-rotate-180" : "rotate-0"} ` +
 							`${isDisabled ? "text-black-quat " : ""} `
 						}
@@ -293,8 +295,12 @@ function DropdownContainer({
 					`${placement === "left" ? "left-0 " : "right-0"} ` +
 					`${!active ? "pointer-events-none scale-0 opacity-0" : "scale-100 opacity-100"} ` +
 					`${!fitWidth ? "w-full" : "w-max"} ` +
+					// `${maxMenuWidth ? `min-w-[${maxMenuWidth}]` : ""} ` +
 					`${!fitHeight ? "max-h-56 " : ""} `
 				}
+				style={{
+					minWidth: maxMenuWidth || "",
+				}}
 			>
 				{isSearchable && handleChangeSearchTerm && (
 					<div className="flex h-14 w-full items-center justify-start px-4">

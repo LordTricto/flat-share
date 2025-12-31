@@ -8,9 +8,7 @@ import {useLayoutEffect, useState} from "react";
 import BathroomIcon from "@/public/images/dashboard/my-ad/bathroom.svg";
 import BedroomIcon from "@/public/images/dashboard/my-ad/bedroom.svg";
 import Button from "@/components/general/button/button";
-import CreateAdStageOne from "@/components/dashboard/create-ad/stages/create-ad-stage-one";
-import House1 from "@/public/images/dashboard/my-ad/house-1.png";
-import House2 from "@/public/images/dashboard/my-ad/house-2.png";
+import EditAd from "@/components/dashboard/my-ad/edit-ad";
 import {IRootState} from "@/redux/rootReducer";
 import Image from "next/image";
 import ImageTagIcon from "@/public/images/dashboard/my-ad/image-tag.svg";
@@ -23,13 +21,7 @@ import formatNumber from "@/utils/formatNumber";
 import useMyAd from "@/hooks/dashboard/my-ad/use-my-ad";
 import {useSelector} from "react-redux";
 
-interface Props {
-	params: {
-		id: string;
-	};
-}
-
-const UserProfile = (props: Props) => {
+const UserProfile = () => {
 	const {data, isFetching, remove, refetch} = useMyAd();
 	const codec = useSelector((state: IRootState) => state.init.user?.codec);
 
@@ -186,18 +178,13 @@ const UserProfile = (props: Props) => {
 								</div>
 							</div>
 						) : (
-							<div className="flex h-full w-full flex-col gap-6 px-5 pb-8 pt-6">
-								<div className="relative flex h-fit w-full flex-col gap-6 overflow-hidden rounded-[10px] border bg-white px-5 py-6 2xs:px-6">
-									<div className="flex flex-col items-center justify-center gap-4">
-										<div className="flex flex-col items-center justify-center gap-5">
-											<span className="text-3xl">🏠</span>
-											<h3 className="text-2xl font-bold capitalize leading-[100%] text-black">Edit Ad</h3>
-										</div>
-										<p className="text-center text-base text-black-tertiary">Edit your apartment ad.</p>
-									</div>
-									<CreateAdStageOne data={data} handleNextStage={() => setIsEdit(false)} />
-								</div>
-							</div>
+							<EditAd
+								data={data}
+								handleNextStage={() => {
+									refetch();
+									setIsEdit(false);
+								}}
+							/>
 						)}
 					</>
 				) : (

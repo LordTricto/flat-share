@@ -17,6 +17,7 @@ import {getAbortControllerSignal} from "@/helpers/request/abortControllers";
 
 export enum CreateAdSignal {
 	CREATE_AD = "user.create-ad",
+	UPDATE_AD = "user.create-ad",
 	CREATE_AD_IMAGE = "user.create-ad-image",
 	CREATE_AD_PAYMENT = "user.create-ad-payment",
 }
@@ -24,6 +25,19 @@ export enum CreateAdSignal {
 export const createAdApi = async (data: CreateAdForm): Promise<CreateAdFormResponse> => {
 	const signal = getAbortControllerSignal(CreateAdSignal.CREATE_AD);
 	const res = await makeRequestWithSignal("user/host/create/ads", data, signal);
+	if (res instanceof Error) {
+		throw res;
+	}
+
+	return {
+		status: Parsers.string(res.status),
+		message: Parsers.string(res.message),
+		data: Parsers.classObject(res.data, User),
+	};
+};
+export const updateAdApi = async (data: CreateAdForm): Promise<CreateAdFormResponse> => {
+	const signal = getAbortControllerSignal(CreateAdSignal.UPDATE_AD);
+	const res = await makeRequestWithSignal("user/host/update/property", data, signal);
 	if (res instanceof Error) {
 		throw res;
 	}

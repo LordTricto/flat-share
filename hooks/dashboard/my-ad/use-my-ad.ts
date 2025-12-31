@@ -17,9 +17,6 @@ function useMyAd(): UseQueryResult<MyADResponse, AxiosError<any, any>> {
 			const res = await myAdApi();
 			return res;
 		},
-		onSuccess(data: MyADResponse) {
-			console.log("object");
-		},
 		onError(error: AxiosError) {
 			Errorhandler(error);
 		},

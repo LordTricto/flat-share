@@ -21,6 +21,7 @@ interface Props<T extends DropdownItemValueType> {
 	fitHeight?: boolean;
 	placement?: "right" | "left";
 	fitWidth?: boolean;
+	maxMenuWidth?: string;
 	canCancel?: boolean;
 	isDisabled?: boolean;
 	customHead?: React.ReactNode;
@@ -48,6 +49,7 @@ function Dropdown<T extends DropdownItemValueType>({
 	fitWidth = false,
 	isDisabled = false,
 	customHead,
+	maxMenuWidth = "",
 	placeholder = "",
 	customHeadStyle = "",
 	withIconBackdrop = false,
@@ -82,6 +84,7 @@ function Dropdown<T extends DropdownItemValueType>({
 			noBorder={noBorder}
 			isCancel={canCancel}
 			fitWidth={fitWidth}
+			maxMenuWidth={maxMenuWidth}
 			fitHeight={fitHeight}
 			placement={placement}
 			customHead={customHead}

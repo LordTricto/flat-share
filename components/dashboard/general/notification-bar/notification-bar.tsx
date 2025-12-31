@@ -11,7 +11,8 @@ function NotificationBar(props: Props) {
 	return (
 		<>
 			<div className="hidden h-full min-w-[280px] overflow-y-auto lg:relative lg:block">
-				<div className="absolute left-0 top-0 flex h-full w-full flex-col justify-between gap-[42px] overflow-y-auto border-l border-grey-quat bg-white px-5 py-6">
+				<div className="absolute left-0 top-0 flex w-full flex-col justify-between gap-[42px] overflow-y-auto border-l border-grey-quat bg-white px-5 py-6">
+					{/* <div className="absolute left-0 top-0 flex h-full w-full flex-col justify-between gap-[42px] overflow-y-auto border-l border-grey-quat bg-white px-5 py-6"> */}
 					<Views onViewAllViews={props.onViewAllViews} />
 					{/* <div className={"flex flex-grow flex-col gap-[42px] " + `${isActivityEmpty ? "h-80" : "h-fit"}`}>
 						<div className="flex w-full items-center justify-between">

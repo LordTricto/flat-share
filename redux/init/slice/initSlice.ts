@@ -59,6 +59,9 @@ export const initSlice = createSlice({
 			state.isAccountSetup =
 				action.payload.accountSignal === null ? false : !!(action.payload.accountSignal !== AccountSignals.SETUP_UNCOMPLETED);
 		},
+		setHostInitSignal: (state: InitState, action: PayloadAction<{hostSignal: HostSignals | null}>) => {
+			state.hostSignal = action.payload.hostSignal;
+		},
 		setHostFee: (state: InitState, action: PayloadAction<number>) => {
 			state.hostFee = action.payload;
 		},
@@ -163,6 +166,7 @@ export const {
 	setUserRequests,
 	setUpdatedFilter,
 	setUserStatistics,
+	setHostInitSignal,
 	setUpdatedInterests,
 	setUpdatedUserProfile,
 	setFilterUserRequestSent,

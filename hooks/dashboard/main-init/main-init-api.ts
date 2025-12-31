@@ -85,7 +85,6 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 		sports: Parsers.stringArray((interestsData as GenericObject).sports),
 		film_and_tv: Parsers.stringArray((interestsData as GenericObject).film_and_tv),
 	};
-
 	return {
 		status: Parsers.string(res.status),
 		message: Parsers.string(res.message),
@@ -110,7 +109,7 @@ export const mainInitApi = async (): Promise<MainInitFormResponse> => {
 		sent_request: UserSentRequest.create(sent_request),
 		received_request: UserReceivedRequest.create(received_request),
 		total_request: Parsers.number((res.data as GenericObject).total_request),
-		user_statistics: UserStatistics.create(user_statistics),
+		user_statistics: Parsers.classObjectNonNullable((res.data as GenericObject).user_statistics, UserStatistics),
 		notification,
 	};
 };

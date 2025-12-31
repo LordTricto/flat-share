@@ -29,6 +29,15 @@ function processResponse(res: AxiosResponse<GenericObject | string>): GenericObj
 	return data;
 }
 
+function byPassProcessResponse(res: AxiosResponse<GenericObject | string>): GenericObject | Error {
+	const data = typeof res.data === "string" ? (JSON.parse(res.data) as GenericObject) : res.data;
+
+	if (data.status && data.status != "success") {
+		return new Error(data.message as string);
+	}
+	return data;
+}
+
 function getErrorResponse(err: unknown): Error {
 	if (axios.isAxiosError(err)) {
 		// const axiosError = err as AxiosError;
@@ -78,32 +87,37 @@ function getHeaders(): AxiosRequestHeaders {
 	return headers;
 }
 
-export async function makeRequest(url: string, data: GenericObject = {}): Promise<GenericObject | Error> {
+export async function makeRequest(url: string, data: GenericObject = {}, isBypass = false): Promise<GenericObject | Error> {
 	try {
 		const requestData = {...data};
 		const res: AxiosResponse<string> = await apiInstance.post(url, requestData, {
 			headers: getHeaders(),
 			timeout: 180000, // only wait for 3mins
 		});
-		return processResponse(res);
+		return isBypass ? byPassProcessResponse(res) : processResponse(res);
 	} catch (err) {
 		return getErrorResponse(err);
 	}
 }
 
-export async function makeGetRequest(url: string): Promise<GenericObject | Error> {
+export async function makeGetRequest(url: string, isBypass = false): Promise<GenericObject | Error> {
 	try {
 		const res: AxiosResponse<string> = await apiInstance.get(url, {
 			headers: getHeaders(),
 			timeout: 180000, // only wait for 3mins
 		});
-		return processResponse(res);
+		return isBypass ? byPassProcessResponse(res) : processResponse(res);
 	} catch (err) {
 		return getErrorResponse(err);
 	}
 }
 
-export async function makeRequestWithSignal(url: string, data: GenericObject = {}, signal: AbortSignal): Promise<GenericObject | Error> {
+export async function makeRequestWithSignal(
+	url: string,
+	data: GenericObject = {},
+	signal: AbortSignal,
+	isBypass = false
+): Promise<GenericObject | Error> {
 	try {
 		const requestData = {...data};
 		const res: AxiosResponse<string> = await apiInstance.post(url, requestData, {
@@ -111,20 +125,20 @@ export async function makeRequestWithSignal(url: string, data: GenericObject = {
 			signal,
 			timeout: 180000, // only wait for 3mins
 		});
-		return processResponse(res);
+		return isBypass ? byPassProcessResponse(res) : processResponse(res);
 	} catch (err: unknown) {
 		return getErrorResponse(err);
 	}
 }
 
-export async function makeGetRequestWithSignal(url: string, signal: AbortSignal): Promise<GenericObject | Error> {
+export async function makeGetRequestWithSignal(url: string, signal: AbortSignal, isBypass = false): Promise<GenericObject | Error> {
 	try {
 		const res: AxiosResponse<string> = await apiInstance.get(url, {
 			headers: getHeaders(),
 			signal,
 			timeout: 180000, // only wait for 3mins
 		});
-		return processResponse(res);
+		return isBypass ? byPassProcessResponse(res) : processResponse(res);
 	} catch (err: unknown) {
 		return getErrorResponse(err);
 	}

@@ -2,6 +2,7 @@ import {UserActivationStatus, UserReligion, UserSex, UserType} from "./user.cons
 
 import {GenericObject} from "../helpers/types";
 import Parsers from "../utils/parsers";
+import Plan from "./plan";
 import {immerable} from "immer";
 
 export default class UserStatistics {
@@ -10,6 +11,7 @@ export default class UserStatistics {
 	constructor(
 		public total_sent_request: number,
 		public available_send_request: number,
+		public plan: Plan,
 		public total_received_request: number,
 		public available_receive_request: number
 	) {}
@@ -18,6 +20,7 @@ export default class UserStatistics {
 		return new UserStatistics(
 			Parsers.number(obj.total_sent_request),
 			Parsers.number(obj.available_send_request),
+			Parsers.classObjectNonNullable(obj.plan, Plan),
 			Parsers.number(obj.total_received_request),
 			Parsers.number(obj.available_receive_request)
 		);

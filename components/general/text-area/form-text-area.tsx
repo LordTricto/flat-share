@@ -55,7 +55,7 @@ function FormTextArea({
 		className:
 			`px-4 py-3 w-full z-10 placeholder:text-black-quat resize-none focus:outline-none focus:border-none rounded-lg bg-white ` +
 			`${!!field.value && String(field.value).trim().length > 0 ? "text-black-secondary" : ""} ` +
-			`${!isReply ? (sm ? "h-12" : "h-12") : "h-32"} ` +
+			`${!isReply ? (sm ? "h-12" : "h-full") : "h-32"} ` +
 			`${textSize === "lg" ? "text-lg" : ""} ` +
 			`${textSize === "md" ? "text-base" : ""} ` +
 			`${textSize === "sm" ? "text-sm" : ""} ` +
@@ -153,8 +153,8 @@ function FormTextArea({
 						{...configTextareaField}
 						ref={textAreaRef}
 						placeholder={placeholder}
-						cols={30}
-						rows={10}
+						// cols={30}
+						// rows={10}
 						onClick={() => setActive(true)}
 					/>
 				</div>

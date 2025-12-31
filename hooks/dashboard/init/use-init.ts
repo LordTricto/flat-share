@@ -1,6 +1,14 @@
 import {AccountSignals, HostSignals} from "@/redux/init/slice/initSlice.types";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {initLoadingFalse, initRequest, initSuccess, setHostFee, setInitSignals, setUserRequests} from "@/redux/init/slice/initSlice";
+import {
+	initLoadingFalse,
+	initRequest,
+	initSuccess,
+	setHostFee,
+	setInitSignals,
+	setUserRequests,
+	setUserStatistics,
+} from "@/redux/init/slice/initSlice";
 import {usePathname, useRouter} from "next/navigation";
 
 import {AxiosError} from "axios";
@@ -30,6 +38,7 @@ function useInit(): UseQueryResult<MainInitFormResponse, AxiosError<any, any>> {
 			dispatch(setInitSignals({accountSignal: data.signal, hostSignal: data.host_property_signal}));
 
 			dispatch(initSuccess({user: data.user, filter: data.filter, interests: data.interests}));
+			dispatch(setUserStatistics(data.user_statistics));
 
 			dispatch(
 				setMultipleHousemates([...data.suggestions, ...data.received_request.received_request_data, ...data.sent_request.sent_request_data])
